@@ -9,6 +9,7 @@
             colors="true">
     <testsuites>
         <testsuite name="Lunr Testsuite">
+            <file>tests/system/libraries/db/class.dbman.test.php</file>
         </testsuite>
     </testsuites>
     <logging>
