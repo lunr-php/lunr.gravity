@@ -10,6 +10,7 @@
     <testsuites>
         <testsuite name="Lunr Testsuite">
             <file>tests/system/libraries/db/class.dbman.test.php</file>
+            <file>tests/system/libraries/db/class.dbcon.test.php</file>
         </testsuite>
     </testsuites>
     <filter>
