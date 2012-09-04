@@ -9,6 +9,7 @@
             colors="true">
     <testsuites>
         <testsuite name="Lunr Testsuite">
+            <file>tests/system/class.environment.test.php</file>
             <file>tests/system/libraries/dataaccess/class.mysqlqueryresult.base.test.php</file>
             <file>tests/system/libraries/dataaccess/class.mysqlqueryresult.failed.test.php</file>
             <file>tests/system/libraries/dataaccess/class.mysqlqueryresult.success.test.php</file>
