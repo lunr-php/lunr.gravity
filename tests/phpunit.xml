@@ -37,6 +37,9 @@
     <filter>
         <whitelist>
             <directory>../system/libraries/</directory>
+            <exclude>
+                <file>../system/libraries/database/class.mysqlndquerylogger.inc.php</file>
+            </exclude>
         </whitelist>
     </filter>
     <logging>
