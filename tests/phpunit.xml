@@ -35,9 +35,9 @@
         </testsuite>
     </testsuites>
     <filter>
-        <blacklist>
-            <directory>../tests/</directory>
-        </blacklist>
+        <whitelist>
+            <directory>../system/libraries/</directory>
+        </whitelist>
     </filter>
     <logging>
         <log    type="coverage-html"
