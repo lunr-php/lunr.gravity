@@ -9,52 +9,54 @@
             colors="true">
     <testsuites>
         <testsuite name="Lunr Testsuite">
-            <file>tests/system/class.environment.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlqueryresult.base.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlqueryresult.failed.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlqueryresult.success.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlqueryresult.result.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlasyncqueryresult.base.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlasyncqueryresult.fetch.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlasyncqueryresult.free.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databasedmlquerybuilder.base.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databasedmlquerybuilder.escape.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databasedmlquerybuilder.escapevalues.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databasedmlquerybuilder.queryparts.delete.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databasedmlquerybuilder.queryparts.insert.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databasedmlquerybuilder.queryparts.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqldmlquerybuilder.select.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqldmlquerybuilder.delete.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqldmlquerybuilder.insert.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqldmlquerybuilder.limit.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqldmlquerybuilder.escape.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqldmlquerybuilder.condition.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqldmlquerybuilder.orderby.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqldmlquerybuilder.groupby.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databaseconnection.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlconnection.base.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlconnection.set.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlconnection.connect.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlconnection.query.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlconnection.escape.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.mysqlconnection.transaction.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databaseconnectionpool.base.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databaseconnectionpool.empty.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databaseconnectionpool.unsupported.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databaseconnectionpool.supported.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databaseconnectionpool.public.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databaseaccessobject.nopool.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databaseaccessobject.pool.test.php</file>
-            <file>tests/system/libraries/dataaccess/class.databaseaccessobject.results.test.php</file>
-<!--            <file>tests/system/libraries/db/class.dbman.test.php</file>
-            <file>tests/system/libraries/db/class.dbcon.test.php</file>-->
+            <file>tests/system/EnvironmentTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLQueryResultBaseTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLQueryResultFailedTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLQueryResultSuccessTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLQueryResultResultTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLAsyncQueryResultBaseTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLAsyncQueryResultFetchTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLQueryResultFreeTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseDMLQueryBuilderBaseTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseDMLQueryBuilderEscapeTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseDMLQueryBuilderEscapeValuesTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseDMLQueryBuilderQueryPartsDeleteTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseDMLQueryBuilderQueryPartsInsertTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseDMLQueryBuilderQueryPartsTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLDMLQueryBuilderSelectTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLDMLQueryBuilderDeleteTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLDMLQueryBuilderInsertTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLDMLQueryBuilderLimitTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLDMLQueryBuilderEscapeTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLDMLQueryBuilderConditionTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLDMLQueryBuilderOrderByTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLDMLQueryBuilderGroupByTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseConnectionTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLConnectionBaseTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLConnectionSetTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLConnectionConnectTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLConnectionQueryTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLConnectionEscapeTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/MySQLConnectionTransactionTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseConnectionPoolBaseTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseConnectionPoolEmptyTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseConnectionPoolUnsupportedTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseConnectionPoolSupportedTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseConnectionPoolPublicTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseAccessObjectNoPoolTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseAccessObjectPoolTest.php</file>
+            <file>src/Lunr/DataAccess/Tests/DatabaseAccessObjectResultsTest.php</file>
+<!--            <file>src/Lunr/Database/Tests/DBManTest.php</file>
+            <file>src/Lunr/Database/Tests/DBConTest.php</file>-->
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
-            <directory>../system/libraries/</directory>
+            <directory>../src/</directory>
             <exclude>
-                <file>../system/libraries/database/class.mysqlndquerylogger.inc.php</file>
+                <file>../src/Lunr/Database/MySQLndQueryLogger.php</file>
+                <directory>../src/Lunr/DataAccess/Tests/</directory>
+                <directory>../src/Lunr/Database/Tests/</directory>
             </exclude>
         </whitelist>
     </filter>
