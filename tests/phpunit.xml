@@ -52,7 +52,7 @@
     </testsuites>
     <filter>
         <whitelist>
-            <directory>../src/</directory>
+            <directory>../src/Lunr/</directory>
             <exclude>
                 <file>../src/Lunr/Database/MySQLndQueryLogger.php</file>
                 <directory>../src/Lunr/DataAccess/Tests/</directory>
