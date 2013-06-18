@@ -64,16 +64,12 @@
             <file>src/Lunr/Gravity/Database/Tests/DatabaseAccessObjectNoPoolTest.php</file>
             <file>src/Lunr/Gravity/Database/Tests/DatabaseAccessObjectPoolTest.php</file>
             <file>src/Lunr/Gravity/Database/Tests/DatabaseAccessObjectResultsTest.php</file>
-<!--            <file>src/Lunr/Database/Tests/DBManTest.php</file>
-            <file>src/Lunr/Database/Tests/DBConTest.php</file>-->
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
             <directory>../src/Lunr/</directory>
             <exclude>
-                <file>../src/Lunr/Database/MySQLndQueryLogger.php</file>
-                <directory>../src/Lunr/Database/Tests/</directory>
                 <directory>../src/Lunr/Gravity/Tests/</directory>
                 <directory>../src/Lunr/Gravity/Database/Tests/</directory>
                 <directory>../src/Lunr/Gravity/Database/MySQL/Tests/</directory>
