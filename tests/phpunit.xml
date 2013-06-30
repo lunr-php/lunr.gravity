@@ -6,9 +6,13 @@
             syntaxCheck="false"
             forceCoversAnnotation="true"
             mapTestClassNameToCoveredClassName="true"
-            colors="true">
+            colors="true"
+            verbose="true">
+    <php>
+        <ini name="zend.enable_gc" value="0" />
+    </php>
     <testsuites>
-        <testsuite name="Lunr Testsuite">
+        <testsuite name="Gravity">
             <file>tests/system/EnvironmentTest.php</file>
             <file>src/Lunr/Gravity/Database/Tests/DatabaseQueryEscaperBaseTest.php</file>
             <file>src/Lunr/Gravity/Database/Tests/DatabaseQueryEscaperEscapeTest.php</file>
