@@ -13,7 +13,6 @@
     </php>
     <testsuites>
         <testsuite name="Gravity">
-            <file>tests/system/EnvironmentTest.php</file>
             <file>src/Lunr/Gravity/Database/Tests/DatabaseQueryEscaperBaseTest.php</file>
             <file>src/Lunr/Gravity/Database/Tests/DatabaseQueryEscaperEscapeTest.php</file>
             <file>src/Lunr/Gravity/Database/MySQL/Tests/MySQLQueryEscaperEscapeTest.php</file>
