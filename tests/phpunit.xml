@@ -51,7 +51,7 @@
             <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLDMLQueryBuilderInsertTest.php</file>
             <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLDMLQueryBuilderUpdateTest.php</file>
             <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLDMLQueryBuilderConditionTest.php</file>
-            <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLDMLQueryBuilderGroupByTest.php</file>
+            <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLDMLQueryBuilderGroupByTest.php</file>	
             <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLSimpleDMLQueryBuilderBaseTest.php</file>
             <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLSimpleDMLQueryBuilderConditionalTest.php</file>
             <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLSimpleDMLQueryBuilderSelectTest.php</file>
@@ -78,6 +78,11 @@
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3DMLQueryBuilderInsertTest.php</file>
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3DMLQueryBuilderQueryTest.php</file>
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3DMLQueryBuilderUpdateTest.php</file>
+	    <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultResultTest.php</file>
+            <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultNoResultTest.php</file>
+	    <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultFreeTest.php</file>
+	    <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultFailedTest.php</file>
+	    <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultBaseTest.php</file>
             <file>../src/Lunr/Gravity/Database/Tests/DatabaseConnectionPoolBaseTest.php</file>
             <file>../src/Lunr/Gravity/Database/Tests/DatabaseConnectionPoolEmptyTest.php</file>
             <file>../src/Lunr/Gravity/Database/Tests/DatabaseConnectionPoolUnsupportedTest.php</file>
