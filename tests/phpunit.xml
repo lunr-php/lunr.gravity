@@ -51,7 +51,7 @@
             <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLDMLQueryBuilderInsertTest.php</file>
             <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLDMLQueryBuilderUpdateTest.php</file>
             <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLDMLQueryBuilderConditionTest.php</file>
-            <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLDMLQueryBuilderGroupByTest.php</file>	
+            <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLDMLQueryBuilderGroupByTest.php</file>
             <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLSimpleDMLQueryBuilderBaseTest.php</file>
             <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLSimpleDMLQueryBuilderConditionalTest.php</file>
             <file>../src/Lunr/Gravity/Database/MySQL/Tests/MySQLSimpleDMLQueryBuilderSelectTest.php</file>
