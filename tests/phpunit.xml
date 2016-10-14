@@ -74,7 +74,7 @@
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3ConnectionConnectTest.php</file>
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3ConnectionEscapeTest.php</file>
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3ConnectionTransactionTest.php</file>
-	    <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3ConnectionQueryTest.php</file>
+            <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3ConnectionQueryTest.php</file>
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3DMLQueryBuilderConditionTest.php</file>
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3DMLQueryBuilderGroupByTest.php</file>
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3DMLQueryBuilderSelectTest.php</file>
@@ -82,11 +82,11 @@
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3DMLQueryBuilderInsertTest.php</file>
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3DMLQueryBuilderQueryTest.php</file>
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3DMLQueryBuilderUpdateTest.php</file>
-	    <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultResultTest.php</file>
+            <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultResultTest.php</file>
             <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultNoResultTest.php</file>
-	    <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultFreeTest.php</file>
-	    <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultFailedTest.php</file>
-	    <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultBaseTest.php</file>
+            <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultFreeTest.php</file>
+            <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultFailedTest.php</file>
+            <file>../src/Lunr/Gravity/Database/SQLite3/Tests/SQLite3QueryResultBaseTest.php</file>
             <file>../src/Lunr/Gravity/Database/Tests/DatabaseConnectionPoolBaseTest.php</file>
             <file>../src/Lunr/Gravity/Database/Tests/DatabaseConnectionPoolEmptyTest.php</file>
             <file>../src/Lunr/Gravity/Database/Tests/DatabaseConnectionPoolUnsupportedTest.php</file>
