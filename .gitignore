@@ -8,3 +8,6 @@ build
 
 # ignore sqlite databases
 *.db
+
+# ignore external interactions
+vendor
