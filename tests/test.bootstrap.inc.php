@@ -43,6 +43,8 @@ else
     include_once 'Psr-Log-1.0.2.php';
 }
 
+define('REFLECTION_BUG_72194', (PHP_MAJOR_VERSION > 5));
+
 if (defined('TEST_STATICS') === FALSE)
 {
     define('TEST_STATICS', __DIR__ . '/statics');
