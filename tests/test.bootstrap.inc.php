@@ -38,6 +38,9 @@ else
 
     $autoloader = new Lunr\Core\Autoloader();
     $autoloader->register();
+
+    // Include libraries
+    include_once 'Psr-Log-1.0.2.php';
 }
 
 if (defined('TEST_STATICS') === FALSE)
