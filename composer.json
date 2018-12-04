@@ -2,7 +2,7 @@
   "require": {
     "psr/log": "~1.0.2",
     "php": "5.6.* || 7.*",
-    "lunr/halo": "~0.6.0"
+    "lunr/halo": "dev-master"
   },
   "suggest": {
     "ext-mysqli": "Needed for MySQL/MariaDB support in Gravity (0.1)",
