@@ -104,6 +104,7 @@
             <file>../src/Lunr/Gravity/Database/Tests/DatabaseAccessObjectPoolTest.php</file>
             <file>../src/Lunr/Gravity/Database/Tests/DatabaseAccessObjectResultsTest.php</file>
             <file>../src/Lunr/Gravity/Database/Tests/DatabaseAccessObjectVerifyQuerySuccessTest.php</file>
+            <file>../src/Lunr/Gravity/Database/Tests/TransactionalDatabaseAccessObjectCallsTest.php</file>
         </testsuite>
     </testsuites>
     <filter>
