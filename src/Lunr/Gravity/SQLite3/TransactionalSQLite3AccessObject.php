@@ -9,12 +9,13 @@
 
 namespace Lunr\Gravity\SQLite3;
 
+use Lunr\Gravity\TransactionalDatabaseAccessObjectInterface;
 use Psr\Log\LoggerInterface;
 
 /**
  * TransactionalSQLite3AccessObject class.
  */
-abstract class TransactionalSQLite3AccessObject extends SQLite3AccessObject
+abstract class TransactionalSQLite3AccessObject extends SQLite3AccessObject implements TransactionalDatabaseAccessObjectInterface
 {
 
     /**

@@ -9,12 +9,13 @@
 
 namespace Lunr\Gravity\MySQL;
 
+use Lunr\Gravity\TransactionalDatabaseAccessObjectInterface;
 use Psr\Log\LoggerInterface;
 
 /**
  * TransactionalMySQLAccessObject class.
  */
-abstract class TransactionalMySQLAccessObject extends MySQLAccessObject
+abstract class TransactionalMySQLAccessObject extends MySQLAccessObject implements TransactionalDatabaseAccessObjectInterface
 {
 
     /**

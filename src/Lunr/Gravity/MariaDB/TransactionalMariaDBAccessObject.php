@@ -9,12 +9,13 @@
 
 namespace Lunr\Gravity\MariaDB;
 
+use Lunr\Gravity\TransactionalDatabaseAccessObjectInterface;
 use Psr\Log\LoggerInterface;
 
 /**
  * TransactionalMariaDBAccessObject class.
  */
-abstract class TransactionalMariaDBAccessObject extends MariaDBAccessObject
+abstract class TransactionalMariaDBAccessObject extends MariaDBAccessObject implements TransactionalDatabaseAccessObjectInterface
 {
 
     /**
