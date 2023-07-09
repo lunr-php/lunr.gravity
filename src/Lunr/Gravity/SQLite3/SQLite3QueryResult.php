@@ -232,7 +232,7 @@ class SQLite3QueryResult implements DatabaseQueryResultInterface
     /**
      * Returns the number of rows affected by the last query.
      *
-     * @return mixed $number Number of rows in the result set.
+     * @return int $number Number of rows in the result set.
      */
     public function affected_rows()
     {

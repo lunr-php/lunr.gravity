@@ -129,9 +129,9 @@ class MySQLAsyncQueryResult extends MySQLQueryResult
     /**
      * Returns the number of rows affected by the last query.
      *
-     * @return mixed $number Number of rows in the result set.
-     *                       This is usually an integer, unless the number is > MAXINT.
-     *                       Then it is a string.
+     * @return int|string $number Number of rows in the result set.
+     *                            This is usually an integer, unless the number is > MAXINT.
+     *                            Then it is a string.
      */
     public function affected_rows()
     {

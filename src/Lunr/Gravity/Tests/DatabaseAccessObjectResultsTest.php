@@ -11,6 +11,8 @@
 namespace Lunr\Gravity\Tests;
 
 use Lunr\Gravity\DatabaseAccessObject;
+use Lunr\Gravity\DatabaseQueryResultInterface;
+use Lunr\Gravity\Exceptions\QueryException;
 
 /**
  * This class contains the tests for the DatabaseAccessObject class.
@@ -23,45 +25,36 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
 {
 
     /**
-     * Testcase constructor.
-     */
-    public function setUp(): void
-    {
-        $this->setUpNoPool();
-    }
-
-    /**
      * Test that indexed_result_array() throws an exception if query failed.
      *
      * @covers Lunr\Gravity\DatabaseAccessObject::indexed_result_array
      */
     public function testIndexedResultArrayThrowsExceptionIfQueryFailed(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(TRUE));
+              ->willReturn(TRUE);
 
         $query->expects($this->exactly(1))
               ->method('error_number')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query->expects($this->exactly(2))
               ->method('error_message')
-              ->will($this->returnValue('message'));
+              ->willReturn('message');
 
         $query->expects($this->exactly(2))
               ->method('query')
-              ->will($this->returnValue('query'));
+              ->willReturn('query');
 
         $this->logger->expects($this->once())
                      ->method('error')
                      ->with('{query}; failed with error: {error}', [ 'query' => 'query', 'error' => 'message' ]);
 
-        $this->expectException('Lunr\Gravity\Exceptions\QueryException');
+        $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
         $method = $this->get_accessible_reflection_method('indexed_result_array');
@@ -76,17 +69,16 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testIndexedResultArrayReturnsEmptyArrayIfQueryHasNoResults(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(FALSE));
+              ->willReturn(FALSE);
 
         $query->expects($this->once())
               ->method('number_of_rows')
-              ->will($this->returnValue(0));
+              ->willReturn(0);
 
         $method = $this->get_accessible_reflection_method('indexed_result_array');
 
@@ -103,17 +95,16 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testIndexedResultArrayReturnsArrayIfQueryHasResults(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(FALSE));
+              ->willReturn(FALSE);
 
         $query->expects($this->once())
               ->method('number_of_rows')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query_result = [
             [
@@ -128,7 +119,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
 
         $query->expects($this->once())
               ->method('result_array')
-              ->will($this->returnValue($query_result));
+              ->willReturn($query_result);
 
         $method = $this->get_accessible_reflection_method('indexed_result_array');
 
@@ -156,31 +147,30 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultArrayThrowsExceptionIfQueryFailed(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(TRUE));
+              ->willReturn(TRUE);
 
         $query->expects($this->exactly(2))
               ->method('error_message')
-              ->will($this->returnValue('message'));
+              ->willReturn('message');
 
         $query->expects($this->exactly(1))
               ->method('error_number')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query->expects($this->exactly(2))
               ->method('query')
-              ->will($this->returnValue('query'));
+              ->willReturn('query');
 
         $this->logger->expects($this->once())
                      ->method('error')
                      ->with('{query}; failed with error: {error}', [ 'query' => 'query', 'error' => 'message' ]);
 
-        $this->expectException('Lunr\Gravity\Exceptions\QueryException');
+        $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
         $method = $this->get_accessible_reflection_method('result_array');
@@ -195,17 +185,16 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultArrayReturnsEmptyArrayIfQueryHasNoResults(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(FALSE));
+              ->willReturn(FALSE);
 
         $query->expects($this->once())
               ->method('number_of_rows')
-              ->will($this->returnValue(0));
+              ->willReturn(0);
 
         $method = $this->get_accessible_reflection_method('result_array');
 
@@ -222,23 +211,22 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultArrayReturnsArrayIfQueryHasResults(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(FALSE));
+              ->willReturn(FALSE);
 
         $query->expects($this->once())
               ->method('number_of_rows')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query_result = [ 0 => [ 'key' => 'value' ] ];
 
         $query->expects($this->once())
               ->method('result_array')
-              ->will($this->returnValue($query_result));
+              ->willReturn($query_result);
 
         $method = $this->get_accessible_reflection_method('result_array');
 
@@ -255,31 +243,30 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultRowThrowsExceptionIfQueryFailed(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(TRUE));
+              ->willReturn(TRUE);
 
         $query->expects($this->exactly(2))
               ->method('error_message')
-              ->will($this->returnValue('message'));
+              ->willReturn('message');
 
         $query->expects($this->exactly(1))
               ->method('error_number')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query->expects($this->exactly(2))
               ->method('query')
-              ->will($this->returnValue('query'));
+              ->willReturn('query');
 
         $this->logger->expects($this->once())
                      ->method('error')
                      ->with('{query}; failed with error: {error}', [ 'query' => 'query', 'error' => 'message' ]);
 
-        $this->expectException('Lunr\Gravity\Exceptions\QueryException');
+        $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
         $method = $this->get_accessible_reflection_method('result_row');
@@ -294,17 +281,16 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultRowReturnsEmptyArrayIfQueryHasNoResults(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(FALSE));
+              ->willReturn(FALSE);
 
         $query->expects($this->once())
               ->method('number_of_rows')
-              ->will($this->returnValue(0));
+              ->willReturn(0);
 
         $method = $this->get_accessible_reflection_method('result_row');
 
@@ -321,23 +307,22 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultRowReturnsArrayIfQueryHasResults(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(FALSE));
+              ->willReturn(FALSE);
 
         $query->expects($this->once())
               ->method('number_of_rows')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query_result = [ 'key' => 'value' ];
 
         $query->expects($this->once())
               ->method('result_row')
-              ->will($this->returnValue($query_result));
+              ->willReturn($query_result);
 
         $method = $this->get_accessible_reflection_method('result_row');
 
@@ -354,31 +339,30 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultColumnThrowsExceptionIfQueryFailed(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(TRUE));
+              ->willReturn(TRUE);
 
         $query->expects($this->exactly(2))
               ->method('error_message')
-              ->will($this->returnValue('message'));
+              ->willReturn('message');
 
         $query->expects($this->exactly(1))
               ->method('error_number')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query->expects($this->exactly(2))
               ->method('query')
-              ->will($this->returnValue('query'));
+              ->willReturn('query');
 
         $this->logger->expects($this->once())
                      ->method('error')
                      ->with('{query}; failed with error: {error}', [ 'query' => 'query', 'error' => 'message' ]);
 
-        $this->expectException('Lunr\Gravity\Exceptions\QueryException');
+        $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
         $method = $this->get_accessible_reflection_method('result_column');
@@ -393,17 +377,16 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultColumnReturnsEmptyArrayIfQueryHasNoResults(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(FALSE));
+              ->willReturn(FALSE);
 
         $query->expects($this->once())
               ->method('number_of_rows')
-              ->will($this->returnValue(0));
+              ->willReturn(0);
 
         $method = $this->get_accessible_reflection_method('result_column');
 
@@ -420,23 +403,22 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultColumnReturnsArrayIfQueryHasResults(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(FALSE));
+              ->willReturn(FALSE);
 
         $query->expects($this->once())
               ->method('number_of_rows')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query_result = [ 0 => 'value' ];
 
         $query->expects($this->once())
               ->method('result_column')
-              ->will($this->returnValue($query_result));
+              ->willReturn($query_result);
 
         $method = $this->get_accessible_reflection_method('result_column');
 
@@ -453,31 +435,30 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultCellThrowsExceptionIfQueryFailed(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(TRUE));
+              ->willReturn(TRUE);
 
         $query->expects($this->exactly(2))
               ->method('error_message')
-              ->will($this->returnValue('message'));
+              ->willReturn('message');
 
         $query->expects($this->exactly(1))
               ->method('error_number')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query->expects($this->exactly(2))
               ->method('query')
-              ->will($this->returnValue('query'));
+              ->willReturn('query');
 
         $this->logger->expects($this->once())
                      ->method('error')
                      ->with('{query}; failed with error: {error}', [ 'query' => 'query', 'error' => 'message' ]);
 
-        $this->expectException('Lunr\Gravity\Exceptions\QueryException');
+        $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
         $method = $this->get_accessible_reflection_method('result_cell');
@@ -492,17 +473,16 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultCellReturnsEmptyStringIfQueryHasNoResults(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(FALSE));
+              ->willReturn(FALSE);
 
         $query->expects($this->once())
               ->method('number_of_rows')
-              ->will($this->returnValue(0));
+              ->willReturn(0);
 
         $method = $this->get_accessible_reflection_method('result_cell');
 
@@ -518,23 +498,22 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultCellReturnsValueIfQueryHasResults(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(FALSE));
+              ->willReturn(FALSE);
 
         $query->expects($this->once())
               ->method('number_of_rows')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query_result = 'value';
 
         $query->expects($this->once())
               ->method('result_cell')
-              ->will($this->returnValue($query_result));
+              ->willReturn($query_result);
 
         $method = $this->get_accessible_reflection_method('result_cell');
 
@@ -550,8 +529,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultRetryReturnsQueryInNoDeadlock(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
@@ -576,8 +554,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultRetryReExecutesQueryInDeadlock(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
@@ -607,8 +584,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultRetryReExecutesQueryInLockTimeout(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
@@ -642,8 +618,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultRetryReExecutesQueryInDeadlockMoreThanOnce(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->exactly(2))
@@ -677,31 +652,30 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultHasFailedTrueIfQueryFailed(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
+                      ->getMock();
 
         $query->expects($this->once())
             ->method('has_failed')
-            ->will($this->returnValue(TRUE));
+            ->willReturn(TRUE);
 
         $query->expects($this->exactly(2))
             ->method('error_message')
-            ->will($this->returnValue('message'));
+            ->willReturn('message');
 
         $query->expects($this->exactly(1))
               ->method('error_number')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query->expects($this->exactly(2))
             ->method('query')
-            ->will($this->returnValue('query'));
+            ->willReturn('query');
 
         $this->logger->expects($this->once())
             ->method('error')
             ->with('{query}; failed with error: {error}', [ 'query' => 'query', 'error' => 'message' ]);
 
-        $this->expectException('Lunr\Gravity\Exceptions\QueryException');
+        $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
         $method = $this->get_accessible_reflection_method('result_boolean');
@@ -716,13 +690,12 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testResultHasFailedFalseIfQuerySuccesfull(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
+                      ->getMock();
 
         $query->expects($this->once())
             ->method('has_failed')
-            ->will($this->returnValue(FALSE));
+            ->willReturn(FALSE);
 
         $method = $this->get_accessible_reflection_method('result_boolean');
 
@@ -738,31 +711,30 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testGetAffectedRowsThrowsExceptionIfQueryFailed(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(TRUE));
+              ->willReturn(TRUE);
 
         $query->expects($this->exactly(2))
               ->method('error_message')
-              ->will($this->returnValue('message'));
+              ->willReturn('message');
 
         $query->expects($this->exactly(1))
               ->method('error_number')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query->expects($this->exactly(2))
               ->method('query')
-              ->will($this->returnValue('query'));
+              ->willReturn('query');
 
         $this->logger->expects($this->once())
              ->method('error')
              ->with('{query}; failed with error: {error}', [ 'query' => 'query', 'error' => 'message' ]);
 
-        $this->expectException('Lunr\Gravity\Exceptions\QueryException');
+        $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
         $method = $this->get_accessible_reflection_method('get_affected_rows');
@@ -777,13 +749,12 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
      */
     public function testGetAffectedRowsReturnsAffectedRowsOnSuccess(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
-                      ->disableOriginalConstructor()
+        $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
 
         $query->expects($this->once())
               ->method('has_failed')
-              ->will($this->returnValue(FALSE));
+              ->willReturn(FALSE);
 
         $query->expects($this->once())
               ->method('affected_rows')

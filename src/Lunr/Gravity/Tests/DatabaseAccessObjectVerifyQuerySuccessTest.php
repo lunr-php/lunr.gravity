@@ -10,6 +10,10 @@
 
 namespace Lunr\Gravity\Tests;
 
+use Lunr\Gravity\Exceptions\DeadlockException;
+use Lunr\Gravity\Exceptions\QueryException;
+use Lunr\Gravity\MySQL\MySQLQueryResult;
+
 /**
  * This class contains the tests for the DatabaseAccessObject class.
  *
@@ -19,21 +23,13 @@ class DatabaseAccessObjectVerifyQuerySuccessTest extends DatabaseAccessObjectTes
 {
 
     /**
-     * Testcase constructor.
-     */
-    public function setUp(): void
-    {
-        $this->setUpNoPool();
-    }
-
-    /**
      * Test that verify_query_success() does not throw an exception if the query was successful.
      *
      * @covers Lunr\Gravity\DatabaseAccessObject::verify_query_success
      */
     public function testVerifyQuerySuccessDoesNotThrowExceptionOnQuerySuccess(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
+        $query = $this->getMockBuilder(MySQLQueryResult::class)
                       ->disableOriginalConstructor()
                       ->getMock();
 
@@ -54,7 +50,7 @@ class DatabaseAccessObjectVerifyQuerySuccessTest extends DatabaseAccessObjectTes
      */
     public function testVerifyQueryNotLogsWarningsIfNoWarnings(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
+        $query = $this->getMockBuilder(MySQLQueryResult::class)
                       ->disableOriginalConstructor()
                       ->getMock();
 
@@ -84,7 +80,7 @@ class DatabaseAccessObjectVerifyQuerySuccessTest extends DatabaseAccessObjectTes
             ]
         ];
 
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
+        $query = $this->getMockBuilder(MySQLQueryResult::class)
                       ->disableOriginalConstructor()
                       ->getMock();
 
@@ -112,7 +108,7 @@ class DatabaseAccessObjectVerifyQuerySuccessTest extends DatabaseAccessObjectTes
      */
     public function testVerifyQuerySuccessThrowsQueryExceptionOnError(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
+        $query = $this->getMockBuilder(MySQLQueryResult::class)
                       ->disableOriginalConstructor()
                       ->getMock();
 
@@ -126,21 +122,21 @@ class DatabaseAccessObjectVerifyQuerySuccessTest extends DatabaseAccessObjectTes
 
         $query->expects($this->exactly(2))
               ->method('error_message')
-              ->will($this->returnValue('message'));
+              ->willReturn('message');
 
         $query->expects($this->exactly(1))
               ->method('error_number')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query->expects($this->exactly(2))
               ->method('query')
-              ->will($this->returnValue('query'));
+              ->willReturn('query');
 
         $this->logger->expects($this->once())
              ->method('error')
              ->with('{query}; failed with error: {error}', [ 'query' => 'query', 'error' => 'message' ]);
 
-        $this->expectException('Lunr\Gravity\Exceptions\QueryException');
+        $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
         $this->class->verify_query_success($query);
@@ -153,7 +149,7 @@ class DatabaseAccessObjectVerifyQuerySuccessTest extends DatabaseAccessObjectTes
      */
     public function testVerifyQuerySuccessThrowsDeadlockExceptionOnDeadlock(): void
     {
-        $query = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
+        $query = $this->getMockBuilder(MySQLQueryResult::class)
                       ->disableOriginalConstructor()
                       ->getMock();
 
@@ -167,21 +163,21 @@ class DatabaseAccessObjectVerifyQuerySuccessTest extends DatabaseAccessObjectTes
 
         $query->expects($this->exactly(2))
               ->method('error_message')
-              ->will($this->returnValue('message'));
+              ->willReturn('message');
 
         $query->expects($this->exactly(1))
               ->method('error_number')
-              ->will($this->returnValue(1));
+              ->willReturn(1);
 
         $query->expects($this->exactly(2))
               ->method('query')
-              ->will($this->returnValue('query'));
+              ->willReturn('query');
 
         $this->logger->expects($this->once())
              ->method('error')
              ->with('{query}; failed with error: {error}', [ 'query' => 'query', 'error' => 'message' ]);
 
-        $this->expectException('Lunr\Gravity\Exceptions\DeadlockException');
+        $this->expectException(DeadlockException::class);
         $this->expectExceptionMessage('Database query deadlock!');
 
         $this->class->verify_query_success($query);

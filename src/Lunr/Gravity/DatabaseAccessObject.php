@@ -13,6 +13,7 @@ namespace Lunr\Gravity;
 use Lunr\Gravity\Exceptions\DeadlockException;
 use Lunr\Gravity\Exceptions\LockTimeoutException;
 use Lunr\Gravity\Exceptions\QueryException;
+use Psr\Log\LoggerInterface;
 
 /**
  * This class provides a way to access databases.
@@ -24,39 +25,24 @@ abstract class DatabaseAccessObject
      * Database connection handler.
      * @var DatabaseConnection
      */
-    protected $db;
-
-    /**
-     * Query Escaper for the main connection.
-     * @var DatabaseQueryEscaper
-     */
-    protected $escaper;
+    private DatabaseConnection $db;
 
     /**
      * Shared instance of a Logger class.
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
-    protected $logger;
-
-    /**
-     * Database connection pool.
-     * @var DatabaseConnectionPool
-     */
-    protected $pool;
+    protected LoggerInterface $logger;
 
     /**
      * Constructor.
      *
-     * @param DatabaseConnection       $connection Shared instance of a database connection class
-     * @param \Psr\Log\LoggerInterface $logger     Shared instance of a Logger class
-     * @param DatabaseConnectionPool   $pool       Shared instance of a database connection pool, NULL by default
+     * @param DatabaseConnection $connection Shared instance of a database connection class
+     * @param LoggerInterface    $logger     Shared instance of a Logger class
      */
-    public function __construct($connection, $logger, $pool = NULL)
+    public function __construct(DatabaseConnection $connection, LoggerInterface $logger)
     {
-        $this->db      = $connection;
-        $this->escaper = $this->db->get_query_escaper_object();
-        $this->logger  = $logger;
-        $this->pool    = $pool;
+        $this->db     = $connection;
+        $this->logger = $logger;
     }
 
     /**
@@ -65,9 +51,7 @@ abstract class DatabaseAccessObject
     public function __destruct()
     {
         unset($this->db);
-        unset($this->escaper);
         unset($this->logger);
-        unset($this->pool);
     }
 
     /**
@@ -77,10 +61,9 @@ abstract class DatabaseAccessObject
      *
      * @return void
      */
-    public function swap_connection($connection)
+    protected function swap_generic_connection(DatabaseConnection $connection): void
     {
-        $this->db      = $connection;
-        $this->escaper = $this->db->get_query_escaper_object();
+        $this->db = $connection;
     }
 
     /**
@@ -90,7 +73,7 @@ abstract class DatabaseAccessObject
      *
      * @return void
      */
-    public function verify_query_success($query)
+    public function verify_query_success(DatabaseQueryResultInterface $query): void
     {
         $warnings = $query->warnings();
 
@@ -135,9 +118,9 @@ abstract class DatabaseAccessObject
      *
      * @param DatabaseQueryResultInterface $query The result of the run query
      *
-     * @return mixed Number of affected rows in the result set
+     * @return int|string Number of affected rows in the result set
      */
-    protected function get_affected_rows($query)
+    protected function get_affected_rows(DatabaseQueryResultInterface $query)
     {
         $this->verify_query_success($query);
 
@@ -150,9 +133,9 @@ abstract class DatabaseAccessObject
      * @param DatabaseQueryResultInterface $query  The result of the run query
      * @param string                       $column Column to use as index
      *
-     * @return array Indexed result array
+     * @return array<mixed, mixed> Indexed result array
      */
-    protected function indexed_result_array($query, $column)
+    protected function indexed_result_array(DatabaseQueryResultInterface $query, string $column): array
     {
         $this->verify_query_success($query);
 
@@ -178,9 +161,9 @@ abstract class DatabaseAccessObject
      * @param bool                         $associative TRUE for returning rows as associative arrays,
      *                                                  FALSE for returning rows as enumerated arrays
      *
-     * @return array Result array
+     * @return array<int, array<string, mixed>> Result array
      */
-    protected function result_array($query, $associative = TRUE)
+    protected function result_array(DatabaseQueryResultInterface $query, bool $associative = TRUE): array
     {
         $this->verify_query_success($query);
 
@@ -199,9 +182,9 @@ abstract class DatabaseAccessObject
      *
      * @param DatabaseQueryResultInterface $query The result of the run query
      *
-     * @return array Result array
+     * @return array<string, mixed> Result array
      */
-    protected function result_row($query)
+    protected function result_row(DatabaseQueryResultInterface $query): array
     {
         $this->verify_query_success($query);
 
@@ -221,9 +204,9 @@ abstract class DatabaseAccessObject
      * @param DatabaseQueryResultInterface $query  The result of the run query
      * @param string                       $column The title of the requested column
      *
-     * @return array Result array
+     * @return mixed[] Result array
      */
-    protected function result_column($query, $column)
+    protected function result_column(DatabaseQueryResultInterface $query, string $column): array
     {
         $this->verify_query_success($query);
 
@@ -245,7 +228,7 @@ abstract class DatabaseAccessObject
      *
      * @return mixed Result value
      */
-    protected function result_cell($query, $cell)
+    protected function result_cell(DatabaseQueryResultInterface $query, string $cell)
     {
         $this->verify_query_success($query);
 
@@ -265,9 +248,9 @@ abstract class DatabaseAccessObject
      * @param DatabaseQueryResultInterface $query       The result of the run query
      * @param int                          $retry_count The max amount of re-executing the query
      *
-     * @return mixed Result value
+     * @return DatabaseQueryResultInterface Result value
      */
-    protected function result_retry($query, $retry_count = 5)
+    protected function result_retry(DatabaseQueryResultInterface $query, int $retry_count = 5): DatabaseQueryResultInterface
     {
         for ($i = 0; $i < $retry_count; $i++)
         {
@@ -289,7 +272,7 @@ abstract class DatabaseAccessObject
      *
      * @return bool TRUE on success
      */
-    protected function result_boolean($query)
+    protected function result_boolean(DatabaseQueryResultInterface $query): bool
     {
         $this->verify_query_success($query);
 

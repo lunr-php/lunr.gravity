@@ -93,7 +93,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
 
     /**
      * Number of affected rows.
-     * @var int
+     * @var int|string
      */
     protected $affected_rows;
 
@@ -285,9 +285,9 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
     /**
      * Returns the number of rows affected by the last query.
      *
-     * @return mixed $number Number of rows in the result set.
-     *                       This is usually an integer, unless the number is > MAXINT.
-     *                       Then it is a string.
+     * @return int|string $number Number of rows in the result set.
+     *                            This is usually an integer, unless the number is > MAXINT.
+     *                            Then it is a string.
      */
     public function affected_rows()
     {

@@ -79,6 +79,8 @@
             <file>../src/Lunr/Gravity/MySQL/Tests/MySQLConnectionEscapeTest.php</file>
             <file>../src/Lunr/Gravity/MySQL/Tests/MySQLConnectionTransactionTest.php</file>
             <file>../src/Lunr/Gravity/MySQL/Tests/MySQLConnectionMasterSlaveTest.php</file>
+            <file>../src/Lunr/Gravity/MySQL/Tests/MySQLAccessObjectBaseTest.php</file>
+            <file>../src/Lunr/Gravity/MySQL/Tests/TransactionalMySQLAccessObjectBaseTest.php</file>
             <file>../src/Lunr/Gravity/MariaDB/Tests/MariaDBConnectionBaseTest.php</file>
             <file>../src/Lunr/Gravity/MariaDB/Tests/MariaDBDMLQueryBuilderDeleteTest.php</file>
             <file>../src/Lunr/Gravity/MariaDB/Tests/MariaDBDMLQueryBuilderSelectTest.php</file>
@@ -86,6 +88,8 @@
             <file>../src/Lunr/Gravity/MariaDB/Tests/MariaDBSimpleDMLQueryBuilderBaseTest.php</file>
             <file>../src/Lunr/Gravity/MariaDB/Tests/MariaDBSimpleDMLQueryBuilderDeleteTest.php</file>
             <file>../src/Lunr/Gravity/MariaDB/Tests/MariaDBSimpleDMLQueryBuilderBaseTest.php</file>
+            <file>../src/Lunr/Gravity/MariaDB/Tests/MariaDBAccessObjectBaseTest.php</file>
+            <file>../src/Lunr/Gravity/MariaDB/Tests/TransactionalMariaDBAccessObjectBaseTest.php</file>
             <file>../src/Lunr/Gravity/SQLite3/Tests/LunrSQLite3Test.php</file>
             <file>../src/Lunr/Gravity/SQLite3/Tests/SQLite3ConnectionBaseTest.php</file>
             <file>../src/Lunr/Gravity/SQLite3/Tests/SQLite3ConnectionSetTest.php</file>
@@ -105,16 +109,16 @@
             <file>../src/Lunr/Gravity/SQLite3/Tests/SQLite3QueryResultFreeTest.php</file>
             <file>../src/Lunr/Gravity/SQLite3/Tests/SQLite3QueryResultFailedTest.php</file>
             <file>../src/Lunr/Gravity/SQLite3/Tests/SQLite3QueryResultBaseTest.php</file>
+            <file>../src/Lunr/Gravity/SQLite3/Tests/SQLite3AccessObjectBaseTest.php</file>
+            <file>../src/Lunr/Gravity/SQLite3/Tests/TransactionalSQLite3AccessObjectBaseTest.php</file>
             <file>../src/Lunr/Gravity/Tests/DatabaseConnectionPoolBaseTest.php</file>
             <file>../src/Lunr/Gravity/Tests/DatabaseConnectionPoolEmptyTest.php</file>
             <file>../src/Lunr/Gravity/Tests/DatabaseConnectionPoolUnsupportedTest.php</file>
             <file>../src/Lunr/Gravity/Tests/DatabaseConnectionPoolSupportedTest.php</file>
             <file>../src/Lunr/Gravity/Tests/DatabaseConnectionPoolPublicTest.php</file>
-            <file>../src/Lunr/Gravity/Tests/DatabaseAccessObjectNoPoolTest.php</file>
-            <file>../src/Lunr/Gravity/Tests/DatabaseAccessObjectPoolTest.php</file>
+            <file>../src/Lunr/Gravity/Tests/DatabaseAccessObjectBaseTest.php</file>
             <file>../src/Lunr/Gravity/Tests/DatabaseAccessObjectResultsTest.php</file>
             <file>../src/Lunr/Gravity/Tests/DatabaseAccessObjectVerifyQuerySuccessTest.php</file>
-            <file>../src/Lunr/Gravity/Tests/TransactionalDatabaseAccessObjectCallsTest.php</file>
         </testsuite>
     </testsuites>
     <coverage>

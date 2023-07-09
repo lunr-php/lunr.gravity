@@ -11,7 +11,11 @@
 namespace Lunr\Gravity\Tests;
 
 use Lunr\Gravity\DatabaseAccessObject;
+use Lunr\Gravity\DatabaseConnection;
 use Lunr\Halo\LunrBaseTest;
+use Psr\Log\LoggerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\MockedType;
 use ReflectionClass;
 
 /**
@@ -23,83 +27,35 @@ abstract class DatabaseAccessObjectTest extends LunrBaseTest
 {
 
     /**
-     * Mock instance of the DatabaseConnectionPool
-     * @var DatabaseConnectionPool
-     */
-    protected $pool;
-
-    /**
      * Mock instance of a DatabaseConnection
-     * @var DatabaseConnection
+     * @var DatabaseConnection&MockObject&MockedType
      */
-    protected $db;
+    protected DatabaseConnection $db;
 
     /**
      * Mock instance of the Logger class.
-     * @var Logger
+     * @var LoggerInterface&MockObject&MockedType
      */
-    protected $logger;
+    protected LoggerInterface $logger;
 
     /**
      * Testcase Constructor.
      *
      * @return void
      */
-    public function setUpNoPool(): void
+    public function setUp(): void
     {
-        $this->pool = NULL;
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 
-        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
-
-        $this->db = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLConnection')
+        $this->db = $this->getMockBuilder(DatabaseConnection::class)
                          ->disableOriginalConstructor()
                          ->getMock();
 
-        $escaper = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryEscaper')
-                        ->disableOriginalConstructor()
-                        ->getMock();
-
-        $this->db->expects($this->once())
-                 ->method('get_query_escaper_object')
-                 ->will($this->returnValue($escaper));
-
-        $this->class = $this->getMockBuilder('Lunr\Gravity\DatabaseAccessObject')
+        $this->class = $this->getMockBuilder(DatabaseAccessObject::class)
                             ->setConstructorArgs([ $this->db, $this->logger ])
                             ->getMockForAbstractClass();
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\DatabaseAccessObject');
-    }
-
-    /**
-     * Testcase Constructor.
-     *
-     * @return void
-     */
-    public function setUpPool(): void
-    {
-        $this->pool = $this->getMockBuilder('Lunr\Gravity\DatabaseConnectionPool')
-                           ->disableOriginalConstructor()
-                           ->getMock();
-
-        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
-
-        $this->db = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLConnection')
-                         ->disableOriginalConstructor()
-                         ->getMock();
-
-        $escaper = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryEscaper')
-                        ->disableOriginalConstructor()
-                        ->getMock();
-
-        $this->db->expects($this->once())
-                 ->method('get_query_escaper_object')
-                 ->will($this->returnValue($escaper));
-
-        $this->class = $this->getMockBuilder('Lunr\Gravity\DatabaseAccessObject')
-                            ->setConstructorArgs([ $this->db, $this->logger, $this->pool ])
-                            ->getMockForAbstractClass();
-
-        $this->reflection = new ReflectionClass('Lunr\Gravity\DatabaseAccessObject');
+        $this->reflection = new ReflectionClass(DatabaseAccessObject::class);
     }
 
     /**
@@ -107,11 +63,10 @@ abstract class DatabaseAccessObjectTest extends LunrBaseTest
      */
     public function tearDown(): void
     {
-        unset($this->pool);
         unset($this->db);
         unset($this->logger);
-        unset($this->class);
-        unset($this->reflection);
+
+        parent::tearDown();
     }
 
 }
