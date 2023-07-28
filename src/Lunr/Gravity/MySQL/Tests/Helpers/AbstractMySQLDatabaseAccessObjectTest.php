@@ -11,6 +11,7 @@
 namespace Lunr\Gravity\MySQL\Tests\Helpers;
 
 use Lunr\Gravity\MySQL\MySQLDMLQueryBuilder;
+use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\Tests\Helpers\DatabaseAccessObjectBaseTest;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -47,6 +48,12 @@ abstract class AbstractMySQLDatabaseAccessObjectTest extends DatabaseAccessObjec
     protected $real_builder;
 
     /**
+     * Real instance of the SimpleDMLQueryBuilder class
+     * @var \Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder
+     */
+    protected $real_simple_builder;
+
+    /**
      * Mock instance of the QueryEscaper class
      * @var \Lunr\Gravity\MySQL\MySQLQueryEscaper|MockObject
      */
@@ -78,6 +85,8 @@ abstract class AbstractMySQLDatabaseAccessObjectTest extends DatabaseAccessObjec
 
         $this->real_builder = new MySQLDMLQueryBuilder();
         $this->real_escaper = new MySQLQueryEscaper($mock_escaper);
+
+        $this->real_simple_builder = new MySQLSimpleDMLQueryBuilder($this->real_builder, $this->real_escaper);
 
         $this->db = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLConnection')
                          ->disableOriginalConstructor()
@@ -125,6 +134,7 @@ abstract class AbstractMySQLDatabaseAccessObjectTest extends DatabaseAccessObjec
         unset($this->result);
         unset($this->real_escaper);
         unset($this->real_builder);
+        unset($this->real_simple_builder);
     }
 
 }
