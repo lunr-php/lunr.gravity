@@ -58,7 +58,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
                ->will($this->returnValue(TRUE));
 
         $this->mock_function('mysqli_affected_rows', fn() => 0);
-        $this->mock_function('microtime', function () {return 1; });
+        $this->mock_function('microtime', function () { return 1; });
 
         $this->logger->expects($this->exactly(2))
                      ->method('debug')
@@ -93,7 +93,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
                ->will($this->returnValue(TRUE));
 
         $this->mock_function('mysqli_affected_rows', fn() => 0);
-        $this->mock_function('microtime', function () {return 1; });
+        $this->mock_function('microtime', function () { return 1; });
 
         $this->logger->expects($this->exactly(2))
                      ->method('debug')
@@ -129,7 +129,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
                ->will($this->returnValue(TRUE));
 
         $this->mock_function('mysqli_affected_rows', fn() => 0);
-        $this->mock_function('microtime', function () {return 1; });
+        $this->mock_function('microtime', function () { return 1; });
 
         $this->logger->expects($this->exactly(2))
                      ->method('debug')

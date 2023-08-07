@@ -703,7 +703,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
 
         foreach ($values as $value)
         {
-            $value = array_map(function($entry){ return is_null($entry) ? 'NULL' : $entry; }, $value);
+            $value = array_map(function ($entry) { return is_null($entry) ? 'NULL' : $entry; }, $value);
 
             $this->values .= '(' . implode(', ', $value) . '), ';
         }
