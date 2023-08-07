@@ -166,7 +166,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return string Defined and escaped value
      */
-    public abstract function value($value, $collation = '', $charset = '');
+    abstract public function value($value, $collation = '', $charset = '');
 
     /**
      * Define and escape input as integer value.

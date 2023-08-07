@@ -94,14 +94,14 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
      *
      * @return void
      */
-    public abstract function connect();
+    abstract public function connect();
 
     /**
      * Disconnects from database server.
      *
      * @return void
      */
-    public abstract function disconnect();
+    abstract public function disconnect();
 
     /**
      * Change the default database for the current connection.
@@ -110,28 +110,28 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
      *
      * @return bool True on success, False on Failure
      */
-    public abstract function change_database($db);
+    abstract public function change_database($db);
 
     /**
      * Get the name of the database we're currently connected to.
      *
      * @return string Database name
      */
-    public abstract function get_database();
+    abstract public function get_database();
 
     /**
      * Return a new instance of a QueryBuilder object.
      *
      * @return DatabaseDMLQueryBuilder $builder New DatabaseDMLQueryBuilder object instance
      */
-    public abstract function get_new_dml_query_builder_object();
+    abstract public function get_new_dml_query_builder_object();
 
     /**
      * Return a new instance of a QueryEscaper object.
      *
      * @return DatabaseQueryEscaper $escaper New DatabaseQueryEscaper object instance
      */
-    public abstract function get_query_escaper_object();
+    abstract public function get_query_escaper_object();
 
     /**
      * Escape a string to be used in a SQL query.
@@ -140,7 +140,7 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
      *
      * @return mixed $return The escaped string on success, FALSE on error
      */
-    public abstract function escape_string($string);
+    abstract public function escape_string($string);
 
     /**
      * Run a SQL query.
@@ -149,35 +149,35 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
      *
      * @return DatabaseQueryResultInterface $result Query Result
      */
-    public abstract function query($sql_query);
+    abstract public function query($sql_query);
 
     /**
      * Begin a transaction.
      *
      * @return void
      */
-    public abstract function begin_transaction();
+    abstract public function begin_transaction();
 
     /**
      * Commit a transaction.
      *
      * @return void
      */
-    public abstract function commit();
+    abstract public function commit();
 
     /**
      * Roll back a transaction.
      *
      * @return void
      */
-    public abstract function rollback();
+    abstract public function rollback();
 
     /**
      * Ends a transaction.
      *
      * @return void
      */
-    public abstract function end_transaction();
+    abstract public function end_transaction();
 
 }
 
