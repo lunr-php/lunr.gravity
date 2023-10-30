@@ -18,18 +18,18 @@ interface DatabaseStringEscaperInterface
     /**
      * Return a new instance of a QueryEscaper object.
      *
-     * @return DatabaseQueryEscaper $escaper New DatabaseQueryEscaper object instance
+     * @return DatabaseQueryEscaper New DatabaseQueryEscaper object instance
      */
-    public function get_query_escaper_object();
+    public function get_query_escaper_object(): DatabaseQueryEscaper;
 
     /**
      * Escape a string to be used in a SQL query.
      *
      * @param string $string The string to escape
      *
-     * @return mixed $return The escaped string on success, FALSE on error
+     * @return string The escaped string
      */
-    public function escape_string($string);
+    public function escape_string(string $string): string;
 
 }
 
