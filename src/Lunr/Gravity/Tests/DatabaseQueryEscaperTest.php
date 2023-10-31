@@ -12,6 +12,8 @@ namespace Lunr\Gravity\Tests;
 
 use Lunr\Gravity\DatabaseQueryEscaper;
 use Lunr\Halo\LunrBaseTest;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use ReflectionClass;
 use stdClass;
 
@@ -30,6 +32,12 @@ abstract class DatabaseQueryEscaperTest extends LunrBaseTest
     protected $escaper;
 
     /**
+     * Instance of the tested class.
+     * @var DatabaseQueryEscaper&MockObject&Stub
+     */
+    protected DatabaseQueryEscaper&MockObject&Stub $class;
+
+    /**
      * Testcase Constructor.
      */
     public function setUp(): void
@@ -41,7 +49,7 @@ abstract class DatabaseQueryEscaperTest extends LunrBaseTest
                             ->setConstructorArgs([ $this->escaper ])
                             ->getMockForAbstractClass();
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\DatabaseQueryEscaper');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -51,7 +59,8 @@ abstract class DatabaseQueryEscaperTest extends LunrBaseTest
     {
         unset($this->escaper);
         unset($this->class);
-        unset($this->reflection);
+
+        parent::tearDown();
     }
 
     /**

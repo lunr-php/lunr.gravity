@@ -12,6 +12,8 @@ namespace Lunr\Gravity\Tests;
 
 use Lunr\Gravity\DatabaseConnection;
 use Lunr\Halo\LunrBaseTest;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use ReflectionClass;
 
 /**
@@ -35,6 +37,12 @@ abstract class DatabaseConnectionTest extends LunrBaseTest
     protected $logger;
 
     /**
+     * Instance of the tested class.
+     * @var DatabaseConnection&MockObject&Stub
+     */
+    protected DatabaseConnection&MockObject&Stub $class;
+
+    /**
      * TestCase Constructor.
      */
     public function setUp(): void
@@ -47,7 +55,7 @@ abstract class DatabaseConnectionTest extends LunrBaseTest
                             ->setConstructorArgs([ &$this->configuration, &$this->logger ])
                             ->getMockForAbstractClass();
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\DatabaseConnection');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -58,7 +66,8 @@ abstract class DatabaseConnectionTest extends LunrBaseTest
         unset($this->configuration);
         unset($this->logger);
         unset($this->class);
-        unset($this->reflection);
+
+        parent::tearDown();
     }
 
 }

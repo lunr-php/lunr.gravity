@@ -12,6 +12,8 @@ namespace Lunr\Gravity\Tests;
 
 use Lunr\Gravity\DatabaseDMLQueryBuilder;
 use Lunr\Halo\LunrBaseTest;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use ReflectionClass;
 use stdClass;
 
@@ -25,13 +27,19 @@ abstract class DatabaseDMLQueryBuilderTest extends LunrBaseTest
 {
 
     /**
+     * Instance of the tested class.
+     * @var DatabaseDMLQueryBuilder&MockObject&Stub
+     */
+    protected DatabaseDMLQueryBuilder&MockObject&Stub $class;
+
+    /**
      * TestCase Constructor.
      */
     public function setUp(): void
     {
         $this->class = $this->getMockForAbstractClass('Lunr\Gravity\DatabaseDMLQueryBuilder');
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\DatabaseDMLQueryBuilder');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -40,7 +48,8 @@ abstract class DatabaseDMLQueryBuilderTest extends LunrBaseTest
     public function tearDown(): void
     {
         unset($this->class);
-        unset($this->reflection);
+
+        parent::tearDown();
     }
 
     /**

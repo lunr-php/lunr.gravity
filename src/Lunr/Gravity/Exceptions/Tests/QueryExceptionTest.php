@@ -31,6 +31,12 @@ abstract class QueryExceptionTest extends LunrBaseTest
     protected $result;
 
     /**
+     * Instance of the tested class.
+     * @var QueryException
+     */
+    protected QueryException $class;
+
+    /**
      * TestCase Constructor.
      */
     public function setUp(): void
@@ -51,8 +57,9 @@ abstract class QueryExceptionTest extends LunrBaseTest
                      ->method('error_message')
                      ->willReturn("There's an error in your query.");
 
-        $this->class      = new QueryException($this->result, 'Exception Message');
-        $this->reflection = new ReflectionClass('Lunr\Gravity\Exceptions\QueryException');
+        $this->class = new QueryException($this->result, 'Exception Message');
+
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -61,8 +68,9 @@ abstract class QueryExceptionTest extends LunrBaseTest
     public function tearDown(): void
     {
         unset($this->result);
-        unset($this->reflection);
         unset($this->class);
+
+        parent::tearDown();
     }
 
 }

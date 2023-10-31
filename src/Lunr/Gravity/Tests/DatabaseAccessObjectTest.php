@@ -15,7 +15,7 @@ use Lunr\Gravity\DatabaseConnection;
 use Lunr\Halo\LunrBaseTest;
 use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\MockObject\MockedType;
+use PHPUnit\Framework\MockObject\Stub;
 use ReflectionClass;
 
 /**
@@ -28,15 +28,21 @@ abstract class DatabaseAccessObjectTest extends LunrBaseTest
 
     /**
      * Mock instance of a DatabaseConnection
-     * @var DatabaseConnection&MockObject&MockedType
+     * @var DatabaseConnection&MockObject&Stub
      */
     protected DatabaseConnection $db;
 
     /**
      * Mock instance of the Logger class.
-     * @var LoggerInterface&MockObject&MockedType
+     * @var LoggerInterface&MockObject&Stub
      */
     protected LoggerInterface $logger;
+
+    /**
+     * Instance of the tested class.
+     * @var DatabaseAccessObject&MockObject&Stub
+     */
+    protected DatabaseAccessObject&MockObject&Stub $class;
 
     /**
      * Testcase Constructor.
@@ -55,7 +61,7 @@ abstract class DatabaseAccessObjectTest extends LunrBaseTest
                             ->setConstructorArgs([ $this->db, $this->logger ])
                             ->getMockForAbstractClass();
 
-        $this->reflection = new ReflectionClass(DatabaseAccessObject::class);
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -65,6 +71,7 @@ abstract class DatabaseAccessObjectTest extends LunrBaseTest
     {
         unset($this->db);
         unset($this->logger);
+        unset($this->class);
 
         parent::tearDown();
     }

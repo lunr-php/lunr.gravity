@@ -12,6 +12,8 @@ namespace Lunr\Gravity\Tests;
 
 use Lunr\Gravity\SQLDMLQueryBuilder;
 use Lunr\Halo\LunrBaseTest;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use ReflectionClass;
 
 /**
@@ -23,6 +25,12 @@ use ReflectionClass;
 abstract class SQLDMLQueryBuilderTest extends LunrBaseTest
 {
 
+    /**
+     * Instance of the tested class.
+     * @var SQLDMLQueryBuilder&MockObject&Stub
+     */
+    protected SQLDMLQueryBuilder&MockObject&Stub $class;
+
      /**
      * TestCase Constructor.
      */
@@ -31,7 +39,7 @@ abstract class SQLDMLQueryBuilderTest extends LunrBaseTest
         $this->class = $this->getMockBuilder('Lunr\Gravity\SQLDMLQueryBuilder')
                             ->getMockForAbstractClass();
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\SQLDMLQueryBuilder');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -40,7 +48,8 @@ abstract class SQLDMLQueryBuilderTest extends LunrBaseTest
     public function tearDown(): void
     {
         unset($this->class);
-        unset($this->reflection);
+
+        parent::tearDown();
     }
 
 }
