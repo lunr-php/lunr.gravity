@@ -36,6 +36,12 @@ abstract class MySQLSimpleDMLQueryBuilderTest extends LunrBaseTest
     protected $builder;
 
     /**
+     * Instance of the tested class.
+     * @var MySQLSimpleDMLQueryBuilder
+     */
+    protected MySQLSimpleDMLQueryBuilder $class;
+
+    /**
      * Testcase Constructor.
      */
     public function setUp(): void
@@ -47,8 +53,9 @@ abstract class MySQLSimpleDMLQueryBuilderTest extends LunrBaseTest
         $this->builder = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLDMLQueryBuilder')
                               ->getMock();
 
-        $this->class      = new MySQLSimpleDMLQueryBuilder($this->builder, $this->escaper);
-        $this->reflection = new ReflectionClass('Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder');
+        $this->class = new MySQLSimpleDMLQueryBuilder($this->builder, $this->escaper);
+
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -58,8 +65,9 @@ abstract class MySQLSimpleDMLQueryBuilderTest extends LunrBaseTest
     {
         unset($this->escaper);
         unset($this->class);
-        unset($this->querybuilder);
-        unset($this->reflection);
+        unset($this->builder);
+
+        parent::tearDown();
     }
 
     /**

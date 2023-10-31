@@ -108,13 +108,6 @@ abstract class MySQLDatabaseAccessObjectTest extends DatabaseAccessObjectBaseTes
         $this->db->expects($this->once())
                  ->method('get_query_escaper_object')
                  ->will($this->returnValue($this->escaper));
-
-        // Assumption: All DAO's end in DAO.
-        $name = str_replace('\\Tests\\', '\\', substr(static::class, 0, strrpos(static::class, 'DAO') + 3));
-
-        $this->class = new $name($this->db, $this->logger);
-
-        $this->reflection = new ReflectionClass($name);
     }
 
     /**
@@ -122,8 +115,6 @@ abstract class MySQLDatabaseAccessObjectTest extends DatabaseAccessObjectBaseTes
      */
     public function tearDown(): void
     {
-        unset($this->class);
-        unset($this->reflection);
         unset($this->db);
         unset($this->logger);
         unset($this->builder);
@@ -132,6 +123,8 @@ abstract class MySQLDatabaseAccessObjectTest extends DatabaseAccessObjectBaseTes
         unset($this->real_escaper);
         unset($this->real_builder);
         unset($this->real_simple_builder);
+
+        parent::tearDown();
     }
 
 }

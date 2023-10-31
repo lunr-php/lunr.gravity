@@ -44,6 +44,12 @@ abstract class MySQLQueryResultTest extends LunrBaseTest
     protected $query;
 
     /**
+     * Instance of the tested class.
+     * @var MySQLQueryResult
+     */
+    protected MySQLQueryResult $class;
+
+    /**
      * TestCase Constructor passing a MySQLi_result object.
      *
      * @return void
@@ -60,7 +66,7 @@ abstract class MySQLQueryResultTest extends LunrBaseTest
 
         $this->class = new MySQLQueryResult($this->query, $this->query_result, $this->mysqli);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\MySQL\MySQLQueryResult');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -78,7 +84,7 @@ abstract class MySQLQueryResultTest extends LunrBaseTest
 
         $this->class = new MySQLQueryResult($this->query, $this->query_result, $this->mysqli);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\MySQL\MySQLQueryResult');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -96,7 +102,7 @@ abstract class MySQLQueryResultTest extends LunrBaseTest
 
         $this->class = new MySQLQueryResult($this->query, $this->query_result, $this->mysqli);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\MySQL\MySQLQueryResult');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -116,7 +122,7 @@ abstract class MySQLQueryResultTest extends LunrBaseTest
 
         $this->class = new MySQLQueryResult($this->query, $this->query_result, $this->mysqli);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\MySQL\MySQLQueryResult');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -128,7 +134,8 @@ abstract class MySQLQueryResultTest extends LunrBaseTest
         unset($this->query_result);
         unset($this->query);
         unset($this->class);
-        unset($this->reflection);
+
+        parent::tearDown();
     }
 
 }

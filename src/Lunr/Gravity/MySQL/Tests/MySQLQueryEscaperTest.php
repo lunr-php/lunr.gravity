@@ -29,6 +29,12 @@ abstract class MySQLQueryEscaperTest extends LunrBaseTest
     protected $escaper;
 
     /**
+     * Instance of the tested class.
+     * @var MySQLQueryEscaper
+     */
+    protected MySQLQueryEscaper $class;
+
+    /**
      * Testcase Constructor.
      */
     public function setUp(): void
@@ -38,7 +44,7 @@ abstract class MySQLQueryEscaperTest extends LunrBaseTest
 
         $this->class = new MySQLQueryEscaper($this->escaper);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\MySQL\MySQLQueryEscaper');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -48,7 +54,8 @@ abstract class MySQLQueryEscaperTest extends LunrBaseTest
     {
         unset($this->escaper);
         unset($this->class);
-        unset($this->reflection);
+
+        parent::tearDown();
     }
 
     /**

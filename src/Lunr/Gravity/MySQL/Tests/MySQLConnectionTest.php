@@ -48,6 +48,12 @@ abstract class MySQLConnectionTest extends LunrBaseTest
     protected $mysqli;
 
     /**
+     * Instance of the tested class.
+     * @var MySQLConnection
+     */
+    protected MySQLConnection $class;
+
+    /**
      * TestCase Constructor.
      *
      * @return void
@@ -72,7 +78,7 @@ abstract class MySQLConnectionTest extends LunrBaseTest
 
         $this->class = new MySQLConnection($this->configuration, $this->logger, $this->mysqli);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\MySQL\MySQLConnection');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -110,7 +116,7 @@ abstract class MySQLConnectionTest extends LunrBaseTest
 
         $this->class = new MySQLConnection($this->configuration, $this->logger, $this->mysqli);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\MySQL\MySQLConnection');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -119,9 +125,10 @@ abstract class MySQLConnectionTest extends LunrBaseTest
     public function tearDown(): void
     {
         unset($this->class);
-        unset($this->reflection);
         unset($this->configuration);
         unset($this->logger);
+
+        parent::tearDown();
     }
 
     /**

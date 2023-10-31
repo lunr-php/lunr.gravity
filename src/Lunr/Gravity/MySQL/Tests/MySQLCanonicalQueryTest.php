@@ -23,12 +23,19 @@ class MySQLCanonicalQueryTest extends LunrBaseTest
 {
 
     /**
+     * Instance of the tested class.
+     * @var MySQLCanonicalQuery
+     */
+    protected MySQLCanonicalQuery $class;
+
+    /**
      * TestCase Constructor.
      */
     public function setUp(): void
     {
-         $this->reflection = new ReflectionClass('Lunr\Gravity\MySQL\MySQLCanonicalQuery');
-         $this->class      = new MySQLCanonicalQuery('');
+         $this->class = new MySQLCanonicalQuery('');
+
+         parent::baseSetUp($this->class);
     }
 
     /**
@@ -36,6 +43,8 @@ class MySQLCanonicalQueryTest extends LunrBaseTest
      */
     public function tearDown(): void
     {
+        unset($this->class);
+
         parent::tearDown();
     }
 

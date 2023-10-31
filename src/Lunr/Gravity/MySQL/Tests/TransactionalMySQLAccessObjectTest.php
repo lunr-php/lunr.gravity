@@ -15,7 +15,7 @@ use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Halo\LunrBaseTest;
 use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\MockObject\MockedType;
+use PHPUnit\Framework\MockObject\Stub;
 use ReflectionClass;
 
 /**
@@ -28,15 +28,21 @@ abstract class TransactionalMySQLAccessObjectTest extends LunrBaseTest
 
     /**
      * Mock instance of a MySQLConnection
-     * @var MySQLConnection&MockObject&MockedType
+     * @var MySQLConnection&MockObject&Stub
      */
     protected MySQLConnection $db;
 
     /**
      * Mock instance of the Logger class.
-     * @var LoggerInterface&MockObject&MockedType
+     * @var LoggerInterface&MockObject&Stub
      */
     protected LoggerInterface $logger;
+
+    /**
+     * Instance of the tested class.
+     * @var TransactionalMySQLAccessObject&MockObject&Stub
+     */
+    protected TransactionalMySQLAccessObject&MockObject&Stub $class;
 
     /**
      * Testcase Constructor.
@@ -63,7 +69,7 @@ abstract class TransactionalMySQLAccessObjectTest extends LunrBaseTest
                             ->setConstructorArgs([ $this->db, $this->logger ])
                             ->getMockForAbstractClass();
 
-        $this->reflection = new ReflectionClass(TransactionalMySQLAccessObject::class);
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -73,6 +79,7 @@ abstract class TransactionalMySQLAccessObjectTest extends LunrBaseTest
     {
         unset($this->db);
         unset($this->logger);
+        unset($this->class);
 
         parent::tearDown();
     }

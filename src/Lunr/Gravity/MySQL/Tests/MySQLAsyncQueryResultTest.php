@@ -37,6 +37,12 @@ abstract class MySQLAsyncQueryResultTest extends LunrBaseTest
     protected $query;
 
     /**
+     * Instance of the tested class.
+     * @var MySQLAsyncQueryResult
+     */
+    protected MySQLAsyncQueryResult $class;
+
+    /**
      * TestCase Constructor passing TRUE as query result.
      */
     public function setUp(): void
@@ -47,7 +53,7 @@ abstract class MySQLAsyncQueryResultTest extends LunrBaseTest
 
         $this->class = new MySQLAsyncQueryResult($this->query, $this->mysqli);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\MySQL\MySQLAsyncQueryResult');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -57,8 +63,9 @@ abstract class MySQLAsyncQueryResultTest extends LunrBaseTest
     {
         unset($this->mysqli);
         unset($this->class);
-        unset($this->reflection);
         unset($this->query);
+
+        parent::tearDown();
     }
 
 }
