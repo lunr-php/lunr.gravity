@@ -317,6 +317,19 @@ class DatabaseQueryEscaperEscapeTest extends DatabaseQueryEscaperTest
     }
 
     /**
+     * Test prepending and apending parentheses to a value with alias.
+     *
+     * @covers Lunr\Gravity\DatabaseQueryEscaper::query_value
+     */
+    public function testEscapeQueryValueWithAlias(): void
+    {
+        $alias = 'alias';
+        $value = $this->class->query_value('value', $alias);
+
+        $this->assertEquals('(value) AS `alias`', $value);
+    }
+
+    /**
      * Test prepending and apending parentheses to a list of values, extracted from an array.
      *
      * @covers Lunr\Gravity\DatabaseQueryEscaper::list_value

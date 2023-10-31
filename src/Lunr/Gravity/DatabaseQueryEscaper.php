@@ -195,13 +195,21 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
     /**
     * Define input as a query within parentheses.
     *
-    * @param string $value Input
+    * @param string      $value Input
+    * @param string|null $alias Alias
     *
     * @return string $return Defined within parentheses
     */
-    public function query_value($value)
+    public function query_value($value, $alias = NULL)
     {
-        return empty($value) ? '' : '(' . $value . ')';
+        $value = empty($value) ? '' : '(' . $value . ')';
+
+        if (is_null($alias))
+        {
+            return $value;
+        }
+
+        return $value . ' AS ' . static::IDENTIFIER_DELIMITER_L . $alias . static::IDENTIFIER_DELIMITER_R;
     }
 
     /**
