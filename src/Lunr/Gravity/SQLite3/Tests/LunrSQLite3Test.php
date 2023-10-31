@@ -23,6 +23,12 @@ class LunrSQLite3Test extends LunrBaseTest
 {
 
     /**
+     * Instance of the tested class.
+     * @var LunrSQLite3
+     */
+    protected LunrSQLite3 $class;
+
+    /**
      * Testcase Constructor.
      */
     public function setUp(): void
@@ -32,8 +38,9 @@ class LunrSQLite3Test extends LunrBaseTest
             $this->markTestSkipped('Extension sqlite3 is required.');
         }
 
-        $this->class      = new LunrSQLite3();
-        $this->reflection = new ReflectionClass('Lunr\Gravity\SQLite3\LunrSQLite3');
+        $this->class = new LunrSQLite3();
+
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -41,6 +48,8 @@ class LunrSQLite3Test extends LunrBaseTest
      */
     public function tearDown(): void
     {
+        unset($this->class);
+
         parent::tearDown();
     }
 

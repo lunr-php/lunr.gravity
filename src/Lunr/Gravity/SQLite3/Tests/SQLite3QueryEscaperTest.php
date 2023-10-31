@@ -29,6 +29,12 @@ abstract class SQLite3QueryEscaperTest extends LunrBaseTest
     protected $escaper;
 
     /**
+     * Instance of the tested class.
+     * @var SQLite3QueryEscaper
+     */
+    protected SQLite3QueryEscaper $class;
+
+    /**
      * Testcase Constructor.
      */
     public function setUp(): void
@@ -38,7 +44,7 @@ abstract class SQLite3QueryEscaperTest extends LunrBaseTest
 
         $this->class = new SQLite3QueryEscaper($this->escaper);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\SQLite3\SQLite3QueryEscaper');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -48,7 +54,8 @@ abstract class SQLite3QueryEscaperTest extends LunrBaseTest
     {
         unset($this->escaper);
         unset($this->class);
-        unset($this->reflection);
+
+        parent::tearDown();
     }
 
     /**

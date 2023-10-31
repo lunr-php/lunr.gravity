@@ -24,13 +24,19 @@ abstract class SQLite3DMLQueryBuilderTest extends LunrBaseTest
 {
 
     /**
+     * Instance of the tested class.
+     * @var SQLite3DMLQueryBuilder
+     */
+    protected SQLite3DMLQueryBuilder $class;
+
+    /**
      * TestCase Constructor.
      */
     public function setUp(): void
     {
         $this->class = new SQLite3DMLQueryBuilder();
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\SQLite3\SQLite3DMLQueryBuilder');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -39,7 +45,8 @@ abstract class SQLite3DMLQueryBuilderTest extends LunrBaseTest
     public function tearDown(): void
     {
         unset($this->class);
-        unset($this->reflection);
+
+        parent::tearDown();
     }
 
     /**

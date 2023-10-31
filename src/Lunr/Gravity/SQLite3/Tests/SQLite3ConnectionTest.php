@@ -54,6 +54,12 @@ abstract class SQLite3ConnectionTest extends LunrBaseTest
     protected $sub_configuration;
 
     /**
+     * Instance of the tested class.
+     * @var SQLite3Connection
+     */
+    protected SQLite3Connection $class;
+
+    /**
      * TestCase Constructor.
      *
      * @return void
@@ -88,7 +94,7 @@ abstract class SQLite3ConnectionTest extends LunrBaseTest
 
         $this->class = new SQLite3Connection($this->configuration, $this->logger, $this->sqlite3);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\SQLite3\SQLite3Connection');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -137,7 +143,7 @@ abstract class SQLite3ConnectionTest extends LunrBaseTest
 
         $this->class = new SQLite3Connection($this->configuration, $this->logger, $this->sqlite3);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\SQLite3\SQLite3Connection');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -151,7 +157,8 @@ abstract class SQLite3ConnectionTest extends LunrBaseTest
         unset($this->sqlite3);
         unset($this->sqlite3_result);
         unset($this->class);
-        unset($this->reflection);
+
+        parent::tearDown();
     }
 
     /**

@@ -44,6 +44,12 @@ class SQLite3QueryResultTest extends LunrBaseTest
     protected $sqlite3_result;
 
     /**
+     * Instance of the tested class.
+     * @var SQLite3QueryResult
+     */
+    protected SQLite3QueryResult $class;
+
+    /**
      * TestCase Constructor passing a SQLite3Result object.
      *
      * @return void
@@ -60,7 +66,7 @@ class SQLite3QueryResultTest extends LunrBaseTest
 
         $this->class = new SQLite3QueryResult($this->query, $this->sqlite3_result, $this->sqlite3);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\SQLite3\SQLite3QueryResult');
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -78,7 +84,7 @@ class SQLite3QueryResultTest extends LunrBaseTest
 
         $this->class = new SQLite3QueryResult($this->query, $this->sqlite3_result, $this->sqlite3);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\SQLite3\SQLite3QueryResult');
+        parent::baseSetUp($this->class);
 
         $this->set_reflection_property_value('affected_rows', 12);
         $this->set_reflection_property_value('insert_id', 0);
@@ -101,7 +107,7 @@ class SQLite3QueryResultTest extends LunrBaseTest
 
         $this->class = new SQLite3QueryResult($this->query, $this->sqlite3_result, $this->sqlite3);
 
-        $this->reflection = new ReflectionClass('Lunr\Gravity\SQLite3\SQLite3QueryResult');
+        parent::baseSetUp($this->class);
 
         $this->set_reflection_property_value('error_message', 'The query failed.');
         $this->set_reflection_property_value('error_number', 8);
@@ -116,7 +122,8 @@ class SQLite3QueryResultTest extends LunrBaseTest
         unset($this->query);
         unset($this->sqlite3_result);
         unset($this->class);
-        unset($this->reflection);
+
+        parent::tearDown();
     }
 
 }

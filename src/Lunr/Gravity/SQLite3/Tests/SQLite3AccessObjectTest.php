@@ -15,7 +15,7 @@ use Lunr\Gravity\SQLite3\SQLite3QueryEscaper;
 use Lunr\Halo\LunrBaseTest;
 use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\MockObject\MockedType;
+use PHPUnit\Framework\MockObject\Stub;
 use ReflectionClass;
 
 /**
@@ -28,15 +28,21 @@ abstract class SQLite3AccessObjectTest extends LunrBaseTest
 
     /**
      * Mock instance of a SQLite3Connection
-     * @var SQLite3Connection&MockObject&MockedType
+     * @var SQLite3Connection&MockObject&Stub
      */
     protected SQLite3Connection $db;
 
     /**
      * Mock instance of the Logger class.
-     * @var LoggerInterface&MockObject&MockedType
+     * @var LoggerInterface&MockObject&Stub
      */
     protected LoggerInterface $logger;
+
+    /**
+     * Instance of the tested class.
+     * @var SQLite3AccessObject&MockObject&Stub
+     */
+    protected SQLite3AccessObject&MockObject&Stub $class;
 
     /**
      * Testcase Constructor.
@@ -63,7 +69,7 @@ abstract class SQLite3AccessObjectTest extends LunrBaseTest
                             ->setConstructorArgs([ $this->db, $this->logger ])
                             ->getMockForAbstractClass();
 
-        $this->reflection = new ReflectionClass(SQLite3AccessObject::class);
+        parent::baseSetUp($this->class);
     }
 
     /**
@@ -73,6 +79,7 @@ abstract class SQLite3AccessObjectTest extends LunrBaseTest
     {
         unset($this->db);
         unset($this->logger);
+        unset($this->class);
 
         parent::tearDown();
     }
