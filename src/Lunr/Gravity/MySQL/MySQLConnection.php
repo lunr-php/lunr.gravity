@@ -12,6 +12,7 @@ namespace Lunr\Gravity\MySQL;
 
 use Lunr\Gravity\DatabaseConnection;
 use Lunr\Gravity\Exceptions\ConnectionException;
+use Lunr\Gravity\Exceptions\DefragmentationException;
 use Lunr\Core\Configuration;
 use Psr\Log\LoggerInterface;
 use MySQLi;
@@ -511,6 +512,26 @@ class MySQLConnection extends DatabaseConnection
         $this->connect();
 
         return $this->mysqli->autocommit(TRUE);
+    }
+
+    /**
+     * Run OPTIMIZE TABLE on a table.
+     *
+     * @param string $table The table name to defragment.
+     *
+     * @return void
+     */
+    public function defragment(string $table): void
+    {
+        $query = $this->query('OPTIMIZE TABLE ' . $this->escaper->table($table));
+
+        if ($query->has_failed() === TRUE)
+        {
+            $context = [ 'query' => $query->query(), 'error' => $query->error_message() ];
+            $this->logger->error('{query}; failed with error: {error}', $context);
+
+            throw new DefragmentationException($query, "Failed to optimize table: $table");
+        }
     }
 
 }

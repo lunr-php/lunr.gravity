@@ -12,6 +12,7 @@ namespace Lunr\Gravity\SQLite3;
 
 use Lunr\Gravity\DatabaseConnection;
 use Lunr\Gravity\Exceptions\ConnectionException;
+use Lunr\Gravity\Exceptions\DefragmentationException;
 use Lunr\Core\Configuration;
 use Psr\Log\LoggerInterface;
 
@@ -246,6 +247,28 @@ class SQLite3Connection extends DatabaseConnection
         $this->connect();
 
         return $this->sqlite3->exec('END TRANSACTION');
+    }
+
+    /**
+     * Perform VACUUM operation to defragment the SQLite database.
+     *
+     * This function executes the VACUUM command, which optimizes the SQLite database file by reclaiming unused space.
+     *
+     * @param string $table This parameter is ignored when using SQLite, as VACUUM operates on the entire database.
+     *
+     * @return void
+     */
+    public function defragment(string $table = ''): void
+    {
+        $query = $this->query('VACUUM');
+
+        if ($query->has_failed() === TRUE)
+        {
+            $context = [ 'query' => $query->query(), 'error' => $query->error_message() ];
+            $this->logger->error('{query}; failed with error: {error}', $context);
+
+            throw new DefragmentationException($query, 'Database defragmentation failed.');
+        }
     }
 
 }
