@@ -106,11 +106,12 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
 
         $this->escaper->expects($this->exactly(2))
                       ->method('value')
-                      ->will($this->returnValueMap([[ 'a', '"a"' ], [ 'b', '"b"' ]]));
+                      ->withConsecutive([ 'a' ], [ 'b' ])
+                      ->willReturnOnConsecutiveCalls('"a"', '"b"');
 
         $this->builder->expects($this->once())
                       ->method('on_between')
-                      ->with($this->equalTo('`left`'))
+                      ->with('`left`', '"a"', '"b"')
                       ->will($this->returnSelf());
 
         $this->class->on_between('left', 'a', 'b');

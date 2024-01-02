@@ -29,23 +29,23 @@ class DatabaseQueryEscaperNullEscapeTest extends DatabaseQueryEscaperTest
      */
     public function validValueEscaperProvider(): array
     {
-        $escapers   = [];
-        $escapers[] = [
+        $escapers          = [];
+        $escapers['int']   = [
             'intvalue',
             '100',
             100,
         ];
-        $escapers[] = [
+        $escapers['float'] = [
             'floatvalue',
             '100.0',
             100.0,
         ];
-        $escapers[] = [
+        $escapers['query'] = [
             'query_value',
             'SELECT * FROM table',
             '(SELECT * FROM table)',
         ];
-        $escapers[] = [
+        $escapers['list']  = [
             'list_value',
             [ 'A', 'B', 'C' ],
             '(A, B, C)',
@@ -61,12 +61,12 @@ class DatabaseQueryEscaperNullEscapeTest extends DatabaseQueryEscaperTest
      */
     public function invalidValueEscaperProvider(): array
     {
-        $escapers   = [];
-        $escapers[] = [
+        $escapers            = [];
+        $escapers['table']   = [
             'table',
             [ 'foo' ],
         ];
-        $escapers[] = [
+        $escapers['collate'] = [
             'collate',
             [ 'value', 'collate' ],
         ];

@@ -19,145 +19,145 @@ interface DMLQueryBuilderInterface
     /**
      * Construct and return a SELECT query.
      *
-     * @return string $query The constructed query string.
+     * @return string The constructed query string.
      */
-    public function get_select_query();
+    public function get_select_query(): string;
 
     /**
      * Construct and return a DELETE query.
      *
-     * @return string $query The constructed query string.
+     * @return string The constructed query string.
      */
-    public function get_delete_query();
+    public function get_delete_query(): string;
 
     /**
      * Construct and return a INSERT query.
      *
-     * @return string $query The constructed query string.
+     * @return string The constructed query string.
      */
-    public function get_insert_query();
+    public function get_insert_query(): string;
 
     /**
      * Construct and return a REPLACE query.
      *
-     * @return string $query The constructed query string.
+     * @return string The constructed query string.
      */
-    public function get_replace_query();
+    public function get_replace_query(): string;
 
     /**
      * Construct and return an UPDATE query.
      *
-     * @return string $query The constructed query string.
+     * @return string The constructed query string.
      */
-    public function get_update_query();
+    public function get_update_query(): string;
 
     /**
      * Define the mode of the DELETE clause.
      *
      * @param string $mode The delete mode you want to use
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function delete_mode($mode);
+    public function delete_mode($mode): static;
 
     /**
      * Define a DELETE clause.
      *
      * @param string $delete The table references to delete from
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function delete($delete);
+    public function delete($delete): static;
 
     /**
      * Define the mode of the INSERT clause.
      *
      * @param string $mode The insert mode you want to use
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function insert_mode($mode);
+    public function insert_mode($mode): static;
 
     /**
      * Define the mode of the REPLACE clause.
      *
      * @param string $mode The replace mode you want to use
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function replace_mode($mode);
+    public function replace_mode($mode): static;
 
     /**
      * Define INTO clause of the SQL statement.
      *
      * @param string $table Table name
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function into($table);
+    public function into($table): static;
 
     /**
      * Define a Select statement for Insert statement.
      *
      * @param string $select SQL Select statement to be used in Insert
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function select_statement($select);
+    public function select_statement($select): static;
 
     /**
      * Define SET clause of the SQL statement.
      *
      * @param array $set Array containing escaped key->value pairs to be set
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function set($set);
+    public function set($set): static;
 
     /**
      * Define Column names of the affected by Insert or Update SQL statement.
      *
      * @param array $keys Array containing escaped field names to be set
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function column_names($keys);
+    public function column_names($keys): static;
 
     /**
      * Define Values for Insert or Update SQL statement.
      *
      * @param array $values Array containing escaped values to be set
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function values($values);
+    public function values($values): static;
 
     /**
      * Define the mode of the SELECT clause.
      *
      * @param string $mode The select mode you want to use
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function select_mode($mode);
+    public function select_mode($mode): static;
 
     /**
      * Define a SELECT clause.
      *
      * @param string|null $select The columns to select
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function select($select);
+    public function select($select): static;
 
     /**
      * Define FROM clause of the SQL statement.
      *
      * @param string $table_reference Table name
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function from($table_reference);
+    public function from($table_reference): static;
 
     /**
      * Define JOIN clause of the SQL statement.
@@ -165,9 +165,9 @@ interface DMLQueryBuilderInterface
      * @param string $table_reference Table reference to join with.
      * @param string $type            Type of JOIN operation to perform.
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function join($table_reference, $type = 'INNER');
+    public function join($table_reference, $type = 'INNER'): static;
 
     /**
      * Define ON part of a JOIN clause of the SQL statement.
@@ -176,9 +176,9 @@ interface DMLQueryBuilderInterface
      * @param string $right    Right expression
      * @param string $operator Comparison operator
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function on($left, $right, $operator = '=');
+    public function on($left, $right, $operator = '='): static;
 
     /**
      * Define ON part of a JOIN clause with LIKE comparator of the SQL statement.
@@ -187,9 +187,9 @@ interface DMLQueryBuilderInterface
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function on_like($left, $right, $negate = FALSE);
+    public function on_like($left, $right, $negate = FALSE): static;
 
     /**
     * Define ON part of a JOIN clause with IN comparator of the SQL statement.
@@ -198,9 +198,9 @@ interface DMLQueryBuilderInterface
     * @param string $right  Right expression
     * @param bool   $negate Whether to negate the comparison or not
     *
-    * @return DMLQueryBuilderInterface $self Self reference
+    * @return $this Self reference
     */
-    public function on_in($left, $right, $negate = FALSE);
+    public function on_in($left, $right, $negate = FALSE): static;
 
     /**
      * Define ON part of a JOIN clause with BETWEEN comparator of the SQL statement.
@@ -210,9 +210,9 @@ interface DMLQueryBuilderInterface
      * @param string $upper  The upper bound of the between condition
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function on_between($left, $lower, $upper, $negate = FALSE);
+    public function on_between($left, $lower, $upper, $negate = FALSE): static;
 
     /**
     * Define ON part of a JOIN clause with REGEXP comparator of the SQL statement.
@@ -221,9 +221,9 @@ interface DMLQueryBuilderInterface
     * @param string $right  Right expression
     * @param bool   $negate Whether to negate the comparison or not
     *
-    * @return DMLQueryBuilderInterface $self Self reference
+    * @return $this Self reference
     */
-    public function on_regexp($left, $right, $negate = FALSE);
+    public function on_regexp($left, $right, $negate = FALSE): static;
 
     /**
      * Define ON part of a JOIN clause with the NULL condition.
@@ -231,23 +231,23 @@ interface DMLQueryBuilderInterface
      * @param string $left   Left expression
      * @param bool   $negate Whether to negate the condition or not
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function on_null($left, $negate = FALSE);
+    public function on_null($left, $negate = FALSE): static;
 
     /**
      * Open ON group.
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function start_on_group();
+    public function start_on_group(): static;
 
     /**
      * Close ON group.
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function end_on_group();
+    public function end_on_group(): static;
 
     /**
      * Define WHERE clause of the SQL statement.
@@ -256,23 +256,23 @@ interface DMLQueryBuilderInterface
      * @param string $right    Right expression
      * @param string $operator Comparison operator
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function where($left, $right, $operator = '=');
+    public function where($left, $right, $operator = '='): static;
 
     /**
      * Open WHERE group.
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function start_where_group();
+    public function start_where_group(): static;
 
     /**
      * Close WHERE group.
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function end_where_group();
+    public function end_where_group(): static;
 
     /**
      * Define WHERE clause with LIKE comparator of the SQL statement.
@@ -281,9 +281,9 @@ interface DMLQueryBuilderInterface
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function where_like($left, $right, $negate = FALSE);
+    public function where_like($left, $right, $negate = FALSE): static;
 
     /**
     * Define WHERE clause with the IN condition of the SQL statement.
@@ -292,9 +292,9 @@ interface DMLQueryBuilderInterface
     * @param string $right  Right expression
     * @param bool   $negate Whether to negate the condition or not
     *
-    * @return DMLQueryBuilderInterface $self Self reference
+    * @return $this Self reference
     */
-    public function where_in($left, $right, $negate = FALSE);
+    public function where_in($left, $right, $negate = FALSE): static;
 
     /**
      * Define WHERE clause with the BETWEEN condition of the SQL statement.
@@ -304,9 +304,9 @@ interface DMLQueryBuilderInterface
      * @param string $upper  The upper bound of the between condition
      * @param bool   $negate Whether to negate the condition or not
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function where_between($left, $lower, $upper, $negate = FALSE);
+    public function where_between($left, $lower, $upper, $negate = FALSE): static;
 
     /**
     * Define WHERE clause with the REGEXP condition of the SQL statement.
@@ -315,9 +315,9 @@ interface DMLQueryBuilderInterface
     * @param string $right  Right expression
     * @param bool   $negate Whether to negate the condition or not
     *
-    * @return DMLQueryBuilderInterface $self Self reference
+    * @return $this Self reference
     */
-    public function where_regexp($left, $right, $negate = FALSE);
+    public function where_regexp($left, $right, $negate = FALSE): static;
 
     /**
      * Define WHERE clause with the NULL condition.
@@ -325,18 +325,18 @@ interface DMLQueryBuilderInterface
      * @param string $left   Left expression
      * @param bool   $negate Whether to negate the condition or not
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function where_null($left, $negate = FALSE);
+    public function where_null($left, $negate = FALSE): static;
 
     /**
      * Define a GROUP BY clause of the SQL statement.
      *
      * @param string $expr Expression to group by
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function group_by($expr);
+    public function group_by($expr): static;
 
     /**
      * Define HAVING clause of the SQL statement.
@@ -345,9 +345,9 @@ interface DMLQueryBuilderInterface
      * @param string $right    Right expression
      * @param string $operator Comparison operator
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function having($left, $right, $operator = '=');
+    public function having($left, $right, $operator = '='): static;
 
     /**
      * Define HAVING clause with LIKE comparator of the SQL statement.
@@ -356,9 +356,9 @@ interface DMLQueryBuilderInterface
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function having_like($left, $right, $negate = FALSE);
+    public function having_like($left, $right, $negate = FALSE): static;
 
     /**
     * Define HAVING clause with IN comparator of the SQL statement.
@@ -367,9 +367,9 @@ interface DMLQueryBuilderInterface
     * @param string $right  Right expression
     * @param bool   $negate Whether to negate the comparison or not
     *
-    * @return DMLQueryBuilderInterface $self Self reference
+    * @return $this Self reference
     */
-    public function having_in($left, $right, $negate = FALSE);
+    public function having_in($left, $right, $negate = FALSE): static;
 
     /**
      * Define HAVING clause with BETWEEN comparator of the SQL statement.
@@ -379,9 +379,9 @@ interface DMLQueryBuilderInterface
      * @param string $upper  The upper bound of the between condition
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function having_between($left, $lower, $upper, $negate = FALSE);
+    public function having_between($left, $lower, $upper, $negate = FALSE): static;
 
     /**
     * Define HAVING clause with REGEXP comparator of the SQL statement.
@@ -390,9 +390,9 @@ interface DMLQueryBuilderInterface
     * @param string $right  Right expression
     * @param bool   $negate Whether to negate the comparison or not
     *
-    * @return DMLQueryBuilderInterface $self Self reference
+    * @return $this Self reference
     */
-    public function having_regexp($left, $right, $negate = FALSE);
+    public function having_regexp($left, $right, $negate = FALSE): static;
 
     /**
      * Define HAVING clause with the NULL condition.
@@ -400,23 +400,23 @@ interface DMLQueryBuilderInterface
      * @param string $left   Left expression
      * @param bool   $negate Whether to negate the condition or not
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function having_null($left, $negate = FALSE);
+    public function having_null($left, $negate = FALSE): static;
 
     /**
      * Open HAVING group.
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function start_having_group();
+    public function start_having_group(): static;
 
     /**
      * Close HAVING group.
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function end_having_group();
+    public function end_having_group(): static;
 
     /**
      * Define a ORDER BY clause of the SQL statement.
@@ -424,9 +424,9 @@ interface DMLQueryBuilderInterface
      * @param string $expr Expression to order by
      * @param bool   $asc  Order ASCending/TRUE or DESCending/FALSE
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function order_by($expr, $asc = TRUE);
+    public function order_by($expr, $asc = TRUE): static;
 
     /**
      * Define a LIMIT clause of the SQL statement.
@@ -434,9 +434,9 @@ interface DMLQueryBuilderInterface
      * @param int $amount The amount of elements to retrieve
      * @param int $offset Start retrieving elements from a specific index
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function limit($amount, $offset = -1);
+    public function limit($amount, $offset = -1): static;
 
     /**
      * Define a UNION or UNION ALL clause of the SQL statement.
@@ -444,32 +444,32 @@ interface DMLQueryBuilderInterface
      * @param string $sql_query SQL query reference
      * @param string $type      Type of UNION operation to perform.
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function union(string $sql_query, string $type);
+    public function union(string $sql_query, string $type): static;
 
     /**
      * Define the lock mode for a transaction.
      *
      * @param string $mode The lock mode you want to use
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function lock_mode($mode);
+    public function lock_mode($mode): static;
 
     /**
      * Set logical connector 'AND'.
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function sql_and();
+    public function sql_and(): static;
 
     /**
      * Set logical connector 'OR'.
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function sql_or();
+    public function sql_or(): static;
 
     /**
      * Define a with clause.
@@ -478,9 +478,9 @@ interface DMLQueryBuilderInterface
      * @param string $sql_query    Sql query reference
      * @param array  $column_names An optional parameter to give the result columns a name
      *
-     * @return DMLQueryBuilderInterface $self Self reference
+     * @return $this Self reference
      */
-    public function with($alias, $sql_query, $column_names = NULL);
+    public function with($alias, $sql_query, $column_names = NULL): static;
 
     /**
      * Define a recursive WITH clause.
@@ -491,9 +491,9 @@ interface DMLQueryBuilderInterface
      * @param bool   $union_all       True for UNION ALL false for UNION
      * @param array  $column_names    An optional parameter to give the result columns a name
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function with_recursive($alias, $anchor_query, $recursive_query, $union_all = FALSE, $column_names = NULL);
+    public function with_recursive($alias, $anchor_query, $recursive_query, $union_all = FALSE, $column_names = NULL): static;
 
 }
 

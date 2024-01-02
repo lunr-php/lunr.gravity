@@ -55,9 +55,9 @@ class MariaDBSimpleDMLQueryBuilder extends MySQLSimpleDMLQueryBuilder
      *
      * @param string $returning Columns to return
      *
-     * @return MariaDBDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function returning($returning)
+    public function returning($returning): static
     {
         $columns = '';
         foreach (explode(',', $returning) as $column)
@@ -80,9 +80,9 @@ class MariaDBSimpleDMLQueryBuilder extends MySQLSimpleDMLQueryBuilder
      * @param string $sql_query SQL query reference
      * @param string $type      Type of INTERSECT operation to perform.
      *
-     * @return MariaDBSimpleDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function intersect(string $sql_query, string $type = '')
+    public function intersect(string $sql_query, string $type = ''): static
     {
         $this->builder->intersect($this->escaper->query_value($sql_query), $type);
         return $this;
@@ -94,9 +94,9 @@ class MariaDBSimpleDMLQueryBuilder extends MySQLSimpleDMLQueryBuilder
      * @param string $sql_query SQL query reference
      * @param string $type      Type of EXCEPT operation to perform.
      *
-     * @return MariaDBSimpleDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function except($sql_query, $type = NULL)
+    public function except($sql_query, $type = NULL): static
     {
         $this->builder->except($this->escaper->query_value($sql_query), $type);
         return $this;

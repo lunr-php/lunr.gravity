@@ -259,7 +259,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return string $query The constructed query string.
      */
-    public function get_select_query()
+    public function get_select_query(): string
     {
         $components = [];
 
@@ -297,7 +297,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return string $query The constructed query string.
      */
-    public function get_delete_query()
+    public function get_delete_query(): string
     {
         if ($this->from == '')
         {
@@ -320,7 +320,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return string $query The constructed query string.
      */
-    public function get_insert_query()
+    public function get_insert_query(): string
     {
         if ($this->into == '')
         {
@@ -365,7 +365,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return string $query The constructed query string.
      */
-    public function get_replace_query()
+    public function get_replace_query(): string
     {
         if ($this->into == '')
         {
@@ -408,7 +408,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return string $query The constructed query string.
      */
-    public function get_update_query()
+    public function get_update_query(): string
     {
         if ($this->update == '')
         {
@@ -439,7 +439,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_select($select, $base = 'SELECT')
+    protected function sql_select($select, $base = 'SELECT'): void
     {
         $part = ($base == 'RETURNING') ? 'returning' : 'select';
 
@@ -466,7 +466,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_with($alias, $sql_query, $recursive_query = NULL, $union = NULL, $column_names = NULL)
+    protected function sql_with($alias, $sql_query, $recursive_query = NULL, $union = NULL, $column_names = NULL): void
     {
         if ($column_names !== NULL)
         {
@@ -507,7 +507,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_update($table_references)
+    protected function sql_update($table_references): void
     {
         if ($this->update != '')
         {
@@ -524,7 +524,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_delete($delete)
+    protected function sql_delete($delete): void
     {
         if ($this->delete != '')
         {
@@ -542,7 +542,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_from($table, $index_hints = NULL)
+    protected function sql_from($table, $index_hints = NULL): void
     {
         if ($this->from == '')
         {
@@ -565,7 +565,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_join($table_reference, $type, $index_hints = NULL)
+    protected function sql_join($table_reference, $type, $index_hints = NULL): void
     {
         $type = strtoupper($type);
 
@@ -593,7 +593,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_using($column_list)
+    protected function sql_using($column_list): void
     {
         // Select join type.
         if ($this->join_type === '')
@@ -627,7 +627,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_into($table)
+    protected function sql_into($table): void
     {
         $this->into = 'INTO ' . $table;
     }
@@ -639,7 +639,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_set($set)
+    protected function sql_set($set): void
     {
         if ($this->set == '')
         {
@@ -667,7 +667,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_column_names($keys)
+    protected function sql_column_names($keys): void
     {
         $this->column_names = '(' . implode(', ', $keys) . ')';
     }
@@ -680,7 +680,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_values($values)
+    protected function sql_values($values): void
     {
         if (empty($values))
         {
@@ -720,7 +720,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_upsert($key, $action, $target = NULL)
+    protected function sql_upsert($key, $action, $target = NULL): void
     {
         $this->upsert = $key . ' ';
 
@@ -739,7 +739,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_select_statement($select)
+    protected function sql_select_statement($select): void
     {
         if (strpos($select, 'SELECT') === 0)
         {
@@ -757,7 +757,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_condition($left, $right, $operator = '=', $base = 'WHERE')
+    protected function sql_condition($left, $right, $operator = '=', $base = 'WHERE'): void
     {
         $condition = ($base === 'ON') ? 'join' : strtolower($base);
 
@@ -809,7 +809,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_compound($sql_query, $type, $operator = NULL)
+    protected function sql_compound($sql_query, $type, $operator = NULL): void
     {
         if ($this->compound != '')
         {
@@ -836,7 +836,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_order_by($expr, $asc = TRUE)
+    protected function sql_order_by($expr, $asc = TRUE): void
     {
         $direction = ($asc === TRUE) ? 'ASC' : 'DESC';
 
@@ -860,7 +860,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_limit($amount, $offset = -1)
+    protected function sql_limit($amount, $offset = -1): void
     {
         $this->limit = "LIMIT $amount";
 
@@ -877,7 +877,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_connector($connector)
+    protected function sql_connector($connector): void
     {
         $this->connector = $connector;
     }
@@ -889,7 +889,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_group_by($expr)
+    protected function sql_group_by($expr): void
     {
         if ($this->group_by == '')
         {
@@ -910,7 +910,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return string $sql The constructed SQL query
      */
-    protected function implode_query($components)
+    protected function implode_query($components): string
     {
         $sql = '';
 
@@ -947,7 +947,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return string $hints Comma separated list of index hints.
      */
-    protected function prepare_index_hints($index_hints)
+    protected function prepare_index_hints($index_hints): string
     {
         if (is_array($index_hints) && !empty($index_hints))
         {
@@ -969,7 +969,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_group_start($base = 'WHERE')
+    protected function sql_group_start($base = 'WHERE'): void
     {
         $condition = ($base === 'ON') ? 'join' : strtolower($base);
 
@@ -1010,7 +1010,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return void
      */
-    protected function sql_group_end($condition = 'WHERE')
+    protected function sql_group_end($condition = 'WHERE'): void
     {
         $condition = ($condition === 'ON') ? 'join' : strtolower($condition);
 

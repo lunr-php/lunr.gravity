@@ -58,7 +58,7 @@ class SQLite3QueryEscaper extends DatabaseQueryEscaper
      *
      * @return string $return Defined and escaped value
      */
-    public function value($value, $collation = '', $charset = '')
+    public function value($value, $collation = '', $charset = ''): string
     {
         return trim($this->collate('\'' . $this->escaper->escape_string($value) . '\'', $collation));
     }
@@ -72,7 +72,7 @@ class SQLite3QueryEscaper extends DatabaseQueryEscaper
      *
      * @return string $return Defined, escaped and unhexed value
      */
-    public function hexvalue($value, $collation = '', $charset = '')
+    public function hexvalue($value, $collation = '', $charset = ''): string
     {
         return $this->value($value, $collation, $charset);
     }
@@ -87,7 +87,7 @@ class SQLite3QueryEscaper extends DatabaseQueryEscaper
      *
      * @return string $return Defined, escaped and unhexed value
      */
-    public function likevalue($value, $match = 'both', $collation = '', $charset = '')
+    public function likevalue($value, $match = 'both', $collation = '', $charset = ''): string
     {
         switch ($match)
         {
@@ -113,9 +113,9 @@ class SQLite3QueryEscaper extends DatabaseQueryEscaper
      * @param array  $indices Array of indices
      * @param string $for     Unused with SQLite
      *
-     * @return mixed $return NULL for invalid indices, escaped string otherwise.
+     * @return string|null $return NULL for invalid indices, escaped string otherwise.
      */
-    public function index_hint($keyword, $indices, $for = '')
+    public function index_hint($keyword, $indices, $for = ''): ?string
     {
         if (!is_array($indices) || empty($indices))
         {

@@ -67,7 +67,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return mixed $return Escaped value or NULL
      */
-    public function __call($name, $arguments)
+    public function __call($name, $arguments): mixed
     {
         if (substr($name, 0, 8) == 'null_or_' && strpos($name, 'value'))
         {
@@ -82,6 +82,8 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
                 return $this->{$method}(...$arguments);
             }
         }
+
+        return NULL;
     }
 
     /**
@@ -92,7 +94,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return string $return Defined and escaped column name
      */
-    public function column($name, $collation = '')
+    public function column($name, $collation = ''): string
     {
         return trim($this->collate($this->escape_location_reference($name), $collation));
     }
@@ -105,7 +107,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return string $return Defined and escaped result column
      */
-    public function result_column($column, $alias = '')
+    public function result_column($column, $alias = ''): string
     {
         $column = $this->escape_location_reference($column);
 
@@ -127,7 +129,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return string $return Defined and escaped result column
      */
-    public function hex_result_column($column, $alias = '')
+    public function hex_result_column($column, $alias = ''): string
     {
         $alias = ($alias === '') ? $column : $alias;
         $alias = static::IDENTIFIER_DELIMITER_L . $alias . static::IDENTIFIER_DELIMITER_R;
@@ -143,7 +145,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return string $return Defined and escaped table
      */
-    public function table($table, $alias = '')
+    public function table($table, $alias = ''): string
     {
         $table = $this->escape_location_reference($table);
 
@@ -166,7 +168,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return string Defined and escaped value
      */
-    abstract public function value($value, $collation = '', $charset = '');
+    abstract public function value($value, $collation = '', $charset = ''): string;
 
     /**
      * Define and escape input as integer value.
@@ -175,7 +177,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return int Defined and escaped Integer value
      */
-    public function intvalue($value)
+    public function intvalue($value): int
     {
         return intval($value);
     }
@@ -187,7 +189,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return float Defined and escaped float value
      */
-    public function floatvalue($value)
+    public function floatvalue($value): float
     {
         return floatval($value);
     }
@@ -199,7 +201,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
     *
     * @return string $return Defined within parentheses
     */
-    public function query_value($value)
+    public function query_value($value): string
     {
         return empty($value) ? '' : '(' . $value . ')';
     }
@@ -211,7 +213,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return string $output Defined, escaped and within parentheses
      */
-    public function list_value($array_values)
+    public function list_value($array_values): string
     {
         if (is_array($array_values) === FALSE)
         {
@@ -229,7 +231,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return string $return Value with collation definition.
      */
-    protected function collate($value, $collation)
+    protected function collate($value, $collation): string
     {
         if ($collation == '')
         {
@@ -248,7 +250,7 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return string escaped column list
      */
-    protected function escape_location_reference($col)
+    protected function escape_location_reference($col): string
     {
         $parts = explode('.', $col);
         $col   = '';

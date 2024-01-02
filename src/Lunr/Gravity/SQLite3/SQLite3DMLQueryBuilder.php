@@ -37,9 +37,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
     /**
      * Construct and return a INSERT query.
      *
-     * @return string $query The constructed query string.
+     * @return string The constructed query string.
      */
-    public function get_insert_query()
+    public function get_insert_query(): string
     {
         if ($this->into == '')
         {
@@ -66,9 +66,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
     /**
      * Construct and return a REPLACE query.
      *
-     * @return string $query The constructed query string.
+     * @return string The constructed query string.
      */
-    public function get_replace_query()
+    public function get_replace_query(): string
     {
         if ($this->into == '')
         {
@@ -96,9 +96,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $mode The delete mode you want to use
      *
-     * @return SQLite3DMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function delete_mode($mode)
+    public function delete_mode($mode): static
     {
         return $this;
     }
@@ -108,9 +108,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $mode The insert mode you want to use
      *
-     * @return SQLite3DMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function insert_mode($mode)
+    public function insert_mode($mode): static
     {
         $mode = strtoupper($mode);
 
@@ -135,9 +135,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $mode The replace mode you want to use
      *
-     * @return SQLite3DMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function replace_mode($mode)
+    public function replace_mode($mode): static
     {
         return $this;
     }
@@ -147,9 +147,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $mode The select mode you want to use
      *
-     * @return SQLite3DMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function select_mode($mode)
+    public function select_mode($mode): static
     {
         $mode = strtoupper($mode);
 
@@ -171,9 +171,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $mode The update mode you want to use
      *
-     * @return SQLite3DMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function update_mode($mode)
+    public function update_mode($mode): static
     {
         $mode = strtoupper($mode);
 
@@ -199,9 +199,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return SQLite3DMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function on_regexp($left, $right, $negate = FALSE)
+    public function on_regexp($left, $right, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'REGEXP' : 'NOT REGEXP';
         $this->sql_condition($left, $right, $operator, 'ON');
@@ -215,9 +215,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the condition or not
      *
-     * @return SQLite3DMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function where_regexp($left, $right, $negate = FALSE)
+    public function where_regexp($left, $right, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'REGEXP' : 'NOT REGEXP';
         $this->sql_condition($left, $right, $operator);
@@ -230,9 +230,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
      * @param string $expr  Expression to group by
      * @param bool   $order Not supported by SQLite
      *
-     * @return SQLite3DMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function group_by($expr, $order = NULL)
+    public function group_by($expr, $order = NULL): static
     {
         $this->sql_group_by($expr);
         return $this;
@@ -245,9 +245,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return SQLite3DMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function having_regexp($left, $right, $negate = FALSE)
+    public function having_regexp($left, $right, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'REGEXP' : 'NOT REGEXP';
         $this->sql_condition($left, $right, $operator, 'HAVING');
@@ -259,9 +259,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $mode The lock mode you want to use
      *
-     * @return SQLite3DMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function lock_mode($mode)
+    public function lock_mode($mode): static
     {
         return $this;
     }
@@ -272,9 +272,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
      * @param string $sql_query SQL query reference
      * @param string $operator  EXCEPT operation to perform
      *
-     * @return SQLite3DMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function except(string $sql_query, string $operator = '')
+    public function except(string $sql_query, string $operator = ''): static
     {
         if (strtoupper($operator) !== 'DISTINCT')
         {
@@ -291,9 +291,9 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
      * @param string $sql_query SQL query reference
      * @param string $operator  INTERSECT operation to perform
      *
-     * @return SQLite3DMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function intersect(string $sql_query, string $operator = '')
+    public function intersect(string $sql_query, string $operator = ''): static
     {
         if (strtoupper($operator) !== 'DISTINCT')
         {

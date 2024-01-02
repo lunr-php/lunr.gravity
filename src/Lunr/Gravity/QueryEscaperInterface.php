@@ -24,7 +24,7 @@ interface QueryEscaperInterface
      *
      * @return string $return Defined and escaped column name
      */
-    public function column($name, $collation = '');
+    public function column($name, $collation = ''): string;
 
     /**
      * Define and escape input as a result column.
@@ -34,7 +34,7 @@ interface QueryEscaperInterface
      *
      * @return string $return Defined and escaped result column
      */
-    public function result_column($column, $alias = '');
+    public function result_column($column, $alias = ''): string;
 
     /**
      * Define and escape input as a result column and transform values to hexadecimal.
@@ -44,7 +44,7 @@ interface QueryEscaperInterface
      *
      * @return string $return Defined and escaped result column
      */
-    public function hex_result_column($column, $alias = '');
+    public function hex_result_column($column, $alias = ''): string;
 
     /**
      * Define and escape input as table.
@@ -54,7 +54,7 @@ interface QueryEscaperInterface
      *
      * @return string $return Defined and escaped table
      */
-    public function table($table, $alias = '');
+    public function table($table, $alias = ''): string;
 
     /**
      * Define and escape input as value.
@@ -65,7 +65,7 @@ interface QueryEscaperInterface
      *
      * @return string $return Defined and escaped value
      */
-    public function value($value, $collation = '', $charset = '');
+    public function value($value, $collation = '', $charset = ''): string;
 
     /**
      * Define and escape input as a hexadecimal value.
@@ -76,7 +76,7 @@ interface QueryEscaperInterface
      *
      * @return string $return Defined, escaped and unhexed value
      */
-    public function hexvalue($value, $collation = '', $charset = '');
+    public function hexvalue($value, $collation = '', $charset = ''): string;
 
     /**
      * Define and escape input as a value in a LIKE expression.
@@ -88,7 +88,7 @@ interface QueryEscaperInterface
      *
      * @return string $return Defined, escaped and wildcarded value
      */
-    public function likevalue($value, $match = 'both', $collation = '', $charset = '');
+    public function likevalue($value, $match = 'both', $collation = '', $charset = ''): string;
 
     /**
      * Define and escape input as integer value.
@@ -97,7 +97,7 @@ interface QueryEscaperInterface
      *
      * @return int Defined and escaped Integer value
      */
-    public function intvalue($value);
+    public function intvalue($value): int;
 
     /**
     * Define input as a query within parentheses.
@@ -106,7 +106,7 @@ interface QueryEscaperInterface
     *
     * @return string $return Defined within parentheses
     */
-    public function query_value($value);
+    public function query_value($value): string;
 
     /**
     * Define input as a csv from an array within parentheses.
@@ -115,7 +115,7 @@ interface QueryEscaperInterface
     *
     * @return string $return Defined, escaped and within parentheses
     */
-    public function list_value($value);
+    public function list_value($value): string;
 
 }
 

@@ -85,7 +85,7 @@ class MySQLSimpleDMLQueryBuilderSelectTest extends MySQLSimpleDMLQueryBuilderTes
         $this->builder->expects($this->once())
                       ->method('select')
                       ->with($this->equalTo('`col`, `col`'))
-                      ->willReturn($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->select('col, col');
     }

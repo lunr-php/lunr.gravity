@@ -40,9 +40,9 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $mode The delete mode you want to use
      *
-     * @return MySQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function delete_mode($mode)
+    public function delete_mode($mode): static
     {
         $mode = strtoupper($mode);
 
@@ -64,9 +64,9 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $mode The insert mode you want to use
      *
-     * @return MySQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function insert_mode($mode)
+    public function insert_mode($mode): static
     {
         $mode = strtoupper($mode);
 
@@ -91,9 +91,9 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $mode The replace mode you want to use
      *
-     * @return MySQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function replace_mode($mode)
+    public function replace_mode($mode): static
     {
         return $this->insert_mode($mode);
     }
@@ -103,9 +103,9 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $mode The select mode you want to use
      *
-     * @return MySQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function select_mode($mode)
+    public function select_mode($mode): static
     {
         $mode = strtoupper($mode);
 
@@ -139,9 +139,9 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $mode The update mode you want to use
      *
-     * @return MySQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function update_mode($mode)
+    public function update_mode($mode): static
     {
         $mode = strtoupper($mode);
 
@@ -164,9 +164,9 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return MySQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function on_regexp($left, $right, $negate = FALSE)
+    public function on_regexp($left, $right, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'REGEXP' : 'NOT REGEXP';
         $this->sql_condition($left, $right, $operator, 'ON');
@@ -180,9 +180,9 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the condition or not
      *
-     * @return MySQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function where_regexp($left, $right, $negate = FALSE)
+    public function where_regexp($left, $right, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'REGEXP' : 'NOT REGEXP';
         $this->sql_condition($left, $right, $operator);
@@ -195,9 +195,9 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
      * @param string $expr  Expression to group by
      * @param bool   $order Order ASCending/TRUE or DESCending/FALSE, default no order/NULL
      *
-     * @return MySQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function group_by($expr, $order = NULL)
+    public function group_by($expr, $order = NULL): static
     {
         $this->sql_group_by($expr);
 
@@ -217,9 +217,9 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return MySQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function having_regexp($left, $right, $negate = FALSE)
+    public function having_regexp($left, $right, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'REGEXP' : 'NOT REGEXP';
         $this->sql_condition($left, $right, $operator, 'HAVING');
@@ -231,9 +231,9 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $mode The lock mode you want to use
      *
-     * @return MySQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function lock_mode($mode)
+    public function lock_mode($mode): static
     {
         $mode = strtoupper($mode);
 
@@ -252,9 +252,9 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
     /**
      * Set logical connector 'XOR'.
      *
-     * @return MySQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function sql_xor()
+    public function sql_xor(): static
     {
         $this->sql_connector('XOR');
         return $this;
@@ -265,9 +265,9 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
      *
      * @param string $set Action to perform on conflict
      *
-     * @return MySQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function on_duplicate_key_update($set)
+    public function on_duplicate_key_update($set): static
     {
         $this->sql_upsert('ON DUPLICATE KEY UPDATE', $set);
         return $this;

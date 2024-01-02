@@ -50,7 +50,7 @@ class MySQLQueryEscaper extends DatabaseQueryEscaper
      *
      * @return string $return Defined and escaped value
      */
-    public function value($value, $collation = '', $charset = '')
+    public function value($value, $collation = '', $charset = ''): string
     {
         return trim($charset . ' ' . $this->collate('\'' . $this->escaper->escape_string($value) . '\'', $collation));
     }
@@ -64,7 +64,7 @@ class MySQLQueryEscaper extends DatabaseQueryEscaper
      *
      * @return string $return Defined, escaped and unhexed value
      */
-    public function hexvalue($value, $collation = '', $charset = '')
+    public function hexvalue($value, $collation = '', $charset = ''): string
     {
         return trim($charset . ' ' . $this->collate('UNHEX(\'' . $this->escaper->escape_string($value) . '\')', $collation));
     }
@@ -78,7 +78,7 @@ class MySQLQueryEscaper extends DatabaseQueryEscaper
      *
      * @return string $return Defined, escaped and unhexed value
      */
-    public function uuidvalue($value, $collation = '', $charset = '')
+    public function uuidvalue($value, $collation = '', $charset = ''): string
     {
         return trim($charset . ' ' . $this->collate('UNHEX(REPLACE(\'' . $this->escaper->escape_string($value) . '\', \'-\', \'\'))', $collation));
     }
@@ -93,7 +93,7 @@ class MySQLQueryEscaper extends DatabaseQueryEscaper
      *
      * @return string $return Defined, escaped and unhexed value
      */
-    public function likevalue($value, $match = 'both', $collation = '', $charset = '')
+    public function likevalue($value, $match = 'both', $collation = '', $charset = ''): string
     {
         switch ($match)
         {
@@ -120,7 +120,7 @@ class MySQLQueryEscaper extends DatabaseQueryEscaper
      *
      * @return string $return Defined and escaped geometric value.
      */
-    public function geovalue($value, $srid = NULL)
+    public function geovalue($value, $srid = NULL): string
     {
         $args = [];
 
@@ -141,9 +141,9 @@ class MySQLQueryEscaper extends DatabaseQueryEscaper
      * @param array  $indices Array of indices
      * @param string $for     Whether to use the index hint for JOIN, ORDER BY or GROUP BY
      *
-     * @return mixed $return NULL for invalid indices, escaped string otherwise.
+     * @return string|null $return NULL for invalid indices, escaped string otherwise.
      */
-    public function index_hint($keyword, $indices, $for = '')
+    public function index_hint($keyword, $indices, $for = ''): ?string
     {
         if (!is_array($indices) || empty($indices))
         {

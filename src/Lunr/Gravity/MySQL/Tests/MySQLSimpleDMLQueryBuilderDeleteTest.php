@@ -53,7 +53,7 @@ class MySQLSimpleDMLQueryBuilderDeleteTest extends MySQLSimpleDMLQueryBuilderTes
         $this->builder->expects($this->once())
                       ->method('delete')
                       ->with($this->equalTo('`col`, `col`'))
-                      ->willReturn($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->delete('col, col');
     }

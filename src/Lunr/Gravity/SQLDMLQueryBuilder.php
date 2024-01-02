@@ -38,9 +38,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      *
      * @param string $table_references The tables to delete from
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function delete($table_references = '')
+    public function delete($table_references = ''): static
     {
         $this->sql_delete($table_references);
         return $this;
@@ -51,9 +51,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      *
      * @param string $table Table reference
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function into($table)
+    public function into($table): static
     {
         $this->sql_into($table);
         return $this;
@@ -64,9 +64,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      *
      * @param string $select SQL Select statement to be used in Insert
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function select_statement($select)
+    public function select_statement($select): static
     {
         $this->sql_select_statement($select);
         return $this;
@@ -77,9 +77,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      *
      * @param array $set Array containing escaped key->value pairs to be set
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function set($set)
+    public function set($set): static
     {
         $this->sql_set($set);
         return $this;
@@ -90,9 +90,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      *
      * @param array $keys Array containing escaped field names to be set
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function column_names($keys)
+    public function column_names($keys): static
     {
         $this->sql_column_names($keys);
         return $this;
@@ -103,9 +103,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      *
      * @param array $values Array containing escaped values to be set
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function values($values)
+    public function values($values): static
     {
         $this->sql_values($values);
         return $this;
@@ -116,9 +116,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      *
      * @param string|null $select The column(s) to select
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function select($select)
+    public function select($select): static
     {
         $this->sql_select($select);
         return $this;
@@ -129,9 +129,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      *
      * @param string $table_references The tables to update
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function update($table_references)
+    public function update($table_references): static
     {
         $this->sql_update($table_references);
         return $this;
@@ -143,9 +143,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $table_reference Table reference
      * @param array  $index_hints     Array of Index Hints
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function from($table_reference, $index_hints = NULL)
+    public function from($table_reference, $index_hints = NULL): static
     {
         $this->sql_from($table_reference, $index_hints);
         return $this;
@@ -158,9 +158,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $type            Type of JOIN operation to perform.
      * @param array  $index_hints     Array of Index Hints
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function join($table_reference, $type = 'INNER', $index_hints = NULL)
+    public function join($table_reference, $type = 'INNER', $index_hints = NULL): static
     {
         $this->sql_join($table_reference, $type, $index_hints);
         return $this;
@@ -171,9 +171,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      *
      * @param string $column_list Column name to use.
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function using($column_list)
+    public function using($column_list): static
     {
         $this->sql_using($column_list);
         return $this;
@@ -186,9 +186,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $right    Right expression
      * @param string $operator Comparison operator
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function on($left, $right, $operator = '=')
+    public function on($left, $right, $operator = '='): static
     {
         $this->sql_condition($left, $right, $operator, 'ON');
         return $this;
@@ -201,9 +201,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function on_like($left, $right, $negate = FALSE)
+    public function on_like($left, $right, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'LIKE' : 'NOT LIKE';
         $this->sql_condition($left, $right, $operator, 'ON');
@@ -217,9 +217,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function on_in($left, $right, $negate = FALSE)
+    public function on_in($left, $right, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'IN' : 'NOT IN';
         $this->sql_condition($left, $right, $operator, 'ON');
@@ -234,9 +234,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $upper  The upper bound of the between condition
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function on_between($left, $lower, $upper, $negate = FALSE)
+    public function on_between($left, $lower, $upper, $negate = FALSE): static
     {
         $right    = $lower . ' AND ' . $upper;
         $operator = ($negate === FALSE) ? 'BETWEEN' : 'NOT BETWEEN';
@@ -250,9 +250,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $left   Left expression
      * @param bool   $negate Whether to negate the condition or not
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function on_null($left, $negate = FALSE)
+    public function on_null($left, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'IS' : 'IS NOT';
         $this->sql_condition($left, 'NULL', $operator, 'ON');
@@ -262,9 +262,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Open ON group.
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function start_on_group()
+    public function start_on_group(): static
     {
         $this->sql_group_start('ON');
         return $this;
@@ -273,9 +273,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Close ON group.
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function end_on_group()
+    public function end_on_group(): static
     {
         $this->sql_group_end('ON');
         return $this;
@@ -288,9 +288,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $right    Right expression
      * @param string $operator Comparison operator
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function where($left, $right, $operator = '=')
+    public function where($left, $right, $operator = '='): static
     {
         $this->sql_condition($left, $right, $operator);
         return $this;
@@ -303,9 +303,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function where_like($left, $right, $negate = FALSE)
+    public function where_like($left, $right, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'LIKE' : 'NOT LIKE';
         $this->sql_condition($left, $right, $operator);
@@ -319,9 +319,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the condition or not
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function where_in($left, $right, $negate = FALSE)
+    public function where_in($left, $right, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'IN' : 'NOT IN';
         $this->sql_condition($left, $right, $operator);
@@ -336,9 +336,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $upper  The upper bound of the between condition
      * @param bool   $negate Whether to negate the condition or not
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function where_between($left, $lower, $upper, $negate = FALSE)
+    public function where_between($left, $lower, $upper, $negate = FALSE): static
     {
         $right    = $lower . ' AND ' . $upper;
         $operator = ($negate === FALSE) ? 'BETWEEN' : 'NOT BETWEEN';
@@ -352,9 +352,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $left   Left expression
      * @param bool   $negate Whether to negate the condition or not
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function where_null($left, $negate = FALSE)
+    public function where_null($left, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'IS' : 'IS NOT';
         $this->sql_condition($left, 'NULL', $operator);
@@ -364,9 +364,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Open WHERE group.
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function start_where_group()
+    public function start_where_group(): static
     {
         $this->sql_group_start();
         return $this;
@@ -375,9 +375,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Close WHERE group.
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function end_where_group()
+    public function end_where_group(): static
     {
         $this->sql_group_end();
         return $this;
@@ -390,9 +390,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $right    Right expression
      * @param string $operator Comparison operator
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function having($left, $right, $operator = '=')
+    public function having($left, $right, $operator = '='): static
     {
         $this->sql_condition($left, $right, $operator, 'HAVING');
         return $this;
@@ -405,9 +405,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function having_like($left, $right, $negate = FALSE)
+    public function having_like($left, $right, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'LIKE' : 'NOT LIKE';
         $this->sql_condition($left, $right, $operator, 'HAVING');
@@ -421,9 +421,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function having_in($left, $right, $negate = FALSE)
+    public function having_in($left, $right, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'IN' : 'NOT IN';
         $this->sql_condition($left, $right, $operator, 'HAVING');
@@ -438,9 +438,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $upper  The upper bound of the between condition
      * @param bool   $negate Whether to negate the comparison or not
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function having_between($left, $lower, $upper, $negate = FALSE)
+    public function having_between($left, $lower, $upper, $negate = FALSE): static
     {
         $right    = $lower . ' AND ' . $upper;
         $operator = ($negate === FALSE) ? 'BETWEEN' : 'NOT BETWEEN';
@@ -454,9 +454,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $left   Left expression
      * @param bool   $negate Whether to negate the condition or not
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function having_null($left, $negate = FALSE)
+    public function having_null($left, $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'IS' : 'IS NOT';
         $this->sql_condition($left, 'NULL', $operator, 'HAVING');
@@ -466,9 +466,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Open HAVING group.
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function start_having_group()
+    public function start_having_group(): static
     {
         $this->sql_group_start('HAVING');
         return $this;
@@ -477,9 +477,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Close HAVING group.
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function end_having_group()
+    public function end_having_group(): static
     {
         $this->sql_group_end('HAVING');
         return $this;
@@ -491,9 +491,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $expr Expression to order by
      * @param bool   $asc  Order ASCending/TRUE or DESCending/FALSE
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function order_by($expr, $asc = TRUE)
+    public function order_by($expr, $asc = TRUE): static
     {
         $this->sql_order_by($expr, $asc);
         return $this;
@@ -505,9 +505,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param int $amount The amount of elements to retrieve
      * @param int $offset Start retrieving elements from a specific index
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function limit($amount, $offset = -1)
+    public function limit($amount, $offset = -1): static
     {
         $this->sql_limit($amount, $offset);
         return $this;
@@ -519,9 +519,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     * @param string $sql_query SQL query reference
     * @param string $operator  UNION operation to perform
     *
-    * @return SQLDMLQueryBuilder $self Self reference
+    * @return $this Self reference
     */
-    public function union(string $sql_query, string $operator = '')
+    public function union(string $sql_query, string $operator = ''): static
     {
         $this->sql_compound($sql_query, 'UNION', strtoupper($operator));
         return $this;
@@ -530,9 +530,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Set logical connector 'AND'.
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function sql_and()
+    public function sql_and(): static
     {
         $this->sql_connector('AND');
         return $this;
@@ -541,9 +541,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Set logical connector 'OR'.
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function sql_or()
+    public function sql_or(): static
     {
         $this->sql_connector('OR');
         return $this;
@@ -556,9 +556,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param string $sql_query    Sql query reference
      * @param array  $column_names An optional parameter to give the result columns a name
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function with($alias, $sql_query, $column_names = NULL)
+    public function with($alias, $sql_query, $column_names = NULL): static
     {
         $this->sql_with($alias, $sql_query, '', '', $column_names);
         return $this;
@@ -573,9 +573,9 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      * @param bool   $union_all       True for UNION ALL false for UNION
      * @param array  $column_names    An optional parameter to give the result columns a name
      *
-     * @return SQLDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function with_recursive($alias, $anchor_query, $recursive_query, $union_all = FALSE, $column_names = NULL)
+    public function with_recursive($alias, $anchor_query, $recursive_query, $union_all = FALSE, $column_names = NULL): static
     {
         $base = ($union_all === TRUE) ? 'UNION ALL' : 'UNION';
         $this->sql_with($alias, $anchor_query, $recursive_query, $base, $column_names);

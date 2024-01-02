@@ -39,9 +39,9 @@ class MariaDBDMLQueryBuilder extends MySQLDMLQueryBuilder
      *
      * @param string $fields Fields to return
      *
-     * @return MariaDBDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function returning($fields)
+    public function returning($fields): static
     {
         $this->sql_select($fields, 'RETURNING');
         return $this;
@@ -53,9 +53,9 @@ class MariaDBDMLQueryBuilder extends MySQLDMLQueryBuilder
      * @param string $sql_query SQL query reference
      * @param string $operator  EXCEPT operation to perform
      *
-     * @return MariaDBDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function except(string $sql_query, string $operator = '')
+    public function except(string $sql_query, string $operator = ''): static
     {
         $this->sql_compound($sql_query, 'EXCEPT', strtoupper($operator));
         return $this;
@@ -67,9 +67,9 @@ class MariaDBDMLQueryBuilder extends MySQLDMLQueryBuilder
      * @param string $sql_query SQL query reference
      * @param string $operator  INTERSECT operation to perform
      *
-     * @return MariaDBDMLQueryBuilder $self Self reference
+     * @return $this Self reference
      */
-    public function intersect(string $sql_query, string $operator = '')
+    public function intersect(string $sql_query, string $operator = ''): static
     {
         $this->sql_compound($sql_query, 'INTERSECT', strtoupper($operator));
         return $this;
