@@ -163,9 +163,9 @@ class SQLite3Connection extends DatabaseConnection
     /**
      * Return a new instance of a QueryEscaper object.
      *
-     * @return SQLite3QueryEscaper $escaper New SQLite3QueryEscaper object instance
+     * @return SQLite3QueryEscaper New SQLite3QueryEscaper object instance
      */
-    public function get_query_escaper_object()
+    public function get_query_escaper_object(): SQLite3QueryEscaper
     {
         if (isset($this->escaper) === FALSE)
         {
@@ -180,9 +180,9 @@ class SQLite3Connection extends DatabaseConnection
      *
      * @param string $string The string to escape
      *
-     * @return mixed $return The escaped string on success, FALSE on error
+     * @return string The escaped string
      */
-    public function escape_string($string)
+    public function escape_string(string $string): string
     {
         return $this->sqlite3->escapeString($string);
     }

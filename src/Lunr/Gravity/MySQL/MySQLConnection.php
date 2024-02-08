@@ -352,9 +352,9 @@ class MySQLConnection extends DatabaseConnection
     /**
      * Return a new instance of a QueryEscaper object.
      *
-     * @return MySQLQueryEscaper $escaper New MySQLQueryEscaper object instance
+     * @return MySQLQueryEscaper New MySQLQueryEscaper object instance
      */
-    public function get_query_escaper_object()
+    public function get_query_escaper_object(): MySQLQueryEscaper
     {
         if (isset($this->escaper) === FALSE)
         {
@@ -369,9 +369,9 @@ class MySQLConnection extends DatabaseConnection
      *
      * @param string $string The string to escape
      *
-     * @return mixed $return The escaped string
+     * @return string The escaped string
      */
-    public function escape_string($string)
+    public function escape_string(string $string): string
     {
         $this->connect();
 
