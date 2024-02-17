@@ -170,24 +170,6 @@ abstract class DatabaseQueryEscaperTest extends LunrBaseTest
         return $illegals;
     }
 
-    /**
-     * Unit test data provider for invalid list_value() input values.
-     *
-     * @return array $values Array of invalid values.
-     */
-    public function invalidListValueInputProvider(): array
-    {
-        $values   = [];
-        $values[] = [ 0 ];
-        $values[] = [ 0.1 ];
-        $values[] = [ 'string' ];
-        $values[] = [ NULL ];
-        $values[] = [ TRUE ];
-        $values[] = [ new stdClass() ];
-
-        return $values;
-    }
-
 }
 
 ?>

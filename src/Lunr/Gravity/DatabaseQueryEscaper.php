@@ -221,13 +221,8 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
      *
      * @return string $output Defined, escaped and within parentheses
      */
-    public function list_value($array_values): string
+    public function list_value(array $array_values): string
     {
-        if (is_array($array_values) === FALSE)
-        {
-            return '';
-        }
-
         return '(' . implode(', ', $array_values) . ')';
     }
 

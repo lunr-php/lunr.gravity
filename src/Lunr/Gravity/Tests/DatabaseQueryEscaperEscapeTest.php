@@ -351,19 +351,6 @@ class DatabaseQueryEscaperEscapeTest extends DatabaseQueryEscaperTest
         $this->assertEquals('(value1)', $this->class->list_value($values));
     }
 
-    /**
-     * Test list_value() with invalid input.
-     *
-     * @param mixed $value Invalid input
-     *
-     * @dataProvider invalidListValueInputProvider
-     * @covers       Lunr\Gravity\DatabaseQueryEscaper::list_value
-     */
-    public function testEscapeListValueWithInvalidInput($value): void
-    {
-        $this->assertEquals('', $this->class->list_value($value));
-    }
-
 }
 
 ?>

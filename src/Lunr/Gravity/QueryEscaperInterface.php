@@ -115,7 +115,7 @@ interface QueryEscaperInterface
     *
     * @return string $return Defined, escaped and within parentheses
     */
-    public function list_value($value): string;
+    public function list_value(array $value): string;
 
 }
 
