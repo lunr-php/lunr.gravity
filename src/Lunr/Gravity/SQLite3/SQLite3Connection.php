@@ -35,6 +35,12 @@ class SQLite3Connection extends DatabaseConnection
     protected $sqlite3;
 
     /**
+     * Instance of the SQLite3QueryEscaper
+     * @var SQLite3QueryEscaper
+     */
+    private readonly SQLite3QueryEscaper $escaper;
+
+    /**
      * Constructor.
      *
      * @param Configuration   $configuration Shared instance of the configuration class

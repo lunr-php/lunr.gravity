@@ -47,14 +47,6 @@ class DatabaseConnectionBaseTest extends DatabaseConnectionTest
     }
 
     /**
-     * Test that by default we don't have a QueryEscaper instance.
-     */
-    public function testEscaperIsNull(): void
-    {
-        $this->assertNull($this->get_reflection_property_value('escaper'));
-    }
-
-    /**
      * Test that set_readonly sets the readonly flag when passed TRUE.
      *
      * @depends testReadonlyIsFalseByDefault

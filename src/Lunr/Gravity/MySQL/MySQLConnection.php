@@ -114,6 +114,12 @@ class MySQLConnection extends DatabaseConnection
     protected $options;
 
     /**
+     * Instance of the MySQLQueryEscaper
+     * @var MySQLQueryEscaper
+     */
+    private readonly MySQLQueryEscaper $escaper;
+
+    /**
      * Limit how often we automatically reconnect after failing to set a charset.
      * @var int
      */
@@ -523,7 +529,9 @@ class MySQLConnection extends DatabaseConnection
      */
     public function defragment(string $table): void
     {
-        $query = $this->query('OPTIMIZE TABLE ' . $this->escaper->table($table));
+        $escaper = $this->get_query_escaper_object();
+
+        $query = $this->query('OPTIMIZE TABLE ' . $escaper->table($table));
 
         if ($query->has_failed() === TRUE)
         {

@@ -31,6 +31,14 @@ class MySQLConnectionBaseTest extends MySQLConnectionTest
     }
 
     /**
+     * Test that by default we don't have a QueryEscaper instance.
+     */
+    public function testEscaperIsUnset(): void
+    {
+        $this->assertPropertyUnset('escaper');
+    }
+
+    /**
      * Test that rw_host is set correctly.
      */
     public function testRWHostIsSetCorrectly(): void
@@ -188,11 +196,11 @@ class MySQLConnectionBaseTest extends MySQLConnectionTest
      */
     public function testGetQueryEscaperObjectCachesObject(): void
     {
-        $property = $this->get_accessible_reflection_property('escaper');
-        $this->assertNull($property->getValue($this->class));
+        $this->assertPropertyUnset('escaper');
 
         $this->class->get_query_escaper_object();
 
+        $property = $this->get_reflection_property('escaper');
         $instance = 'Lunr\Gravity\MySQL\MySQLQueryEscaper';
         $this->assertInstanceOf($instance, $property->getValue($this->class));
     }

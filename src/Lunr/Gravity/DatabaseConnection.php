@@ -44,12 +44,6 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
     protected $logger;
 
     /**
-     * Instance of the DatabaseQueryEscaper
-     * @var DatabaseQueryEscaper
-     */
-    protected $escaper;
-
-    /**
      * Constructor.
      *
      * @param Configuration   $configuration Shared instance of the configuration class
@@ -62,7 +56,6 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
 
         $this->configuration = $configuration;
         $this->logger        = $logger;
-        $this->escaper       = NULL;
     }
 
     /**
@@ -72,7 +65,6 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
     {
         unset($this->configuration);
         unset($this->logger);
-        unset($this->escaper);
         unset($this->readonly);
         unset($this->connected);
     }
