@@ -20,13 +20,13 @@ class MySQLCanonicalQuery
      * Query to canonicalize.
      * @var string
      */
-    private $query;
+    private readonly string $query;
 
     /**
      * Canonicalized query.
      * @var string
      */
-    private $canonical_query;
+    private readonly string $canonical_query;
 
     /**
      * List of index ranges to ignore.
@@ -41,8 +41,7 @@ class MySQLCanonicalQuery
      */
     public function __construct(string $query)
     {
-        $this->query           = $query;
-        $this->canonical_query = NULL;
+        $this->query = $query;
     }
 
     /**
@@ -62,7 +61,7 @@ class MySQLCanonicalQuery
      */
     public function get_canonical_query(): string
     {
-        if ($this->canonical_query !== NULL)
+        if (isset($this->canonical_query) === TRUE)
         {
             return $this->canonical_query;
         }
@@ -455,9 +454,9 @@ class MySQLCanonicalQuery
      *
      * @param string $string Input string with canonical query to collapse
      *
-     * @return string|null returns the string with canonical_query without multi-row values
+     * @return string returns the string with canonical_query without multi-row values
      */
-    private function collapse_multirows(string $string): ?string
+    private function collapse_multirows(string $string): string
     {
         if (stripos($string, 'INSERT INTO') === FALSE && stripos($string, 'REPLACE INTO') === FALSE)
         {

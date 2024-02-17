@@ -10,6 +10,8 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
+use Lunr\Gravity\MySQL\MySQLCanonicalQuery;
+
 /**
  * This class contains unit tests for MySQLCanonicalQuery.
  *
@@ -240,9 +242,8 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
             return;
         }
 
-        $property = $this->get_accessible_reflection_property('query');
-        $input    = file_get_contents($data);
-        $output   = file_get_contents($expected);
+        $input  = file_get_contents($data);
+        $output = file_get_contents($expected);
 
         if ($input === FALSE)
         {
@@ -254,8 +255,9 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
             $this->markTestSkipped("File \"$expected\" could not be read!");
         }
 
-        $property->setValue($this->class, $input);
-        $value = $this->class->get_canonical_query();
+        $class = new MySQLCanonicalQuery($input);
+
+        $value = $class->get_canonical_query();
 
         $this->assertEquals($output, $value);
     }

@@ -196,6 +196,19 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTest
         $this->assertIsString($value);
         $this->assertEquals('SELECT * FROM table1 WHERE value="?"', $value);
 
+        $value = $this->get_reflection_property_value('canonical_query');
+        $this->assertIsString($value);
+        $this->assertEquals('SELECT * FROM table1 WHERE value="?"', $value);
+    }
+
+    /**
+     * Test that canonical_query() returns a cached string.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLQueryResult::canonical_query
+     */
+    public function testCachedCanonicalQuery(): void
+    {
+        $this->assertPropertyUnset('canonical_query');
         $this->set_reflection_property_value('canonical_query', 'SELECT * FROM table2 WHERE value=?');
         $value = $this->class->canonical_query();
         $this->assertIsString($value);
