@@ -279,6 +279,18 @@ abstract class DatabaseAccessObject
         return TRUE;
     }
 
+    /**
+     * Trigger defragmentation operation for the specified table.
+     *
+     * @param string $table The table to defragment.
+     *
+     * @return void
+     */
+    public function defragment(string $table): void
+    {
+        $this->db->defragment($table);
+    }
+
 }
 
 ?>

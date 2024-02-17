@@ -56,6 +56,20 @@ class DatabaseAccessObjectBaseTest extends DatabaseAccessObjectTest
         $this->assertSame($db, $property->getValue($this->class));
     }
 
+    /**
+     * Test that defragment() triggers defragmentation.
+     *
+     * @covers Lunr\Gravity\DatabaseAccessObject::defragment
+     */
+    public function testDefragmentTriggersDefragmentation()
+    {
+        $this->db->expects($this->once())
+                 ->method('defragment')
+                 ->with('table1');
+
+        $this->class->defragment('table1');
+    }
+
 }
 
 ?>
