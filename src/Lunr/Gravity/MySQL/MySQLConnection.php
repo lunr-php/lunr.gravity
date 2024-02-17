@@ -205,7 +205,7 @@ class MySQLConnection extends DatabaseConnection
         }
         else
         {
-            $this->port = ini_get('mysqli.default_port');
+            $this->port = (int) (ini_get('mysqli.default_port') ?: 3306 );
         }
 
         if ($this->configuration['db']['socket'] != NULL)

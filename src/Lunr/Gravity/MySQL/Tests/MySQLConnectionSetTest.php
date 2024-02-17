@@ -214,6 +214,30 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
     }
 
     /**
+     * Test that set_configuration sets port to a hardcoded value of fetching from php.ini fails.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLConnection::set_configuration
+     */
+    public function testSetConfigurationSetsPortToHardcodedValueIfIniFails(): void
+    {
+        $this->mock_function('ini_get', fn($arg) => FALSE);
+
+        $this->sub_configuration->expects($this->any())
+                      ->method('offsetGet')
+                      ->will($this->returnValueMap($this->values_map));
+
+        $property = $this->get_accessible_reflection_property('port');
+        $property->setValue($this->class, '');
+
+        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method->invoke($this->class);
+
+        $this->assertSame(3306, $property->getValue($this->class));
+
+        $this->unmock_function('ini_get');
+    }
+
+    /**
      * Test that set_configuration sets port correctly.
      *
      * @covers Lunr\Gravity\MySQL\MySQLConnection::set_configuration

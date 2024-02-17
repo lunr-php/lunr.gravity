@@ -116,9 +116,9 @@ class DatabaseConnectionPool
      * @param bool $new Whether to get a new connection or not
      * @param bool $ro  Whether to get a readonly connection or not
      *
-     * @return DatabaseConnection $db A database connection
+     * @return DatabaseConnection|null $db A database connection
      */
-    protected function get_connection($new, $ro)
+    protected function get_connection($new, $ro): ?DatabaseConnection
     {
         $store = $ro ? 'ro_pool' : 'rw_pool';
 
