@@ -67,6 +67,31 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testOnIn(): void
     {
+        $this->escaper->expects($this->once())
+                      ->method('column')
+                      ->with($this->equalTo('left'))
+                      ->will($this->returnValue('`left`'));
+
+        $this->escaper->expects($this->once())
+                      ->method('query_value')
+                      ->with('SELECT column FROM table')
+                      ->willReturn('(SELECT column FROM table)');
+
+        $this->builder->expects($this->once())
+                      ->method('on_in')
+                      ->with('`left`', '(SELECT column FROM table)', FALSE)
+                      ->willReturnSelf();
+
+        $this->class->on_in('left', 'SELECT column FROM table');
+    }
+
+    /**
+     * Test on_in_list().
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::on_in_list
+     */
+    public function testOnInList(): void
+    {
         $this->escaper->expects($this->exactly(2))
                       ->method('value')
                       ->will($this->returnValueMap([
@@ -86,10 +111,10 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
 
         $this->builder->expects($this->once())
                       ->method('on_in')
-                      ->with($this->equalTo('`left`'))
-                      ->will($this->returnSelf());
+                      ->with('`left`', '("val1", "val2")', FALSE)
+                      ->willReturnSelf();
 
-        $this->class->on_in('left', [ 'val1', 'val2' ]);
+        $this->class->on_in_list('left', [ 'val1', 'val2' ]);
     }
 
     /**
@@ -313,6 +338,31 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testWhereIn(): void
     {
+        $this->escaper->expects($this->once())
+                      ->method('column')
+                      ->with($this->equalTo('left'))
+                      ->will($this->returnValue('`left`'));
+
+        $this->escaper->expects($this->once())
+                      ->method('query_value')
+                      ->with('SELECT column FROM table')
+                      ->willReturn('(SELECT column FROM table)');
+
+        $this->builder->expects($this->once())
+                      ->method('where_in')
+                      ->with('`left`', '(SELECT column FROM table)', FALSE)
+                      ->willReturnSelf();
+
+        $this->class->where_in('left', 'SELECT column FROM table');
+    }
+
+    /**
+     * Test where_in_list().
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::where_in_list
+     */
+    public function testWhereInList(): void
+    {
         $this->escaper->expects($this->exactly(2))
                       ->method('value')
                       ->will($this->returnValueMap([[ 'val1', '', '', '"val1"' ], [ 'val2', '', '', '"val2"' ]]));
@@ -329,10 +379,10 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
 
         $this->builder->expects($this->once())
                       ->method('where_in')
-                      ->with($this->equalTo('`left`'), $this->equalTo('("val1", "val2")'), FALSE)
-                      ->will($this->returnSelf());
+                      ->with('`left`', '("val1", "val2")', FALSE)
+                      ->willReturnSelf();
 
-        $this->class->where_in('left', [ 'val1', 'val2' ]);
+        $this->class->where_in_list('left', [ 'val1', 'val2' ]);
     }
 
     /**
@@ -470,6 +520,31 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testHavingIn(): void
     {
+        $this->escaper->expects($this->once())
+                      ->method('column')
+                      ->with($this->equalTo('left'))
+                      ->will($this->returnValue('`left`'));
+
+        $this->escaper->expects($this->once())
+                      ->method('query_value')
+                      ->with('SELECT column FROM table')
+                      ->willReturn('(SELECT column FROM table)');
+
+        $this->builder->expects($this->once())
+                      ->method('having_in')
+                      ->with('`left`', '(SELECT column FROM table)', FALSE)
+                      ->willReturnSelf();
+
+        $this->class->having_in('left', 'SELECT column FROM table');
+    }
+
+    /**
+     * Test having_in_list().
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::having_in_list
+     */
+    public function testHavingInList(): void
+    {
         $this->escaper->expects($this->exactly(2))
                       ->method('value')
                       ->will($this->returnValueMap([[ 'val1', '', '', '"val1"' ], [ 'val2', '', '', '"val2"' ]]));
@@ -486,10 +561,10 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
 
         $this->builder->expects($this->once())
                       ->method('having_in')
-                      ->with($this->equalTo('`left`'), $this->equalTo('("val1", "val2")'), FALSE)
-                      ->will($this->returnSelf());
+                      ->with('`left`', '("val1", "val2")', FALSE)
+                      ->willReturnSelf();
 
-        $this->class->having_in('left', [ 'val1', 'val2' ]);
+        $this->class->having_in_list('left', [ 'val1', 'val2' ]);
     }
 
     /**

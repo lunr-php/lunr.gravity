@@ -200,7 +200,7 @@ interface DMLQueryBuilderInterface
     *
     * @return $this Self reference
     */
-    public function on_in($left, $right, $negate = FALSE): static;
+    public function on_in(string $left, string $right, bool $negate = FALSE): static;
 
     /**
      * Define ON part of a JOIN clause with BETWEEN comparator of the SQL statement.
@@ -294,7 +294,7 @@ interface DMLQueryBuilderInterface
     *
     * @return $this Self reference
     */
-    public function where_in($left, $right, $negate = FALSE): static;
+    public function where_in(string $left, string $right, bool $negate = FALSE): static;
 
     /**
      * Define WHERE clause with the BETWEEN condition of the SQL statement.
@@ -369,7 +369,7 @@ interface DMLQueryBuilderInterface
     *
     * @return $this Self reference
     */
-    public function having_in($left, $right, $negate = FALSE): static;
+    public function having_in(string $left, string $right, bool $negate = FALSE): static;
 
     /**
      * Define HAVING clause with BETWEEN comparator of the SQL statement.

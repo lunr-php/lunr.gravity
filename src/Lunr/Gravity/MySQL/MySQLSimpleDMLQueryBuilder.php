@@ -393,12 +393,27 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
      * Define ON part of a JOIN clause with IN comparator of the SQL statement.
      *
      * @param string $left   Left expression
+     * @param string $right  Right expression
+     * @param bool   $negate Whether to negate the comparison or not
+     *
+     * @return $this Self reference
+     */
+    public function on_in(string $left, string $right, bool $negate = FALSE): static
+    {
+        $this->builder->on_in($this->escaper->column($left), $this->escaper->query_value($right), $negate);
+        return $this;
+    }
+
+    /**
+     * Define ON part of a JOIN clause with IN comparator of the SQL statement.
+     *
+     * @param string $left   Left expression
      * @param array  $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
      * @return $this Self reference
      */
-    public function on_in($left, $right, $negate = FALSE): static
+    public function on_in_list(string $left, array $right, bool $negate = FALSE): static
     {
         $right = array_map([ $this->escaper, 'value' ], $right);
 
@@ -533,12 +548,27 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
      * Define WHERE clause with the IN condition of the SQL statement.
      *
      * @param string $left   Left expression
+     * @param string $right  Right expression
+     * @param bool   $negate Whether to negate the condition or not
+     *
+     * @return $this Self reference
+     */
+    public function where_in(string $left, string $right, bool $negate = FALSE): static
+    {
+        $this->builder->where_in($this->escaper->column($left), $this->escaper->query_value($right), $negate);
+        return $this;
+    }
+
+    /**
+     * Define WHERE clause with the IN condition of the SQL statement.
+     *
+     * @param string $left   Left expression
      * @param array  $right  Right expression
      * @param bool   $negate Whether to negate the condition or not
      *
      * @return $this Self reference
      */
-    public function where_in($left, $right, $negate = FALSE): static
+    public function where_in_list(string $left, array $right, bool $negate = FALSE): static
     {
         $right = array_map([ $this->escaper, 'value' ], $right);
 
@@ -665,12 +695,27 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
      * Define HAVING clause with IN comparator of the SQL statement.
      *
      * @param string $left   Left expression
+     * @param string $right  Right expression
+     * @param bool   $negate Whether to negate the comparison or not
+     *
+     * @return $this Self reference
+     */
+    public function having_in(string $left, string $right, bool $negate = FALSE): static
+    {
+        $this->builder->having_in($this->escaper->column($left), $this->escaper->query_value($right), $negate);
+        return $this;
+    }
+
+    /**
+     * Define HAVING clause with IN comparator of the SQL statement.
+     *
+     * @param string $left   Left expression
      * @param array  $right  Right expression
      * @param bool   $negate Whether to negate the comparison or not
      *
      * @return $this Self reference
      */
-    public function having_in($left, $right, $negate = FALSE): static
+    public function having_in_list(string $left, array $right, bool $negate = FALSE): static
     {
         $right = array_map([ $this->escaper, 'value' ], $right);
 

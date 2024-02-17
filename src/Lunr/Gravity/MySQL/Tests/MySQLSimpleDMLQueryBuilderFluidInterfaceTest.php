@@ -152,7 +152,24 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
                       ->with($this->equalTo(NULL))
                       ->will($this->returnSelf());
 
-        $return = $this->class->on_in('col', [ 'val' ]);
+        $return = $this->class->on_in('col', 'SELECT column FROM table');
+
+        $this->assertSame($this->class, $return);
+    }
+
+    /**
+     * Test the fluid interface of on_in_list().
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::on_in_list
+     */
+    public function testOnInListReturnsSelf(): void
+    {
+        $this->builder->expects($this->once())
+                      ->method('on_in')
+                      ->with($this->equalTo(NULL))
+                      ->will($this->returnSelf());
+
+        $return = $this->class->on_in_list('col', [ 'val' ]);
 
         $this->assertSame($this->class, $return);
     }
@@ -301,7 +318,24 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
                       ->with($this->equalTo(NULL))
                       ->will($this->returnSelf());
 
-        $return = $this->class->where_in('col', [ 'val' ]);
+        $return = $this->class->where_in('col', 'SELECT column FROM table');
+
+        $this->assertSame($this->class, $return);
+    }
+
+    /**
+     * Test the fluid interface of where_in_list().
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::where_in_list
+     */
+    public function testWhereInListReturnsSelf(): void
+    {
+        $this->builder->expects($this->once())
+                      ->method('where_in')
+                      ->with($this->equalTo(NULL))
+                      ->will($this->returnSelf());
+
+        $return = $this->class->where_in_list('col', [ 'val' ]);
 
         $this->assertSame($this->class, $return);
     }
@@ -403,7 +437,24 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
                       ->with($this->equalTo(NULL))
                       ->will($this->returnSelf());
 
-        $return = $this->class->having_in('col', [ 'val' ]);
+        $return = $this->class->having_in('col', 'SELECT column FROM table');
+
+        $this->assertSame($this->class, $return);
+    }
+
+    /**
+     * Test the fluid interface of having_in_list().
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::having_in_list
+     */
+    public function testHavingInListReturnsSelf(): void
+    {
+        $this->builder->expects($this->once())
+                      ->method('having_in')
+                      ->with($this->equalTo(NULL))
+                      ->will($this->returnSelf());
+
+        $return = $this->class->having_in_list('col', [ 'val' ]);
 
         $this->assertSame($this->class, $return);
     }

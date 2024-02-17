@@ -219,7 +219,7 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      *
      * @return $this Self reference
      */
-    public function on_in($left, $right, $negate = FALSE): static
+    public function on_in(string $left, string $right, bool $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'IN' : 'NOT IN';
         $this->sql_condition($left, $right, $operator, 'ON');
@@ -321,7 +321,7 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      *
      * @return $this Self reference
      */
-    public function where_in($left, $right, $negate = FALSE): static
+    public function where_in(string $left, string $right, bool $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'IN' : 'NOT IN';
         $this->sql_condition($left, $right, $operator);
@@ -423,7 +423,7 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
      *
      * @return $this Self reference
      */
-    public function having_in($left, $right, $negate = FALSE): static
+    public function having_in(string $left, string $right, bool $negate = FALSE): static
     {
         $operator = ($negate === FALSE) ? 'IN' : 'NOT IN';
         $this->sql_condition($left, $right, $operator, 'HAVING');
