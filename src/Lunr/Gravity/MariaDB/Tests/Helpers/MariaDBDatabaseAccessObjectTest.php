@@ -10,13 +10,16 @@
 
 namespace Lunr\Gravity\MariaDB\Tests\Helpers;
 
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder;
+use Lunr\Gravity\MariaDB\MariaDBSimpleDMLQueryBuilder;
+use Lunr\Gravity\MySQL\MySQLQueryEscaper;
+use Lunr\Gravity\Tests\Helpers\DatabaseAccessObjectBaseTest;
 use ReflectionClass;
 
 /**
  * This class contains setup and tear down methods for DAOs using MariaDB access.
  */
-abstract class MariaDBDatabaseAccessObjectTest extends LunrBaseTest
+abstract class MariaDBDatabaseAccessObjectTest extends DatabaseAccessObjectBaseTest
 {
 
     /**
@@ -38,10 +41,28 @@ abstract class MariaDBDatabaseAccessObjectTest extends LunrBaseTest
     protected $builder;
 
     /**
+     * Real instance of the DMLQueryBuilder class
+     * @var \Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder
+     */
+    protected $real_builder;
+
+    /**
+     * Real instance of the SimpleDMLQueryBuilder class
+     * @var \Lunr\Gravity\MariaDB\MariaDBSimpleDMLQueryBuilder
+     */
+    protected $real_simple_builder;
+
+    /**
      * Mock instance of the QueryEscaper class
      * @var \Lunr\Gravity\MySQL\MySQLQueryEscaper
      */
     protected $escaper;
+
+    /**
+     * Real instance of the QueryEscaper class
+     * @var \Lunr\Gravity\MySQL\MySQLQueryEscaper
+     */
+    protected $real_escaper;
 
     /**
      * Mock instance of the QueryResult class
@@ -54,6 +75,18 @@ abstract class MariaDBDatabaseAccessObjectTest extends LunrBaseTest
      */
     public function setUp(): void
     {
+        $mock_escaper = $this->getMockBuilder('Lunr\Gravity\DatabaseStringEscaperInterface')
+                             ->getMock();
+
+        $mock_escaper->expects($this->any())
+                     ->method('escape_string')
+                     ->willReturnArgument(0);
+
+        $this->real_builder = new MariaDBDMLQueryBuilder();
+        $this->real_escaper = new MySQLQueryEscaper($mock_escaper);
+
+        $this->real_simple_builder = new MariaDBSimpleDMLQueryBuilder($this->real_builder, $this->real_escaper);
+
         $this->db = $this->getMockBuilder('Lunr\Gravity\MariaDB\MariaDBConnection')
                          ->disableOriginalConstructor()
                          ->getMock();
@@ -87,6 +120,9 @@ abstract class MariaDBDatabaseAccessObjectTest extends LunrBaseTest
         unset($this->builder);
         unset($this->escaper);
         unset($this->result);
+        unset($this->real_escaper);
+        unset($this->real_builder);
+        unset($this->real_simple_builder);
 
         parent::tearDown();
     }
