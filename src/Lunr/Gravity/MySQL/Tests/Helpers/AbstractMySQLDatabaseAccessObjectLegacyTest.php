@@ -20,6 +20,8 @@ use ReflectionClass;
 
 /**
  * This class contains setup and tear down methods for DAOs using MySQL access.
+ *
+ * @deprecated Use `AbstractMySQLDatabaseAccessObjectTest` instead
  */
 abstract class AbstractMySQLDatabaseAccessObjectLegacyTest extends LegacyBaseTest
 {

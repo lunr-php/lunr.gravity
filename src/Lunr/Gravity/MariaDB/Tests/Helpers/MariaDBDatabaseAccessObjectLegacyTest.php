@@ -15,6 +15,8 @@ use ReflectionClass;
 
 /**
  * This class contains setup and tear down methods for DAOs using MariaDB access.
+ *
+ * @deprecated User `MariaDBDatabaseAccessObjectTest` instead
  */
 abstract class MariaDBDatabaseAccessObjectLegacyTest extends LegacyBaseTest
 {
