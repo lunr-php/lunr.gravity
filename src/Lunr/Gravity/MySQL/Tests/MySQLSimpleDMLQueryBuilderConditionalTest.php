@@ -298,6 +298,20 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
     }
 
     /**
+     * Test or() gets called correctly.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::or
+     */
+    public function testOr(): void
+    {
+        $this->builder->expects($this->once())
+                      ->method('or')
+                      ->will($this->returnSelf());
+
+        $this->class->or();
+    }
+
+    /**
      * Test sql_and() gets called correctly.
      *
      * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::sql_and
@@ -309,6 +323,34 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
                       ->will($this->returnSelf());
 
         $this->class->sql_and();
+    }
+
+    /**
+     * Test and() gets called correctly.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::and
+     */
+    public function testAnd(): void
+    {
+        $this->builder->expects($this->once())
+                      ->method('and')
+                      ->will($this->returnSelf());
+
+        $this->class->and();
+    }
+
+    /**
+     * Test xor() gets called correctly.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::xor
+     */
+    public function testXor(): void
+    {
+        $this->builder->expects($this->once())
+                      ->method('xor')
+                      ->will($this->returnSelf());
+
+        $this->class->xor();
     }
 
     /**

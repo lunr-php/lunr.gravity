@@ -530,9 +530,21 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Set logical connector 'AND'.
      *
+     * @deprecated Use `and()` instead
+     *
      * @return $this Self reference
      */
     public function sql_and(): static
+    {
+        return $this->and();
+    }
+
+    /**
+     * Set logical connector 'AND'.
+     *
+     * @return $this Self reference
+     */
+    public function and(): static
     {
         $this->sql_connector('AND');
         return $this;
@@ -541,9 +553,21 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Set logical connector 'OR'.
      *
+     * @deprecated Use `or()` instead
+     *
      * @return $this Self reference
      */
     public function sql_or(): static
+    {
+        return $this->or();
+    }
+
+    /**
+     * Set logical connector 'OR'.
+     *
+     * @return $this Self reference
+     */
+    public function or(): static
     {
         $this->sql_connector('OR');
         return $this;

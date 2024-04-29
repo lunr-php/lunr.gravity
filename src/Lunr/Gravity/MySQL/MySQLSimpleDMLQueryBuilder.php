@@ -657,6 +657,8 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
     /**
      * Set logical connector 'AND'.
      *
+     * @deprecated Use `and()` instead
+     *
      * @return $this Self reference
      */
     public function sql_and(): static
@@ -666,13 +668,48 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
     }
 
     /**
+     * Set logical connector 'AND'.
+     *
+     * @return $this Self reference
+     */
+    public function and(): static
+    {
+        $this->builder->and();
+        return $this;
+    }
+
+    /**
      * Set logical connector 'OR'.
+     *
+     * @deprecated Use `or()` instead
      *
      * @return $this Self reference
      */
     public function sql_or(): static
     {
         $this->builder->sql_or();
+        return $this;
+    }
+
+    /**
+     * Set logical connector 'OR'.
+     *
+     * @return $this Self reference
+     */
+    public function or(): static
+    {
+        $this->builder->or();
+        return $this;
+    }
+
+    /**
+     * Set logical connector 'XOR'.
+     *
+     * @return $this Self reference
+     */
+    public function xor(): static
+    {
+        $this->builder->xor();
         return $this;
     }
 

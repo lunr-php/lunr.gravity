@@ -665,6 +665,30 @@ class SQLDMLQueryBuilderConditionTest extends SQLDMLQueryBuilderTest
     }
 
     /**
+     * Test specifying a logical AND connector.
+     *
+     * @covers Lunr\Gravity\SQLDMLQueryBuilder::and
+     */
+    public function testAnd(): void
+    {
+        $this->class->and();
+        $this->assertPropertyEquals('connector', 'AND');
+    }
+
+    /**
+     * Test fluid interface of the sql_and method.
+     *
+     * @covers Lunr\Gravity\SQLDMLQueryBuilder::and
+     */
+    public function testAndReturnsSelfReference(): void
+    {
+        $return = $this->class->and();
+
+        $this->assertInstanceOf('Lunr\Gravity\SQLDMLQueryBuilder', $return);
+        $this->assertSame($this->class, $return);
+    }
+
+    /**
      * Test specifying a logical OR connector.
      *
      * @covers Lunr\Gravity\SQLDMLQueryBuilder::sql_or
@@ -683,6 +707,30 @@ class SQLDMLQueryBuilderConditionTest extends SQLDMLQueryBuilderTest
     public function testSQLOrReturnsSelfReference(): void
     {
         $return = $this->class->sql_or();
+
+        $this->assertInstanceOf('Lunr\Gravity\SQLDMLQueryBuilder', $return);
+        $this->assertSame($this->class, $return);
+    }
+
+    /**
+     * Test specifying a logical OR connector.
+     *
+     * @covers Lunr\Gravity\SQLDMLQueryBuilder::or
+     */
+    public function testOr(): void
+    {
+        $this->class->or();
+        $this->assertPropertyEquals('connector', 'OR');
+    }
+
+    /**
+     * Test fluid interface of the sql_or method.
+     *
+     * @covers Lunr\Gravity\SQLDMLQueryBuilder::or
+     */
+    public function testOrReturnsSelfReference(): void
+    {
+        $return = $this->class->or();
 
         $this->assertInstanceOf('Lunr\Gravity\SQLDMLQueryBuilder', $return);
         $this->assertSame($this->class, $return);

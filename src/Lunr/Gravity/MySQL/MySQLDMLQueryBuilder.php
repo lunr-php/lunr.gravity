@@ -252,9 +252,21 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
     /**
      * Set logical connector 'XOR'.
      *
+     * @deprecated Use `xor()` instead
+     *
      * @return $this Self reference
      */
     public function sql_xor(): static
+    {
+        return $this->xor();
+    }
+
+    /**
+     * Set logical connector 'XOR'.
+     *
+     * @return $this Self reference
+     */
+    public function xor(): static
     {
         $this->sql_connector('XOR');
         return $this;

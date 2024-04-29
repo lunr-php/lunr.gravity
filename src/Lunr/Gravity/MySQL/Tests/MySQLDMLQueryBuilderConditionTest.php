@@ -184,6 +184,34 @@ class MySQLDMLQueryBuilderConditionTest extends MySQLDMLQueryBuilderTest
         $this->assertSame($this->builder, $return);
     }
 
+    /**
+     * Test specifying a logical XOR connector.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLDMLQueryBuilder::xor
+     */
+    public function testXor(): void
+    {
+        $property = $this->builder_reflection->getProperty('connector');
+        $property->setAccessible(TRUE);
+
+        $this->builder->xor();
+
+        $this->assertEquals('XOR', $property->getValue($this->builder));
+    }
+
+    /**
+     * Test fluid interface of the sql_xor method.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLDMLQueryBuilder::xor
+     */
+    public function testXorReturnsSelfReference(): void
+    {
+        $return = $this->builder->xor();
+
+        $this->assertInstanceOf('Lunr\Gravity\MySQL\MySQLDMLQueryBuilder', $return);
+        $this->assertSame($this->builder, $return);
+    }
+
 }
 
 ?>
