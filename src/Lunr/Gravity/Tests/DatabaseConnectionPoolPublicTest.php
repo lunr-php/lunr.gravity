@@ -147,7 +147,7 @@ class DatabaseConnectionPoolPublicTest extends DatabaseConnectionPoolTest
     }
 
     /**
-     * Test that get_ro_connection() returns pooled connetion if requested.
+     * Test that get_ro_connection() returns pooled connection if requested.
      *
      * @covers Lunr\Gravity\DatabaseConnectionPool::get_ro_connection
      */
@@ -173,7 +173,7 @@ class DatabaseConnectionPoolPublicTest extends DatabaseConnectionPoolTest
     }
 
     /**
-     * Test that get_rw_connection() returns pooled connetion if requested.
+     * Test that get_rw_connection() returns pooled connection if requested.
      *
      * @covers Lunr\Gravity\DatabaseConnectionPool::get_rw_connection
      */

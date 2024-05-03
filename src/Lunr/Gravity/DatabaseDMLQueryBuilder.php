@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Abtract database query builder class.
+ * Abstract database query builder class.
  *
  * SPDX-FileCopyrightText: Copyright 2012 M2mobi B.V., Amsterdam, The Netherlands
  * SPDX-FileCopyrightText: Copyright 2022 Move Agency Group B.V., Zwolle, The Netherlands
@@ -856,7 +856,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      * Define a LIMIT clause for the SQL statement.
      *
      * @param int $amount The amount of elements to retrieve
-     * @param int $offset Start retrieving elements from a sepcific index
+     * @param int $offset Start retrieving elements from a specific index
      *
      * @return void
      */

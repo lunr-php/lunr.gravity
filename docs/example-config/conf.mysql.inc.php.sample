@@ -16,6 +16,6 @@ define('MYSQL_DUPLICATE_PRIMARY_KEY', 1062);
 /**
  * Error: Foreign key constraint failed
  */
-define('MYSQL_FOREIGN_KEY_CONTRAINT_FAILED', 1216);
+define('MYSQL_FOREIGN_KEY_CONSTRAINT_FAILED', 1216);
 
 ?>

@@ -77,7 +77,7 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
     }
 
     /**
-     * Test imploding a query with dupliacte select_mode values.
+     * Test imploding a query with duplicate select_mode values.
      *
      * @covers Lunr\Gravity\DatabaseDMLQueryBuilder::implode_query
      */
@@ -94,7 +94,7 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
     }
 
     /**
-     * Test imploding a query with dupliacte update_mode values.
+     * Test imploding a query with duplicate update_mode values.
      *
      * @covers Lunr\Gravity\DatabaseDMLQueryBuilder::implode_query
      */
@@ -111,7 +111,7 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
     }
 
     /**
-     * Test imploding a query with dupliacte delete_mode values.
+     * Test imploding a query with duplicate delete_mode values.
      *
      * @covers Lunr\Gravity\DatabaseDMLQueryBuilder::implode_query
      */

@@ -19,7 +19,7 @@ class LunrSQLite3 extends SQLite3
 {
 
     /**
-     * Contructor.
+     * Constructor.
      */
     public function __construct()
     {

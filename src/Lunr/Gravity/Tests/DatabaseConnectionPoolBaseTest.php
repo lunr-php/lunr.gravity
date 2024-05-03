@@ -57,7 +57,7 @@ class DatabaseConnectionPoolBaseTest extends DatabaseConnectionPoolTest
     }
 
     /**
-     * Test that the ro_pool was setup corectly.
+     * Test that the ro_pool was setup correctly.
      */
     public function testReadonlyPoolSetupCorrectly(): void
     {
@@ -71,7 +71,7 @@ class DatabaseConnectionPoolBaseTest extends DatabaseConnectionPoolTest
     }
 
     /**
-     * Test that the rw_pool was setup corectly.
+     * Test that the rw_pool was setup correctly.
      */
     public function testReadWritePoolSetupCorrectly(): void
     {

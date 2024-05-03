@@ -684,11 +684,11 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
     }
 
     /**
-     * Test that result_retry() returns TRUE on succesfull execution.
+     * Test that result_retry() returns TRUE on successful execution.
      *
      * @covers Lunr\Gravity\DatabaseAccessObject::result_boolean
      */
-    public function testResultHasFailedFalseIfQuerySuccesfull(): void
+    public function testResultHasFailedFalseIfQuerySuccessful(): void
     {
         $query = $this->getMockBuilder(DatabaseQueryResultInterface::class)
                       ->getMock();
@@ -743,7 +743,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
     }
 
     /**
-     * Test that get_affected_rows() returns affected rows on succesfull execution.
+     * Test that get_affected_rows() returns affected rows on successful execution.
      *
      * @covers Lunr\Gravity\DatabaseAccessObject::get_affected_rows
      */

@@ -86,7 +86,7 @@ abstract class DatabaseDMLQueryBuilderTest extends LunrBaseTest
     /**
      * Unit test data provider for valid index hints.
      *
-     * @return array $hints Array of valid index hints and exptected prepared values
+     * @return array $hints Array of valid index hints and expected prepared values
      */
     public function validIndexHintProvider(): array
     {
@@ -165,7 +165,7 @@ abstract class DatabaseDMLQueryBuilderTest extends LunrBaseTest
     /**
      * Unit Test Data Provider for initial insert values.
      *
-     * @return array $values Array of inital insert values.
+     * @return array $values Array of initial insert values.
      */
     public function insertValuesProvider(): array
     {

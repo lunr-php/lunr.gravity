@@ -122,7 +122,7 @@ class DatabaseDMLQueryBuilderQueryPartsWithTest extends DatabaseDMLQueryBuilderT
     }
 
     /**
-     * Test specifying a recursive query after a  non recursive query has been specified withouth column names
+     * Test specifying a recursive query after a  non recursive query has been specified without column names
      *
      * @covers Lunr\Gravity\DatabaseDMLQueryBuilder::sql_with
      */

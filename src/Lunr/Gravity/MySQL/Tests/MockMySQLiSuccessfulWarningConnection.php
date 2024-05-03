@@ -19,7 +19,7 @@ class MockMySQLiSuccessfulWarningConnection extends MockMySQLiSuccessfulConnecti
     /**
      * Fake giving mysqli_warnings
      *
-     * @return MockMySQLiWarning $return mockmysqli_warnings for no warnings on successfull query.
+     * @return MockMySQLiWarning $return mockmysqli_warnings for no warnings on successful query.
      */
     public function get_warnings()
     {

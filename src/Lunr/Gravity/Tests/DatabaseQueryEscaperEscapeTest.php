@@ -307,7 +307,7 @@ class DatabaseQueryEscaperEscapeTest extends DatabaseQueryEscaperTest
     }
 
     /**
-     * Test prepending and apending parentheses to a value.
+     * Test prepending and appending parentheses to a value.
      *
      * @covers Lunr\Gravity\DatabaseQueryEscaper::query_value
      */
@@ -317,7 +317,7 @@ class DatabaseQueryEscaperEscapeTest extends DatabaseQueryEscaperTest
     }
 
     /**
-     * Test prepending and apending parentheses to a value with alias.
+     * Test prepending and appending parentheses to a value with alias.
      *
      * @covers Lunr\Gravity\DatabaseQueryEscaper::query_value
      */
@@ -330,7 +330,7 @@ class DatabaseQueryEscaperEscapeTest extends DatabaseQueryEscaperTest
     }
 
     /**
-     * Test prepending and apending parentheses to a list of values, extracted from an array.
+     * Test prepending and appending parentheses to a list of values, extracted from an array.
      *
      * @covers Lunr\Gravity\DatabaseQueryEscaper::list_value
      */
@@ -341,7 +341,7 @@ class DatabaseQueryEscaperEscapeTest extends DatabaseQueryEscaperTest
     }
 
     /**
-     * Test prepending and apending parentheses to a list of values.
+     * Test prepending and appending parentheses to a list of values.
      *
      * @covers Lunr\Gravity\DatabaseQueryEscaper::list_value
      */
