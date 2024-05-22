@@ -10,7 +10,7 @@
 namespace Lunr\Gravity\MySQL\Tests;
 
 use Lunr\Gravity\Exceptions\DefragmentationException;
-use Lunr\Gravity\DatabaseQueryEscaper;
+use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 
 /**
  * This class contains connection related unit tests for MySQLConnection.
@@ -29,7 +29,7 @@ class MySQLConnectionDefragmentTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $escaper = $this->getMockBuilder(DatabaseQueryEscaper::class)
+        $escaper = $this->getMockBuilder(MySQLQueryEscaper::class)
                         ->disableOriginalConstructor()
                         ->getMock();
 
@@ -70,7 +70,7 @@ class MySQLConnectionDefragmentTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $escaper = $this->getMockBuilder(DatabaseQueryEscaper::class)
+        $escaper = $this->getMockBuilder(MySQLQueryEscaper::class)
                         ->disableOriginalConstructor()
                         ->getMock();
 
