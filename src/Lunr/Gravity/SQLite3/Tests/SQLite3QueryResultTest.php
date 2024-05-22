@@ -22,7 +22,7 @@ use SQLite3Result;
  *
  * @covers Lunr\Gravity\SQLite3\SQLite3QueryResult
  */
-class SQLite3QueryResultTest extends LunrBaseTest
+abstract class SQLite3QueryResultTest extends LunrBaseTest
 {
 
     /**

@@ -19,7 +19,7 @@ use ReflectionClass;
  *
  * @covers Lunr\Gravity\MariaDB\MariaDBConnection
  */
-class MariaDBConnectionTest extends LunrBaseTest
+abstract class MariaDBConnectionTest extends LunrBaseTest
 {
 
     /**

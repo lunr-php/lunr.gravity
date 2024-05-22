@@ -19,7 +19,7 @@ use ReflectionClass;
  *
  * @covers Lunr\Gravity\MySQL\MySQLCanonicalQuery
  */
-class MySQLCanonicalQueryTest extends LunrBaseTest
+abstract class MySQLCanonicalQueryTest extends LunrBaseTest
 {
 
     /**
