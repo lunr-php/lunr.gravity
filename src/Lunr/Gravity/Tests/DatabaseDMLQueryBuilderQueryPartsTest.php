@@ -295,11 +295,32 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     public function testOpenGroupWithConnector($keyword, $attribute): void
     {
         $this->set_reflection_property_value('connector', 'OR');
+        $this->set_reflection_property_value($attribute, 'a = b');
 
         $method = $this->get_accessible_reflection_method('sql_group_start');
         $method->invokeArgs($this->class, [ $keyword ]);
 
-        $this->assertEquals(' OR (', $this->get_reflection_property_value($attribute));
+        $this->assertEquals('a = b OR (', $this->get_reflection_property_value($attribute));
+        $this->assertEquals('', $this->get_reflection_property_value('connector'));
+    }
+
+    /**
+    * Test grouping condition start when condition is empty.
+    *
+    * @param string $keyword   The expected statement keyword
+    * @param string $attribute The name of the property where the statement is stored
+    *
+    * @dataProvider conditionalKeywordProvider
+    * @covers       Lunr\Gravity\DatabaseDMLQueryBuilder::sql_group_start
+    */
+    public function testOpenGroupWithConnectorWhenConditionIsEmpty($keyword, $attribute): void
+    {
+        $this->set_reflection_property_value('connector', 'OR');
+
+        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method->invokeArgs($this->class, [ $keyword ]);
+
+        $this->assertEquals('(', $this->get_reflection_property_value($attribute));
         $this->assertEquals('', $this->get_reflection_property_value('connector'));
     }
 

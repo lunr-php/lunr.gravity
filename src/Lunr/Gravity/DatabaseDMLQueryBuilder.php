@@ -992,8 +992,12 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
         }
         elseif ($this->connector != '')
         {
-            $this->$condition .= ' ' . $this->connector . ' ';
-            $this->connector   = '';
+            if (!empty($this->$condition))
+            {
+                $this->$condition .= ' ' . $this->connector . ' ';
+            }
+
+            $this->connector = '';
         }
         elseif (!empty($this->$condition) && substr($this->$condition, -1) !== '(')
         {
