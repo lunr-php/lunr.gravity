@@ -6,7 +6,7 @@
   "type": "library",
   "license": "MIT",
   "require": {
-    "psr/log": "~1.1.0",
+    "psr/log": ">=1.1",
     "php": ">=8.1",
     "lunr/config": "~0.9.0"
   },
