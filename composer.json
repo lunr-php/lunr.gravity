@@ -11,7 +11,8 @@
     "lunr/config": "~0.9.0"
   },
   "suggest": {
-    "ext-mysqli": "Needed for MySQL/MariaDB support in Gravity"
+    "ext-mysqli": "Needed for MySQL/MariaDB support in Gravity",
+    "ext-sqlite": "Needed for SQLite support in Gravity"
   },
   "require-dev": {
     "lunr/halo": "~0.9.0",
