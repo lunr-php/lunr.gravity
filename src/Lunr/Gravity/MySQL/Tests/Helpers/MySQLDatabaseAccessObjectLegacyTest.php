@@ -148,6 +148,7 @@ abstract class MySQLDatabaseAccessObjectLegacyTest extends LegacyBaseTest
     public function assertSqlStringEqualsSqlFile($expectedFile, $actualSql): void
     {
         $formatted = file_get_contents($expectedFile);
+        $formatted = preg_replace('/\s--.*/', '', $formatted);
         $formatted = trim(preg_replace('/\s+/', ' ', $formatted));
         $formatted = str_replace('( ', '(', $formatted);
         $formatted = str_replace(' )', ')', $formatted);
