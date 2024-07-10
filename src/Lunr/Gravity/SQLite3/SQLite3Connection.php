@@ -26,7 +26,7 @@ class SQLite3Connection extends DatabaseConnection
      * Database to connect to.
      * @var string
      */
-    protected $db;
+    protected string $db;
 
     /**
      * Instance of the SQLite3 class
@@ -47,7 +47,7 @@ class SQLite3Connection extends DatabaseConnection
      * @param LoggerInterface $logger        Shared instance of a logger class
      * @param LunrSQLite3     $sqlite3       Instance of the LunrSQLite3 class
      */
-    public function __construct($configuration, $logger, $sqlite3)
+    public function __construct(Configuration $configuration, LoggerInterface $logger, LunrSQLite3 $sqlite3)
     {
         parent::__construct($configuration, $logger);
 
@@ -76,7 +76,7 @@ class SQLite3Connection extends DatabaseConnection
      *
      * @return void
      */
-    private function set_configuration()
+    private function set_configuration(): void
     {
         $this->db = isset($this->configuration['db']['file']) ? $this->configuration['db']['file'] : ':memory:';
     }
@@ -86,7 +86,7 @@ class SQLite3Connection extends DatabaseConnection
      *
      * @return void
      */
-    public function connect()
+    public function connect(): void
     {
         if ($this->connected === TRUE)
         {
@@ -118,7 +118,7 @@ class SQLite3Connection extends DatabaseConnection
      *
      * @return void
      */
-    public function disconnect()
+    public function disconnect(): void
     {
         if ($this->connected !== TRUE)
         {
@@ -137,7 +137,7 @@ class SQLite3Connection extends DatabaseConnection
      *
      * @return bool True on success, False on Failure
      */
-    public function change_database($db)
+    public function change_database(string $db): bool
     {
         $this->db = $db;
 
@@ -153,7 +153,7 @@ class SQLite3Connection extends DatabaseConnection
      *
      * @return string Database name
      */
-    public function get_database()
+    public function get_database(): string
     {
         return $this->db;
     }
@@ -163,7 +163,7 @@ class SQLite3Connection extends DatabaseConnection
      *
      * @return SQLite3DMLQueryBuilder $builder New SQLite3DMLQueryBuilder object instance
      */
-    public function get_new_dml_query_builder_object()
+    public function get_new_dml_query_builder_object(): SQLite3DMLQueryBuilder
     {
         return new SQLite3DMLQueryBuilder();
     }
@@ -202,7 +202,7 @@ class SQLite3Connection extends DatabaseConnection
      *
      * @return SQLite3QueryResult $result Query Result
      */
-    public function query($sql_query)
+    public function query(string $sql_query): SQLite3QueryResult
     {
         $this->connect();
 
@@ -214,7 +214,7 @@ class SQLite3Connection extends DatabaseConnection
      *
      * @return bool
      */
-    public function begin_transaction()
+    public function begin_transaction(): bool
     {
         $this->connect();
 
@@ -226,7 +226,7 @@ class SQLite3Connection extends DatabaseConnection
      *
      * @return bool
      */
-    public function commit()
+    public function commit(): bool
     {
         $this->connect();
 
@@ -238,7 +238,7 @@ class SQLite3Connection extends DatabaseConnection
      *
      * @return bool
      */
-    public function rollback()
+    public function rollback(): bool
     {
         $this->connect();
 
@@ -250,7 +250,7 @@ class SQLite3Connection extends DatabaseConnection
      *
      * @return bool
      */
-    public function end_transaction()
+    public function end_transaction(): bool
     {
         $this->connect();
 
