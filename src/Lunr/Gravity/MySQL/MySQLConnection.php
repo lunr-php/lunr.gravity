@@ -25,45 +25,45 @@ class MySQLConnection extends DatabaseConnection
 
     /**
      * Hostname of the database server (read/write access)
-     * @var string
+     * @var string|null
      */
-    protected $rw_host;
+    protected ?string $rw_host;
 
     /**
      * Hostname of the database server (readonly access)
-     * @var string
+     * @var string|null
      */
-    protected $ro_host;
+    protected ?string $ro_host;
 
     /**
      * Username of the user used to connect to the database
-     * @var string
+     * @var string|null
      */
-    protected $user;
+    protected ?string $user;
 
     /**
      * Password of the user used to connect to the database
-     * @var string
+     * @var string|null
      */
-    protected $pwd;
+    protected ?string $pwd;
 
     /**
      * Database to connect to.
-     * @var string
+     * @var string|null
      */
-    protected $db;
+    protected ?string $db;
 
     /**
      * Port to connect to the database server.
      * @var int
      */
-    protected $port;
+    protected int $port;
 
     /**
      * Path to the UNIX socket for localhost connection
      * @var string
      */
-    protected $socket;
+    protected string $socket;
 
     /**
      * Instance of the MySQLi class
@@ -75,43 +75,43 @@ class MySQLConnection extends DatabaseConnection
      * SQL hint to send along with the query.
      * @var string
      */
-    protected $query_hint;
+    protected string $query_hint;
 
     /**
      * The path name to the key file.
-     * @var string
+     * @var string|null
      */
-    protected $ssl_key;
+    protected ?string $ssl_key;
 
     /**
      * The path name to the certificate file.
-     * @var string
+     * @var string|null
      */
-    protected $ssl_cert;
+    protected ?string $ssl_cert;
 
     /**
      * The path name to the certificate authority file.
-     * @var string
+     * @var string|null
      */
-    protected $ca_cert;
+    protected ?string $ca_cert;
 
     /**
      * The pathname to a directory that contains trusted SSL CA certificates in PEM format.
-     * @var string
+     * @var string|null
      */
-    protected $ca_path;
+    protected ?string $ca_path;
 
     /**
      * A list of allowable ciphers to use for SSL encryption.
-     * @var string
+     * @var string|null
      */
-    protected $cipher;
+    protected ?string $cipher;
 
     /**
      * Mysqli options.
      * @var array
      */
-    protected $options;
+    protected array $options;
 
     /**
      * Instance of the MySQLQueryEscaper
@@ -132,7 +132,7 @@ class MySQLConnection extends DatabaseConnection
      * @param LoggerInterface $logger        Shared instance of a logger class
      * @param MySQLi          $mysqli        Instance of the mysqli class
      */
-    public function __construct($configuration, $logger, $mysqli)
+    public function __construct(Configuration $configuration, LoggerInterface $logger, MySQLi $mysqli)
     {
         parent::__construct($configuration, $logger);
 
@@ -180,7 +180,7 @@ class MySQLConnection extends DatabaseConnection
      *
      * @return void
      */
-    private function set_configuration()
+    private function set_configuration(): void
     {
         $this->rw_host  = $this->configuration['db']['rw_host'];
         $this->user     = $this->configuration['db']['username'];
@@ -227,7 +227,7 @@ class MySQLConnection extends DatabaseConnection
      *
      * @return void
      */
-    public function connect($reconnect_count = 0)
+    public function connect(int $reconnect_count = 0): void
     {
         if ($this->connected === TRUE)
         {
@@ -281,7 +281,7 @@ class MySQLConnection extends DatabaseConnection
      *
      * @return void
      */
-    public function disconnect()
+    public function disconnect(): void
     {
         if ($this->connected !== TRUE)
         {
@@ -300,7 +300,7 @@ class MySQLConnection extends DatabaseConnection
      *
      * @return bool True on success, False on Failure
      */
-    public function change_database($db)
+    public function change_database(string $db): bool
     {
         $this->connect();
 
@@ -312,7 +312,7 @@ class MySQLConnection extends DatabaseConnection
      *
      * @return string Database name
      */
-    public function get_database()
+    public function get_database(): string
     {
         return $this->db;
     }
@@ -325,9 +325,9 @@ class MySQLConnection extends DatabaseConnection
      *
      * @return bool True on success, False on Failure
      */
-    public function set_option($key, $value)
+    public function set_option(int $key, mixed $value): bool
     {
-        if (is_int($key) === FALSE || is_null($value) === TRUE)
+        if (is_null($value) === TRUE)
         {
             return FALSE;
         }
@@ -342,9 +342,9 @@ class MySQLConnection extends DatabaseConnection
      *
      * @param bool $simple Whether to return a simple query builder or an advanced one.
      *
-     * @return MySQLDMLQueryBuilder|MySQLSimpleDMLQueryBuilder $builder New DatabaseDMLQueryBuilder object instance
+     * @return ($simple is true ? MySQLSimpleDMLQueryBuilder : MySQLDMLQueryBuilder) New DatabaseDMLQueryBuilder object instance
      */
-    public function get_new_dml_query_builder_object($simple = TRUE)
+    public function get_new_dml_query_builder_object(bool $simple = TRUE): MySQLSimpleDMLQueryBuilder|MySQLDMLQueryBuilder
     {
         $querybuilder = new MySQLDMLQueryBuilder();
         if ($simple === TRUE)
@@ -391,9 +391,9 @@ class MySQLConnection extends DatabaseConnection
      *
      * @param string $style What hint style to use.
      *
-     * @return MySQLConnection $self Self reference
+     * @return static $self Self reference
      */
-    public function run_on_master($style = 'maxscale')
+    public function run_on_master($style = 'maxscale'): static
     {
         switch ($style)
         {
@@ -412,9 +412,9 @@ class MySQLConnection extends DatabaseConnection
      *
      * @param string $style What hint style to use.
      *
-     * @return MySQLConnection $self Self reference
+     * @return static $self Self reference
      */
-    public function run_on_slave($style = 'maxscale')
+    public function run_on_slave(string $style = 'maxscale'): static
     {
         switch ($style)
         {
@@ -435,7 +435,7 @@ class MySQLConnection extends DatabaseConnection
      *
      * @return MySQLQueryResult $result Query Result
      */
-    public function query($sql_query)
+    public function query($sql_query): MySQLQueryResult
     {
         $this->connect();
 
@@ -460,7 +460,7 @@ class MySQLConnection extends DatabaseConnection
      *
      * @return MySQLAsyncQueryResult $result Query Result
      */
-    public function async_query($sql_query)
+    public function async_query(string $sql_query): MySQLAsyncQueryResult
     {
         $this->connect();
 
@@ -479,7 +479,7 @@ class MySQLConnection extends DatabaseConnection
      *
      * @return bool
      */
-    public function begin_transaction()
+    public function begin_transaction(): bool
     {
         $this->connect();
 
@@ -491,7 +491,7 @@ class MySQLConnection extends DatabaseConnection
      *
      * @return bool
      */
-    public function commit()
+    public function commit(): bool
     {
         $this->connect();
 
@@ -503,7 +503,7 @@ class MySQLConnection extends DatabaseConnection
      *
      * @return bool
      */
-    public function rollback()
+    public function rollback(): bool
     {
         $this->connect();
 
@@ -515,7 +515,7 @@ class MySQLConnection extends DatabaseConnection
      *
      * @return bool
      */
-    public function end_transaction()
+    public function end_transaction(): bool
     {
         $this->connect();
 
