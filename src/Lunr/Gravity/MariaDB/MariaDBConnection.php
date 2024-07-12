@@ -26,9 +26,9 @@ class MariaDBConnection extends MySQLConnection
      *
      * @param Configuration   $configuration Shared instance of the configuration class
      * @param LoggerInterface $logger        Shared instance of a logger class
-     * @param mysqli          $mysqli        Instance of the mysqli class
+     * @param MySQLi          $mysqli        Instance of the mysqli class
      */
-    public function __construct($configuration, $logger, $mysqli)
+    public function __construct(Configuration $configuration, LoggerInterface $logger, MySQLi $mysqli)
     {
         parent::__construct($configuration, $logger, $mysqli);
     }
@@ -46,9 +46,9 @@ class MariaDBConnection extends MySQLConnection
      *
      * @param bool $simple Whether to return a simple query builder or an advanced one.
      *
-     * @return MariaDBDMLQueryBuilder|MariaDBSimpleDMLQueryBuilder $builder New DatabaseDMLQueryBuilder object instance
+     * @return ($simple is true ? MariaDBSimpleDMLQueryBuilder : MariaDBDMLQueryBuilder) New DatabaseDMLQueryBuilder object instance
      */
-    public function get_new_dml_query_builder_object($simple = TRUE)
+    public function get_new_dml_query_builder_object(bool $simple = TRUE): MariaDBDMLQueryBuilder|MariaDBSimpleDMLQueryBuilder
     {
         $querybuilder = new MariaDBDMLQueryBuilder();
         if ($simple === TRUE)

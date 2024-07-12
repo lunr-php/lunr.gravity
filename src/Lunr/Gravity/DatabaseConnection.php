@@ -23,25 +23,25 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
      * Connection status
      * @var bool
      */
-    protected $connected;
+    protected bool $connected;
 
     /**
      * Whether there's write access to the database or not
      * @var bool
      */
-    protected $readonly;
+    protected bool $readonly;
 
     /**
      * Shared instance of the Configuration class
      * @var Configuration
      */
-    protected $configuration;
+    protected Configuration $configuration;
 
     /**
      * Shared instance of a Logger class
      * @var LoggerInterface
      */
-    protected $logger;
+    protected LoggerInterface $logger;
 
     /**
      * Constructor.
@@ -49,7 +49,7 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
      * @param Configuration   $configuration Shared instance of the configuration class
      * @param LoggerInterface $logger        Shared instance of a logger class
      */
-    public function __construct($configuration, $logger)
+    public function __construct(Configuration $configuration, LoggerInterface $logger)
     {
         $this->connected = FALSE;
         $this->readonly  = FALSE;
@@ -76,7 +76,7 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
      *
      * @return void
      */
-    public function set_readonly($switch)
+    public function set_readonly(bool $switch): void
     {
         $this->readonly = $switch;
     }
@@ -86,14 +86,14 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
      *
      * @return void
      */
-    abstract public function connect();
+    abstract public function connect(): void;
 
     /**
      * Disconnects from database server.
      *
      * @return void
      */
-    abstract public function disconnect();
+    abstract public function disconnect(): void;
 
     /**
      * Change the default database for the current connection.
@@ -102,14 +102,14 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
      *
      * @return bool True on success, False on Failure
      */
-    abstract public function change_database($db);
+    abstract public function change_database(string $db): bool;
 
     /**
      * Get the name of the database we're currently connected to.
      *
      * @return string Database name
      */
-    abstract public function get_database();
+    abstract public function get_database(): string;
 
     /**
      * Return a new instance of a QueryBuilder object.
@@ -141,35 +141,35 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
      *
      * @return DatabaseQueryResultInterface $result Query Result
      */
-    abstract public function query($sql_query);
+    abstract public function query(string $sql_query): DatabaseQueryResultInterface;
 
     /**
      * Begin a transaction.
      *
-     * @return void
+     * @return bool
      */
-    abstract public function begin_transaction();
+    abstract public function begin_transaction(): bool;
 
     /**
      * Commit a transaction.
      *
-     * @return void
+     * @return bool
      */
-    abstract public function commit();
+    abstract public function commit(): bool;
 
     /**
      * Roll back a transaction.
      *
-     * @return void
+     * @return bool
      */
-    abstract public function rollback();
+    abstract public function rollback(): bool;
 
     /**
      * Ends a transaction.
      *
-     * @return void
+     * @return bool
      */
-    abstract public function end_transaction();
+    abstract public function end_transaction(): bool;
 
     /**
      * Run OPTIMIZE TABLE on a table.

@@ -20,9 +20,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
 
     /**
      * Sample configuration values.
-     * @var Array
+     * @var array
      */
-    protected $values_map;
+    protected array $values_map;
 
     /**
      * TestCase Constructor.
@@ -204,13 +204,12 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('port');
-        $property->setValue($this->class, '');
+        $this->set_reflection_property_value('port', 0);
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->get_reflection_method('set_configuration');
         $method->invoke($this->class);
 
-        $this->assertEquals(ini_get('mysqli.default_port'), $property->getValue($this->class));
+        $this->assertPropertyEquals('port', ini_get('mysqli.default_port'));
     }
 
     /**
@@ -226,13 +225,12 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('port');
-        $property->setValue($this->class, '');
+        $this->set_reflection_property_value('port', 0);
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->get_reflection_method('set_configuration');
         $method->invoke($this->class);
 
-        $this->assertSame(3306, $property->getValue($this->class));
+        $this->assertPropertyEquals('port', 3306);
 
         $this->unmock_function('ini_get');
     }
@@ -244,19 +242,18 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
      */
     public function testSetConfigurationSetsPortCorrectly(): void
     {
-        $this->values_map[] = [ 'port', 'port' ];
+        $this->values_map[] = [ 'port', 20 ];
 
         $this->sub_configuration->expects($this->any())
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('port');
-        $property->setValue($this->class, '');
+        $this->set_reflection_property_value('port', 0);
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->get_reflection_method('set_configuration');
         $method->invoke($this->class);
 
-        $this->assertEquals('port', $property->getValue($this->class));
+        $this->assertPropertyEquals('port', 20);
     }
 
     /**
