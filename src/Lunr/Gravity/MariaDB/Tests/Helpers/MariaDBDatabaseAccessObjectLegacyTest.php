@@ -10,7 +10,12 @@
 
 namespace Lunr\Gravity\MariaDB\Tests\Helpers;
 
+use Lunr\Gravity\MariaDB\MariaDBConnection;
+use Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder;
+use Lunr\Gravity\MySQL\MySQLQueryEscaper;
+use Lunr\Gravity\MySQL\MySQLQueryResult;
 use Lunr\Halo\LegacyBaseTest;
+use Psr\Log\LoggerInterface;
 use ReflectionClass;
 
 /**
@@ -23,31 +28,31 @@ abstract class MariaDBDatabaseAccessObjectLegacyTest extends LegacyBaseTest
 
     /**
      * Mock instance of the MariaDBConnection class.
-     * @var \Lunr\Gravity\MariaDB\MariaDBConnection
+     * @var MariaDBConnection
      */
     protected $db;
 
     /**
      * Mock instance of the Logger class
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     protected $logger;
 
     /**
      * Mock instance of the DMLQueryBuilder class
-     * @var \Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder
+     * @var MariaDBDMLQueryBuilder
      */
     protected $builder;
 
     /**
      * Mock instance of the QueryEscaper class
-     * @var \Lunr\Gravity\MySQL\MySQLQueryEscaper
+     * @var MySQLQueryEscaper
      */
     protected $escaper;
 
     /**
      * Mock instance of the QueryResult class
-     * @var \Lunr\Gravity\MySQL\MySQLQueryResult
+     * @var MySQLQueryResult
      */
     protected $result;
 

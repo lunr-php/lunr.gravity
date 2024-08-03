@@ -9,11 +9,8 @@
 
 namespace Lunr\Gravity\MariaDB;
 
-use Lunr\Gravity\Exceptions\DeadlockException;
-use Lunr\Gravity\Exceptions\LockTimeoutException;
-use Lunr\Gravity\Exceptions\QueryException;
-use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\DatabaseAccessObject;
+use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Psr\Log\LoggerInterface;
 
 /**

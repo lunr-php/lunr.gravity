@@ -10,10 +10,9 @@
 
 namespace Lunr\Gravity\MariaDB\Tests;
 
-use ReflectionClass;
-use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder;
 use Lunr\Gravity\MariaDB\MariaDBSimpleDMLQueryBuilder;
+use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Halo\LunrBaseTest;
 
 /**
