@@ -12,9 +12,7 @@ namespace Lunr\Gravity\MySQL\Tests;
 
 use Lunr\Gravity\MySQL\MySQLQueryResult;
 use Lunr\Halo\LunrBaseTest;
-use ReflectionClass;
 use mysqli;
-use mysqli_result;
 
 /**
  * This class contains common constructors/destructors and data providers

@@ -10,12 +10,12 @@
 
 namespace Lunr\Gravity\MySQL;
 
+use Lunr\Core\Configuration;
 use Lunr\Gravity\DatabaseConnection;
 use Lunr\Gravity\Exceptions\ConnectionException;
 use Lunr\Gravity\Exceptions\DefragmentationException;
-use Lunr\Core\Configuration;
-use Psr\Log\LoggerInterface;
 use MySQLi;
+use Psr\Log\LoggerInterface;
 
 /**
  * MySQL/MariaDB database access class.

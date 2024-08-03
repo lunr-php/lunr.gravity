@@ -10,12 +10,14 @@
 
 namespace Lunr\Gravity\MySQL\Tests\Helpers;
 
+use Lunr\Gravity\MySQL\MySQLConnection;
 use Lunr\Gravity\MySQL\MySQLDMLQueryBuilder;
-use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
+use Lunr\Gravity\MySQL\MySQLQueryResult;
+use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
 use Lunr\Gravity\Tests\Helpers\DatabaseAccessObjectBaseTest;
 use PHPUnit\Framework\MockObject\MockObject;
-use ReflectionClass;
+use Psr\Log\LoggerInterface;
 
 /**
  * This class contains setup and tear down methods for DAOs using MySQL access.
@@ -25,49 +27,49 @@ abstract class AbstractMySQLDatabaseAccessObjectTest extends DatabaseAccessObjec
 
     /**
      * Mock instance of the MySQLConnection class.
-     * @var \Lunr\Gravity\MySQL\MySQLConnection|MockObject
+     * @var MySQLConnection|MockObject
      */
     protected $db;
 
     /**
      * Mock instance of the Logger class
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     protected $logger;
 
     /**
      * Mock instance of the DMLQueryBuilder class
-     * @var \Lunr\Gravity\MySQL\MySQLDMLQueryBuilder|MockObject
+     * @var MySQLDMLQueryBuilder|MockObject
      */
     protected $builder;
 
     /**
      * Real instance of the DMLQueryBuilder class
-     * @var \Lunr\Gravity\MySQL\MySQLDMLQueryBuilder
+     * @var MySQLDMLQueryBuilder
      */
     protected $real_builder;
 
     /**
      * Real instance of the SimpleDMLQueryBuilder class
-     * @var \Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder
+     * @var MySQLSimpleDMLQueryBuilder
      */
     protected $real_simple_builder;
 
     /**
      * Mock instance of the QueryEscaper class
-     * @var \Lunr\Gravity\MySQL\MySQLQueryEscaper|MockObject
+     * @var MySQLQueryEscaper|MockObject
      */
     protected $escaper;
 
     /**
      * Real instance of the QueryEscaper class
-     * @var \Lunr\Gravity\MySQL\MySQLQueryEscaper
+     * @var MySQLQueryEscaper
      */
     protected $real_escaper;
 
     /**
      * Mock instance of the QueryResult class
-     * @var \Lunr\Gravity\MySQL\MySQLQueryResult
+     * @var MySQLQueryResult
      */
     protected $result;
 

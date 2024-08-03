@@ -9,14 +9,13 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
-use Lunr\Gravity\MySQL\TransactionalMySQLAccessObject;
 use Lunr\Gravity\MySQL\MySQLConnection;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
+use Lunr\Gravity\MySQL\TransactionalMySQLAccessObject;
 use Lunr\Halo\LunrBaseTest;
-use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
-use ReflectionClass;
+use Psr\Log\LoggerInterface;
 
 /**
  * This class contains the tests for the TransactionalMySQLAccessObject class.

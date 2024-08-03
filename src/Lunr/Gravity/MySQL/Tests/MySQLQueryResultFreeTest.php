@@ -10,9 +10,6 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
-use Lunr\Gravity\MySQL\MySQLQueryResult;
-use MySQLi_Result;
-
 /**
  * This class contains tests for the freeing of data in the MySQLQueryResult class.
  *

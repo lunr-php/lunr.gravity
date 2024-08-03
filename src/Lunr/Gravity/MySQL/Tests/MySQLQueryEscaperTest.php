@@ -12,7 +12,7 @@ namespace Lunr\Gravity\MySQL\Tests;
 
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Halo\LunrBaseTest;
-use ReflectionClass;
+use stdClass;
 
 /**
  * This class contains the tests for the MySQLQueryEscaper class.
@@ -69,7 +69,7 @@ abstract class MySQLQueryEscaperTest extends LunrBaseTest
         $indices[] = [ NULL ];
         $indices[] = [ FALSE ];
         $indices[] = [ 'string' ];
-        $indices[] = [ new \stdClass() ];
+        $indices[] = [ new stdClass() ];
         $indices[] = [ [] ];
 
         return $indices;

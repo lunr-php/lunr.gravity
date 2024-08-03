@@ -10,9 +10,6 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
-use Lunr\Gravity\MySQL\MySQLDMLQueryBuilder;
-use ReflectionClass;
-
 /**
  * This class contains select tests for the MySQLSimpleDMLQueryBuilder class.
  *
