@@ -14,7 +14,6 @@ use Lunr\Gravity\DatabaseConnection;
 use Lunr\Halo\LunrBaseTest;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
-use ReflectionClass;
 
 /**
  * This class contains the tests for the DatabaseConnection class.

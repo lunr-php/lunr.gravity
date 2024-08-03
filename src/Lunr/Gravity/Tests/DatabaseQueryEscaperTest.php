@@ -14,8 +14,6 @@ use Lunr\Gravity\DatabaseQueryEscaper;
 use Lunr\Halo\LunrBaseTest;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
-use ReflectionClass;
-use stdClass;
 
 /**
  * This class contains the tests for the DatabaseQueryEscaper class.

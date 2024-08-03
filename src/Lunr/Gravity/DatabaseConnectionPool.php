@@ -10,8 +10,8 @@
 
 namespace Lunr\Gravity;
 
-use MySQLi;
 use Lunr\Core\Configuration;
+use MySQLi;
 use Psr\Log\LoggerInterface;
 
 /**

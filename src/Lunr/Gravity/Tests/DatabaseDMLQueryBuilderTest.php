@@ -14,7 +14,6 @@ use Lunr\Gravity\DatabaseDMLQueryBuilder;
 use Lunr\Halo\LunrBaseTest;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
-use ReflectionClass;
 use stdClass;
 
 /**

@@ -10,10 +10,9 @@
 
 namespace Lunr\Gravity\Exceptions\Tests;
 
+use Lunr\Gravity\DatabaseQueryResultInterface;
 use Lunr\Gravity\Exceptions\QueryException;
 use Lunr\Halo\LunrBaseTest;
-use Exception;
-use ReflectionClass;
 
 /**
  * This class contains common setup routines, providers
@@ -26,7 +25,7 @@ abstract class QueryExceptionTest extends LunrBaseTest
 
     /**
      * Mock instance of a query result.
-     * @var \Lunr\Gravity\DatabaseQueryResultInterface
+     * @var DatabaseQueryResultInterface
      */
     protected $result;
 

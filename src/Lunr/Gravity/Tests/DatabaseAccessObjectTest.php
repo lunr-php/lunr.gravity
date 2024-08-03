@@ -13,10 +13,9 @@ namespace Lunr\Gravity\Tests;
 use Lunr\Gravity\DatabaseAccessObject;
 use Lunr\Gravity\DatabaseConnection;
 use Lunr\Halo\LunrBaseTest;
-use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
-use ReflectionClass;
+use Psr\Log\LoggerInterface;
 
 /**
  * This class contains the tests for the DatabaseAccessObject class.

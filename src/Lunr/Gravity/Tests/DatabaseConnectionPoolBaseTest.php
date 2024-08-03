@@ -10,8 +10,6 @@
 
 namespace Lunr\Gravity\Tests;
 
-use Lunr\Gravity\DatabaseConnectionPool;
-
 /**
  * This class contains basic tests for the DatabaseConnectionPool class.
  *

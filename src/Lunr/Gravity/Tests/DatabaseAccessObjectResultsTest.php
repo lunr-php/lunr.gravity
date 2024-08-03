@@ -10,7 +10,6 @@
 
 namespace Lunr\Gravity\Tests;
 
-use Lunr\Gravity\DatabaseAccessObject;
 use Lunr\Gravity\DatabaseQueryResultInterface;
 use Lunr\Gravity\Exceptions\QueryException;
 

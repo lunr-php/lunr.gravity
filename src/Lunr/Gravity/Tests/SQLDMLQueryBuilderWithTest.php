@@ -10,8 +10,6 @@
 
 namespace Lunr\Gravity\Tests;
 
-use Lunr\Gravity\SQLDMLQueryBuilder;
-
 /**
  * This class contains the tests for the query parts necessary to build
  * with statements.
