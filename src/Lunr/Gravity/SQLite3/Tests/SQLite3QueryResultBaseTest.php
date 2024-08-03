@@ -10,6 +10,8 @@
 
 namespace Lunr\Gravity\SQLite3\Tests;
 
+use SQLite3;
+
 /**
  * This class contains the basic tests.
  *
@@ -145,7 +147,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
 
         $value = $property->getValue($this->class);
 
-        $this->assertInstanceOf(\SQLite3::class, $value);
+        $this->assertInstanceOf(SQLite3::class, $value);
         $this->assertSame($this->sqlite3, $value);
     }
 

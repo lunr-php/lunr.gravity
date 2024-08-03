@@ -10,9 +10,6 @@
 
 namespace Lunr\Gravity\SQLite3\Tests;
 
-use Lunr\Gravity\SQLite3\SQLite3Connection;
-use ReflectionClass;
-
 /**
  * This class contains transaction related unit tests for SQLite3Connection.
  *

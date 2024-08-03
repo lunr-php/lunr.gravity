@@ -12,7 +12,6 @@ namespace Lunr\Gravity\SQLite3\Tests;
 
 use Lunr\Gravity\SQLite3\SQLite3QueryResult;
 use Lunr\Halo\LunrBaseTest;
-use ReflectionClass;
 use SQLite3;
 use SQLite3Result;
 

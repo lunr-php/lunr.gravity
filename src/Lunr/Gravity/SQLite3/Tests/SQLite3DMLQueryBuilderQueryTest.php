@@ -10,8 +10,6 @@
 
 namespace Lunr\Gravity\SQLite3\Tests;
 
-use Lunr\Gravity\SQLite3\SQLite3DMLQueryBuilder;
-
 /**
  * This class contains the tests for getting insert/replace queries.
  *

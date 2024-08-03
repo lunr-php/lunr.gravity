@@ -12,7 +12,6 @@ namespace Lunr\Gravity\SQLite3\Tests;
 
 use Lunr\Gravity\SQLite3\LunrSQLite3;
 use Lunr\Halo\LunrBaseTest;
-use ReflectionClass;
 
 /**
  * This class contains the tests for the LunrSQLite3 class.
