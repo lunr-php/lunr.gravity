@@ -12,7 +12,7 @@ namespace Lunr\Gravity\SQLite3\Tests;
 
 use Lunr\Gravity\SQLite3\SQLite3QueryEscaper;
 use Lunr\Halo\LunrBaseTest;
-use ReflectionClass;
+use stdClass;
 
 /**
  * This class contains the tests for the SQLite3QueryEscaper class.
@@ -69,7 +69,7 @@ abstract class SQLite3QueryEscaperTest extends LunrBaseTest
         $indices[] = [ NULL ];
         $indices[] = [ FALSE ];
         $indices[] = [ 'string' ];
-        $indices[] = [ new \stdClass() ];
+        $indices[] = [ new stdClass() ];
         $indices[] = [ [] ];
 
         return $indices;

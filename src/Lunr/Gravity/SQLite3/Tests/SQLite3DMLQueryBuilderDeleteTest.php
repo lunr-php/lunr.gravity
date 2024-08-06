@@ -10,8 +10,6 @@
 
 namespace Lunr\Gravity\SQLite3\Tests;
 
-use Lunr\Gravity\SQLite3\SQLite3DMLQueryBuilder;
-
 /**
  * This class contains the tests for the query parts necessary to build
  * delete queries.

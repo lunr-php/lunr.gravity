@@ -10,8 +10,8 @@
 
 namespace Lunr\Gravity\MariaDB;
 
-use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
+use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
 
 /**
  * This is a SQL query builder class for generating queries

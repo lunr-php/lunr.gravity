@@ -9,8 +9,6 @@
 
 namespace Lunr\Gravity\MariaDB\Tests;
 
-use Lunr\Gravity\MariaDB\Tests\MariaDBDMLQueryBuilderTest;
-
 /**
  * This class contains select tests for the MariaDBDMLQueryBuilder class.
  *

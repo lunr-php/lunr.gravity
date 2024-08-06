@@ -10,7 +10,6 @@
 
 namespace Lunr\Gravity\Tests;
 
-use Lunr\Gravity\DatabaseAccessObject;
 use Lunr\Gravity\DatabaseConnection;
 use Lunr\Halo\PropertyTraits\PsrLoggerTestTrait;
 

@@ -9,14 +9,13 @@
 
 namespace Lunr\Gravity\MariaDB\Tests;
 
-use Lunr\Gravity\MariaDB\TransactionalMariaDBAccessObject;
 use Lunr\Gravity\MariaDB\MariaDBConnection;
+use Lunr\Gravity\MariaDB\TransactionalMariaDBAccessObject;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Halo\LunrBaseTest;
-use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
-use ReflectionClass;
+use Psr\Log\LoggerInterface;
 
 /**
  * This class contains the tests for the TransactionalMariaDBAccessObject class.

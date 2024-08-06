@@ -10,8 +10,7 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
-use Lunr\Gravity\MySQL\MySQLConnection;
-use ReflectionClass;
+use Throwable;
 
 /**
  * This class contains connection related unit tests for MySQLConnection.
@@ -212,7 +211,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
         {
             $this->class->connect();
         }
-        catch (\Throwable $e)
+        catch (Throwable $e)
         {
             throw $e;
         }
@@ -273,7 +272,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
         {
             $this->class->connect();
         }
-        catch (\Throwable $e)
+        catch (Throwable $e)
         {
             throw $e;
         }

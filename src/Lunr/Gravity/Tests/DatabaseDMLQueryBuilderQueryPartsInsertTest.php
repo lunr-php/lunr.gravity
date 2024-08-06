@@ -10,8 +10,6 @@
 
 namespace Lunr\Gravity\Tests;
 
-use Lunr\Gravity\DatabaseDMLQueryBuilder;
-
 /**
  * This class contains the tests for the query parts methods that are used when building INSERT and REPLACE statements
  *

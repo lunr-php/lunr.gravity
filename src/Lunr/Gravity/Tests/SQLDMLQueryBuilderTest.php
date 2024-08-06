@@ -14,7 +14,6 @@ use Lunr\Gravity\SQLDMLQueryBuilder;
 use Lunr\Halo\LunrBaseTest;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
-use ReflectionClass;
 
 /**
  * This class contains common setup routines, providers

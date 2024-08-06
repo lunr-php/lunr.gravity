@@ -10,8 +10,6 @@
 
 namespace Lunr\Gravity\MariaDB\Tests;
 
-use Lunr\Gravity\MariaDB\Tests\MariaDBConnectionTest;
-
 /**
  * This class contains basic tests for the MariaDBConnection class
  *

@@ -12,7 +12,6 @@ namespace Lunr\Gravity\MySQL\Tests;
 
 use Lunr\Gravity\MySQL\MySQLAsyncQueryResult;
 use Lunr\Halo\LunrBaseTest;
-use ReflectionClass;
 use mysqli;
 
 /**

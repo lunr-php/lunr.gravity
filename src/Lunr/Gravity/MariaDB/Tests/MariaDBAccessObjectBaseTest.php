@@ -9,7 +9,6 @@
 
 namespace Lunr\Gravity\MariaDB\Tests;
 
-use Lunr\Gravity\MariaDB\MariaDBAccessObject;
 use Lunr\Gravity\MariaDB\MariaDBConnection;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Halo\PropertyTraits\PsrLoggerTestTrait;

@@ -10,8 +10,6 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
-use Lunr\Gravity\MySQL\MySQLConnection;
-
 /**
  * This class contains query related unit tests for MySQLConnection.
  *

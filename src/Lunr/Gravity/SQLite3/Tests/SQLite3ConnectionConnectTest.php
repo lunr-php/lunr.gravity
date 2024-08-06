@@ -10,8 +10,7 @@
 
 namespace Lunr\Gravity\SQLite3\Tests;
 
-use Lunr\Gravity\SQLite3\SQLite3Connection;
-use ReflectionClass;
+use Throwable;
 
 /**
  * This class contains connection related unit tests for SQLite3Connection.
@@ -87,7 +86,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
         {
             $this->class->connect();
         }
-        catch (\Throwable $e)
+        catch (Throwable $e)
         {
             throw $e;
         }
@@ -232,7 +231,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
         {
             $this->class->change_database('new_db');
         }
-        catch (\Throwable $e)
+        catch (Throwable $e)
         {
             throw $e;
         }

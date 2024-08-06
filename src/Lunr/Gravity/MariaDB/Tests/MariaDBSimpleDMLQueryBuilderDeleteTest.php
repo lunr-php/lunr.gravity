@@ -10,9 +10,6 @@
 
 namespace Lunr\Gravity\MariaDB\Tests;
 
-use Lunr\Gravity\MariaDB\Tests\MariaDBSimpleDMLQueryBuilderTest;
-use ReflectionClass;
-
 /**
  * This class contains the delete tests for the MariaDBSimpleDMLQueryBuilder class
  *

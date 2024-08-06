@@ -9,7 +9,6 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
-use Lunr\Gravity\MySQL\MySQLAccessObject;
 use Lunr\Gravity\MySQL\MySQLConnection;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Halo\PropertyTraits\PsrLoggerTestTrait;

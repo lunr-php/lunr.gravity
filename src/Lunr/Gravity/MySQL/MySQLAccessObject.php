@@ -9,9 +9,6 @@
 
 namespace Lunr\Gravity\MySQL;
 
-use Lunr\Gravity\Exceptions\DeadlockException;
-use Lunr\Gravity\Exceptions\LockTimeoutException;
-use Lunr\Gravity\Exceptions\QueryException;
 use Lunr\Gravity\DatabaseAccessObject;
 use Psr\Log\LoggerInterface;
 

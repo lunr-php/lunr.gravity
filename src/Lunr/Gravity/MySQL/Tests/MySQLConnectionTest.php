@@ -12,7 +12,6 @@ namespace Lunr\Gravity\MySQL\Tests;
 
 use Lunr\Gravity\MySQL\MySQLConnection;
 use Lunr\Halo\LunrBaseTest;
-use ReflectionClass;
 
 /**
  * This class contains common constructors/destructors and data providers

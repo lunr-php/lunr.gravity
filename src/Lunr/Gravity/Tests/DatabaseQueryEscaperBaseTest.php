@@ -10,10 +10,6 @@
 
 namespace Lunr\Gravity\Tests;
 
-use Lunr\Gravity\DatabaseQueryEscaper;
-use Lunr\Halo\LunrBaseTest;
-use ReflectionClass;
-
 /**
  * This class contains the tests for the DatabaseQueryEscaper class.
  *

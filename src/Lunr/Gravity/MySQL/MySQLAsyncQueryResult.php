@@ -10,7 +10,6 @@
 
 namespace Lunr\Gravity\MySQL;
 
-use MySQLi_Result;
 use MySQLi;
 
 /**

@@ -12,7 +12,6 @@ namespace Lunr\Gravity\MySQL;
 
 use Lunr\Gravity\DatabaseQueryResultInterface;
 use MySQLi;
-use MySQLi_Result;
 
 /**
  * MySQL/MariaDB query result class.

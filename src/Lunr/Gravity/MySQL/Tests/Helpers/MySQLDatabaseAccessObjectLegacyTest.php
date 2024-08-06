@@ -10,11 +10,13 @@
 
 namespace Lunr\Gravity\MySQL\Tests\Helpers;
 
+use Lunr\Gravity\MySQL\MySQLConnection;
 use Lunr\Gravity\MySQL\MySQLDMLQueryBuilder;
-use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
-use Lunr\Gravity\Tests\Helpers\DatabaseAccessObjectBaseTest;
+use Lunr\Gravity\MySQL\MySQLQueryResult;
+use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
 use Lunr\Halo\LegacyBaseTest;
+use Psr\Log\LoggerInterface;
 use ReflectionClass;
 
 /**
@@ -27,49 +29,49 @@ abstract class MySQLDatabaseAccessObjectLegacyTest extends LegacyBaseTest
 
     /**
      * Mock instance of the MySQLConnection class.
-     * @var \Lunr\Gravity\MySQL\MySQLConnection
+     * @var MySQLConnection
      */
     protected $db;
 
     /**
      * Mock instance of the Logger class
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     protected $logger;
 
     /**
      * Mock instance of the DMLQueryBuilder class
-     * @var \Lunr\Gravity\MySQL\MySQLDMLQueryBuilder
+     * @var MySQLDMLQueryBuilder
      */
     protected $builder;
 
     /**
      * Real instance of the DMLQueryBuilder class
-     * @var \Lunr\Gravity\MySQL\MySQLDMLQueryBuilder
+     * @var MySQLDMLQueryBuilder
      */
     protected $real_builder;
 
     /**
      * Real instance of the SimpleDMLQueryBuilder class
-     * @var \Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder
+     * @var MySQLSimpleDMLQueryBuilder
      */
     protected $real_simple_builder;
 
     /**
      * Mock instance of the QueryEscaper class
-     * @var \Lunr\Gravity\MySQL\MySQLQueryEscaper
+     * @var MySQLQueryEscaper
      */
     protected $escaper;
 
     /**
      * Real instance of the QueryEscaper class
-     * @var \Lunr\Gravity\MySQL\MySQLQueryEscaper
+     * @var MySQLQueryEscaper
      */
     protected $real_escaper;
 
     /**
      * Mock instance of the QueryResult class
-     * @var \Lunr\Gravity\MySQL\MySQLQueryResult
+     * @var MySQLQueryResult
      */
     protected $result;
 

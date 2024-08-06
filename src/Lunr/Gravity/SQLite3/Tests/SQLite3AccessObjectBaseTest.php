@@ -9,7 +9,6 @@
 
 namespace Lunr\Gravity\SQLite3\Tests;
 
-use Lunr\Gravity\SQLite3\SQLite3AccessObject;
 use Lunr\Gravity\SQLite3\SQLite3Connection;
 use Lunr\Gravity\SQLite3\SQLite3QueryEscaper;
 use Lunr\Halo\PropertyTraits\PsrLoggerTestTrait;

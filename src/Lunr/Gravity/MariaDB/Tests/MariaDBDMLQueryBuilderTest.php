@@ -12,7 +12,6 @@ namespace Lunr\Gravity\MariaDB\Tests;
 
 use Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder;
 use Lunr\Halo\LunrBaseTest;
-use ReflectionClass;
 
 /**
  * This class contains common setup routines, providers

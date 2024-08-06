@@ -10,7 +10,6 @@
 
 namespace Lunr\Gravity\Tests;
 
-use Lunr\Gravity\DatabaseConnectionPool;
 use ReflectionClass;
 
 /**

@@ -10,8 +10,6 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
-use Lunr\Gravity\MySQL\MySQLQueryResult;
-
 /**
  * This class contains tests for the MySQLQueryResult class
  * based on a failed query.

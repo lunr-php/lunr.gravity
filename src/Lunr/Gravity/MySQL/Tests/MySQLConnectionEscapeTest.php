@@ -10,8 +10,6 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
-use Lunr\Gravity\MySQL\MySQLConnection;
-
 /**
  * This class contains string escape unit tests for MySQLConnection.
  *

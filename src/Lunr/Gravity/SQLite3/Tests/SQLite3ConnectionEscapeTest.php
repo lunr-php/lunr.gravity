@@ -10,8 +10,6 @@
 
 namespace Lunr\Gravity\SQLite3\Tests;
 
-use Lunr\Gravity\SQLite3\SQLite3Connection;
-
 /**
  * This class contains string escape unit tests for SQLite3Connection.
  *

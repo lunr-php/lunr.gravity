@@ -12,7 +12,6 @@ namespace Lunr\Gravity\SQLite3\Tests;
 
 use Lunr\Gravity\SQLite3\SQLite3Connection;
 use Lunr\Halo\LunrBaseTest;
-use ReflectionClass;
 
 /**
  * This class contains common constructors/destructors and data providers

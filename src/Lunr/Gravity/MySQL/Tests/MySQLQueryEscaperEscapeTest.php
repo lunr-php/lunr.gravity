@@ -10,8 +10,6 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
-use Lunr\Gravity\MySQL\MySQLQueryEscaper;
-
 /**
  * This class contains the tests for escaping values in queries.
  *

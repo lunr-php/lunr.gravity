@@ -9,14 +9,13 @@
 
 namespace Lunr\Gravity\SQLite3\Tests;
 
-use Lunr\Gravity\SQLite3\TransactionalSQLite3AccessObject;
 use Lunr\Gravity\SQLite3\SQLite3Connection;
 use Lunr\Gravity\SQLite3\SQLite3QueryEscaper;
+use Lunr\Gravity\SQLite3\TransactionalSQLite3AccessObject;
 use Lunr\Halo\LunrBaseTest;
-use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
-use ReflectionClass;
+use Psr\Log\LoggerInterface;
 
 /**
  * This class contains the tests for the TransactionalSQLite3AccessObject class.

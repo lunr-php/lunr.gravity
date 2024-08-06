@@ -10,8 +10,6 @@
 
 namespace Lunr\Gravity\SQLite3\Tests;
 
-use Lunr\Gravity\SQLite3\SQLite3QueryEscaper;
-
 /**
  * This class contains the tests for escaping values in queries.
  *

@@ -10,9 +10,6 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
-use Lunr\Gravity\MySQL\MySQLAsyncQueryResult;
-use MySQLi_Result;
-
 /**
  * This class contains tests for the fetching of data in the MySQLAsyncQueryResult class.
  *

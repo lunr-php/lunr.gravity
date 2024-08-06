@@ -10,10 +10,10 @@
 
 namespace Lunr\Gravity\SQLite3;
 
+use Lunr\Core\Configuration;
 use Lunr\Gravity\DatabaseConnection;
 use Lunr\Gravity\Exceptions\ConnectionException;
 use Lunr\Gravity\Exceptions\DefragmentationException;
-use Lunr\Core\Configuration;
 use Psr\Log\LoggerInterface;
 
 /**
