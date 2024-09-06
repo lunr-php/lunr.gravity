@@ -267,6 +267,19 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
     }
 
     /**
+     * Define which fields to return from a non SELECT query.
+     *
+     * @param string $fields Fields to return
+     *
+     * @return $this Self reference
+     */
+    public function returning(string $fields): static
+    {
+        $this->sql_select($fields, 'RETURNING');
+        return $this;
+    }
+
+    /**
      * Define a EXCEPT, EXCEPT ALL or EXCEPT DISTINCT clause of the SQL statement.
      *
      * @param string $sql_query SQL query reference

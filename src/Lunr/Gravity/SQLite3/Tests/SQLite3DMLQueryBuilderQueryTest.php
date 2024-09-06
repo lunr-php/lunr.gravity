@@ -134,6 +134,39 @@ class SQLite3DMLQueryBuilderQueryTest extends SQLite3DMLQueryBuilderTest
         $this->assertEquals($string, $this->class->get_replace_query());
     }
 
+    /**
+     * Test query with returning statement.
+     *
+     * @param string $value    Returning value
+     * @param string $expected Expected built query part
+     *
+     * @dataProvider expectedReturningDataProvider
+     * @covers       Lunr\Gravity\SQLite3\SQLite3DMLQueryBuilder::returning
+     */
+    public function testQueryWithReturning(string $value, string $expected): void
+    {
+        $property = $this->reflection->getProperty('returning');
+
+        $this->class->returning($value);
+
+        $this->assertStringMatchesFormat($expected, $property->getValue($this->class));
+    }
+
+    /**
+     * Unit Test Data Provider for returning statements.
+     *
+     * @return array $expectedReturn
+     */
+    public function expectedReturningDataProvider(): array
+    {
+        $expected_return   = [];
+        $expected_return[] = [ '*', 'RETURNING *' ];
+        $expected_return[] = [ 'id, name', 'RETURNING id, name' ];
+        $expected_return[] = [ "'test'", "RETURNING 'test'" ];
+
+        return $expected_return;
+    }
+
 }
 
 ?>
