@@ -46,9 +46,9 @@ class MariaDBConnection extends MySQLConnection
      *
      * @param bool $simple Whether to return a simple query builder or an advanced one.
      *
-     * @return ($simple is true ? MariaDBSimpleDMLQueryBuilder : MariaDBDMLQueryBuilder) New DatabaseDMLQueryBuilder object instance
+     * @return object New DatabaseDMLQueryBuilder object instance
      */
-    public function get_new_dml_query_builder_object(bool $simple = TRUE): MariaDBDMLQueryBuilder|MariaDBSimpleDMLQueryBuilder
+    public function get_new_dml_query_builder_object(bool $simple = TRUE): object
     {
         $querybuilder = new MariaDBDMLQueryBuilder();
         if ($simple === TRUE)
