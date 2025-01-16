@@ -51,11 +51,8 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
 
         $this->class->connect();
 
-        $property = $this->get_accessible_reflection_property('connected');
-
-        $this->assertTrue($property->getValue($this->class));
-
-        $property->setValue($this->class, FALSE);
+        $this->assertPropertyEquals('connected', TRUE);
+        $this->set_reflection_property_value('connected', FALSE); //avoid deconstructor rollback
     }
 
     /**
@@ -87,11 +84,8 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
 
         $this->class->connect();
 
-        $property = $this->get_accessible_reflection_property('connected');
-
-        $this->assertTrue($property->getValue($this->class));
-
-        $property->setValue($this->class, FALSE);
+        $this->assertPropertyEquals('connected', TRUE);
+        $this->set_reflection_property_value('connected', FALSE); //avoid deconstructor rollback
     }
 
     /**
@@ -130,11 +124,8 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
 
         $this->class->connect();
 
-        $property = $this->get_accessible_reflection_property('connected');
-
-        $this->assertTrue($property->getValue($this->class));
-
-        $property->setValue($this->class, FALSE);
+        $this->assertPropertyEquals('connected', TRUE);
+        $this->set_reflection_property_value('connected', FALSE); //avoid deconstructor rollback
     }
 
     /**
@@ -146,7 +137,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
     public function testSuccessfulReconnect(): void
     {
         $mysqli = $this->getMockBuilder('Lunr\Gravity\MySQL\Tests\MockMySQLi')
-                       ->setMethods([ 'connect', 'ssl_set', 'set_charset', 'kill', 'close' ])
+                       ->setMethods([ 'connect', 'ssl_set', 'set_charset', 'close' ])
                        ->getMock();
 
         $this->set_reflection_property_value('mysqli', $mysqli);
@@ -169,9 +160,6 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
                ->with('ssl_key', 'ssl_cert', 'ca_cert', 'ca_path', 'cipher');
 
         $mysqli->expects($this->exactly(4))
-               ->method('kill');
-
-        $mysqli->expects($this->exactly(4))
                ->method('close');
 
         $mysqli->expects($this->exactly(5))
@@ -180,11 +168,8 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
 
         $this->class->connect();
 
-        $property = $this->get_accessible_reflection_property('connected');
-
-        $this->assertTrue($property->getValue($this->class));
-
-        $property->setValue($this->class, FALSE);
+        $this->assertPropertyEquals('connected', TRUE);
+        $this->set_reflection_property_value('connected', FALSE); //avoid deconstructor rollback
     }
 
     /**
@@ -217,10 +202,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
         }
         finally
         {
-            $property = $this->reflection->getProperty('connected');
-            $property->setAccessible(TRUE);
-
-            $this->assertFalse($this->get_reflection_property_value('connected'));
+            $this->assertPropertyEquals('connected', FALSE); //avoid deconstructor rollback
         }
     }
 
@@ -233,7 +215,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
     public function testUnsuccessfulReconnect(): void
     {
         $mysqli = $this->getMockBuilder('Lunr\Gravity\MySQL\Tests\MockMySQLi')
-                       ->setMethods([ 'connect', 'ssl_set', 'set_charset', 'kill', 'close' ])
+                       ->setMethods([ 'connect', 'ssl_set', 'set_charset', 'close' ])
                        ->getMock();
 
         $this->set_reflection_property_value('mysqli', $mysqli);
@@ -256,9 +238,6 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
                ->with('ssl_key', 'ssl_cert', 'ca_cert', 'ca_path', 'cipher');
 
         $mysqli->expects($this->exactly(5))
-               ->method('kill');
-
-        $mysqli->expects($this->exactly(5))
                ->method('close');
 
         $mysqli->expects($this->exactly(5))
@@ -278,10 +257,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
         }
         finally
         {
-            $property = $this->reflection->getProperty('connected');
-            $property->setAccessible(TRUE);
-
-            $this->assertFalse($this->get_reflection_property_value('connected'));
+            $this->assertPropertyEquals('connected', FALSE);
         }
     }
 
@@ -292,8 +268,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
      */
     public function testConnectDoesNotReconnectWhenAlreadyConnected(): void
     {
-        $property = $this->get_accessible_reflection_property('connected');
-        $property->setValue($this->class, TRUE);
+        $this->set_reflection_property_value('connected', TRUE);
 
         $this->mysqli->expects($this->never())
                      ->method('connect');
@@ -306,11 +281,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
 
         $this->class->connect();
 
-        $property = $this->get_accessible_reflection_property('connected');
-
-        $this->assertTrue($property->getValue($this->class));
-
-        $property->setValue($this->class, FALSE);
+        $this->assertPropertyEquals('connected', TRUE);
     }
 
     /**
@@ -364,13 +335,11 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
     public function testDisconnectDoesNotTryToDisconnectWhenNotConnected(): void
     {
         $this->mysqli->expects($this->never())
-                     ->method('kill');
-        $this->mysqli->expects($this->never())
                      ->method('close');
 
         $this->class->disconnect();
 
-        $this->assertFalse($this->get_reflection_property_value('connected'));
+        $this->assertPropertyEquals('connected', FALSE);
     }
 
     /**
@@ -390,13 +359,11 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
 
         $this->class->connect();
 
-        $property = $this->get_accessible_reflection_property('connected');
-
-        $this->assertTrue($property->getValue($this->class));
+        $this->assertPropertyEquals('connected', TRUE);
 
         $this->class->disconnect();
 
-        $this->assertFalse($property->getValue($this->class));
+        $this->assertPropertyEquals('connected', FALSE);
     }
 
     /**
@@ -424,8 +391,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
      */
     public function testChangeDatabaseReturnsFalseWhenSelectDBFailed(): void
     {
-        $property = $this->get_accessible_reflection_property('connected');
-        $property->setValue($this->class, TRUE);
+        $this->set_reflection_property_value('connected', TRUE);
 
         $this->mysqli->expects($this->once())
                      ->method('select_db')
@@ -433,7 +399,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
 
         $this->assertFalse($this->class->change_database('new_db'));
 
-        $property->setValue($this->class, FALSE);
+        $this->set_reflection_property_value('connected', FALSE); //avoid deconstructor rollback
     }
 
     /**
@@ -444,8 +410,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
      */
     public function testChangeDatabaseReturnsTrueWhenSelectDBWorked(): void
     {
-        $property = $this->get_accessible_reflection_property('connected');
-        $property->setValue($this->class, TRUE);
+        $this->set_reflection_property_value('connected', TRUE);
 
         $this->mysqli->expects($this->once())
                      ->method('select_db')
@@ -453,7 +418,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
 
         $this->assertTrue($this->class->change_database('new_db'));
 
-        $property->setValue($this->class, FALSE);
+        $this->set_reflection_property_value('connected', FALSE); //avoid deconstructor rollback
     }
 
     /**

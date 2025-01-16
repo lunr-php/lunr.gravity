@@ -288,7 +288,6 @@ class MySQLConnection extends DatabaseConnection
             return;
         }
 
-        $this->mysqli->kill($this->mysqli->thread_id);
         $this->mysqli->close();
         $this->connected = FALSE;
     }
