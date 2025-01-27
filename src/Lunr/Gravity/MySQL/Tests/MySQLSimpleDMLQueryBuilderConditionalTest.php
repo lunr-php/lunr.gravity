@@ -170,7 +170,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
                       ->method('start_on_group')
                       ->will($this->returnSelf());
 
-        $return = $this->class->start_on_group();
+        $this->class->start_on_group();
     }
 
     /**
@@ -184,7 +184,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
                       ->method('end_on_group')
                       ->will($this->returnSelf());
 
-        $return = $this->class->end_on_group();
+        $this->class->end_on_group();
     }
 
     /**
