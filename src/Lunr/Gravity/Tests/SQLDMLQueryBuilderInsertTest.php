@@ -16,7 +16,7 @@ namespace Lunr\Gravity\Tests;
  *
  * @covers Lunr\Gravity\SQLDMLQueryBuilder
  */
-class SQLDMLQueryBuilderInsertTest extends SQLDMLQueryBuilderTest
+class SQLDMLQueryBuilderInsertTest extends SQLDMLQueryBuilderTestCase
 {
 
     /**

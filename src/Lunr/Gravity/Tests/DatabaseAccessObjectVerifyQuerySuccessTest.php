@@ -19,7 +19,7 @@ use Lunr\Gravity\MySQL\MySQLQueryResult;
  *
  * @covers Lunr\Gravity\DatabaseAccessObject
  */
-class DatabaseAccessObjectVerifyQuerySuccessTest extends DatabaseAccessObjectTest
+class DatabaseAccessObjectVerifyQuerySuccessTest extends DatabaseAccessObjectTestCase
 {
 
     /**

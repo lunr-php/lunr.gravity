@@ -17,7 +17,7 @@ use SQLite3;
  *
  * @covers Lunr\Gravity\SQLite3\SQLite3QueryResult
  */
-class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
+class SQLite3QueryResultBaseTest extends SQLite3QueryResultTestCase
 {
 
     /**

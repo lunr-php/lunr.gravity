@@ -20,7 +20,7 @@ use Lunr\Halo\PropertyTraits\PsrLoggerTestTrait;
  *
  * @covers Lunr\Gravity\DatabaseAccessObject
  */
-class DatabaseAccessObjectBaseTest extends DatabaseAccessObjectTest
+class DatabaseAccessObjectBaseTest extends DatabaseAccessObjectTestCase
 {
 
     use PsrLoggerTestTrait;

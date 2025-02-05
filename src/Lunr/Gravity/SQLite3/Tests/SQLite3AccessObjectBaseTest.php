@@ -20,7 +20,7 @@ use Lunr\Halo\PropertyTraits\PsrLoggerTestTrait;
  *
  * @covers Lunr\Gravity\SQLite3\SQLite3AccessObject
  */
-class SQLite3AccessObjectBaseTest extends SQLite3AccessObjectTest
+class SQLite3AccessObjectBaseTest extends SQLite3AccessObjectTestCase
 {
 
     use PsrLoggerTestTrait;

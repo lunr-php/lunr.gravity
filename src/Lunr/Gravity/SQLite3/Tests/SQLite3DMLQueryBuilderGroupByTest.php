@@ -16,7 +16,7 @@ namespace Lunr\Gravity\SQLite3\Tests;
  *
  * @covers Lunr\Gravity\SQLite3\SQLite3DMLQueryBuilder
  */
-class SQLite3DMLQueryBuilderGroupByTest extends SQLite3DMLQueryBuilderTest
+class SQLite3DMLQueryBuilderGroupByTest extends SQLite3DMLQueryBuilderTestCase
 {
 
     /**

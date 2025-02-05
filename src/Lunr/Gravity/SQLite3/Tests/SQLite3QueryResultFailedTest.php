@@ -15,7 +15,7 @@ namespace Lunr\Gravity\SQLite3\Tests;
  *
  * @covers Lunr\Gravity\SQLite3\SQLite3QueryResult
  */
-class SQLite3QueryResultFailedTest extends SQLite3QueryResultTest
+class SQLite3QueryResultFailedTest extends SQLite3QueryResultTestCase
 {
 
     /**

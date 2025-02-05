@@ -15,7 +15,7 @@ namespace Lunr\Gravity\MySQL\Tests;
  *
  * @covers Lunr\Gravity\MySQL\MySQLConnection
  */
-class MySQLConnectionSetTest extends MySQLConnectionTest
+class MySQLConnectionSetTest extends MySQLConnectionTestCase
 {
 
     /**

@@ -14,7 +14,7 @@ namespace Lunr\Gravity\MySQL\Tests;
  *
  * @covers Lunr\Gravity\MySQL\TransactionalMySQLAccessObject
  */
-class TransactionalMySQLAccessObjectBaseTest extends TransactionalMySQLAccessObjectTest
+class TransactionalMySQLAccessObjectBaseTest extends TransactionalMySQLAccessObjectTestCase
 {
 
     /**

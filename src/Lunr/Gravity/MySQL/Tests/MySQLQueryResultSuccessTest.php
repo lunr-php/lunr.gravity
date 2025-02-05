@@ -16,7 +16,7 @@ namespace Lunr\Gravity\MySQL\Tests;
  *
  * @covers Lunr\Gravity\MySQL\MySQLQueryResult
  */
-class MySQLQueryResultSuccessTest extends MySQLQueryResultTest
+class MySQLQueryResultSuccessTest extends MySQLQueryResultTestCase
 {
 
     /**

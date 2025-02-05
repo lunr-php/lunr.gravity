@@ -15,7 +15,7 @@ namespace Lunr\Gravity\MariaDB\Tests;
  *
  * @covers Lunr\Gravity\MariaDB\MariaDBConnection
  */
-class MariaDBConnectionBaseTest extends MariaDBConnectionTest
+class MariaDBConnectionBaseTest extends MariaDBConnectionTestCase
 {
 
     /**

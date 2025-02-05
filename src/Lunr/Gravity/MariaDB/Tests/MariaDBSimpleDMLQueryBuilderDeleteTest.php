@@ -15,7 +15,7 @@ namespace Lunr\Gravity\MariaDB\Tests;
  *
  * @covers Lunr\Gravity\MariaDB\MariaDBSimpleDMLQueryBuilder
  */
-class MariaDBSimpleDMLQueryBuilderDeleteTest extends MariaDBSimpleDMLQueryBuilderTest
+class MariaDBSimpleDMLQueryBuilderDeleteTest extends MariaDBSimpleDMLQueryBuilderTestCase
 {
 
     /**

@@ -17,7 +17,7 @@ use Throwable;
  *
  * @covers Lunr\Gravity\SQLite3\SQLite3Connection
  */
-class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
+class SQLite3ConnectionConnectTest extends SQLite3ConnectionTestCase
 {
 
     /**

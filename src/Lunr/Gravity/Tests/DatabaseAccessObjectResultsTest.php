@@ -20,7 +20,7 @@ use Lunr\Gravity\Exceptions\QueryException;
  *
  * @covers Lunr\Gravity\DatabaseAccessObject
  */
-class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
+class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTestCase
 {
 
     /**

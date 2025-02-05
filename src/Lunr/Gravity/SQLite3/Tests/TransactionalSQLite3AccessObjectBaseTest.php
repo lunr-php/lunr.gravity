@@ -14,7 +14,7 @@ namespace Lunr\Gravity\SQLite3\Tests;
  *
  * @covers Lunr\Gravity\SQLite3\TransactionalSQLite3AccessObject
  */
-class TransactionalSQLite3AccessObjectBaseTest extends TransactionalSQLite3AccessObjectTest
+class TransactionalSQLite3AccessObjectBaseTest extends TransactionalSQLite3AccessObjectTestCase
 {
 
     /**

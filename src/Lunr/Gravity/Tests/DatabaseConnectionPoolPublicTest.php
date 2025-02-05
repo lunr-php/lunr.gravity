@@ -18,7 +18,7 @@ use ReflectionClass;
  *
  * @covers Lunr\Gravity\DatabaseConnectionPool
  */
-class DatabaseConnectionPoolPublicTest extends DatabaseConnectionPoolTest
+class DatabaseConnectionPoolPublicTest extends DatabaseConnectionPoolTestCase
 {
 
     /**

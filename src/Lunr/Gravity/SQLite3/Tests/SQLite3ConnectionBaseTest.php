@@ -15,7 +15,7 @@ namespace Lunr\Gravity\SQLite3\Tests;
  *
  * @covers Lunr\Gravity\SQLite3\SQLite3Connection
  */
-class SQLite3ConnectionBaseTest extends SQLite3ConnectionTest
+class SQLite3ConnectionBaseTest extends SQLite3ConnectionTestCase
 {
 
     /**

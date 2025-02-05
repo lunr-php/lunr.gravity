@@ -15,7 +15,7 @@ namespace Lunr\Gravity\Tests;
  *
  * @covers Lunr\Gravity\DatabaseDMLQueryBuilder
  */
-class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBuilderTest
+class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBuilderTestCase
 {
 
     /**

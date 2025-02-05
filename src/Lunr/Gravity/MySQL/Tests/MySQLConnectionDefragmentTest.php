@@ -17,7 +17,7 @@ use Lunr\Gravity\MySQL\MySQLQueryEscaper;
  *
  * @covers Lunr\Gravity\MySQL\MySQLConnection
  */
-class MySQLConnectionDefragmentTest extends MySQLConnectionTest
+class MySQLConnectionDefragmentTest extends MySQLConnectionTestCase
 {
 
     /**

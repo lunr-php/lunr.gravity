@@ -16,7 +16,7 @@ namespace Lunr\Gravity\MySQL\Tests;
  *
  * @covers Lunr\Gravity\MySQL\MySQLDMLQueryBuilder
  */
-class MySQLDMLQueryBuilderSelectTest extends MySQLDMLQueryBuilderTest
+class MySQLDMLQueryBuilderSelectTest extends MySQLDMLQueryBuilderTestCase
 {
 
     /**

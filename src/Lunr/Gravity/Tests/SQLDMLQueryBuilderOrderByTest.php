@@ -16,7 +16,7 @@ namespace Lunr\Gravity\Tests;
  *
  * @covers Lunr\Gravity\SQLDMLQueryBuilder
  */
-class SQLDMLQueryBuilderOrderByTest extends SQLDMLQueryBuilderTest
+class SQLDMLQueryBuilderOrderByTest extends SQLDMLQueryBuilderTestCase
 {
 
     /**

@@ -16,7 +16,7 @@ use Lunr\Gravity\Exceptions\DefragmentationException;
  *
  * @covers Lunr\Gravity\SQLite3\SQLite3Connection
  */
-class SQLite3ConnectionDefragmentTest extends SQLite3ConnectionTest
+class SQLite3ConnectionDefragmentTest extends SQLite3ConnectionTestCase
 {
 
     /**

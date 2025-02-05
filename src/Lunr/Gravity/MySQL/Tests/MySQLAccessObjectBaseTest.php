@@ -20,7 +20,7 @@ use Lunr\Halo\PropertyTraits\PsrLoggerTestTrait;
  *
  * @covers Lunr\Gravity\MySQL\MySQLAccessObject
  */
-class MySQLAccessObjectBaseTest extends MySQLAccessObjectTest
+class MySQLAccessObjectBaseTest extends MySQLAccessObjectTestCase
 {
 
     use PsrLoggerTestTrait;

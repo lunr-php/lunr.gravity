@@ -17,7 +17,7 @@ use Lunr\Gravity\MySQL\MySQLCanonicalQuery;
  *
  * @covers Lunr\Gravity\MySQL\MySQLCanonicalQuery
  */
-class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
+class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTestCase
 {
 
     /**

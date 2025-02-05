@@ -18,7 +18,7 @@ use MySQLi_Driver;
  *
  * @covers Lunr\Gravity\MySQL\MySQLConnection
  */
-class MySQLConnectionBaseTest extends MySQLConnectionTest
+class MySQLConnectionBaseTest extends MySQLConnectionTestCase
 {
 
     use PsrLoggerTestTrait;

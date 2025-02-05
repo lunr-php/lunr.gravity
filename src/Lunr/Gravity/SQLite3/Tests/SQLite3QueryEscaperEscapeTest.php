@@ -15,7 +15,7 @@ namespace Lunr\Gravity\SQLite3\Tests;
  *
  * @covers Lunr\Gravity\SQLite3\SQLite3QueryEscaper
  */
-class SQLite3QueryEscaperEscapeTest extends SQLite3QueryEscaperTest
+class SQLite3QueryEscaperEscapeTest extends SQLite3QueryEscaperTestCase
 {
 
     /**

@@ -16,7 +16,7 @@ namespace Lunr\Gravity\Tests;
  *
  * @covers Lunr\Gravity\DatabaseConnectionPool
  */
-class DatabaseConnectionPoolUnsupportedTest extends DatabaseConnectionPoolTest
+class DatabaseConnectionPoolUnsupportedTest extends DatabaseConnectionPoolTestCase
 {
 
     /**

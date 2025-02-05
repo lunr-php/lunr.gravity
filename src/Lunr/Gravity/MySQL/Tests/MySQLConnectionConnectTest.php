@@ -17,7 +17,7 @@ use Throwable;
  *
  * @covers Lunr\Gravity\MySQL\MySQLConnection
  */
-class MySQLConnectionConnectTest extends MySQLConnectionTest
+class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 {
 
     /**

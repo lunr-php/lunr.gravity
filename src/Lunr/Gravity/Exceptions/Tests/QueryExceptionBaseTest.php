@@ -15,7 +15,7 @@ namespace Lunr\Gravity\Exceptions\Tests;
  *
  * @covers Lunr\Gravity\Exceptions\QueryException
  */
-class QueryExceptionBaseTest extends QueryExceptionTest
+class QueryExceptionBaseTest extends QueryExceptionTestCase
 {
 
     /**

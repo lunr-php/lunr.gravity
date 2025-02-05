@@ -17,7 +17,7 @@ use Lunr\Halo\PropertyTraits\PsrLoggerTestTrait;
  *
  * @covers Lunr\Gravity\DatabaseConnection
  */
-class DatabaseConnectionBaseTest extends DatabaseConnectionTest
+class DatabaseConnectionBaseTest extends DatabaseConnectionTestCase
 {
 
     use PsrLoggerTestTrait;

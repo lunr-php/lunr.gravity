@@ -14,7 +14,7 @@ namespace Lunr\Gravity\MariaDB\Tests;
  *
  * @covers Lunr\Gravity\MariaDB\TransactionalMariaDBAccessObject
  */
-class TransactionalMariaDBAccessObjectBaseTest extends TransactionalMariaDBAccessObjectTest
+class TransactionalMariaDBAccessObjectBaseTest extends TransactionalMariaDBAccessObjectTestCase
 {
 
     /**

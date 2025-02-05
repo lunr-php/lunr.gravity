@@ -15,7 +15,7 @@ namespace Lunr\Gravity\MySQL\Tests;
  *
  * @covers Lunr\Gravity\MySQL\MySQLQueryEscaper
  */
-class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTest
+class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
 {
 
     /**

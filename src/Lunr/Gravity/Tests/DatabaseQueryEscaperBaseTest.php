@@ -15,7 +15,7 @@ namespace Lunr\Gravity\Tests;
  *
  * @covers Lunr\Gravity\DatabaseQueryEscaper
  */
-class DatabaseQueryEscaperBaseTest extends DatabaseQueryEscaperTest
+class DatabaseQueryEscaperBaseTest extends DatabaseQueryEscaperTestCase
 {
 
     /**

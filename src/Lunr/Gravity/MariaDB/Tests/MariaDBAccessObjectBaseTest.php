@@ -20,7 +20,7 @@ use Lunr\Halo\PropertyTraits\PsrLoggerTestTrait;
  *
  * @covers Lunr\Gravity\MariaDB\MariaDBAccessObject
  */
-class MariaDBAccessObjectBaseTest extends MariaDBAccessObjectTest
+class MariaDBAccessObjectBaseTest extends MariaDBAccessObjectTestCase
 {
 
     use PsrLoggerTestTrait;

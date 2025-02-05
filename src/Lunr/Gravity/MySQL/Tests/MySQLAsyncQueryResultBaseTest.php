@@ -15,7 +15,7 @@ namespace Lunr\Gravity\MySQL\Tests;
  *
  * @covers Lunr\Gravity\MySQL\MySQLAsyncQueryResult
  */
-class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTest
+class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
 {
 
     /**
