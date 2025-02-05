@@ -35,7 +35,7 @@ class DatabaseConnectionBaseTest extends DatabaseConnectionTest
      */
     public function testConnectedIsFalse(): void
     {
-        $this->assertFalse($this->get_reflection_property_value('connected'));
+        $this->assertFalse($this->getReflectionPropertyValue('connected'));
     }
 
     /**
@@ -43,7 +43,7 @@ class DatabaseConnectionBaseTest extends DatabaseConnectionTest
      */
     public function testReadonlyIsFalseByDefault(): void
     {
-        $this->assertFalse($this->get_reflection_property_value('readonly'));
+        $this->assertFalse($this->getReflectionPropertyValue('readonly'));
     }
 
     /**
@@ -56,7 +56,7 @@ class DatabaseConnectionBaseTest extends DatabaseConnectionTest
     {
         $this->class->set_readonly(TRUE);
 
-        $this->assertTrue($this->get_reflection_property_value('readonly'));
+        $this->assertTrue($this->getReflectionPropertyValue('readonly'));
     }
 
     /**
@@ -69,11 +69,11 @@ class DatabaseConnectionBaseTest extends DatabaseConnectionTest
     {
         $this->class->set_readonly(TRUE);
 
-        $this->assertTrue($this->get_reflection_property_value('readonly'));
+        $this->assertTrue($this->getReflectionPropertyValue('readonly'));
 
         $this->class->set_readonly(FALSE);
 
-        $this->assertFalse($this->get_reflection_property_value('readonly'));
+        $this->assertFalse($this->getReflectionPropertyValue('readonly'));
     }
 
 }

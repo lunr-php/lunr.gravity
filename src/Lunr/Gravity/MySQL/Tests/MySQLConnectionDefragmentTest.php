@@ -33,9 +33,9 @@ class MySQLConnectionDefragmentTest extends MySQLConnectionTest
                         ->disableOriginalConstructor()
                         ->getMock();
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
-        $this->set_reflection_property_value('escaper', $escaper);
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('escaper', $escaper);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $escaper->expects($this->once())
                 ->method('table')
@@ -46,7 +46,7 @@ class MySQLConnectionDefragmentTest extends MySQLConnectionTest
                ->method('query')
                ->willReturn(FALSE);
 
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $this->expectException(DefragmentationException::class);
         $this->expectExceptionMessage('Failed to optimize table: flights');
@@ -57,7 +57,7 @@ class MySQLConnectionDefragmentTest extends MySQLConnectionTest
 
         $this->class->defragment('flights');
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -74,9 +74,9 @@ class MySQLConnectionDefragmentTest extends MySQLConnectionTest
                         ->disableOriginalConstructor()
                         ->getMock();
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
-        $this->set_reflection_property_value('escaper', $escaper);
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('escaper', $escaper);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $escaper->expects($this->once())
                 ->method('table')
@@ -87,11 +87,11 @@ class MySQLConnectionDefragmentTest extends MySQLConnectionTest
                ->method('query')
                ->willReturn(TRUE);
 
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $this->class->defragment('flights');
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
 }

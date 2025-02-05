@@ -11,14 +11,14 @@
 namespace Lunr\Gravity\MariaDB\Tests;
 
 use Lunr\Gravity\MariaDB\MariaDBConnection;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 
 /**
  * This class contains common constructors/destructors for testing the MariaDBConnection class.
  *
  * @covers Lunr\Gravity\MariaDB\MariaDBConnection
  */
-abstract class MariaDBConnectionTest extends LunrBaseTest
+abstract class MariaDBConnectionTest extends LunrBaseTestCase
 {
 
     /**

@@ -11,7 +11,7 @@
 namespace Lunr\Gravity\SQLite3\Tests;
 
 use Lunr\Gravity\SQLite3\SQLite3QueryEscaper;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 use stdClass;
 
 /**
@@ -19,7 +19,7 @@ use stdClass;
  *
  * @covers Lunr\Gravity\SQLite3QueryEscaper
  */
-abstract class SQLite3QueryEscaperTest extends LunrBaseTest
+abstract class SQLite3QueryEscaperTest extends LunrBaseTestCase
 {
 
     /**

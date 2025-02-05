@@ -39,13 +39,13 @@ class SQLite3ConnectionSetTest extends SQLite3ConnectionTest
                            ->with('db')
                            ->will($this->returnValue([ 'file' => NULL ]));
 
-        $this->set_reflection_property_value('db', '');
+        $this->setReflectionPropertyValue('db', '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
 
         $method->invoke($this->class);
 
-        $this->assertEquals(':memory:', $this->get_reflection_property_value('db'));
+        $this->assertEquals(':memory:', $this->getReflectionPropertyValue('db'));
     }
 
     /**
@@ -61,13 +61,13 @@ class SQLite3ConnectionSetTest extends SQLite3ConnectionTest
                             ->with('db')
                             ->will($this->returnValue([ 'file' => NULL ]));
 
-        $this->set_reflection_property_value('db', '');
+        $this->setReflectionPropertyValue('db', '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
 
         $method->invoke($this->class);
 
-        $this->assertEquals(':memory:', $this->get_reflection_property_value('db'));
+        $this->assertEquals(':memory:', $this->getReflectionPropertyValue('db'));
     }
 
 }

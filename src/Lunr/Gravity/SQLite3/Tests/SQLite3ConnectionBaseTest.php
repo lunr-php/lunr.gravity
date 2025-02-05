@@ -23,7 +23,7 @@ class SQLite3ConnectionBaseTest extends SQLite3ConnectionTest
      */
     public function testSQLite3Passed(): void
     {
-        $value = $this->get_reflection_property_value('sqlite3');
+        $value = $this->getReflectionPropertyValue('sqlite3');
 
         $this->assertInstanceOf('Lunr\Gravity\SQLite3\LunrSQLite3', $value);
     }
@@ -41,7 +41,7 @@ class SQLite3ConnectionBaseTest extends SQLite3ConnectionTest
      */
     public function testDatabaseIsSetCorrectly(): void
     {
-        $this->assertEquals('/tmp/test.db', $this->get_reflection_property_value('db'));
+        $this->assertEquals('/tmp/test.db', $this->getReflectionPropertyValue('db'));
     }
 
     /**
@@ -81,7 +81,7 @@ class SQLite3ConnectionBaseTest extends SQLite3ConnectionTest
 
         $this->class->get_query_escaper_object();
 
-        $property = $this->get_reflection_property('escaper');
+        $property = $this->getReflectionProperty('escaper');
         $instance = 'Lunr\Gravity\SQLite3\SQLite3QueryEscaper';
         $this->assertInstanceOf($instance, $property->getValue($this->class));
     }

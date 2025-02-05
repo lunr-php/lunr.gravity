@@ -25,7 +25,7 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
      */
     public function testImplodeQueryWithNoComponents(): void
     {
-        $method = $this->get_accessible_reflection_method('implode_query');
+        $method = $this->getReflectionMethod('implode_query');
 
         $components = [];
 
@@ -39,7 +39,7 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
      */
     public function testImplodeQueryWithNonExistingComponent(): void
     {
-        $method = $this->get_accessible_reflection_method('implode_query');
+        $method = $this->getReflectionMethod('implode_query');
 
         $components = [ 'whatever' ];
 
@@ -53,7 +53,7 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
      */
     public function testImplodeQueryWithExistingEmptyComponents(): void
     {
-        $method = $this->get_accessible_reflection_method('implode_query');
+        $method = $this->getReflectionMethod('implode_query');
 
         $components = [ 'select_mode', 'select', 'from' ];
 
@@ -67,9 +67,9 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
      */
     public function testImplodeQueryWithEmptySelectComponent(): void
     {
-        $method = $this->get_accessible_reflection_method('implode_query');
+        $method = $this->getReflectionMethod('implode_query');
 
-        $this->set_reflection_property_value('from', 'FROM table');
+        $this->setReflectionPropertyValue('from', 'FROM table');
 
         $components = [ 'select', 'from' ];
 
@@ -83,10 +83,10 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
      */
     public function testImplodeQueryWithDuplicateSelectModes(): void
     {
-        $method = $this->get_accessible_reflection_method('implode_query');
+        $method = $this->getReflectionMethod('implode_query');
 
-        $this->set_reflection_property_value('from', 'FROM table');
-        $this->set_reflection_property_value('select_mode', [ 'DISTINCT', 'DISTINCT', 'SQL_CACHE' ]);
+        $this->setReflectionPropertyValue('from', 'FROM table');
+        $this->setReflectionPropertyValue('select_mode', [ 'DISTINCT', 'DISTINCT', 'SQL_CACHE' ]);
 
         $components = [ 'select_mode', 'select', 'from' ];
 
@@ -100,10 +100,10 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
      */
     public function testImplodeQueryWithDuplicateUpdateModes(): void
     {
-        $method = $this->get_accessible_reflection_method('implode_query');
+        $method = $this->getReflectionMethod('implode_query');
 
-        $this->set_reflection_property_value('update', 'table1');
-        $this->set_reflection_property_value('update_mode', [ 'LOW_PRIORITY', 'IGNORE', 'LOW_PRIORITY' ]);
+        $this->setReflectionPropertyValue('update', 'table1');
+        $this->setReflectionPropertyValue('update_mode', [ 'LOW_PRIORITY', 'IGNORE', 'LOW_PRIORITY' ]);
 
         $components = [ 'update_mode', 'update' ];
 
@@ -117,10 +117,10 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
      */
     public function testImplodeQueryWithDuplicateDeleteModes(): void
     {
-        $method = $this->get_accessible_reflection_method('implode_query');
+        $method = $this->getReflectionMethod('implode_query');
 
-        $this->set_reflection_property_value('from', 'FROM table');
-        $this->set_reflection_property_value('delete_mode', [ 'QUICK', 'IGNORE', 'QUICK' ]);
+        $this->setReflectionPropertyValue('from', 'FROM table');
+        $this->setReflectionPropertyValue('delete_mode', [ 'QUICK', 'IGNORE', 'QUICK' ]);
 
         $components = [ 'delete_mode', 'from' ];
 
@@ -134,10 +134,10 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
      */
     public function testImplodeQueryWithDuplicateInsertModes(): void
     {
-        $method = $this->get_accessible_reflection_method('implode_query');
+        $method = $this->getReflectionMethod('implode_query');
 
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('insert_mode', [ 'DELAYED', 'IGNORE', 'DELAYED' ]);
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('insert_mode', [ 'DELAYED', 'IGNORE', 'DELAYED' ]);
 
         $components = [ 'insert_mode', 'into' ];
 

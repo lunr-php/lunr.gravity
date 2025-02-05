@@ -25,11 +25,11 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testConnector(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_connector');
+        $method = $this->getReflectionMethod('sql_connector');
 
         $method->invokeArgs($this->class, [ 'AND' ]);
 
-        $this->assertEquals('AND', $this->get_reflection_property_value('connector'));
+        $this->assertEquals('AND', $this->getReflectionPropertyValue('connector'));
     }
 
     /**
@@ -43,13 +43,13 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testConditionCreatesSimpleStatement($keyword, $attribute): void
     {
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'a', 'b', '=', $keyword ]);
 
         $string = "$keyword a = b";
 
-        $this->assertEquals($string, $this->get_reflection_property_value($attribute));
+        $this->assertEquals($string, $this->getReflectionPropertyValue($attribute));
     }
 
     /**
@@ -59,16 +59,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testConditionCreatesSimpleJoinStatement(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join', 'JOIN table');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join', 'JOIN table');
 
         $method->invokeArgs($this->class, [ 'a', 'b', '=', 'ON' ]);
 
         $string = 'JOIN table ON a = b';
 
-        $this->assertEquals($string, $this->get_reflection_property_value('join'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -78,17 +78,17 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testConditionCreatesGroupedJoinStatement(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
-        $this->set_reflection_property_value('is_unfinished_join', FALSE);
+        $this->setReflectionPropertyValue('is_unfinished_join', FALSE);
 
-        $this->set_reflection_property_value('join', 'JOIN table ON (');
+        $this->setReflectionPropertyValue('join', 'JOIN table ON (');
 
         $method->invokeArgs($this->class, [ 'a', 'b', '=', 'ON' ]);
 
         $string = 'JOIN table ON (a = b';
 
-        $this->assertEquals($string, $this->get_reflection_property_value('join'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -102,13 +102,13 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testConditionWithNonDefaultOperator($keyword, $attribute): void
     {
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'a', 'b', '<', $keyword ]);
 
         $string = "$keyword a < b";
 
-        $this->assertEquals($string, $this->get_reflection_property_value($attribute));
+        $this->assertEquals($string, $this->getReflectionPropertyValue($attribute));
     }
 
     /**
@@ -123,15 +123,15 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
     public function testConditionExtendingWithDefaultConnector($keyword, $attribute): void
     {
         $string = "$keyword a = b";
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
-        $this->set_reflection_property_value($attribute, $string);
+        $this->setReflectionPropertyValue($attribute, $string);
 
         $method->invokeArgs($this->class, [ 'c', 'd', '=', $keyword ]);
 
         $string = "$keyword a = b AND c = d";
 
-        $this->assertEquals($string, $this->get_reflection_property_value($attribute));
+        $this->assertEquals($string, $this->getReflectionPropertyValue($attribute));
     }
 
     /**
@@ -147,16 +147,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
     {
         $string = "$keyword a = b";
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
-        $this->set_reflection_property_value('connector', 'OR');
-        $this->set_reflection_property_value($attribute, $string);
+        $this->setReflectionPropertyValue('connector', 'OR');
+        $this->setReflectionPropertyValue($attribute, $string);
 
         $method->invokeArgs($this->class, [ 'c', 'd', '=', $keyword ]);
 
         $string = "$keyword a = b OR c = d";
 
-        $this->assertEquals($string, $this->get_reflection_property_value($attribute));
+        $this->assertEquals($string, $this->getReflectionPropertyValue($attribute));
     }
 
     /**
@@ -170,15 +170,15 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testGroupedSQLCondition($keyword, $attribute): void
     {
-        $method_cond = $this->get_accessible_reflection_method('sql_condition');
+        $method_cond = $this->getReflectionMethod('sql_condition');
 
         $arguments = [ 'a', 'b', '=', $keyword ];
 
-        $this->set_reflection_property_value($attribute, '(');
+        $this->setReflectionPropertyValue($attribute, '(');
 
         $string = $keyword . ' (a = b';
         $method_cond->invokeArgs($this->class, $arguments);
-        $this->assertEquals($string, $this->get_reflection_property_value($attribute));
+        $this->assertEquals($string, $this->getReflectionPropertyValue($attribute));
     }
 
     /**
@@ -188,16 +188,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testWhereWithJoinTypeUsing(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1` USING (column3)');
-        $this->set_reflection_property_value('is_unfinished_join', FALSE);
-        $this->set_reflection_property_value('join_type', 'using');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1` USING (column3)');
+        $this->setReflectionPropertyValue('is_unfinished_join', FALSE);
+        $this->setReflectionPropertyValue('join_type', 'using');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column4', 'column5', '=', 'WHERE' ]);
 
-        $this->assertSame('INNER JOIN `table1` USING (column3)', $this->get_reflection_property_value('join'));
-        $this->assertSame('WHERE column4 = column5', $this->get_reflection_property_value('where'));
+        $this->assertSame('INNER JOIN `table1` USING (column3)', $this->getReflectionPropertyValue('join'));
+        $this->assertSame('WHERE column4 = column5', $this->getReflectionPropertyValue('where'));
     }
 
     /**
@@ -207,16 +207,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testWhereWithJoinTypeOn(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`ON (`column2` = `column3`)');
-        $this->set_reflection_property_value('is_unfinished_join', FALSE);
-        $this->set_reflection_property_value('join_type', 'on');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`ON (`column2` = `column3`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', FALSE);
+        $this->setReflectionPropertyValue('join_type', 'on');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column4', 'column5', '=', 'WHERE' ]);
 
-        $this->assertSame('INNER JOIN `table1`ON (`column2` = `column3`)', $this->get_reflection_property_value('join'));
-        $this->assertSame('WHERE column4 = column5', $this->get_reflection_property_value('where'));
+        $this->assertSame('INNER JOIN `table1`ON (`column2` = `column3`)', $this->getReflectionPropertyValue('join'));
+        $this->assertSame('WHERE column4 = column5', $this->getReflectionPropertyValue('where'));
     }
 
     /**
@@ -226,16 +226,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testWhereWithJoinTypeEmpty(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`ON (`column2` = `column3`)');
-        $this->set_reflection_property_value('is_unfinished_join', FALSE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`ON (`column2` = `column3`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', FALSE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column4', 'column5', '=', 'WHERE' ]);
 
-        $this->assertSame('INNER JOIN `table1`ON (`column2` = `column3`)', $this->get_reflection_property_value('join'));
-        $this->assertSame('WHERE column4 = column5', $this->get_reflection_property_value('where'));
+        $this->assertSame('INNER JOIN `table1`ON (`column2` = `column3`)', $this->getReflectionPropertyValue('join'));
+        $this->assertSame('WHERE column4 = column5', $this->getReflectionPropertyValue('where'));
     }
 
     /**
@@ -245,16 +245,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testHavingWithJoinTypeUsing(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1` USING (column3)');
-        $this->set_reflection_property_value('is_unfinished_join', FALSE);
-        $this->set_reflection_property_value('join_type', 'using');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1` USING (column3)');
+        $this->setReflectionPropertyValue('is_unfinished_join', FALSE);
+        $this->setReflectionPropertyValue('join_type', 'using');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column4', 'column5', '=', 'HAVING' ]);
 
-        $this->assertSame('INNER JOIN `table1` USING (column3)', $this->get_reflection_property_value('join'));
-        $this->assertSame('HAVING column4 = column5', $this->get_reflection_property_value('having'));
+        $this->assertSame('INNER JOIN `table1` USING (column3)', $this->getReflectionPropertyValue('join'));
+        $this->assertSame('HAVING column4 = column5', $this->getReflectionPropertyValue('having'));
     }
 
     /**
@@ -264,16 +264,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testHavingWithJoinTypeOn(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`ON (`column2` = `column3`)');
-        $this->set_reflection_property_value('is_unfinished_join', FALSE);
-        $this->set_reflection_property_value('join_type', 'on');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`ON (`column2` = `column3`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', FALSE);
+        $this->setReflectionPropertyValue('join_type', 'on');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column4', 'column5', '=', 'HAVING' ]);
 
-        $this->assertSame('INNER JOIN `table1`ON (`column2` = `column3`)', $this->get_reflection_property_value('join'));
-        $this->assertSame('HAVING column4 = column5', $this->get_reflection_property_value('having'));
+        $this->assertSame('INNER JOIN `table1`ON (`column2` = `column3`)', $this->getReflectionPropertyValue('join'));
+        $this->assertSame('HAVING column4 = column5', $this->getReflectionPropertyValue('having'));
     }
 
     /**
@@ -283,16 +283,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testHavingWithJoinTypeEmpty(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`ON (`column2` = `column3`)');
-        $this->set_reflection_property_value('is_unfinished_join', FALSE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`ON (`column2` = `column3`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', FALSE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column4', 'column5', '=', 'HAVING' ]);
 
-        $this->assertSame('INNER JOIN `table1`ON (`column2` = `column3`)', $this->get_reflection_property_value('join'));
-        $this->assertSame('HAVING column4 = column5', $this->get_reflection_property_value('having'));
+        $this->assertSame('INNER JOIN `table1`ON (`column2` = `column3`)', $this->getReflectionPropertyValue('join'));
+        $this->assertSame('HAVING column4 = column5', $this->getReflectionPropertyValue('having'));
     }
 
     /**
@@ -302,14 +302,14 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartOnGroupWithJoinTypeUsing(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table2` USING (`column1`)');
-        $this->set_reflection_property_value('join_type', 'using');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table2` USING (`column1`)');
+        $this->setReflectionPropertyValue('join_type', 'using');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'ON' ]);
 
-        $this->assertSame('INNER JOIN `table2` USING (`column1`)', $this->get_reflection_property_value('join'));
+        $this->assertSame('INNER JOIN `table2` USING (`column1`)', $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -319,14 +319,14 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartOnGroupWithJoinTypeOn(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table2` USING (`column1`)');
-        $this->set_reflection_property_value('join_type', 'on');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table2` USING (`column1`)');
+        $this->setReflectionPropertyValue('join_type', 'on');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'ON' ]);
 
-        $this->assertSame('INNER JOIN `table2` USING (`column1`) AND (', $this->get_reflection_property_value('join'));
+        $this->assertSame('INNER JOIN `table2` USING (`column1`) AND (', $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -336,16 +336,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartOnGroupWithEmptyJoinType(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'ON' ]);
 
-        $this->assertSame('INNER JOIN `table1`ON (', $this->get_reflection_property_value('join'));
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertSame('INNER JOIN `table1`ON (', $this->getReflectionPropertyValue('join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -355,16 +355,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartHavingGroupWithJoinTypeUsing(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1` USING (`column1`)');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', 'using');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1` USING (`column1`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', 'using');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'having' ]);
 
-        $this->assertSame('INNER JOIN `table1` USING (`column1`)', $this->get_reflection_property_value('join'));
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertSame('INNER JOIN `table1` USING (`column1`)', $this->getReflectionPropertyValue('join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -374,16 +374,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartHavingGroupWithJoinTypeOn(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`ON (`column1` = `column2`)');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', 'on');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`ON (`column1` = `column2`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', 'on');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'having' ]);
 
-        $this->assertSame('INNER JOIN `table1`ON (`column1` = `column2`)', $this->get_reflection_property_value('join'));
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertSame('INNER JOIN `table1`ON (`column1` = `column2`)', $this->getReflectionPropertyValue('join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -393,16 +393,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartHavingGroupWithJoinTypeEmpty(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`ON (`column1` = `column2`)');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`ON (`column1` = `column2`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'having' ]);
 
-        $this->assertSame('INNER JOIN `table1`ON (`column1` = `column2`)', $this->get_reflection_property_value('join'));
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertSame('INNER JOIN `table1`ON (`column1` = `column2`)', $this->getReflectionPropertyValue('join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -412,15 +412,15 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartHavingGroupWithJoinTypeEmptyDoesntchangeJoinType(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'having' ]);
 
-        $this->assertSame('', $this->get_reflection_property_value('join_type'));
+        $this->assertSame('', $this->getReflectionPropertyValue('join_type'));
     }
 
     /**
@@ -430,16 +430,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartWhereGroupWithJoinTypeUsing(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1` USING (`column1`)');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', 'using');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1` USING (`column1`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', 'using');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'where' ]);
 
-        $this->assertSame('INNER JOIN `table1` USING (`column1`)', $this->get_reflection_property_value('join'));
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertSame('INNER JOIN `table1` USING (`column1`)', $this->getReflectionPropertyValue('join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -449,16 +449,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartWhereGroupWithJoinTypeOn(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`ON (`column1` = `column2`)');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', 'on');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`ON (`column1` = `column2`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', 'on');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'where' ]);
 
-        $this->assertSame('INNER JOIN `table1`ON (`column1` = `column2`)', $this->get_reflection_property_value('join'));
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertSame('INNER JOIN `table1`ON (`column1` = `column2`)', $this->getReflectionPropertyValue('join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -468,16 +468,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartWhereGroupWithJoinTypeEmpty(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`ON (`column1` = `column2`)');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`ON (`column1` = `column2`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'where' ]);
 
-        $this->assertSame('INNER JOIN `table1`ON (`column1` = `column2`)', $this->get_reflection_property_value('join'));
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertSame('INNER JOIN `table1`ON (`column1` = `column2`)', $this->getReflectionPropertyValue('join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -487,15 +487,15 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartWhereGroupWithJoinTypeEmptyDoesntchangeJoinType(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'where' ]);
 
-        $this->assertSame('', $this->get_reflection_property_value('join_type'));
+        $this->assertSame('', $this->getReflectionPropertyValue('join_type'));
     }
 
     /**
@@ -505,15 +505,15 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartOnGroupSetsRightJoinType(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1` USING (`column1`) INNER JOIN `table2`');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1` USING (`column1`) INNER JOIN `table2`');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'ON' ]);
 
-        $this->assertSame('on', $this->get_reflection_property_value('join_type'));
+        $this->assertSame('on', $this->getReflectionPropertyValue('join_type'));
     }
 
     /**
@@ -523,16 +523,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartOnGroupReturnsOnWrongJoinType(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1` USING (`column1`) INNER JOIN `table2`');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', 'using');
-        $join = $this->get_reflection_property_value('join');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1` USING (`column1`) INNER JOIN `table2`');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', 'using');
+        $join = $this->getReflectionPropertyValue('join');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'ON' ]);
 
-        $this->assertSame($join, $this->get_reflection_property_value('join'));
+        $this->assertSame($join, $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -542,15 +542,15 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testStartOnGroupJoinTypeDoesntChange(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1` USING (`column1`) INNER JOIN `table2`');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', 'using');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1` USING (`column1`) INNER JOIN `table2`');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', 'using');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
 
         $method->invokeArgs($this->class, [ 'ON' ]);
 
-        $this->assertSame('using', $this->get_reflection_property_value('join_type'));
+        $this->assertSame('using', $this->getReflectionPropertyValue('join_type'));
     }
 
     /**
@@ -560,15 +560,15 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testEndOnGroupWithJoinTypeEmpty(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_group_end');
+        $method = $this->getReflectionMethod('sql_group_end');
 
         $method->invokeArgs($this->class, [ 'ON' ]);
 
-        $this->assertSame('INNER JOIN `table1`)', $this->get_reflection_property_value('join'));
+        $this->assertSame('INNER JOIN `table1`)', $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -578,14 +578,14 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testEndOnGroupWithJoinTypeUsing(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table2` USING (`column1`)');
-        $this->set_reflection_property_value('join_type', 'using');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table2` USING (`column1`)');
+        $this->setReflectionPropertyValue('join_type', 'using');
 
-        $method = $this->get_accessible_reflection_method('sql_group_end');
+        $method = $this->getReflectionMethod('sql_group_end');
 
         $method->invokeArgs($this->class, [ 'ON' ]);
 
-        $this->assertSame('INNER JOIN `table2` USING (`column1`)', $this->get_reflection_property_value('join'));
+        $this->assertSame('INNER JOIN `table2` USING (`column1`)', $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -595,16 +595,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testOnWithJoinTypeUsing(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1` USING (`column1`)');
-        $this->set_reflection_property_value('is_unfinished_join', FALSE);
-        $this->set_reflection_property_value('join_type', 'using');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1` USING (`column1`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', FALSE);
+        $this->setReflectionPropertyValue('join_type', 'using');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column2', 'column3', '=', 'ON' ]);
 
-        $this->assertSame('INNER JOIN `table1` USING (`column1`)', $this->get_reflection_property_value('join'));
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertSame('INNER JOIN `table1` USING (`column1`)', $this->getReflectionPropertyValue('join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -614,16 +614,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testOnWithJoinTypeOn(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`ON (`column1` = `column2`)');
-        $this->set_reflection_property_value('is_unfinished_join', FALSE);
-        $this->set_reflection_property_value('join_type', 'on');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`ON (`column1` = `column2`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', FALSE);
+        $this->setReflectionPropertyValue('join_type', 'on');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column2', 'column3', '=', 'ON' ]);
 
-        $this->assertSame('INNER JOIN `table1`ON (`column1` = `column2`) AND column2 = column3', $this->get_reflection_property_value('join'));
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertSame('INNER JOIN `table1`ON (`column1` = `column2`) AND column2 = column3', $this->getReflectionPropertyValue('join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -633,16 +633,16 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testOnWithJoinTypeEmpty(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column2', 'column3', '=', 'ON' ]);
 
-        $this->assertSame('INNER JOIN `table1` ON column2 = column3', $this->get_reflection_property_value('join'));
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertSame('INNER JOIN `table1` ON column2 = column3', $this->getReflectionPropertyValue('join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -652,15 +652,15 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testOnWithJoinTypeUsingDoesntChangeJoinType(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1` USING (`column1`)');
-        $this->set_reflection_property_value('is_unfinished_join', FALSE);
-        $this->set_reflection_property_value('join_type', 'using');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1` USING (`column1`)');
+        $this->setReflectionPropertyValue('is_unfinished_join', FALSE);
+        $this->setReflectionPropertyValue('join_type', 'using');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column2', 'column3', '=', 'ON' ]);
 
-        $this->assertSame('using', $this->get_reflection_property_value('join_type'));
+        $this->assertSame('using', $this->getReflectionPropertyValue('join_type'));
     }
 
     /**
@@ -670,15 +670,15 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testOnSettingFinishedJoin(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column2', 'column3', '=', 'ON' ]);
 
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -688,15 +688,15 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testWhereSettingFinishedJoin(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column2', 'column3', '=', 'WHERE' ]);
 
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -706,15 +706,15 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testHavingSettingFinishedJoin(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column2', 'column3', '=', 'WHERE' ]);
 
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -724,15 +724,15 @@ class DatabaseDMLQueryBuilderQueryPartsConditionTest extends DatabaseDMLQueryBui
      */
     public function testOnSetRightJoinType(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN `table1`');
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
-        $this->set_reflection_property_value('join_type', '');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN `table1`');
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('join_type', '');
 
-        $method = $this->get_accessible_reflection_method('sql_condition');
+        $method = $this->getReflectionMethod('sql_condition');
 
         $method->invokeArgs($this->class, [ 'column2', 'column3', '=', 'ON' ]);
 
-        $this->assertSame('on', $this->get_reflection_property_value('join_type'));
+        $this->assertSame('on', $this->getReflectionPropertyValue('join_type'));
     }
 
 }

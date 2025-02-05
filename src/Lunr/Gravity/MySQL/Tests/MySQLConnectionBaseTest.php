@@ -211,7 +211,7 @@ class MySQLConnectionBaseTest extends MySQLConnectionTest
 
         $this->class->get_query_escaper_object();
 
-        $property = $this->get_reflection_property('escaper');
+        $property = $this->getReflectionProperty('escaper');
         $instance = 'Lunr\Gravity\MySQL\MySQLQueryEscaper';
         $this->assertInstanceOf($instance, $property->getValue($this->class));
     }

@@ -26,7 +26,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
      */
     public function testHasFailedFetchesDataIfFetchedIsFalse(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
@@ -34,7 +34,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
 
         $this->class->has_failed();
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -65,7 +65,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
      */
     public function testAffectedRowsFetchesDataIfFetchedIsFalse(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
@@ -73,7 +73,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
 
         $this->class->affected_rows();
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -104,7 +104,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
      */
     public function testNumberOfRowsRowsFetchesDataIfFetchedIsFalse(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
@@ -112,7 +112,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
 
         $this->class->number_of_rows();
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -143,7 +143,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
      */
     public function testErrorMessageFetchesDataIfFetchedIsFalse(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
@@ -151,7 +151,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
 
         $this->class->error_message();
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -182,7 +182,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
      */
     public function testErrorNumberFetchesDataIfFetchedIsFalse(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
@@ -190,7 +190,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
 
         $this->class->error_number();
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -221,7 +221,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
      */
     public function testInsertIDFetchesDataIfFetchedIsFalse(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
@@ -229,7 +229,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
 
         $this->class->insert_id();
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -260,7 +260,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
      */
     public function testResultArrayFetchesDataIfFetchedIsFalse(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
@@ -268,7 +268,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
 
         $this->class->result_array();
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -299,7 +299,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
      */
     public function testResultRowFetchesDataIfFetchedIsFalse(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
@@ -307,7 +307,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
 
         $this->class->result_row();
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -338,7 +338,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
      */
     public function testResultColumnFetchesDataIfFetchedIsFalse(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
@@ -346,7 +346,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
 
         $this->class->result_column('col');
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -377,7 +377,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
      */
     public function testResultCellFetchesDataIfFetchedIsFalse(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
@@ -385,7 +385,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTest
 
         $this->class->result_cell('cell');
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**

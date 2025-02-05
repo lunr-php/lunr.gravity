@@ -28,8 +28,8 @@ class DatabaseDMLQueryBuilderGetReplaceQueryTest extends DatabaseDMLQueryBuilder
         $this->expectException('\Lunr\Gravity\Exceptions\MissingTableReferenceException');
         $this->expectExceptionMessage('No into() in replace query!');
 
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('values', 'VALUES (1,2), (3,4)');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('values', 'VALUES (1,2), (3,4)');
 
         $this->class->get_replace_query();
     }
@@ -42,9 +42,9 @@ class DatabaseDMLQueryBuilderGetReplaceQueryTest extends DatabaseDMLQueryBuilder
      */
     public function testGetReplaceValuesQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('values', 'VALUES (1,2), (3,4)');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('values', 'VALUES (1,2), (3,4)');
 
         $string = 'REPLACE INTO table (column1, column2) VALUES (1,2), (3,4)';
 
@@ -59,10 +59,10 @@ class DatabaseDMLQueryBuilderGetReplaceQueryTest extends DatabaseDMLQueryBuilder
      */
     public function testGetReplaceReturningValuesQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('values', 'VALUES (1,2), (3,4)');
-        $this->set_reflection_property_value('returning', 'RETURNING column1, column2');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('values', 'VALUES (1,2), (3,4)');
+        $this->setReflectionPropertyValue('returning', 'RETURNING column1, column2');
 
         $string = 'REPLACE INTO table (column1, column2) VALUES (1,2), (3,4) RETURNING column1, column2';
 
@@ -77,8 +77,8 @@ class DatabaseDMLQueryBuilderGetReplaceQueryTest extends DatabaseDMLQueryBuilder
      */
     public function testGetReplaceSetQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('set', 'SET column1 = 1');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('set', 'SET column1 = 1');
 
         $string = 'REPLACE INTO table SET column1 = 1';
 
@@ -93,8 +93,8 @@ class DatabaseDMLQueryBuilderGetReplaceQueryTest extends DatabaseDMLQueryBuilder
      */
     public function testGetReplaceSelectQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('select_statement', 'SELECT column1, column2 FROM table');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('select_statement', 'SELECT column1, column2 FROM table');
 
         $string = 'REPLACE INTO table SELECT column1, column2 FROM table';
 
@@ -109,9 +109,9 @@ class DatabaseDMLQueryBuilderGetReplaceQueryTest extends DatabaseDMLQueryBuilder
      */
     public function testGetReplaceSelectColumnsQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('select_statement', 'SELECT column1, column2 FROM table');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('select_statement', 'SELECT column1, column2 FROM table');
 
         $string = 'REPLACE INTO table (column1, column2) SELECT column1, column2 FROM table';
 
@@ -126,10 +126,10 @@ class DatabaseDMLQueryBuilderGetReplaceQueryTest extends DatabaseDMLQueryBuilder
      */
     public function testGetReplaceSelectInvalidInsertModeQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('select_statement', 'SELECT column1, column2 FROM table');
-        $this->set_reflection_property_value('insert_mode', [ 'DELAYED', 'IGNORE' ]);
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('select_statement', 'SELECT column1, column2 FROM table');
+        $this->setReflectionPropertyValue('insert_mode', [ 'DELAYED', 'IGNORE' ]);
 
         $string = 'REPLACE DELAYED INTO table (column1, column2) SELECT column1, column2 FROM table';
 

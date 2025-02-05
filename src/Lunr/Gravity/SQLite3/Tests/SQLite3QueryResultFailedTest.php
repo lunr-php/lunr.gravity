@@ -31,7 +31,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTest
      */
     public function testSuccessIsFalse(): void
     {
-        $property = $this->get_accessible_reflection_property('success');
+        $property = $this->getReflectionProperty('success');
 
         $this->assertFalse($property->getValue($this->class));
     }
@@ -41,7 +41,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTest
      */
     public function testResultIsFalse(): void
     {
-        $property = $this->get_accessible_reflection_property('result');
+        $property = $this->getReflectionProperty('result');
 
         $this->assertFalse($property->getValue($this->class));
     }
@@ -51,7 +51,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTest
      */
     public function testFreedIsTrue(): void
     {
-        $property = $this->get_accessible_reflection_property('freed');
+        $property = $this->getReflectionProperty('freed');
 
         $this->assertTrue($property->getValue($this->class));
     }
@@ -73,7 +73,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTest
      */
     public function testErrorMessageIsString(): void
     {
-        $property = $this->get_accessible_reflection_property('error_message');
+        $property = $this->getReflectionProperty('error_message');
 
         $this->assertIsString($property->getValue($this->class));
     }
@@ -85,7 +85,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTest
      */
     public function testErrorNumberIsNumber(): void
     {
-        $property = $this->get_accessible_reflection_property('error_number');
+        $property = $this->getReflectionProperty('error_number');
 
         $this->assertIsInt($property->getValue($this->class));
     }
@@ -97,7 +97,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTest
      */
     public function testInsertIDIsZero(): void
     {
-        $property = $this->get_accessible_reflection_property('insert_id');
+        $property = $this->getReflectionProperty('insert_id');
 
         $this->assertEquals(0, $property->getValue($this->class));
     }
@@ -158,7 +158,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTest
      */
     public function testHasDeadlockReturnsTrue(): void
     {
-        $this->set_reflection_property_value('error_number', 6);
+        $this->setReflectionPropertyValue('error_number', 6);
 
         $this->assertTrue($this->class->has_deadlock());
     }
@@ -170,7 +170,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTest
      */
     public function testHasDeadlockReturnsFalse(): void
     {
-        $this->set_reflection_property_value('error_number', 999);
+        $this->setReflectionPropertyValue('error_number', 999);
 
         $this->assertFalse($this->class->has_deadlock());
     }
@@ -182,7 +182,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTest
      */
     public function testLockTimeoutReturnsTrue(): void
     {
-        $this->set_reflection_property_value('error_number', 5);
+        $this->setReflectionPropertyValue('error_number', 5);
 
         $this->assertTrue($this->class->has_lock_timeout());
     }
@@ -194,7 +194,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTest
      */
     public function testLockTimeoutReturnsFalse(): void
     {
-        $this->set_reflection_property_value('error_number', 999);
+        $this->setReflectionPropertyValue('error_number', 999);
 
         $this->assertFalse($this->class->has_lock_timeout());
     }

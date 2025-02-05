@@ -27,7 +27,7 @@ class SQLite3DMLQueryBuilderGroupByTest extends SQLite3DMLQueryBuilderTest
     public function testGroupByWithDefaultOrder(): void
     {
         $this->class->group_by('group1');
-        $value = $this->get_reflection_property_value('group_by');
+        $value = $this->getReflectionPropertyValue('group_by');
 
         $this->assertEquals('GROUP BY group1', $value);
     }
@@ -40,11 +40,11 @@ class SQLite3DMLQueryBuilderGroupByTest extends SQLite3DMLQueryBuilderTest
     public function testGroupByIgnoresCustomOrder(): void
     {
         $this->class->group_by('group1', FALSE);
-        $value = $this->get_reflection_property_value('group_by');
+        $value = $this->getReflectionPropertyValue('group_by');
         $this->assertEquals('GROUP BY group1', $value);
 
         $this->class->group_by('group2', TRUE);
-        $value = $this->get_reflection_property_value('group_by');
+        $value = $this->getReflectionPropertyValue('group_by');
         $this->assertEquals('GROUP BY group1, group2', $value);
     }
 

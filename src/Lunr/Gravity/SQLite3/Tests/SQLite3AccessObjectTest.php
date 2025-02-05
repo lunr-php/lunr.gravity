@@ -12,7 +12,7 @@ namespace Lunr\Gravity\SQLite3\Tests;
 use Lunr\Gravity\SQLite3\SQLite3AccessObject;
 use Lunr\Gravity\SQLite3\SQLite3Connection;
 use Lunr\Gravity\SQLite3\SQLite3QueryEscaper;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use Psr\Log\LoggerInterface;
@@ -22,7 +22,7 @@ use Psr\Log\LoggerInterface;
  *
  * @covers Lunr\Gravity\SQLite3AccessObject
  */
-abstract class SQLite3AccessObjectTest extends LunrBaseTest
+abstract class SQLite3AccessObjectTest extends LunrBaseTestCase
 {
 
     /**

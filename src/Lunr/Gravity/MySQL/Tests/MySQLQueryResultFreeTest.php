@@ -23,13 +23,13 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTest
      */
     public function setUp(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 10);
-        $this->mock_function('mysqli_num_rows', fn() => 10);
+        $this->mockFunction('mysqli_affected_rows', fn() => 10);
+        $this->mockFunction('mysqli_num_rows', fn() => 10);
 
         $this->resultSetSetup();
 
-        $this->unmock_function('mysqli_affected_rows');
-        $this->unmock_function('mysqli_num_rows');
+        $this->unmockFunction('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_num_rows');
     }
 
     /**
@@ -42,7 +42,7 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTest
         $this->query_result->expects($this->once())
                     ->method('free');
 
-        $method = $this->get_accessible_reflection_method('free_result');
+        $method = $this->getReflectionMethod('free_result');
 
         $method->invoke($this->class);
     }
@@ -54,16 +54,16 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTest
      */
     public function testFreeResultDoesNotFreeIfFreedIsTrue(): void
     {
-        $this->set_reflection_property_value('freed', TRUE);
+        $this->setReflectionPropertyValue('freed', TRUE);
 
         $this->query_result->expects($this->never())
                     ->method('free');
 
-        $method = $this->get_accessible_reflection_method('free_result');
+        $method = $this->getReflectionMethod('free_result');
 
         $method->invoke($this->class);
 
-        // $this->set_reflection_property_value('freed', FALSE);
+        // $this->setReflectionPropertyValue('freed', FALSE);
     }
 
     /**
@@ -86,7 +86,7 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTest
      */
     public function testResultArrayDoesNotFreeDataIfFreedIsTrue(): void
     {
-        $this->set_reflection_property_value('freed', TRUE);
+        $this->setReflectionPropertyValue('freed', TRUE);
 
         $this->query_result->expects($this->never())
                            ->method('free');
@@ -114,7 +114,7 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTest
      */
     public function testResultRowDoesNotFreeDataIfFreedIsTrue(): void
     {
-        $this->set_reflection_property_value('freed', TRUE);
+        $this->setReflectionPropertyValue('freed', TRUE);
 
         $this->query_result->expects($this->never())
                            ->method('free');
@@ -142,7 +142,7 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTest
      */
     public function testResultColumnDoesNotFreeDataIfFreedIsTrue(): void
     {
-        $this->set_reflection_property_value('freed', TRUE);
+        $this->setReflectionPropertyValue('freed', TRUE);
 
         $this->query_result->expects($this->never())
                            ->method('free');
@@ -170,7 +170,7 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTest
      */
     public function testResultCellDoesNotFreeDataIfFreedIsTrue(): void
     {
-        $this->set_reflection_property_value('freed', TRUE);
+        $this->setReflectionPropertyValue('freed', TRUE);
 
         $this->query_result->expects($this->never())
                            ->method('free');

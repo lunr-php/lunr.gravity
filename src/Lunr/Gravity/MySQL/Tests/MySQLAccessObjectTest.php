@@ -12,7 +12,7 @@ namespace Lunr\Gravity\MySQL\Tests;
 use Lunr\Gravity\MySQL\MySQLAccessObject;
 use Lunr\Gravity\MySQL\MySQLConnection;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use Psr\Log\LoggerInterface;
@@ -22,7 +22,7 @@ use Psr\Log\LoggerInterface;
  *
  * @covers Lunr\Gravity\MySQLAccessObject
  */
-abstract class MySQLAccessObjectTest extends LunrBaseTest
+abstract class MySQLAccessObjectTest extends LunrBaseTestCase
 {
 
     /**

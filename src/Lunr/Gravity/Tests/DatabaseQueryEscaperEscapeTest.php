@@ -29,7 +29,7 @@ class DatabaseQueryEscaperEscapeTest extends DatabaseQueryEscaperTest
      */
     public function testEscapeLocationReference($col, $escaped): void
     {
-        $method = $this->get_accessible_reflection_method('escape_location_reference');
+        $method = $this->getReflectionMethod('escape_location_reference');
         $this->assertEquals($escaped, $method->invokeArgs($this->class, [ $col ]));
     }
 
@@ -40,7 +40,7 @@ class DatabaseQueryEscaperEscapeTest extends DatabaseQueryEscaperTest
      */
     public function testCollateWithValueOnly(): void
     {
-        $method = $this->get_accessible_reflection_method('collate');
+        $method = $this->getReflectionMethod('collate');
         $this->assertEquals('value', $method->invokeArgs($this->class, [ 'value', '' ]));
     }
 
@@ -51,7 +51,7 @@ class DatabaseQueryEscaperEscapeTest extends DatabaseQueryEscaperTest
      */
     public function testCollateWithCollation(): void
     {
-        $method = $this->get_accessible_reflection_method('collate');
+        $method = $this->getReflectionMethod('collate');
 
         $string = 'value COLLATE utf8_general_ci';
 

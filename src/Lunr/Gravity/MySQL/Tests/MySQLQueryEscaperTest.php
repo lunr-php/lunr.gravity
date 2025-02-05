@@ -11,7 +11,7 @@
 namespace Lunr\Gravity\MySQL\Tests;
 
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 use stdClass;
 
 /**
@@ -19,7 +19,7 @@ use stdClass;
  *
  * @covers Lunr\Gravity\MySQLQueryEscaper
  */
-abstract class MySQLQueryEscaperTest extends LunrBaseTest
+abstract class MySQLQueryEscaperTest extends LunrBaseTestCase
 {
 
     /**

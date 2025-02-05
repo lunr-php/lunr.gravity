@@ -24,11 +24,11 @@ class MySQLQueryResultFailedTest extends MySQLQueryResultTest
      */
     public function setUp(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 10);
+        $this->mockFunction('mysqli_affected_rows', fn() => 10);
 
         $this->failedSetup();
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -36,7 +36,7 @@ class MySQLQueryResultFailedTest extends MySQLQueryResultTest
      */
     public function testSuccessIsFalse(): void
     {
-        $this->assertFalse($this->get_reflection_property_value('success'));
+        $this->assertFalse($this->getReflectionPropertyValue('success'));
     }
 
     /**
@@ -44,7 +44,7 @@ class MySQLQueryResultFailedTest extends MySQLQueryResultTest
      */
     public function testResultIsFalse(): void
     {
-        $this->assertFalse($this->get_reflection_property_value('result'));
+        $this->assertFalse($this->getReflectionPropertyValue('result'));
     }
 
     /**
@@ -52,7 +52,7 @@ class MySQLQueryResultFailedTest extends MySQLQueryResultTest
      */
     public function testFreedIsTrue(): void
     {
-        $this->assertTrue($this->get_reflection_property_value('freed'));
+        $this->assertTrue($this->getReflectionPropertyValue('freed'));
     }
 
     /**
@@ -112,7 +112,7 @@ class MySQLQueryResultFailedTest extends MySQLQueryResultTest
      */
     public function testNumberOfRowsReturnsNumber(): void
     {
-        $this->set_reflection_property_value('num_rows', 666);
+        $this->setReflectionPropertyValue('num_rows', 666);
 
         $value = $this->class->number_of_rows();
         $this->assertIsInt($value);
@@ -166,7 +166,7 @@ class MySQLQueryResultFailedTest extends MySQLQueryResultTest
      */
     public function testHasDeadlockReturnsTrue(): void
     {
-        $this->set_reflection_property_value('error_number', 1213);
+        $this->setReflectionPropertyValue('error_number', 1213);
 
         $this->assertTrue($this->class->has_deadlock());
     }
@@ -178,7 +178,7 @@ class MySQLQueryResultFailedTest extends MySQLQueryResultTest
      */
     public function testHasDeadlockReturnsFalse(): void
     {
-        $this->set_reflection_property_value('error_number', 999);
+        $this->setReflectionPropertyValue('error_number', 999);
 
         $this->assertFalse($this->class->has_deadlock());
     }
@@ -190,7 +190,7 @@ class MySQLQueryResultFailedTest extends MySQLQueryResultTest
      */
     public function testLockTimeoutReturnsTrue(): void
     {
-        $this->set_reflection_property_value('error_number', 1205);
+        $this->setReflectionPropertyValue('error_number', 1205);
 
         $this->assertTrue($this->class->has_lock_timeout());
     }
@@ -202,7 +202,7 @@ class MySQLQueryResultFailedTest extends MySQLQueryResultTest
      */
     public function testLockTimeoutReturnsFalse(): void
     {
-        $this->set_reflection_property_value('error_number', 999);
+        $this->setReflectionPropertyValue('error_number', 999);
 
         $this->assertFalse($this->class->has_lock_timeout());
     }

@@ -31,8 +31,8 @@ class SQLite3QueryResultResultTest extends SQLite3QueryResultTest
      */
     public function testSuccessIsTrue(): void
     {
-        $this->get_accessible_reflection_property('success');
-        $this->assertTrue($this->get_reflection_property_value('success'));
+        $this->getReflectionProperty('success');
+        $this->assertTrue($this->getReflectionPropertyValue('success'));
     }
 
     /**
@@ -40,8 +40,8 @@ class SQLite3QueryResultResultTest extends SQLite3QueryResultTest
      */
     public function testFreedIsFalse(): void
     {
-        $this->get_accessible_reflection_property('freed');
-        $this->assertFalse($this->get_reflection_property_value('freed'));
+        $this->getReflectionProperty('freed');
+        $this->assertFalse($this->getReflectionPropertyValue('freed'));
     }
 
     /**
@@ -61,7 +61,7 @@ class SQLite3QueryResultResultTest extends SQLite3QueryResultTest
      */
     public function testAffectedRowsReturnsNumber(): void
     {
-        $this->set_reflection_property_value('affected_rows', 8);
+        $this->setReflectionPropertyValue('affected_rows', 8);
         $this->assertSame(8, $this->class->affected_rows());
     }
 

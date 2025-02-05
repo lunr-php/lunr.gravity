@@ -29,13 +29,13 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
      */
     public function testJoinWithoutIndexHints($type, $join): void
     {
-        $method = $this->get_accessible_reflection_method('sql_join');
+        $method = $this->getReflectionMethod('sql_join');
 
         $method->invokeArgs($this->class, [ 'table', $type ]);
 
         $string = trim($join . ' table');
 
-        $this->assertEquals($string, $this->get_reflection_property_value('join'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -51,7 +51,7 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
      */
     public function testJoinWithSingleIndexHint($type, $join): void
     {
-        $method = $this->get_accessible_reflection_method('sql_join');
+        $method = $this->getReflectionMethod('sql_join');
 
         $hints = [ 'index_hint' ];
 
@@ -59,7 +59,7 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
 
         $string = trim($join . ' table index_hint');
 
-        $this->assertEquals($string, $this->get_reflection_property_value('join'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -75,14 +75,14 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
      */
     public function testJoinWithMultipleIndexHints($type, $join): void
     {
-        $method = $this->get_accessible_reflection_method('sql_join');
+        $method = $this->getReflectionMethod('sql_join');
         $hints  = [ 'index_hint', 'index_hint' ];
 
         $method->invokeArgs($this->class, [ 'table', $type, $hints ]);
 
         $string = trim($join . ' table index_hint, index_hint');
 
-        $this->assertEquals($string, $this->get_reflection_property_value('join'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -98,14 +98,14 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
      */
     public function testJoinWithNULLIndexHints($type, $join): void
     {
-        $method = $this->get_accessible_reflection_method('sql_join');
+        $method = $this->getReflectionMethod('sql_join');
         $hints  = [ NULL, NULL ];
 
         $method->invokeArgs($this->class, [ 'table', $type, $hints ]);
 
         $string = ltrim($join . ' table ');
 
-        $this->assertEquals($string, $this->get_reflection_property_value('join'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -119,14 +119,14 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
      */
     public function testIncrementalJoinWithoutIndexes($type, $join): void
     {
-        $method = $this->get_accessible_reflection_method('sql_join');
+        $method = $this->getReflectionMethod('sql_join');
 
         $method->invokeArgs($this->class, [ 'table', $type ]);
         $method->invokeArgs($this->class, [ 'table', $type ]);
 
         $string = $join . ' table ' . $join . ' table';
 
-        $this->assertEquals($string, $this->get_reflection_property_value('join'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -142,7 +142,7 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
      */
     public function testIncrementalJoinWithIndexes($type, $join): void
     {
-        $method = $this->get_accessible_reflection_method('sql_join');
+        $method = $this->getReflectionMethod('sql_join');
         $hints  = [ 'index_hint' ];
 
         $method->invokeArgs($this->class, [ 'table', $type, $hints ]);
@@ -150,7 +150,7 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
 
         $string = $join . ' table index_hint ' . $join . ' table index_hint';
 
-        $this->assertEquals($string, $this->get_reflection_property_value('join'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -160,13 +160,13 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
      */
     public function testStraightJoin(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_join');
+        $method = $this->getReflectionMethod('sql_join');
 
         $method->invokeArgs($this->class, [ 'table', 'STRAIGHT' ]);
 
         $string = 'STRAIGHT_JOIN table';
 
-        $this->assertEquals($string, $this->get_reflection_property_value('join'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -176,14 +176,14 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
      */
     public function testIncrementalStraightJoin(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_join');
+        $method = $this->getReflectionMethod('sql_join');
 
         $method->invokeArgs($this->class, [ 'table', 'STRAIGHT' ]);
         $method->invokeArgs($this->class, [ 'table', 'STRAIGHT' ]);
 
         $string = 'STRAIGHT_JOIN table STRAIGHT_JOIN table';
 
-        $this->assertEquals($string, $this->get_reflection_property_value('join'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -194,11 +194,11 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
      */
     public function testJoinSetsUnfinishedJoinWithNaturalJoin(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_join');
+        $method = $this->getReflectionMethod('sql_join');
 
         $method->invokeArgs($this->class, [ 'table', 'NATURAL LEFT JOIN' ]);
 
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -209,11 +209,11 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
      */
     public function testJoinSetsUnfinishedJoin(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_join');
+        $method = $this->getReflectionMethod('sql_join');
 
         $method->invokeArgs($this->class, [ 'table', 'INNER' ]);
 
-        $this->assertTrue($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertTrue($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -223,14 +223,14 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
      */
     public function testJoinSetsJoinType(): void
     {
-        $this->set_reflection_property_value('join_type', 'on');
+        $this->setReflectionPropertyValue('join_type', 'on');
 
-        $method = $this->get_accessible_reflection_method('sql_join');
+        $method = $this->getReflectionMethod('sql_join');
 
         $method->invokeArgs($this->class, [ 'table', 'INNER' ]);
 
-        $this->assertTrue($this->get_reflection_property_value('is_unfinished_join'));
-        $this->assertSame('', $this->get_reflection_property_value('join_type'));
+        $this->assertTrue($this->getReflectionPropertyValue('is_unfinished_join'));
+        $this->assertSame('', $this->getReflectionPropertyValue('join_type'));
     }
 
 }

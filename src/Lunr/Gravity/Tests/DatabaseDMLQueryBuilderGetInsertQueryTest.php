@@ -28,8 +28,8 @@ class DatabaseDMLQueryBuilderGetInsertQueryTest extends DatabaseDMLQueryBuilderT
         $this->expectException('\Lunr\Gravity\Exceptions\MissingTableReferenceException');
         $this->expectExceptionMessage('No into() in insert query!');
 
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('values', 'VALUES (1,2), (3,4)');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('values', 'VALUES (1,2), (3,4)');
 
         $this->class->get_insert_query();
     }
@@ -42,9 +42,9 @@ class DatabaseDMLQueryBuilderGetInsertQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetInsertValuesQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('values', 'VALUES (1,2), (3,4)');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('values', 'VALUES (1,2), (3,4)');
 
         $string = 'INSERT INTO table (column1, column2) VALUES (1,2), (3,4)';
 
@@ -59,10 +59,10 @@ class DatabaseDMLQueryBuilderGetInsertQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetInsertReturningValuesQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('values', 'VALUES (1,2), (3,4)');
-        $this->set_reflection_property_value('returning', 'RETURNING column1, column2');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('values', 'VALUES (1,2), (3,4)');
+        $this->setReflectionPropertyValue('returning', 'RETURNING column1, column2');
 
         $string = 'INSERT INTO table (column1, column2) VALUES (1,2), (3,4) RETURNING column1, column2';
 
@@ -77,8 +77,8 @@ class DatabaseDMLQueryBuilderGetInsertQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetInsertSetQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('set', 'SET column1 = 1');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('set', 'SET column1 = 1');
 
         $string = 'INSERT INTO table SET column1 = 1';
 
@@ -93,8 +93,8 @@ class DatabaseDMLQueryBuilderGetInsertQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetInsertSelectQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('select_statement', 'SELECT column1, column2 FROM table');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('select_statement', 'SELECT column1, column2 FROM table');
 
         $string = 'INSERT INTO table SELECT column1, column2 FROM table';
 
@@ -109,9 +109,9 @@ class DatabaseDMLQueryBuilderGetInsertQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetInsertSelectColumnsQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('select_statement', 'SELECT column1, column2 FROM table');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('select_statement', 'SELECT column1, column2 FROM table');
 
         $string = 'INSERT INTO table (column1, column2) SELECT column1, column2 FROM table';
 
@@ -126,10 +126,10 @@ class DatabaseDMLQueryBuilderGetInsertQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetInsertSelectInvalidInsertModeQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('select_statement', 'SELECT column1, column2 FROM table');
-        $this->set_reflection_property_value('insert_mode', [ 'DELAYED', 'IGNORE' ]);
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('select_statement', 'SELECT column1, column2 FROM table');
+        $this->setReflectionPropertyValue('insert_mode', [ 'DELAYED', 'IGNORE' ]);
 
         $string = 'INSERT IGNORE INTO table (column1, column2) SELECT column1, column2 FROM table';
 
@@ -144,10 +144,10 @@ class DatabaseDMLQueryBuilderGetInsertQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetInsertValuesUpsertQuery()
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('values', 'VALUES (1,2), (3,4)');
-        $this->set_reflection_property_value('upsert', 'ON CONFLICT DO NOTHING');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('values', 'VALUES (1,2), (3,4)');
+        $this->setReflectionPropertyValue('upsert', 'ON CONFLICT DO NOTHING');
 
         $string = 'INSERT INTO table (column1, column2) VALUES (1,2), (3,4) ON CONFLICT DO NOTHING';
 
@@ -162,10 +162,10 @@ class DatabaseDMLQueryBuilderGetInsertQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetInsertSelectColumnsUpsertQuery()
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('select_statement', 'SELECT column1, column2 FROM table');
-        $this->set_reflection_property_value('upsert', 'ON CONFLICT DO NOTHING');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('select_statement', 'SELECT column1, column2 FROM table');
+        $this->setReflectionPropertyValue('upsert', 'ON CONFLICT DO NOTHING');
 
         $string = 'INSERT INTO table (column1, column2) SELECT column1, column2 FROM table ON CONFLICT DO NOTHING';
 

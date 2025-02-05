@@ -25,7 +25,7 @@ class DatabaseDMLQueryBuilderQueryPartsSelectTest extends DatabaseDMLQueryBuilde
      */
     public function testInitialSelect(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_select');
+        $method = $this->getReflectionMethod('sql_select');
 
         $method->invokeArgs($this->class, [ 'col' ]);
 
@@ -41,7 +41,7 @@ class DatabaseDMLQueryBuilderQueryPartsSelectTest extends DatabaseDMLQueryBuilde
      */
     public function testInitialSelectWithNull(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_select');
+        $method = $this->getReflectionMethod('sql_select');
 
         $method->invokeArgs($this->class, [ NULL ]);
 
@@ -57,7 +57,7 @@ class DatabaseDMLQueryBuilderQueryPartsSelectTest extends DatabaseDMLQueryBuilde
      */
     public function testIncrementalSelect(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_select');
+        $method = $this->getReflectionMethod('sql_select');
 
         $method->invokeArgs($this->class, [ 'col' ]);
         $method->invokeArgs($this->class, [ 'col' ]);
@@ -74,7 +74,7 @@ class DatabaseDMLQueryBuilderQueryPartsSelectTest extends DatabaseDMLQueryBuilde
      */
     public function testIncrementalSelectNull(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_select');
+        $method = $this->getReflectionMethod('sql_select');
 
         $method->invokeArgs($this->class, [ 'col' ]);
         $method->invokeArgs($this->class, [ NULL ]);
@@ -91,7 +91,7 @@ class DatabaseDMLQueryBuilderQueryPartsSelectTest extends DatabaseDMLQueryBuilde
      */
     public function testInitialReturning(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_select');
+        $method = $this->getReflectionMethod('sql_select');
 
         $method->invokeArgs($this->class, [ 'col1, col2', 'RETURNING' ]);
 
@@ -108,7 +108,7 @@ class DatabaseDMLQueryBuilderQueryPartsSelectTest extends DatabaseDMLQueryBuilde
      */
     public function testIncrementalReturning(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_select');
+        $method = $this->getReflectionMethod('sql_select');
 
         $method->invokeArgs($this->class, [ 'col1', 'RETURNING' ]);
         $method->invokeArgs($this->class, [ 'col2', 'RETURNING' ]);

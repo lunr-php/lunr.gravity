@@ -11,7 +11,7 @@
 namespace Lunr\Gravity\MySQL\Tests;
 
 use Lunr\Gravity\MySQL\MySQLAsyncQueryResult;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 use mysqli;
 
 /**
@@ -20,7 +20,7 @@ use mysqli;
  *
  * @covers Lunr\Gravity\MySQL\MySQLAsyncQueryResult
  */
-abstract class MySQLAsyncQueryResultTest extends LunrBaseTest
+abstract class MySQLAsyncQueryResultTest extends LunrBaseTestCase
 {
 
     /**

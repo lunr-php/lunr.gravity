@@ -11,14 +11,14 @@
 namespace Lunr\Gravity\MySQL\Tests;
 
 use Lunr\Gravity\MySQL\MySQLCanonicalQuery;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 
 /**
  * This class contains unit tests for MySQLCanonicalQuery.
  *
  * @covers Lunr\Gravity\MySQL\MySQLCanonicalQuery
  */
-abstract class MySQLCanonicalQueryTest extends LunrBaseTest
+abstract class MySQLCanonicalQueryTest extends LunrBaseTestCase
 {
 
     /**

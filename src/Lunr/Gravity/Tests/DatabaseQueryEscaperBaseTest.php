@@ -23,7 +23,7 @@ class DatabaseQueryEscaperBaseTest extends DatabaseQueryEscaperTest
      */
     public function testDatabaseStringEscaperIsPassed(): void
     {
-        $this->assertSame($this->escaper, $this->get_reflection_property_value('escaper'));
+        $this->assertSame($this->escaper, $this->getReflectionPropertyValue('escaper'));
     }
 
 }

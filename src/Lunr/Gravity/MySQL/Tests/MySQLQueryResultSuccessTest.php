@@ -24,11 +24,11 @@ class MySQLQueryResultSuccessTest extends MySQLQueryResultTest
      */
     public function setUp(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 10);
+        $this->mockFunction('mysqli_affected_rows', fn() => 10);
 
         $this->successfulSetup();
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -36,7 +36,7 @@ class MySQLQueryResultSuccessTest extends MySQLQueryResultTest
      */
     public function testSuccessIsTrue(): void
     {
-        $this->assertTrue($this->get_reflection_property_value('success'));
+        $this->assertTrue($this->getReflectionPropertyValue('success'));
     }
 
     /**
@@ -44,7 +44,7 @@ class MySQLQueryResultSuccessTest extends MySQLQueryResultTest
      */
     public function testResultIsTrue(): void
     {
-        $this->assertTrue($this->get_reflection_property_value('result'));
+        $this->assertTrue($this->getReflectionPropertyValue('result'));
     }
 
     /**
@@ -52,7 +52,7 @@ class MySQLQueryResultSuccessTest extends MySQLQueryResultTest
      */
     public function testFreedIsTrue(): void
     {
-        $this->assertTrue($this->get_reflection_property_value('freed'));
+        $this->assertTrue($this->getReflectionPropertyValue('freed'));
     }
 
     /**
@@ -72,7 +72,7 @@ class MySQLQueryResultSuccessTest extends MySQLQueryResultTest
      */
     public function testNumberOfRowsReturnsNumber(): void
     {
-        $this->set_reflection_property_value('num_rows', 10);
+        $this->setReflectionPropertyValue('num_rows', 10);
 
         $value = $this->class->number_of_rows();
         $this->assertIsInt($value);

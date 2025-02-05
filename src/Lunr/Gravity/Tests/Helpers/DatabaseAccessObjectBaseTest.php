@@ -9,12 +9,12 @@
 
 namespace Lunr\Gravity\Tests\Helpers;
 
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 
 /**
  * This class contains setup and tear down methods for DAOs using MySQL access.
  */
-abstract class DatabaseAccessObjectBaseTest extends LunrBaseTest
+abstract class DatabaseAccessObjectBaseTest extends LunrBaseTestCase
 {
 
     /**

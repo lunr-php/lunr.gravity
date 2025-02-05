@@ -45,7 +45,7 @@ class SQLite3ConnectionQueryTest extends SQLite3ConnectionTest
      */
     public function testQueryReturnsQueryResultWhenConnected(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->sqlite3->expects($this->once())
                       ->method('query')

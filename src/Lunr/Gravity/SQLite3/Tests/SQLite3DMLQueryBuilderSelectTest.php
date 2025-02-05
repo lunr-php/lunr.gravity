@@ -30,7 +30,7 @@ class SQLite3DMLQueryBuilderSelectTest extends SQLite3DMLQueryBuilderTest
     public function testSelectModeSetsDuplicatesCorrectly($mode): void
     {
         $this->class->select_mode($mode);
-        $modes = $this->get_reflection_property_value('select_mode');
+        $modes = $this->getReflectionPropertyValue('select_mode');
 
         $this->assertEquals($mode, $modes['duplicates']);
     }
@@ -44,7 +44,7 @@ class SQLite3DMLQueryBuilderSelectTest extends SQLite3DMLQueryBuilderTest
     {
         $this->class->select_mode('UNSUPPORTED');
 
-        $modes = $this->get_reflection_property_value('select_mode');
+        $modes = $this->getReflectionPropertyValue('select_mode');
 
         $this->assertIsArray($modes);
         $this->assertEmpty($modes);
@@ -61,7 +61,7 @@ class SQLite3DMLQueryBuilderSelectTest extends SQLite3DMLQueryBuilderTest
         $this->class->select_mode('ALL');
         $this->class->select_mode('DISTINCT');
 
-        $modes = $this->get_reflection_property_value('select_mode');
+        $modes = $this->getReflectionPropertyValue('select_mode');
 
         $this->assertEquals('DISTINCT', $modes['duplicates']);
         $this->assertNotContains('ALL', $modes);
@@ -127,7 +127,7 @@ class SQLite3DMLQueryBuilderSelectTest extends SQLite3DMLQueryBuilderTest
     public function testIntersectDefaults()
     {
         $this->class->intersect('query', 'random_string');
-        $returned = $this->get_reflection_property_value('compound');
+        $returned = $this->getReflectionPropertyValue('compound');
         $this->assertEquals('INTERSECT query', $returned);
     }
 
@@ -139,7 +139,7 @@ class SQLite3DMLQueryBuilderSelectTest extends SQLite3DMLQueryBuilderTest
     public function testIntersectDistinct()
     {
         $this->class->intersect('query', 'DISTINCT');
-        $returned = $this->get_reflection_property_value('compound');
+        $returned = $this->getReflectionPropertyValue('compound');
         $this->assertEquals('INTERSECT DISTINCT query', $returned);
     }
 
@@ -151,7 +151,7 @@ class SQLite3DMLQueryBuilderSelectTest extends SQLite3DMLQueryBuilderTest
     public function testExceptDefaults()
     {
         $this->class->except('query', 'random_string');
-        $returned = $this->get_reflection_property_value('compound');
+        $returned = $this->getReflectionPropertyValue('compound');
         $this->assertEquals('EXCEPT query', $returned);
     }
 
@@ -163,7 +163,7 @@ class SQLite3DMLQueryBuilderSelectTest extends SQLite3DMLQueryBuilderTest
     public function testExceptDistinct()
     {
         $this->class->except('query', 'DISTINCT');
-        $returned = $this->get_reflection_property_value('compound');
+        $returned = $this->getReflectionPropertyValue('compound');
         $this->assertEquals('EXCEPT DISTINCT query', $returned);
     }
 

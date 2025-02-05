@@ -27,7 +27,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
      */
     public function testSuccessfulConnectReadonly(): void
     {
-        $this->set_reflection_property_value('readonly', TRUE);
+        $this->setReflectionPropertyValue('readonly', TRUE);
 
         $this->sqlite3->expects($this->once())
                       ->method('open')
@@ -39,7 +39,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
 
         $this->class->connect();
 
-        $this->assertTrue($this->get_reflection_property_value('connected'));
+        $this->assertTrue($this->getReflectionPropertyValue('connected'));
     }
 
     /**
@@ -59,7 +59,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
 
         $this->class->connect();
 
-        $this->assertTrue($this->get_reflection_property_value('connected'));
+        $this->assertTrue($this->getReflectionPropertyValue('connected'));
     }
 
     /**
@@ -69,7 +69,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
      */
     public function testFailedConnect(): void
     {
-        $this->set_reflection_property_value('readonly', TRUE);
+        $this->setReflectionPropertyValue('readonly', TRUE);
 
         $this->sqlite3->expects($this->once())
                       ->method('open')
@@ -92,7 +92,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
         }
         finally
         {
-            $this->assertFalse($this->get_reflection_property_value('connected'));
+            $this->assertFalse($this->getReflectionPropertyValue('connected'));
         }
     }
 
@@ -103,14 +103,14 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
      */
     public function testConnectDoesNotReconnectWhenAlreadyConnected(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->sqlite3->expects($this->never())
                       ->method('open');
 
         $this->class->connect();
 
-        $this->assertTrue($this->get_reflection_property_value('connected'));
+        $this->assertTrue($this->getReflectionPropertyValue('connected'));
     }
 
     /**
@@ -141,7 +141,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
                           ->method('offsetGet')
                           ->will($this->returnValueMap($map));
 
-        $this->set_reflection_property_value('configuration', $configuration);
+        $this->setReflectionPropertyValue('configuration', $configuration);
 
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Cannot connect to a non-sqlite3 database connection!');
@@ -156,14 +156,14 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
      */
     public function testDisconnectDoesNotTryToDisconnectWhenNotConnected(): void
     {
-        $this->set_reflection_property_value('connected', FALSE);
+        $this->setReflectionPropertyValue('connected', FALSE);
 
         $this->sqlite3->expects($this->never())
                       ->method('close');
 
         $this->class->disconnect();
 
-        $this->assertFalse($this->get_reflection_property_value('connected'));
+        $this->assertFalse($this->getReflectionPropertyValue('connected'));
     }
 
     /**
@@ -173,14 +173,14 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
      */
     public function testDisconnect(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->sqlite3->expects($this->once())
                       ->method('close');
 
         $this->class->disconnect();
 
-        $this->assertFalse($this->get_reflection_property_value('connected'));
+        $this->assertFalse($this->getReflectionPropertyValue('connected'));
     }
 
     /**
@@ -190,7 +190,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
      */
     public function testChangeDatabaseReturnsTrueWhenConnected(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->sqlite3->expects($this->once())
                       ->method('open')
@@ -202,7 +202,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
 
         $return = $this->class->change_database('new_db');
 
-        $this->assertEquals('new_db', $this->get_reflection_property_value('db'));
+        $this->assertEquals('new_db', $this->getReflectionPropertyValue('db'));
 
         $this->assertTrue($return);
     }
@@ -214,7 +214,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
      */
     public function testChangeDatabaseThrowsExceptionWhenNotConnected(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->sqlite3->expects($this->once())
                       ->method('open')
@@ -237,7 +237,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTest
         }
         finally
         {
-            $this->assertEquals('new_db', $this->get_reflection_property_value('db'));
+            $this->assertEquals('new_db', $this->getReflectionPropertyValue('db'));
         }
     }
 

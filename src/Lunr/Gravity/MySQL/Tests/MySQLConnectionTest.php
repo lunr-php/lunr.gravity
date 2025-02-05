@@ -11,7 +11,7 @@
 namespace Lunr\Gravity\MySQL\Tests;
 
 use Lunr\Gravity\MySQL\MySQLConnection;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 
 /**
  * This class contains common constructors/destructors and data providers
@@ -19,7 +19,7 @@ use Lunr\Halo\LunrBaseTest;
  *
  * @covers Lunr\Gravity\MySQL\MySQLConnection
  */
-abstract class MySQLConnectionTest extends LunrBaseTest
+abstract class MySQLConnectionTest extends LunrBaseTestCase
 {
 
     /**

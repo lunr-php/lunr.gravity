@@ -25,7 +25,7 @@ class DatabaseDMLQueryBuilderQueryPartsUpdateTest extends DatabaseDMLQueryBuilde
      */
     public function testInitialUpdate(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_update');
+        $method = $this->getReflectionMethod('sql_update');
 
         $method->invokeArgs($this->class, [ 'table1' ]);
 
@@ -41,7 +41,7 @@ class DatabaseDMLQueryBuilderQueryPartsUpdateTest extends DatabaseDMLQueryBuilde
      */
     public function testIncrementalUpdate(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_update');
+        $method = $this->getReflectionMethod('sql_update');
 
         $method->invokeArgs($this->class, [ 'table1' ]);
         $method->invokeArgs($this->class, [ 'table2' ]);

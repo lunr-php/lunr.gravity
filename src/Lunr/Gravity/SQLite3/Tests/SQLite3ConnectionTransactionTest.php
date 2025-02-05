@@ -25,7 +25,7 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTest
      */
     public function testBeginTransactionStartsTransactionWhenConnected(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->sqlite3->expects($this->once())
                       ->method('exec')
@@ -42,7 +42,7 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTest
      */
     public function testBeginTransactionThrowsExceptionWhenNotConnected(): void
     {
-        $this->set_reflection_property_value('connected', FALSE);
+        $this->setReflectionPropertyValue('connected', FALSE);
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')
@@ -64,7 +64,7 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTest
      */
     public function testCommitWhenConnected(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->sqlite3->expects($this->once())
                       ->method('exec')
@@ -81,7 +81,7 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTest
      */
     public function testCommitThrowsExceptionWhenNotConnected(): void
     {
-        $this->set_reflection_property_value('connected', FALSE);
+        $this->setReflectionPropertyValue('connected', FALSE);
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')
@@ -103,7 +103,7 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTest
      */
     public function testRollbackWhenConnected(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->sqlite3->expects($this->once())
                       ->method('exec')
@@ -120,7 +120,7 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTest
      */
     public function testRollbackThrowsExceptionWhenNotConnected(): void
     {
-        $this->set_reflection_property_value('connected', FALSE);
+        $this->setReflectionPropertyValue('connected', FALSE);
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')
@@ -142,7 +142,7 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTest
      */
     public function testEndTransactionWhenConnected(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->sqlite3->expects($this->once())
                       ->method('exec')
@@ -159,7 +159,7 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTest
      */
     public function testEndTransactionThrowsExceptionWhenNotConnected(): void
     {
-        $this->set_reflection_property_value('connected', FALSE);
+        $this->setReflectionPropertyValue('connected', FALSE);
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')

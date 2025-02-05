@@ -29,7 +29,7 @@ class SQLDMLQueryBuilderDeleteTest extends SQLDMLQueryBuilderTest
     public function testDelete(): void
     {
         $this->class->delete('table');
-        $value = $this->get_reflection_property_value('delete');
+        $value = $this->getReflectionPropertyValue('delete');
 
         $this->assertEquals('table', $value);
     }

@@ -32,9 +32,9 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
                        ->setMethods([ 'connect', 'ssl_set', 'set_charset' ])
                        ->getMock();
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
-        $this->set_reflection_property_value('readonly', TRUE);
-        $this->set_reflection_property_value('ro_host', 'ro_host');
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('readonly', TRUE);
+        $this->setReflectionPropertyValue('ro_host', 'ro_host');
 
         $port   = ini_get('mysqli.default_port');
         $socket = ini_get('mysqli.default_socket');
@@ -52,7 +52,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
         $this->class->connect();
 
         $this->assertPropertyEquals('connected', TRUE);
-        $this->set_reflection_property_value('connected', FALSE); //avoid deconstructor rollback
+        $this->setReflectionPropertyValue('connected', FALSE); //avoid deconstructor rollback
     }
 
     /**
@@ -67,7 +67,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
                        ->setMethods([ 'connect', 'ssl_set', 'set_charset' ])
                        ->getMock();
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $port   = ini_get('mysqli.default_port');
         $socket = ini_get('mysqli.default_socket');
@@ -85,7 +85,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
         $this->class->connect();
 
         $this->assertPropertyEquals('connected', TRUE);
-        $this->set_reflection_property_value('connected', FALSE); //avoid deconstructor rollback
+        $this->setReflectionPropertyValue('connected', FALSE); //avoid deconstructor rollback
     }
 
     /**
@@ -100,16 +100,16 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
                        ->setMethods([ 'connect', 'ssl_set', 'set_charset' ])
                        ->getMock();
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $port   = ini_get('mysqli.default_port');
         $socket = ini_get('mysqli.default_socket');
 
-        $this->set_reflection_property_value('ssl_key', 'ssl_key');
-        $this->set_reflection_property_value('ssl_cert', 'ssl_cert');
-        $this->set_reflection_property_value('ca_cert', 'ca_cert');
-        $this->set_reflection_property_value('ca_path', 'ca_path');
-        $this->set_reflection_property_value('cipher', 'cipher');
+        $this->setReflectionPropertyValue('ssl_key', 'ssl_key');
+        $this->setReflectionPropertyValue('ssl_cert', 'ssl_cert');
+        $this->setReflectionPropertyValue('ca_cert', 'ca_cert');
+        $this->setReflectionPropertyValue('ca_path', 'ca_path');
+        $this->setReflectionPropertyValue('cipher', 'cipher');
 
         $mysqli->expects($this->once())
                ->method('connect')
@@ -125,7 +125,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
         $this->class->connect();
 
         $this->assertPropertyEquals('connected', TRUE);
-        $this->set_reflection_property_value('connected', FALSE); //avoid deconstructor rollback
+        $this->setReflectionPropertyValue('connected', FALSE); //avoid deconstructor rollback
     }
 
     /**
@@ -140,16 +140,16 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
                        ->setMethods([ 'connect', 'ssl_set', 'set_charset', 'close' ])
                        ->getMock();
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $port   = ini_get('mysqli.default_port');
         $socket = ini_get('mysqli.default_socket');
 
-        $this->set_reflection_property_value('ssl_key', 'ssl_key');
-        $this->set_reflection_property_value('ssl_cert', 'ssl_cert');
-        $this->set_reflection_property_value('ca_cert', 'ca_cert');
-        $this->set_reflection_property_value('ca_path', 'ca_path');
-        $this->set_reflection_property_value('cipher', 'cipher');
+        $this->setReflectionPropertyValue('ssl_key', 'ssl_key');
+        $this->setReflectionPropertyValue('ssl_cert', 'ssl_cert');
+        $this->setReflectionPropertyValue('ca_cert', 'ca_cert');
+        $this->setReflectionPropertyValue('ca_path', 'ca_path');
+        $this->setReflectionPropertyValue('cipher', 'cipher');
 
         $mysqli->expects($this->exactly(5))
                ->method('connect')
@@ -169,7 +169,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
         $this->class->connect();
 
         $this->assertPropertyEquals('connected', TRUE);
-        $this->set_reflection_property_value('connected', FALSE); //avoid deconstructor rollback
+        $this->setReflectionPropertyValue('connected', FALSE); //avoid deconstructor rollback
     }
 
     /**
@@ -181,7 +181,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiFailedConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $mysqli->expects($this->never())
                ->method('ssl_set');
@@ -218,16 +218,16 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
                        ->setMethods([ 'connect', 'ssl_set', 'set_charset', 'close' ])
                        ->getMock();
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $port   = ini_get('mysqli.default_port');
         $socket = ini_get('mysqli.default_socket');
 
-        $this->set_reflection_property_value('ssl_key', 'ssl_key');
-        $this->set_reflection_property_value('ssl_cert', 'ssl_cert');
-        $this->set_reflection_property_value('ca_cert', 'ca_cert');
-        $this->set_reflection_property_value('ca_path', 'ca_path');
-        $this->set_reflection_property_value('cipher', 'cipher');
+        $this->setReflectionPropertyValue('ssl_key', 'ssl_key');
+        $this->setReflectionPropertyValue('ssl_cert', 'ssl_cert');
+        $this->setReflectionPropertyValue('ca_cert', 'ca_cert');
+        $this->setReflectionPropertyValue('ca_path', 'ca_path');
+        $this->setReflectionPropertyValue('cipher', 'cipher');
 
         $mysqli->expects($this->exactly(5))
                ->method('connect')
@@ -268,7 +268,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
      */
     public function testConnectDoesNotReconnectWhenAlreadyConnected(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->mysqli->expects($this->never())
                      ->method('connect');
@@ -316,7 +316,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
         $this->mysqli->expects($this->never())
                      ->method('ssl_set');
 
-        $this->set_reflection_property_value('configuration', $configuration);
+        $this->setReflectionPropertyValue('configuration', $configuration);
 
         $this->mysqli->expects($this->any())
                      ->method('options');
@@ -352,7 +352,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $mysqli->expects($this->any())
                ->method('options');
@@ -375,7 +375,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiFailedConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Could not establish connection to the database!');
@@ -391,7 +391,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
      */
     public function testChangeDatabaseReturnsFalseWhenSelectDBFailed(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->mysqli->expects($this->once())
                      ->method('select_db')
@@ -410,7 +410,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
      */
     public function testChangeDatabaseReturnsTrueWhenSelectDBWorked(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->mysqli->expects($this->once())
                      ->method('select_db')

@@ -56,10 +56,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                                 ->method('offsetGet')
                                 ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('rw_host');
+        $property = $this->getReflectionProperty('rw_host');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertPropertyEquals('rw_host', $property->getValue($this->class));
@@ -76,10 +76,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('user');
+        $property = $this->getReflectionProperty('user');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals('username', $property->getValue($this->class));
@@ -96,10 +96,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('pwd');
+        $property = $this->getReflectionProperty('pwd');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals('password', $property->getValue($this->class));
@@ -116,10 +116,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('db');
+        $property = $this->getReflectionProperty('db');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals('database', $property->getValue($this->class));
@@ -136,10 +136,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('ro_host');
+        $property = $this->getReflectionProperty('ro_host');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals('rw_host', $property->getValue($this->class));
@@ -158,10 +158,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('ro_host');
+        $property = $this->getReflectionProperty('ro_host');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals('rw_host', $property->getValue($this->class));
@@ -184,10 +184,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetExists')
                       ->will($this->returnValue(TRUE));
 
-        $property = $this->get_accessible_reflection_property('ro_host');
+        $property = $this->getReflectionProperty('ro_host');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals('ro_host', $property->getValue($this->class));
@@ -204,9 +204,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $this->set_reflection_property_value('port', 0);
+        $this->setReflectionPropertyValue('port', 0);
 
-        $method = $this->get_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertPropertyEquals('port', ini_get('mysqli.default_port'));
@@ -219,20 +219,20 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
      */
     public function testSetConfigurationSetsPortToHardcodedValueIfIniFails(): void
     {
-        $this->mock_function('ini_get', fn($arg) => FALSE);
+        $this->mockFunction('ini_get', fn($arg) => FALSE);
 
         $this->sub_configuration->expects($this->any())
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $this->set_reflection_property_value('port', 0);
+        $this->setReflectionPropertyValue('port', 0);
 
-        $method = $this->get_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertPropertyEquals('port', 3306);
 
-        $this->unmock_function('ini_get');
+        $this->unmockFunction('ini_get');
     }
 
     /**
@@ -248,9 +248,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $this->set_reflection_property_value('port', 0);
+        $this->setReflectionPropertyValue('port', 0);
 
-        $method = $this->get_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertPropertyEquals('port', 20);
@@ -267,10 +267,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('socket');
+        $property = $this->getReflectionProperty('socket');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals(ini_get('mysqli.default_socket'), $property->getValue($this->class));
@@ -289,10 +289,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('socket');
+        $property = $this->getReflectionProperty('socket');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals('socket', $property->getValue($this->class));
@@ -309,10 +309,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('ssl_key');
+        $property = $this->getReflectionProperty('ssl_key');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals('ssl_key', $property->getValue($this->class));
@@ -329,10 +329,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('ssl_cert');
+        $property = $this->getReflectionProperty('ssl_cert');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals('ssl_cert', $property->getValue($this->class));
@@ -349,10 +349,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('ca_cert');
+        $property = $this->getReflectionProperty('ca_cert');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals('ca_cert', $property->getValue($this->class));
@@ -369,10 +369,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('ca_path');
+        $property = $this->getReflectionProperty('ca_path');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals('ca_path', $property->getValue($this->class));
@@ -389,10 +389,10 @@ class MySQLConnectionSetTest extends MySQLConnectionTest
                       ->method('offsetGet')
                       ->will($this->returnValueMap($this->values_map));
 
-        $property = $this->get_accessible_reflection_property('cipher');
+        $property = $this->getReflectionProperty('cipher');
         $property->setValue($this->class, '');
 
-        $method = $this->get_accessible_reflection_method('set_configuration');
+        $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
         $this->assertEquals('cipher', $property->getValue($this->class));

@@ -28,7 +28,7 @@ class SQLDMLQueryBuilderWithTest extends SQLDMLQueryBuilderTest
     public function testWith(): void
     {
         $this->class->with('alias', 'query');
-        $value = $this->get_reflection_property_value('with');
+        $value = $this->getReflectionPropertyValue('with');
 
         $this->assertEquals('alias AS ( query )', $value);
     }
@@ -55,7 +55,7 @@ class SQLDMLQueryBuilderWithTest extends SQLDMLQueryBuilderTest
     public function testWithRecursive(): void
     {
         $this->class->with_recursive('alias', 'anchor_query', 'recursive_query');
-        $value = $this->get_reflection_property_value('with');
+        $value = $this->getReflectionPropertyValue('with');
 
         $this->assertEquals('alias AS ( anchor_query UNION recursive_query )', $value);
     }

@@ -24,13 +24,13 @@ class MySQLQueryResultWarningTest extends MySQLQueryResultTest
      */
     public function setUp(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 10);
-        $this->mock_function('mysqli_num_rows', fn() => 10);
+        $this->mockFunction('mysqli_affected_rows', fn() => 10);
+        $this->mockFunction('mysqli_num_rows', fn() => 10);
 
         $this->warningSetup();
 
-        $this->unmock_function('mysqli_affected_rows');
-        $this->unmock_function('mysqli_num_rows');
+        $this->unmockFunction('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_num_rows');
     }
 
     /**
@@ -40,7 +40,7 @@ class MySQLQueryResultWarningTest extends MySQLQueryResultTest
      */
     public function testSuccessIsTrue(): void
     {
-        $this->assertTrue($this->get_reflection_property_value('success'));
+        $this->assertTrue($this->getReflectionPropertyValue('success'));
     }
 
     /**
@@ -50,7 +50,7 @@ class MySQLQueryResultWarningTest extends MySQLQueryResultTest
      */
     public function testFreedIsFalse(): void
     {
-        $this->assertFalse($this->get_reflection_property_value('freed'));
+        $this->assertFalse($this->getReflectionPropertyValue('freed'));
     }
 
     /**
@@ -71,7 +71,7 @@ class MySQLQueryResultWarningTest extends MySQLQueryResultTest
      */
     public function testWarningsIsNotNull(): void
     {
-        $this->assertNotNull($this->get_reflection_property_value('warnings'));
+        $this->assertNotNull($this->getReflectionPropertyValue('warnings'));
     }
 
     /**
@@ -81,8 +81,8 @@ class MySQLQueryResultWarningTest extends MySQLQueryResultTest
      */
     public function testWarningsIsArrayWithLengthOfTwo(): void
     {
-        $this->get_accessible_reflection_property('warnings');
-        $value = $this->get_reflection_property_value('warnings');
+        $this->getReflectionProperty('warnings');
+        $value = $this->getReflectionPropertyValue('warnings');
 
         $this->assertIsArray($value);
         $this->assertEquals(2, count($value));
@@ -95,7 +95,7 @@ class MySQLQueryResultWarningTest extends MySQLQueryResultTest
      */
     public function testWarningsMessageIsStringAndNotEmpty(): void
     {
-        $value = $this->get_reflection_property_value('warnings')[0];
+        $value = $this->getReflectionPropertyValue('warnings')[0];
 
         $this->assertIsString($value['message']);
         $this->assertNotEmpty($value['message']);
@@ -108,7 +108,7 @@ class MySQLQueryResultWarningTest extends MySQLQueryResultTest
      */
     public function testWarningsSqlstateIsStringAndNotEmpty(): void
     {
-        $value = $this->get_reflection_property_value('warnings')[0];
+        $value = $this->getReflectionPropertyValue('warnings')[0];
 
         $this->assertIsString($value['sqlstate']);
         $this->assertNotEmpty($value['sqlstate']);
@@ -121,7 +121,7 @@ class MySQLQueryResultWarningTest extends MySQLQueryResultTest
      */
     public function testWarningsErrnoIsIntegerAndNotEmpty(): void
     {
-        $value = $this->get_reflection_property_value('warnings')[0];
+        $value = $this->getReflectionPropertyValue('warnings')[0];
 
         $this->assertIsInt($value['errno']);
         $this->assertNotEmpty($value['errno']);

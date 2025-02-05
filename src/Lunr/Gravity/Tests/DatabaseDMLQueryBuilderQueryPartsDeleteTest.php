@@ -25,7 +25,7 @@ class DatabaseDMLQueryBuilderQueryPartsDeleteTest extends DatabaseDMLQueryBuilde
      */
     public function testInitialDelete(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_delete');
+        $method = $this->getReflectionMethod('sql_delete');
 
         $method->invokeArgs($this->class, [ 'table' ]);
 
@@ -41,7 +41,7 @@ class DatabaseDMLQueryBuilderQueryPartsDeleteTest extends DatabaseDMLQueryBuilde
      */
     public function testIncrementalDelete(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_delete');
+        $method = $this->getReflectionMethod('sql_delete');
 
         $method->invokeArgs($this->class, [ 'table' ]);
         $method->invokeArgs($this->class, [ 'table.*' ]);

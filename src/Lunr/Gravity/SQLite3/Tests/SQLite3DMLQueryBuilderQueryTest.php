@@ -25,8 +25,8 @@ class SQLite3DMLQueryBuilderQueryTest extends SQLite3DMLQueryBuilderTest
      */
     public function testGetInsertQueryWithUndefinedInto(): void
     {
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('values', 'VALUES (1,2), (3,4)');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('values', 'VALUES (1,2), (3,4)');
 
         $string = '';
         $this->assertEquals($string, $this->class->get_insert_query());
@@ -39,9 +39,9 @@ class SQLite3DMLQueryBuilderQueryTest extends SQLite3DMLQueryBuilderTest
      */
     public function testGetInsertValuesQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('values', 'VALUES (1,2), (3,4)');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('values', 'VALUES (1,2), (3,4)');
 
         $string = 'INSERT INTO table (column1, column2) VALUES (1,2), (3,4)';
         $this->assertEquals($string, $this->class->get_insert_query());
@@ -54,8 +54,8 @@ class SQLite3DMLQueryBuilderQueryTest extends SQLite3DMLQueryBuilderTest
      */
     public function testGetInsertSelectQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('select_statement', 'SELECT column1, column2 FROM table');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('select_statement', 'SELECT column1, column2 FROM table');
 
         $string = 'INSERT INTO table SELECT column1, column2 FROM table';
         $this->assertEquals($string, $this->class->get_insert_query());
@@ -68,9 +68,9 @@ class SQLite3DMLQueryBuilderQueryTest extends SQLite3DMLQueryBuilderTest
      */
     public function testGetInsertSelectColumnsQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('select_statement', 'SELECT column1, column2 FROM table');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('select_statement', 'SELECT column1, column2 FROM table');
 
         $string = 'INSERT INTO table (column1, column2) SELECT column1, column2 FROM table';
         $this->assertEquals($string, $this->class->get_insert_query());
@@ -83,8 +83,8 @@ class SQLite3DMLQueryBuilderQueryTest extends SQLite3DMLQueryBuilderTest
      */
     public function testGetReplaceQueryWithUndefinedInto(): void
     {
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('values', 'VALUES (1,2), (3,4)');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('values', 'VALUES (1,2), (3,4)');
 
         $string = '';
         $this->assertEquals($string, $this->class->get_replace_query());
@@ -97,9 +97,9 @@ class SQLite3DMLQueryBuilderQueryTest extends SQLite3DMLQueryBuilderTest
      */
     public function testGetReplaceValuesQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('values', 'VALUES (1,2), (3,4)');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('values', 'VALUES (1,2), (3,4)');
 
         $string = 'REPLACE INTO table (column1, column2) VALUES (1,2), (3,4)';
         $this->assertEquals($string, $this->class->get_replace_query());
@@ -112,8 +112,8 @@ class SQLite3DMLQueryBuilderQueryTest extends SQLite3DMLQueryBuilderTest
      */
     public function testGetReplaceSelectQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('select_statement', 'SELECT column1, column2 FROM table');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('select_statement', 'SELECT column1, column2 FROM table');
 
         $string = 'REPLACE INTO table SELECT column1, column2 FROM table';
         $this->assertEquals($string, $this->class->get_replace_query());
@@ -126,9 +126,9 @@ class SQLite3DMLQueryBuilderQueryTest extends SQLite3DMLQueryBuilderTest
      */
     public function testGetReplaceSelectColumnsQuery(): void
     {
-        $this->set_reflection_property_value('into', 'INTO table');
-        $this->set_reflection_property_value('column_names', '(column1, column2)');
-        $this->set_reflection_property_value('select_statement', 'SELECT column1, column2 FROM table');
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('column_names', '(column1, column2)');
+        $this->setReflectionPropertyValue('select_statement', 'SELECT column1, column2 FROM table');
 
         $string = 'REPLACE INTO table (column1, column2) SELECT column1, column2 FROM table';
         $this->assertEquals($string, $this->class->get_replace_query());

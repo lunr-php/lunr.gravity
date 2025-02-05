@@ -35,7 +35,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
      */
     public function testErrorMessageIsEmpty(): void
     {
-        $property = $this->get_accessible_reflection_property('error_message');
+        $property = $this->getReflectionProperty('error_message');
         $this->assertSame('', $property->getValue($this->class));
     }
 
@@ -46,7 +46,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
      */
     public function testErrorNumberIsZero(): void
     {
-        $property = $this->get_accessible_reflection_property('error_number');
+        $property = $this->getReflectionProperty('error_number');
         $this->assertSame(0, $property->getValue($this->class));
     }
 
@@ -57,7 +57,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
      */
     public function testInsertIDIsZero(): void
     {
-        $property = $this->get_accessible_reflection_property('insert_id');
+        $property = $this->getReflectionProperty('insert_id');
         $this->assertSame(0, $property->getValue($this->class));
     }
 
@@ -68,7 +68,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
      */
     public function testAffectedRowsIsNumber(): void
     {
-        $property = $this->get_accessible_reflection_property('affected_rows');
+        $property = $this->getReflectionProperty('affected_rows');
         $this->assertIsInt($property->getValue($this->class));
     }
 
@@ -79,7 +79,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
      */
     public function testQueryIsPassedCorrectly(): void
     {
-        $property = $this->get_accessible_reflection_property('query');
+        $property = $this->getReflectionProperty('query');
         $this->assertSame($this->query, $property->getValue($this->class));
     }
 
@@ -90,7 +90,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
      */
     public function testAffectedRowsReturnsNumber(): void
     {
-        $this->set_reflection_property_value('affected_rows', 12);
+        $this->setReflectionPropertyValue('affected_rows', 12);
         $this->assertSame(12, $this->class->affected_rows());
     }
 
@@ -101,7 +101,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
      */
     public function testErrorMessageReturnsString(): void
     {
-        $this->set_reflection_property_value('error_message', '');
+        $this->setReflectionPropertyValue('error_message', '');
         $this->assertSame('', $this->class->error_message());
     }
 
@@ -112,7 +112,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
      */
     public function testErrorNumberReturnsNumber(): void
     {
-        $this->set_reflection_property_value('error_number', 0);
+        $this->setReflectionPropertyValue('error_number', 0);
         $this->assertSame(0, $this->class->error_number());
     }
 
@@ -123,7 +123,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
      */
     public function testInsertIDReturnsNumber(): void
     {
-        $this->set_reflection_property_value('insert_id', 0);
+        $this->setReflectionPropertyValue('insert_id', 0);
         $this->assertSame(0, $this->class->insert_id());
     }
 
@@ -134,7 +134,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
      */
     public function testQueryReturnsString(): void
     {
-        $this->set_reflection_property_value('query', '');
+        $this->setReflectionPropertyValue('query', '');
         $this->assertSame('', $this->class->query());
     }
 
@@ -143,7 +143,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTest
      */
     public function testSQLite3IsPassedByReference(): void
     {
-        $property = $this->get_accessible_reflection_property('sqlite3');
+        $property = $this->getReflectionProperty('sqlite3');
 
         $value = $property->getValue($this->class);
 

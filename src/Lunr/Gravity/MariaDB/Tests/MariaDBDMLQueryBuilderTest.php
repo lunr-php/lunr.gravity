@@ -11,7 +11,7 @@
 namespace Lunr\Gravity\MariaDB\Tests;
 
 use Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 
 /**
  * This class contains common setup routines, providers
@@ -19,7 +19,7 @@ use Lunr\Halo\LunrBaseTest;
  *
  * @covers \Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder
  */
-abstract class MariaDBDMLQueryBuilderTest extends LunrBaseTest
+abstract class MariaDBDMLQueryBuilderTest extends LunrBaseTestCase
 {
 
     /**

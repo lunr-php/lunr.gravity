@@ -31,10 +31,10 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
      */
     public function testFindPositions(array $data, array $expected): void
     {
-        $property = $this->get_accessible_reflection_property('ignore_positions');
+        $property = $this->getReflectionProperty('ignore_positions');
         $property->setValue($this->class, ($data[1] ?? []));
 
-        $method = $this->get_accessible_reflection_method('find_positions');
+        $method = $this->getReflectionMethod('find_positions');
 
         $result = $method->invokeArgs($this->class, $data[0] );
         $this->assertEquals($expected, $result);
@@ -51,7 +51,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
      */
     public function testRemoveEolBlankSpaces(string $data, string $expected): void
     {
-        $method = $this->get_accessible_reflection_method('remove_eol_blank_spaces');
+        $method = $this->getReflectionMethod('remove_eol_blank_spaces');
 
         $result = $method->invokeArgs($this->class, [ $data ]);
         $this->assertEquals($expected, $result);
@@ -68,7 +68,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
      */
     public function testUpdatePositions(array $data, array $expected): void
     {
-        $method = $this->get_accessible_reflection_method('update_positions');
+        $method = $this->getReflectionMethod('update_positions');
 
         $result = $method->invokeArgs($this->class, $data);
 
@@ -86,10 +86,10 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
      */
     public function testFindDigit(array $data, $expected): void
     {
-        $property = $this->get_accessible_reflection_property('ignore_positions');
+        $property = $this->getReflectionProperty('ignore_positions');
         $property->setValue($this->class, ($data[1] ?? []));
 
-        $method = $this->get_accessible_reflection_method('find_digit');
+        $method = $this->getReflectionMethod('find_digit');
 
         $result = $method->invokeArgs($this->class, $data[0]);
 
@@ -107,10 +107,10 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
      */
     public function testJumpIgnore(array $data, int $expected): void
     {
-        $property = $this->get_accessible_reflection_property('ignore_positions');
+        $property = $this->getReflectionProperty('ignore_positions');
         $property->setValue($this->class, ($data[1] ?? []));
 
-        $method = $this->get_accessible_reflection_method('jump_ignore');
+        $method = $this->getReflectionMethod('jump_ignore');
 
         $result = $method->invokeArgs($this->class, [ $data[0] ]);
 
@@ -128,7 +128,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
      */
     public function testIsNumericValue(array $data, array $expected): void
     {
-        $method = $this->get_accessible_reflection_method('is_numeric_value');
+        $method = $this->getReflectionMethod('is_numeric_value');
 
         $result = $method->invokeArgs($this->class, $data);
 
@@ -149,10 +149,10 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
      */
     public function testReplaceBetween(array $data, string $expected): void
     {
-        $property = $this->get_accessible_reflection_property('ignore_positions');
+        $property = $this->getReflectionProperty('ignore_positions');
         $property->setValue($this->class, ($data[1] ?? []));
 
-        $method = $this->get_accessible_reflection_method('replace_between');
+        $method = $this->getReflectionMethod('replace_between');
 
         $result = $method->invokeArgs($this->class, $data[0]);
 
@@ -166,10 +166,10 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
      */
     public function testAddIgnorePositions(): void
     {
-        $property = $this->get_accessible_reflection_property('ignore_positions');
+        $property = $this->getReflectionProperty('ignore_positions');
         $property->setValue($this->class, []);
 
-        $method = $this->get_accessible_reflection_method('add_ignore_positions');
+        $method = $this->getReflectionMethod('add_ignore_positions');
         $method->invokeArgs($this->class, [[[ 40,50 ]]]);
         $method->invokeArgs($this->class, [[[ 3,10 ],[ 25,30 ]]]);
 
@@ -190,7 +190,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
      */
     public function testIsNegativeNumber(array $data, bool $expected): void
     {
-        $method = $this->get_accessible_reflection_method('is_negative_number');
+        $method = $this->getReflectionMethod('is_negative_number');
 
         $result = $method->invokeArgs($this->class, $data);
         $this->assertIsBool($result);
@@ -209,10 +209,10 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
      */
     public function testReplaceNumeric(array $data, string $expected): void
     {
-        $property = $this->get_accessible_reflection_property('ignore_positions');
+        $property = $this->getReflectionProperty('ignore_positions');
         $property->setValue($this->class, ($data[1] ?? []));
 
-        $method = $this->get_accessible_reflection_method('replace_numeric');
+        $method = $this->getReflectionMethod('replace_numeric');
 
         $result = $method->invokeArgs($this->class, $data[0]);
 
@@ -273,7 +273,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
      */
     public function testGetBetweenDelimiter(array $data, ?array $expected): void
     {
-        $method = $this->get_accessible_reflection_method('get_between_delimiter');
+        $method = $this->getReflectionMethod('get_between_delimiter');
 
         $result = $method->invokeArgs($this->class, $data);
 
@@ -291,10 +291,10 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
      */
     public function testFindNext(array $data, ?int $expected): void
     {
-        $property = $this->get_accessible_reflection_property('ignore_positions');
+        $property = $this->getReflectionProperty('ignore_positions');
         $property->setValue($this->class, ($data[1] ?? []));
 
-        $method = $this->get_accessible_reflection_method('find_next');
+        $method = $this->getReflectionMethod('find_next');
 
         $result = $method->invokeArgs($this->class, $data[0]);
 
@@ -337,10 +337,10 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTest
             $this->markTestSkipped("File \"$expected\" could not be read!");
         }
 
-        $property = $this->get_accessible_reflection_property('ignore_positions');
+        $property = $this->getReflectionProperty('ignore_positions');
         $property->setValue($this->class, []);
 
-        $method = $this->get_accessible_reflection_method('collapse_multirows');
+        $method = $this->getReflectionMethod('collapse_multirows');
 
         $result = $method->invokeArgs($this->class, [ $input ]);
 

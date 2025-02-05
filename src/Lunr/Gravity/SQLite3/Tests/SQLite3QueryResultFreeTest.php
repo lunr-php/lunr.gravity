@@ -36,7 +36,7 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTest
         $this->sqlite3_result->expects($this->once())
                              ->method('finalize');
 
-        $method = $this->get_accessible_reflection_method('free_result');
+        $method = $this->getReflectionMethod('free_result');
         $method->invoke($this->class);
     }
 
@@ -47,15 +47,15 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTest
      */
     public function testFreeResultDoesNotFreeIfFreedIsTrue(): void
     {
-        $this->set_reflection_property_value('freed', TRUE);
+        $this->setReflectionPropertyValue('freed', TRUE);
 
         $this->sqlite3_result->expects($this->never())
                              ->method('finalize');
 
-        $method = $this->get_accessible_reflection_method('free_result');
+        $method = $this->getReflectionMethod('free_result');
         $method->invoke($this->class);
 
-        $this->set_reflection_property_value('freed', FALSE);
+        $this->setReflectionPropertyValue('freed', FALSE);
     }
 
     /**
@@ -78,7 +78,7 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTest
      */
     public function testResultArrayDoesNotFreeDataIfFreedIsTrue(): void
     {
-        $this->set_reflection_property_value('freed', TRUE);
+        $this->setReflectionPropertyValue('freed', TRUE);
 
         $this->sqlite3_result->expects($this->never())
                              ->method('finalize');
@@ -106,7 +106,7 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTest
      */
     public function testResultRowDoesNotFreeDataIfFreedIsTrue(): void
     {
-        $this->set_reflection_property_value('freed', TRUE);
+        $this->setReflectionPropertyValue('freed', TRUE);
 
         $this->sqlite3_result->expects($this->never())
                              ->method('finalize');
@@ -134,7 +134,7 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTest
      */
     public function testResultColumnDoesNotFreeDataIfFreedIsTrue(): void
     {
-        $this->set_reflection_property_value('freed', TRUE);
+        $this->setReflectionPropertyValue('freed', TRUE);
 
         $this->sqlite3_result->expects($this->never())
                              ->method('finalize');
@@ -162,7 +162,7 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTest
      */
     public function testResultCellDoesNotFreeDataIfFreedIsTrue(): void
     {
-        $this->set_reflection_property_value('freed', TRUE);
+        $this->setReflectionPropertyValue('freed', TRUE);
 
         $this->sqlite3_result->expects($this->never())
                              ->method('finalize');

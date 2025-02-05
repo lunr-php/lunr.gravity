@@ -29,7 +29,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
      */
     public function testCompoundQuery($types, $operator = NULL): void
     {
-        $method = $this->get_accessible_reflection_method('sql_compound');
+        $method = $this->getReflectionMethod('sql_compound');
 
         $method->invokeArgs($this->class, [ '(sql query)', $types, $operator ]);
 
@@ -56,7 +56,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
      */
     public function testCompoundQueryUnsupportedOperators($types, $operator): void
     {
-        $method = $this->get_accessible_reflection_method('sql_compound');
+        $method = $this->getReflectionMethod('sql_compound');
 
         $method->invokeArgs($this->class, [ '(sql query)', $types, $operator ]);
 
@@ -72,9 +72,9 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
      */
     public function testCompoundQueryWhenCompoundIsSet(): void
     {
-        $this->set_reflection_property_value('compound', 'QUERY');
+        $this->setReflectionPropertyValue('compound', 'QUERY');
 
-        $method = $this->get_accessible_reflection_method('sql_compound');
+        $method = $this->getReflectionMethod('sql_compound');
 
         $method->invokeArgs($this->class, [ '(sql query)', 'UNION' ]);
 
@@ -88,9 +88,9 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
      */
     public function testCompoundQueryWhenCompoundIsSetWithExcept(): void
     {
-        $this->set_reflection_property_value('compound', 'QUERY');
+        $this->setReflectionPropertyValue('compound', 'QUERY');
 
-        $method = $this->get_accessible_reflection_method('sql_compound');
+        $method = $this->getReflectionMethod('sql_compound');
 
         $method->invokeArgs($this->class, [ '(sql query)', 'EXCEPT' ]);
 
@@ -104,9 +104,9 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
      */
     public function testCompoundQueryWhenCompoundIsSetWithIntersect(): void
     {
-        $this->set_reflection_property_value('compound', 'QUERY');
+        $this->setReflectionPropertyValue('compound', 'QUERY');
 
-        $method = $this->get_accessible_reflection_method('sql_compound');
+        $method = $this->getReflectionMethod('sql_compound');
 
         $method->invokeArgs($this->class, [ '(sql query)', 'INTERSECT' ]);
 
@@ -122,7 +122,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     {
         $string = 'ORDER BY col1 ASC';
 
-        $method = $this->get_accessible_reflection_method('sql_order_by');
+        $method = $this->getReflectionMethod('sql_order_by');
 
         $method->invokeArgs($this->class, [ 'col1' ]);
 
@@ -138,7 +138,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     {
         $string = 'ORDER BY col1 DESC';
 
-        $method = $this->get_accessible_reflection_method('sql_order_by');
+        $method = $this->getReflectionMethod('sql_order_by');
 
         $method->invokeArgs($this->class, [ 'col1', FALSE ]);
 
@@ -154,9 +154,9 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     {
         $value = 'ORDER BY col1 DESC';
 
-        $this->set_reflection_property_value('order_by', $value);
+        $this->setReflectionPropertyValue('order_by', $value);
 
-        $method = $this->get_accessible_reflection_method('sql_order_by');
+        $method = $this->getReflectionMethod('sql_order_by');
 
         $method->invokeArgs($this->class, [ 'col2', FALSE ]);
 
@@ -174,7 +174,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     {
         $string = 'GROUP BY group1';
 
-        $method = $this->get_accessible_reflection_method('sql_group_by');
+        $method = $this->getReflectionMethod('sql_group_by');
 
         $method->invokeArgs($this->class, [ 'group1' ]);
 
@@ -190,9 +190,9 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     {
         $value = 'GROUP BY group1';
 
-        $this->set_reflection_property_value('group_by', $value);
+        $this->setReflectionPropertyValue('group_by', $value);
 
-        $method = $this->get_accessible_reflection_method('sql_group_by');
+        $method = $this->getReflectionMethod('sql_group_by');
 
         $method->invokeArgs($this->class, [ 'group2' ]);
 
@@ -210,7 +210,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     {
         $string = 'LIMIT 10';
 
-        $method = $this->get_accessible_reflection_method('sql_limit');
+        $method = $this->getReflectionMethod('sql_limit');
 
         $method->invokeArgs($this->class, [ '10' ]);
 
@@ -226,7 +226,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     {
         $string = 'LIMIT 10 OFFSET 20';
 
-        $method = $this->get_accessible_reflection_method('sql_limit');
+        $method = $this->getReflectionMethod('sql_limit');
 
         $method->invokeArgs($this->class, [ '10', '20' ]);
 
@@ -244,10 +244,10 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     */
     public function testOpenGroup($keyword, $attribute): void
     {
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
         $method->invokeArgs($this->class, [ $keyword ]);
 
-        $this->assertEquals('(', $this->get_reflection_property_value($attribute));
+        $this->assertEquals('(', $this->getReflectionPropertyValue($attribute));
     }
 
     /**
@@ -257,13 +257,13 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     */
     public function testOpenGroupIfJoin(): void
     {
-        $this->set_reflection_property_value('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
         $method->invokeArgs($this->class, [ 'ON' ]);
 
-        $this->assertEquals('ON (', $this->get_reflection_property_value('join'));
-        $this->assertFalse($this->get_reflection_property_value('is_unfinished_join'));
+        $this->assertEquals('ON (', $this->getReflectionPropertyValue('join'));
+        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
     }
 
     /**
@@ -273,12 +273,12 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
      */
     public function testOpenGroupIfNaturalJoin(): void
     {
-        $this->set_reflection_property_value('is_unfinished_join', FALSE);
+        $this->setReflectionPropertyValue('is_unfinished_join', FALSE);
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
         $method->invokeArgs($this->class, [ 'WHERE' ]);
 
-        $this->assertEquals('', $this->get_reflection_property_value('join'));
+        $this->assertEquals('', $this->getReflectionPropertyValue('join'));
     }
 
     /**
@@ -292,14 +292,14 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     */
     public function testOpenGroupWithConnector($keyword, $attribute): void
     {
-        $this->set_reflection_property_value('connector', 'OR');
-        $this->set_reflection_property_value($attribute, 'a = b');
+        $this->setReflectionPropertyValue('connector', 'OR');
+        $this->setReflectionPropertyValue($attribute, 'a = b');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
         $method->invokeArgs($this->class, [ $keyword ]);
 
-        $this->assertEquals('a = b OR (', $this->get_reflection_property_value($attribute));
-        $this->assertEquals('', $this->get_reflection_property_value('connector'));
+        $this->assertEquals('a = b OR (', $this->getReflectionPropertyValue($attribute));
+        $this->assertEquals('', $this->getReflectionPropertyValue('connector'));
     }
 
     /**
@@ -313,13 +313,13 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     */
     public function testOpenGroupWithConnectorWhenConditionIsEmpty($keyword, $attribute): void
     {
-        $this->set_reflection_property_value('connector', 'OR');
+        $this->setReflectionPropertyValue('connector', 'OR');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
         $method->invokeArgs($this->class, [ $keyword ]);
 
-        $this->assertEquals('(', $this->get_reflection_property_value($attribute));
-        $this->assertEquals('', $this->get_reflection_property_value('connector'));
+        $this->assertEquals('(', $this->getReflectionPropertyValue($attribute));
+        $this->assertEquals('', $this->getReflectionPropertyValue('connector'));
     }
 
     /**
@@ -333,11 +333,11 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     */
     public function testIncrementalOpenGroup($keyword, $attribute): void
     {
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
         $method->invokeArgs($this->class, [ $keyword ]);
         $method->invokeArgs($this->class, [ $keyword ]);
 
-        $this->assertEquals('((', $this->get_reflection_property_value($attribute));
+        $this->assertEquals('((', $this->getReflectionPropertyValue($attribute));
     }
 
     /**
@@ -351,12 +351,12 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
     */
     public function testOpenGroupUsesDefaultConnector($keyword, $attribute): void
     {
-        $this->set_reflection_property_value($attribute, 'Condition');
+        $this->setReflectionPropertyValue($attribute, 'Condition');
 
-        $method = $this->get_accessible_reflection_method('sql_group_start');
+        $method = $this->getReflectionMethod('sql_group_start');
         $method->invokeArgs($this->class, [ $keyword ]);
 
-        $this->assertEquals('Condition AND (', $this->get_reflection_property_value($attribute));
+        $this->assertEquals('Condition AND (', $this->getReflectionPropertyValue($attribute));
     }
 
     /**
@@ -370,12 +370,12 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTest
      */
     public function testCloseGroup($keyword, $attribute): void
     {
-        $this->set_reflection_property_value($attribute, '');
+        $this->setReflectionPropertyValue($attribute, '');
 
-        $method = $this->get_accessible_reflection_method('sql_group_end');
+        $method = $this->getReflectionMethod('sql_group_end');
         $method->invokeArgs($this->class, [ $keyword ]);
 
-        $this->assertEquals(')', $this->get_reflection_property_value($attribute));
+        $this->assertEquals(')', $this->getReflectionPropertyValue($attribute));
     }
 
 }

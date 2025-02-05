@@ -12,7 +12,7 @@ namespace Lunr\Gravity\MariaDB\Tests;
 use Lunr\Gravity\MariaDB\MariaDBAccessObject;
 use Lunr\Gravity\MariaDB\MariaDBConnection;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use Psr\Log\LoggerInterface;
@@ -22,7 +22,7 @@ use Psr\Log\LoggerInterface;
  *
  * @covers Lunr\Gravity\MariaDBAccessObject
  */
-abstract class MariaDBAccessObjectTest extends LunrBaseTest
+abstract class MariaDBAccessObjectTest extends LunrBaseTestCase
 {
 
     /**

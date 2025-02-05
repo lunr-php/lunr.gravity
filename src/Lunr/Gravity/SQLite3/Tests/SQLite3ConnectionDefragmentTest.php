@@ -26,7 +26,7 @@ class SQLite3ConnectionDefragmentTest extends SQLite3ConnectionTest
      */
     public function testDefragmentThrowsExceptionIfQueryfails(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->sqlite3->expects($this->once())
                       ->method('query')
@@ -50,7 +50,7 @@ class SQLite3ConnectionDefragmentTest extends SQLite3ConnectionTest
      */
     public function testDefragmentSucceeds(): void
     {
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $this->sqlite3->expects($this->once())
                       ->method('query')

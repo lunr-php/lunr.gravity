@@ -11,14 +11,14 @@
 namespace Lunr\Gravity\SQLite3\Tests;
 
 use Lunr\Gravity\SQLite3\LunrSQLite3;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 
 /**
  * This class contains the tests for the LunrSQLite3 class.
  *
  * @covers Lunr\Gravity\SQLite3\LunrSQLite3
  */
-class LunrSQLite3Test extends LunrBaseTest
+class LunrSQLite3Test extends LunrBaseTestCase
 {
 
     /**

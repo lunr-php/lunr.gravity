@@ -27,7 +27,7 @@ class SQLDMLQueryBuilderOrderByTest extends SQLDMLQueryBuilderTest
     public function testOrderByWithDefaultOrder(): void
     {
         $this->class->order_by('col');
-        $value = $this->get_reflection_property_value('order_by');
+        $value = $this->getReflectionPropertyValue('order_by');
 
         $this->assertEquals('ORDER BY col ASC', $value);
     }
@@ -40,7 +40,7 @@ class SQLDMLQueryBuilderOrderByTest extends SQLDMLQueryBuilderTest
     public function testOrderByWithCustomOrder(): void
     {
         $this->class->order_by('col', FALSE);
-        $value = $this->get_reflection_property_value('order_by');
+        $value = $this->getReflectionPropertyValue('order_by');
 
         $this->assertEquals('ORDER BY col DESC', $value);
     }

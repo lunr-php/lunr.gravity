@@ -38,7 +38,7 @@ class SQLite3AccessObjectBaseTest extends SQLite3AccessObjectTest
      */
     public function testQueryEscaperIsStored(): void
     {
-        $property = $this->get_reflection_property_value('escaper');
+        $property = $this->getReflectionPropertyValue('escaper');
 
         $this->assertInstanceOf(SQLite3QueryEscaper::class, $property);
     }
@@ -58,7 +58,7 @@ class SQLite3AccessObjectBaseTest extends SQLite3AccessObjectTest
                         ->disableOriginalConstructor()
                         ->getMock();
 
-        $property = $this->get_accessible_reflection_property('db');
+        $property = $this->getReflectionProperty('db');
 
         $parent = $this->reflection->getParentClass();
 
@@ -93,7 +93,7 @@ class SQLite3AccessObjectBaseTest extends SQLite3AccessObjectTest
                         ->disableOriginalConstructor()
                         ->getMock();
 
-        $property = $this->get_accessible_reflection_property('escaper');
+        $property = $this->getReflectionProperty('escaper');
 
         $old = $property->getValue($this->class);
 

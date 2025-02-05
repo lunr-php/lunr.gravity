@@ -27,7 +27,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiFailedConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Could not establish connection to the database!');
@@ -48,15 +48,15 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
         $mysqli->expects($this->once())
                ->method('query')
                ->will($this->returnValue(TRUE));
 
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
-        $this->mock_function('microtime', function () { return 1; });
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('microtime', function () { return 1; });
 
         $this->logger->expects($this->exactly(2))
                      ->method('debug')
@@ -64,8 +64,8 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
 
         $query = $this->class->query('query');
 
-        $this->unmock_function('mysqli_affected_rows');
-        $this->unmock_function('microtime');
+        $this->unmockFunction('mysqli_affected_rows');
+        $this->unmockFunction('microtime');
 
         $this->assertInstanceOf('Lunr\Gravity\MySQL\MySQLQueryResult', $query);
         $this->assertFalse($query->has_failed());
@@ -81,17 +81,17 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
-        $this->set_reflection_property_value('connected', TRUE);
-        $this->set_reflection_property_value('query_hint', '/*hint*/');
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('connected', TRUE);
+        $this->setReflectionPropertyValue('query_hint', '/*hint*/');
 
         $mysqli->expects($this->once())
                ->method('query')
                ->with($this->equalTo('/*hint*/query'))
                ->will($this->returnValue(TRUE));
 
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
-        $this->mock_function('microtime', function () { return 1; });
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('microtime', function () { return 1; });
 
         $this->logger->expects($this->exactly(2))
                      ->method('debug')
@@ -99,8 +99,8 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
 
         $query = $this->class->query('query');
 
-        $this->unmock_function('mysqli_affected_rows');
-        $this->unmock_function('microtime');
+        $this->unmockFunction('mysqli_affected_rows');
+        $this->unmockFunction('microtime');
 
         $this->assertEquals('/*hint*/query', $query->query());
     }
@@ -115,10 +115,10 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
-        $hint = $this->get_accessible_reflection_property('query_hint');
+        $hint = $this->getReflectionProperty('query_hint');
         $hint->setValue($this->class, '/*hint*/');
 
         $mysqli->expects($this->once())
@@ -126,8 +126,8 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
                ->with($this->equalTo('/*hint*/query'))
                ->will($this->returnValue(TRUE));
 
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
-        $this->mock_function('microtime', function () { return 1; });
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('microtime', function () { return 1; });
 
         $this->logger->expects($this->exactly(2))
                      ->method('debug')
@@ -135,8 +135,8 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
 
         $this->class->query('query');
 
-        $this->unmock_function('mysqli_affected_rows');
-        $this->unmock_function('microtime');
+        $this->unmockFunction('mysqli_affected_rows');
+        $this->unmockFunction('microtime');
 
         $this->assertSame('', $hint->getValue($this->class));
     }
@@ -150,7 +150,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiFailedConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Could not establish connection to the database!');
@@ -169,13 +169,13 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
      */
     public function testAsyncQueryReturnsQueryResultWhenConnected(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 0);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
         $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
-        $property = $this->get_accessible_reflection_property('connected');
+        $property = $this->getReflectionProperty('connected');
         $property->setValue($this->class, TRUE);
 
         $mysqli->expects($this->once())
@@ -196,7 +196,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
 
         $property->setValue($this->class, FALSE);
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -209,9 +209,9 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
-        $this->set_reflection_property_value('connected', TRUE);
-        $this->set_reflection_property_value('query_hint', '/*hint*/');
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('connected', TRUE);
+        $this->setReflectionPropertyValue('query_hint', '/*hint*/');
 
         $mysqli->expects($this->once())
                ->method('query')
@@ -236,10 +236,10 @@ class MySQLConnectionQueryTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
-        $this->set_reflection_property_value('connected', TRUE);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('connected', TRUE);
 
-        $hint = $this->get_accessible_reflection_property('query_hint');
+        $hint = $this->getReflectionProperty('query_hint');
         $hint->setValue($this->class, '/*hint*/');
 
         $mysqli->expects($this->once())

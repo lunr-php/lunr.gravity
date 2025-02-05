@@ -24,7 +24,7 @@ class MySQLSimpleDMLQueryBuilderBaseTest extends MySQLSimpleDMLQueryBuilderTest
     public function testEscaperIsPassedCorrectly(): void
     {
         $instance = 'Lunr\Gravity\MySQL\MySQLQueryEscaper';
-        $this->assertInstanceOf($instance, $this->get_reflection_property_value('escaper'));
+        $this->assertInstanceOf($instance, $this->getReflectionPropertyValue('escaper'));
     }
 
     /**
@@ -33,7 +33,7 @@ class MySQLSimpleDMLQueryBuilderBaseTest extends MySQLSimpleDMLQueryBuilderTest
     public function testQuerybuilderPassedCorrectly(): void
     {
         $instance = 'Lunr\Gravity\MySQL\MySQLDMLQueryBuilder';
-        $this->assertInstanceOf($instance, $this->get_reflection_property_value('builder'));
+        $this->assertInstanceOf($instance, $this->getReflectionPropertyValue('builder'));
     }
 
     /**
@@ -57,7 +57,7 @@ class MySQLSimpleDMLQueryBuilderBaseTest extends MySQLSimpleDMLQueryBuilderTest
                       ->with($this->equalTo($name), $this->equalTo($alias))
                       ->will($this->returnValue($expected));
 
-        $method = $this->get_accessible_reflection_method('escape_alias');
+        $method = $this->getReflectionMethod('escape_alias');
 
         $result = $method->invokeArgs($this->class, [ $input, $type ]);
 
@@ -83,7 +83,7 @@ class MySQLSimpleDMLQueryBuilderBaseTest extends MySQLSimpleDMLQueryBuilderTest
                       ->with($this->equalTo($input))
                       ->will($this->returnValue($expected));
 
-        $method = $this->get_accessible_reflection_method('escape_alias');
+        $method = $this->getReflectionMethod('escape_alias');
 
         $result = $method->invokeArgs($this->class, [ $input, $type ]);
 

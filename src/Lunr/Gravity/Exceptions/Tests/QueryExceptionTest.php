@@ -12,7 +12,7 @@ namespace Lunr\Gravity\Exceptions\Tests;
 
 use Lunr\Gravity\DatabaseQueryResultInterface;
 use Lunr\Gravity\Exceptions\QueryException;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 
 /**
  * This class contains common setup routines, providers
@@ -20,7 +20,7 @@ use Lunr\Halo\LunrBaseTest;
  *
  * @covers Lunr\Gravity\Exceptions\QueryException
  */
-abstract class QueryExceptionTest extends LunrBaseTest
+abstract class QueryExceptionTest extends LunrBaseTestCase
 {
 
     /**

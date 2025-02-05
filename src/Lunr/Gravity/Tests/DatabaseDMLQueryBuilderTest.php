@@ -11,7 +11,7 @@
 namespace Lunr\Gravity\Tests;
 
 use Lunr\Gravity\DatabaseDMLQueryBuilder;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use stdClass;
@@ -22,7 +22,7 @@ use stdClass;
  *
  * @covers Lunr\Gravity\DatabaseDMLQueryBuilder
  */
-abstract class DatabaseDMLQueryBuilderTest extends LunrBaseTest
+abstract class DatabaseDMLQueryBuilderTest extends LunrBaseTestCase
 {
 
     /**

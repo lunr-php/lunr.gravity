@@ -29,7 +29,7 @@ class SQLDMLQueryBuilderUpdateTest extends SQLDMLQueryBuilderTest
     public function testUpdate(): void
     {
         $this->class->update('table');
-        $value = $this->get_reflection_property_value('update');
+        $value = $this->getReflectionPropertyValue('update');
 
         $this->assertEquals('table', $value);
     }

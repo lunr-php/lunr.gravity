@@ -26,11 +26,11 @@ class DatabaseDMLQueryBuilderGetDeleteQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetDeleteQuery(): void
     {
-        $this->set_reflection_property_value('from', 'FROM table');
-        $this->set_reflection_property_value('delete_mode', [ 'QUICK', 'IGNORE' ]);
-        $this->set_reflection_property_value('delete', 'table.*');
-        $this->set_reflection_property_value('join', 'INNER JOIN table1');
-        $this->set_reflection_property_value('where', 'WHERE a = b');
+        $this->setReflectionPropertyValue('from', 'FROM table');
+        $this->setReflectionPropertyValue('delete_mode', [ 'QUICK', 'IGNORE' ]);
+        $this->setReflectionPropertyValue('delete', 'table.*');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN table1');
+        $this->setReflectionPropertyValue('where', 'WHERE a = b');
 
         $string = 'DELETE QUICK IGNORE table.* FROM table INNER JOIN table1 WHERE a = b';
 
@@ -47,8 +47,8 @@ class DatabaseDMLQueryBuilderGetDeleteQueryTest extends DatabaseDMLQueryBuilderT
         $this->expectException('\Lunr\Gravity\Exceptions\MissingTableReferenceException');
         $this->expectExceptionMessage('No from() in delete query!');
 
-        $this->set_reflection_property_value('delete_mode', [ 'QUICK', 'IGNORE' ]);
-        $this->set_reflection_property_value('delete', 'table.*');
+        $this->setReflectionPropertyValue('delete_mode', [ 'QUICK', 'IGNORE' ]);
+        $this->setReflectionPropertyValue('delete', 'table.*');
 
         $this->class->get_delete_query();
     }
@@ -61,8 +61,8 @@ class DatabaseDMLQueryBuilderGetDeleteQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetEmptyDeleteQuery(): void
     {
-        $this->set_reflection_property_value('from', 'FROM table');
-        $this->set_reflection_property_value('delete_mode', [ 'QUICK', 'IGNORE' ]);
+        $this->setReflectionPropertyValue('from', 'FROM table');
+        $this->setReflectionPropertyValue('delete_mode', [ 'QUICK', 'IGNORE' ]);
 
         $string = 'DELETE QUICK IGNORE FROM table';
 
@@ -77,9 +77,9 @@ class DatabaseDMLQueryBuilderGetDeleteQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetEmptyDeleteLimitOrderQuery(): void
     {
-        $this->set_reflection_property_value('from', 'FROM table');
-        $this->set_reflection_property_value('limit', 'LIMIT 10 OFFSET 0');
-        $this->set_reflection_property_value('order_by', 'ORDER BY col ASC');
+        $this->setReflectionPropertyValue('from', 'FROM table');
+        $this->setReflectionPropertyValue('limit', 'LIMIT 10 OFFSET 0');
+        $this->setReflectionPropertyValue('order_by', 'ORDER BY col ASC');
 
         $string = 'DELETE FROM table ORDER BY col ASC LIMIT 10 OFFSET 0';
 
@@ -94,10 +94,10 @@ class DatabaseDMLQueryBuilderGetDeleteQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetDeleteLimitOrderQuery(): void
     {
-        $this->set_reflection_property_value('delete', 'table.*');
-        $this->set_reflection_property_value('from', 'FROM table');
-        $this->set_reflection_property_value('limit', 'LIMIT 10 OFFSET 0');
-        $this->set_reflection_property_value('order_by', 'ORDER BY col ASC');
+        $this->setReflectionPropertyValue('delete', 'table.*');
+        $this->setReflectionPropertyValue('from', 'FROM table');
+        $this->setReflectionPropertyValue('limit', 'LIMIT 10 OFFSET 0');
+        $this->setReflectionPropertyValue('order_by', 'ORDER BY col ASC');
 
         $string = 'DELETE table.* FROM table';
 
@@ -112,10 +112,10 @@ class DatabaseDMLQueryBuilderGetDeleteQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetDeleteLimitOrderQueryWithJoin(): void
     {
-        $this->set_reflection_property_value('join', 'INNER JOIN table1');
-        $this->set_reflection_property_value('from', 'FROM table');
-        $this->set_reflection_property_value('limit', 'LIMIT 10 OFFSET 0');
-        $this->set_reflection_property_value('order_by', 'ORDER BY col ASC');
+        $this->setReflectionPropertyValue('join', 'INNER JOIN table1');
+        $this->setReflectionPropertyValue('from', 'FROM table');
+        $this->setReflectionPropertyValue('limit', 'LIMIT 10 OFFSET 0');
+        $this->setReflectionPropertyValue('order_by', 'ORDER BY col ASC');
 
         $string = 'DELETE FROM table INNER JOIN table1';
 

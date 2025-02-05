@@ -27,7 +27,7 @@ class SQLDMLQueryBuilderLimitTest extends SQLDMLQueryBuilderTest
     public function testLimitWithDefaultOffset(): void
     {
         $this->class->limit(10);
-        $value = $this->get_reflection_property_value('limit');
+        $value = $this->getReflectionPropertyValue('limit');
 
         $this->assertEquals('LIMIT 10', $value);
     }
@@ -40,7 +40,7 @@ class SQLDMLQueryBuilderLimitTest extends SQLDMLQueryBuilderTest
     public function testLimitWithCustomOffset(): void
     {
         $this->class->limit(10, 20);
-        $value = $this->get_reflection_property_value('limit');
+        $value = $this->getReflectionPropertyValue('limit');
 
         $this->assertEquals('LIMIT 10 OFFSET 20', $value);
     }

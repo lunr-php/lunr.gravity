@@ -26,7 +26,7 @@ class MySQLConnectionTransactionTest extends MySQLConnectionTest
      */
     public function testBeginTransactionStartsTransactionWhenConnected(): void
     {
-        $property = $this->get_accessible_reflection_property('connected');
+        $property = $this->getReflectionProperty('connected');
         $property->setValue($this->class, TRUE);
 
         $this->mysqli->expects($this->once())
@@ -47,7 +47,7 @@ class MySQLConnectionTransactionTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiFailedConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Could not establish connection to the database!');
@@ -63,7 +63,7 @@ class MySQLConnectionTransactionTest extends MySQLConnectionTest
      */
     public function testCommitWhenConnected(): void
     {
-        $property = $this->get_accessible_reflection_property('connected');
+        $property = $this->getReflectionProperty('connected');
         $property->setValue($this->class, TRUE);
 
         $this->mysqli->expects($this->once())
@@ -84,7 +84,7 @@ class MySQLConnectionTransactionTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiFailedConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Could not establish connection to the database!');
@@ -100,7 +100,7 @@ class MySQLConnectionTransactionTest extends MySQLConnectionTest
      */
     public function testRollbackWhenConnected(): void
     {
-        $property = $this->get_accessible_reflection_property('connected');
+        $property = $this->getReflectionProperty('connected');
         $property->setValue($this->class, TRUE);
 
         $this->mysqli->expects($this->once())
@@ -121,7 +121,7 @@ class MySQLConnectionTransactionTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiFailedConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Could not establish connection to the database!');
@@ -137,7 +137,7 @@ class MySQLConnectionTransactionTest extends MySQLConnectionTest
      */
     public function testEndTransactionWhenConnected(): void
     {
-        $property = $this->get_accessible_reflection_property('connected');
+        $property = $this->getReflectionProperty('connected');
         $property->setValue($this->class, TRUE);
 
         $this->mysqli->expects($this->once())
@@ -158,7 +158,7 @@ class MySQLConnectionTransactionTest extends MySQLConnectionTest
     {
         $mysqli = new MockMySQLiFailedConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->set_reflection_property_value('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
 
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Could not establish connection to the database!');

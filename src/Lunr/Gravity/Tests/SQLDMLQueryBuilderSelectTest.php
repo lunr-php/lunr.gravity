@@ -29,7 +29,7 @@ class SQLDMLQueryBuilderSelectTest extends SQLDMLQueryBuilderTest
     public function testSelect(): void
     {
         $this->class->select('col');
-        $value = $this->get_reflection_property_value('select');
+        $value = $this->getReflectionPropertyValue('select');
 
         $this->assertEquals('col', $value);
     }
@@ -56,7 +56,7 @@ class SQLDMLQueryBuilderSelectTest extends SQLDMLQueryBuilderTest
     public function testFromWithoutIndexHints(): void
     {
         $this->class->from('table');
-        $value = $this->get_reflection_property_value('from');
+        $value = $this->getReflectionPropertyValue('from');
 
         $this->assertEquals('FROM table', $value);
     }
@@ -72,7 +72,7 @@ class SQLDMLQueryBuilderSelectTest extends SQLDMLQueryBuilderTest
     {
         $hints = [ 'index_hint' ];
         $this->class->from('table', $hints);
-        $value = $this->get_reflection_property_value('from');
+        $value = $this->getReflectionPropertyValue('from');
 
         $this->assertEquals('FROM table index_hint', $value);
     }
@@ -99,7 +99,7 @@ class SQLDMLQueryBuilderSelectTest extends SQLDMLQueryBuilderTest
     public function testJoinWithDefaultJoinType(): void
     {
         $this->class->join('table');
-        $value = $this->get_reflection_property_value('join');
+        $value = $this->getReflectionPropertyValue('join');
 
         $this->assertEquals('INNER JOIN table', $value);
     }
@@ -113,7 +113,7 @@ class SQLDMLQueryBuilderSelectTest extends SQLDMLQueryBuilderTest
     public function testJoinWithNonDefaultJoinType(): void
     {
         $this->class->join('table', 'STRAIGHT');
-        $value = $this->get_reflection_property_value('join');
+        $value = $this->getReflectionPropertyValue('join');
 
         $this->assertEquals('STRAIGHT_JOIN table', $value);
     }
@@ -127,7 +127,7 @@ class SQLDMLQueryBuilderSelectTest extends SQLDMLQueryBuilderTest
     public function testJoinWithoutIndexHints(): void
     {
         $this->class->join('table', 'STRAIGHT');
-        $value = $this->get_reflection_property_value('join');
+        $value = $this->getReflectionPropertyValue('join');
 
         $this->assertEquals('STRAIGHT_JOIN table', $value);
     }
@@ -143,7 +143,7 @@ class SQLDMLQueryBuilderSelectTest extends SQLDMLQueryBuilderTest
     {
         $hints = [ 'index_hint' ];
         $this->class->join('table', 'STRAIGHT', $hints);
-        $value = $this->get_reflection_property_value('join');
+        $value = $this->getReflectionPropertyValue('join');
 
         $this->assertEquals('STRAIGHT_JOIN table index_hint', $value);
     }

@@ -27,7 +27,7 @@ class SQLite3DMLQueryBuilderDeleteTest extends SQLite3DMLQueryBuilderTest
     public function testDeleteModeIgnoresUnknownValues(): void
     {
         $this->class->delete_mode('UNSUPPORTED');
-        $value = $this->get_reflection_property_value('delete_mode');
+        $value = $this->getReflectionPropertyValue('delete_mode');
 
         $this->assertIsArray($value);
         $this->assertEmpty($value);

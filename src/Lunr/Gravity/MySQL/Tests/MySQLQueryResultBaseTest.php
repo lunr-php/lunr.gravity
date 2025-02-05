@@ -23,11 +23,11 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTest
      */
     public function setUp(): void
     {
-        $this->mock_function('mysqli_affected_rows', fn() => 10);
+        $this->mockFunction('mysqli_affected_rows', fn() => 10);
 
         $this->successfulSetup();
 
-        $this->unmock_function('mysqli_affected_rows');
+        $this->unmockFunction('mysqli_affected_rows');
     }
 
     /**
@@ -51,7 +51,7 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTest
      */
     public function testWarningsIsNull(): void
     {
-        $this->assertNull($this->get_reflection_property_value('warnings'));
+        $this->assertNull($this->getReflectionPropertyValue('warnings'));
     }
 
     /**
@@ -93,7 +93,7 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTest
      */
     public function testAffectedRowsReturnsNumber(): void
     {
-        $this->set_reflection_property_value('affected_rows', 10);
+        $this->setReflectionPropertyValue('affected_rows', 10);
 
         $value = $this->class->affected_rows();
         $this->assertIsInt($value);
@@ -107,7 +107,7 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTest
      */
     public function testNumberOfRowsReturnsNumber(): void
     {
-        $this->set_reflection_property_value('num_rows', 10);
+        $this->setReflectionPropertyValue('num_rows', 10);
 
         $value = $this->class->number_of_rows();
         $this->assertIsInt($value);
@@ -121,7 +121,7 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTest
      */
     public function testErrorMessageReturnsString(): void
     {
-        $this->set_reflection_property_value('error_message', '');
+        $this->setReflectionPropertyValue('error_message', '');
 
         $value = $this->class->error_message();
         $this->assertIsString($value);
@@ -135,7 +135,7 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTest
      */
     public function testErrorNumberReturnsNumber(): void
     {
-        $this->set_reflection_property_value('error_number', 0);
+        $this->setReflectionPropertyValue('error_number', 0);
 
         $value = $this->class->error_number();
         $this->assertIsInt($value);
@@ -149,7 +149,7 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTest
      */
     public function testInsertIDReturnsNumber(): void
     {
-        $this->set_reflection_property_value('insert_id', 0);
+        $this->setReflectionPropertyValue('insert_id', 0);
 
         $value = $this->class->insert_id();
         $this->assertIsInt($value);
@@ -163,7 +163,7 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTest
      */
     public function testQueryReturnsString(): void
     {
-        $this->set_reflection_property_value('query', 'SELECT * FROM table1');
+        $this->setReflectionPropertyValue('query', 'SELECT * FROM table1');
 
         $value = $this->class->query();
         $this->assertIsString($value);
@@ -175,7 +175,7 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTest
      */
     public function testMysqliIsPassedByReference(): void
     {
-        $value = $this->get_reflection_property_value('mysqli');
+        $value = $this->getReflectionPropertyValue('mysqli');
 
         $this->assertInstanceOf('Lunr\Gravity\MySQL\Tests\MockMySQLiSuccessfulConnection', $value);
         $this->assertSame($this->mysqli, $value);
@@ -188,13 +188,13 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTest
      */
     public function testCanonicalQuery(): void
     {
-        $this->set_reflection_property_value('query', 'SELECT * FROM table1 WHERE value="test"');
+        $this->setReflectionPropertyValue('query', 'SELECT * FROM table1 WHERE value="test"');
 
         $value = $this->class->canonical_query();
         $this->assertIsString($value);
         $this->assertEquals('SELECT * FROM table1 WHERE value="?"', $value);
 
-        $value = $this->get_reflection_property_value('canonical_query');
+        $value = $this->getReflectionPropertyValue('canonical_query');
         $this->assertIsString($value);
         $this->assertEquals('SELECT * FROM table1 WHERE value="?"', $value);
     }
@@ -207,7 +207,7 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTest
     public function testCachedCanonicalQuery(): void
     {
         $this->assertPropertyUnset('canonical_query');
-        $this->set_reflection_property_value('canonical_query', 'SELECT * FROM table2 WHERE value=?');
+        $this->setReflectionPropertyValue('canonical_query', 'SELECT * FROM table2 WHERE value=?');
         $value = $this->class->canonical_query();
         $this->assertIsString($value);
         $this->assertEquals('SELECT * FROM table2 WHERE value=?', $value);

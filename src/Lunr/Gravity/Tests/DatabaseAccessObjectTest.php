@@ -12,7 +12,7 @@ namespace Lunr\Gravity\Tests;
 
 use Lunr\Gravity\DatabaseAccessObject;
 use Lunr\Gravity\DatabaseConnection;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use Psr\Log\LoggerInterface;
@@ -22,7 +22,7 @@ use Psr\Log\LoggerInterface;
  *
  * @covers Lunr\Gravity\DatabaseAccessObject
  */
-abstract class DatabaseAccessObjectTest extends LunrBaseTest
+abstract class DatabaseAccessObjectTest extends LunrBaseTestCase
 {
 
     /**

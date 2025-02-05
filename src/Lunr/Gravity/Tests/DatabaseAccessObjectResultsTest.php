@@ -56,7 +56,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
         $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
-        $method = $this->get_accessible_reflection_method('indexed_result_array');
+        $method = $this->getReflectionMethod('indexed_result_array');
 
         $method->invokeArgs($this->class, [ &$query, 'key2' ]);
     }
@@ -79,7 +79,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
               ->method('number_of_rows')
               ->willReturn(0);
 
-        $method = $this->get_accessible_reflection_method('indexed_result_array');
+        $method = $this->getReflectionMethod('indexed_result_array');
 
         $result = $method->invokeArgs($this->class, [ &$query, 'key2' ]);
 
@@ -120,7 +120,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
               ->method('result_array')
               ->willReturn($query_result);
 
-        $method = $this->get_accessible_reflection_method('indexed_result_array');
+        $method = $this->getReflectionMethod('indexed_result_array');
 
         $result = $method->invokeArgs($this->class, [ &$query, 'key2' ]);
 
@@ -172,7 +172,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
         $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
-        $method = $this->get_accessible_reflection_method('result_array');
+        $method = $this->getReflectionMethod('result_array');
 
         $method->invokeArgs($this->class, [ &$query ]);
     }
@@ -195,7 +195,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
               ->method('number_of_rows')
               ->willReturn(0);
 
-        $method = $this->get_accessible_reflection_method('result_array');
+        $method = $this->getReflectionMethod('result_array');
 
         $result = $method->invokeArgs($this->class, [ &$query ]);
 
@@ -227,7 +227,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
               ->method('result_array')
               ->willReturn($query_result);
 
-        $method = $this->get_accessible_reflection_method('result_array');
+        $method = $this->getReflectionMethod('result_array');
 
         $result = $method->invokeArgs($this->class, [ &$query ]);
 
@@ -268,7 +268,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
         $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
-        $method = $this->get_accessible_reflection_method('result_row');
+        $method = $this->getReflectionMethod('result_row');
 
         $method->invokeArgs($this->class, [ &$query ]);
     }
@@ -291,7 +291,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
               ->method('number_of_rows')
               ->willReturn(0);
 
-        $method = $this->get_accessible_reflection_method('result_row');
+        $method = $this->getReflectionMethod('result_row');
 
         $result = $method->invokeArgs($this->class, [ &$query ]);
 
@@ -323,7 +323,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
               ->method('result_row')
               ->willReturn($query_result);
 
-        $method = $this->get_accessible_reflection_method('result_row');
+        $method = $this->getReflectionMethod('result_row');
 
         $result = $method->invokeArgs($this->class, [ &$query ]);
 
@@ -364,7 +364,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
         $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
-        $method = $this->get_accessible_reflection_method('result_column');
+        $method = $this->getReflectionMethod('result_column');
 
         $method->invokeArgs($this->class, [ &$query, 'col' ]);
     }
@@ -387,7 +387,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
               ->method('number_of_rows')
               ->willReturn(0);
 
-        $method = $this->get_accessible_reflection_method('result_column');
+        $method = $this->getReflectionMethod('result_column');
 
         $result = $method->invokeArgs($this->class, [ &$query, 'col' ]);
 
@@ -419,7 +419,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
               ->method('result_column')
               ->willReturn($query_result);
 
-        $method = $this->get_accessible_reflection_method('result_column');
+        $method = $this->getReflectionMethod('result_column');
 
         $result = $method->invokeArgs($this->class, [ &$query, 'col' ]);
 
@@ -460,7 +460,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
         $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
-        $method = $this->get_accessible_reflection_method('result_cell');
+        $method = $this->getReflectionMethod('result_cell');
 
         $method->invokeArgs($this->class, [ &$query, 'col' ]);
     }
@@ -483,7 +483,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
               ->method('number_of_rows')
               ->willReturn(0);
 
-        $method = $this->get_accessible_reflection_method('result_cell');
+        $method = $this->getReflectionMethod('result_cell');
 
         $result = $method->invokeArgs($this->class, [ &$query, 'col' ]);
 
@@ -514,7 +514,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
               ->method('result_cell')
               ->willReturn($query_result);
 
-        $method = $this->get_accessible_reflection_method('result_cell');
+        $method = $this->getReflectionMethod('result_cell');
 
         $result = $method->invokeArgs($this->class, [ &$query, 'col' ]);
 
@@ -539,7 +539,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
               ->method('has_lock_timeout')
               ->willReturn(FALSE);
 
-        $method = $this->get_accessible_reflection_method('result_retry');
+        $method = $this->getReflectionMethod('result_retry');
 
         $result = $method->invokeArgs($this->class, [ &$query ]);
 
@@ -569,7 +569,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
                  ->with('sql_query')
                  ->willReturn($query);
 
-        $method = $this->get_accessible_reflection_method('result_retry');
+        $method = $this->getReflectionMethod('result_retry');
 
         $result = $method->invokeArgs($this->class, [ &$query, 1 ]);
 
@@ -603,7 +603,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
                  ->with('sql_query')
                  ->willReturn($query);
 
-        $method = $this->get_accessible_reflection_method('result_retry');
+        $method = $this->getReflectionMethod('result_retry');
 
         $result = $method->invokeArgs($this->class, [ &$query, 1 ]);
 
@@ -637,7 +637,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
                  ->with('sql_query')
                  ->willReturn($query);
 
-        $method = $this->get_accessible_reflection_method('result_retry');
+        $method = $this->getReflectionMethod('result_retry');
 
         $result = $method->invokeArgs($this->class, [ &$query, 2 ]);
 
@@ -677,7 +677,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
         $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
-        $method = $this->get_accessible_reflection_method('result_boolean');
+        $method = $this->getReflectionMethod('result_boolean');
 
         $method->invokeArgs($this->class, [ &$query ]);
     }
@@ -696,7 +696,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
             ->method('has_failed')
             ->willReturn(FALSE);
 
-        $method = $this->get_accessible_reflection_method('result_boolean');
+        $method = $this->getReflectionMethod('result_boolean');
 
         $result = $method->invokeArgs($this->class, [ &$query ]);
 
@@ -736,7 +736,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
         $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Database query error!');
 
-        $method = $this->get_accessible_reflection_method('get_affected_rows');
+        $method = $this->getReflectionMethod('get_affected_rows');
 
         $method->invokeArgs($this->class, [ &$query ]);
     }
@@ -759,7 +759,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTest
               ->method('affected_rows')
               ->will($this->returnValue(100));
 
-        $method = $this->get_accessible_reflection_method('get_affected_rows');
+        $method = $this->getReflectionMethod('get_affected_rows');
 
         $result = $method->invokeArgs($this->class, [ &$query ]);
 

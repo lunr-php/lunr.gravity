@@ -25,7 +25,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testInitialSet(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_set');
+        $method = $this->getReflectionMethod('sql_set');
 
         $method->invokeArgs($this->class, [ [ 'column1' => 'value1' ] ]);
 
@@ -41,7 +41,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testIncrementalSet(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_set');
+        $method = $this->getReflectionMethod('sql_set');
 
         $method->invokeArgs($this->class, [ [ 'column1' => 'value1' ] ]);
         $method->invokeArgs($this->class, [ [ 'column2' => 'value2' ] ]);
@@ -58,7 +58,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testSetWithNullValue(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_set');
+        $method = $this->getReflectionMethod('sql_set');
 
         $method->invokeArgs($this->class, [ [ 'column1' => 'value1' ] ]);
         $method->invokeArgs($this->class, [ [ 'column2' => NULL ] ]);
@@ -75,7 +75,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testUndefinedValuesQueryPart(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_values');
+        $method = $this->getReflectionMethod('sql_values');
 
         $method->invokeArgs($this->class, [ [] ]);
 
@@ -94,7 +94,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testInitialValuesQueryPart($values): void
     {
-        $method = $this->get_accessible_reflection_method('sql_values');
+        $method = $this->getReflectionMethod('sql_values');
 
         $method->invokeArgs($this->class, [ $values ]);
 
@@ -110,7 +110,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testIncrementalValues(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_values');
+        $method = $this->getReflectionMethod('sql_values');
 
         $method->invokeArgs($this->class, [ [ 'value1', 'value2', 'value3' ] ]);
 
@@ -132,7 +132,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testNullValues(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_values');
+        $method = $this->getReflectionMethod('sql_values');
 
         $method->invokeArgs($this->class, [ [ 'value1', NULL, 'value3' ] ]);
 
@@ -148,7 +148,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testInitialColumnNames(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_column_names');
+        $method = $this->getReflectionMethod('sql_column_names');
 
         $method->invokeArgs($this->class, [ [ 'column1', 'column2', 'column3' ] ]);
 
@@ -164,7 +164,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testInitialSelectStatement(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_select_statement');
+        $method = $this->getReflectionMethod('sql_select_statement');
 
         $method->invokeArgs($this->class, [ 'SELECT * FROM table1' ]);
 
@@ -180,7 +180,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testInvalidSelectStatement(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_select_statement');
+        $method = $this->getReflectionMethod('sql_select_statement');
 
         $method->invokeArgs($this->class, [ 'INSERT INTO table1' ]);
 
@@ -196,7 +196,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testInitialInto(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_into');
+        $method = $this->getReflectionMethod('sql_into');
 
         $method->invokeArgs($this->class, [ 'table1' ]);
 
@@ -212,7 +212,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testIncrementalInto(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_into');
+        $method = $this->getReflectionMethod('sql_into');
 
         $method->invokeArgs($this->class, [ 'table1' ]);
         $method->invokeArgs($this->class, [ 'table2' ]);
@@ -229,7 +229,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testUpsertWithoutTarget()
     {
-        $method = $this->get_accessible_reflection_method('sql_upsert');
+        $method = $this->getReflectionMethod('sql_upsert');
 
         $method->invokeArgs($this->class, [ 'ON CONFLICT', 'DO NOTHING' ]);
 
@@ -245,7 +245,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
      */
     public function testUpsertWithTarget()
     {
-        $method = $this->get_accessible_reflection_method('sql_upsert');
+        $method = $this->getReflectionMethod('sql_upsert');
 
         $method->invokeArgs($this->class, [ 'ON CONFLICT', 'DO NOTHING', '(column)' ]);
 

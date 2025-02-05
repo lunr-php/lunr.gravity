@@ -11,7 +11,7 @@
 namespace Lunr\Gravity\SQLite3\Tests;
 
 use Lunr\Gravity\SQLite3\SQLite3QueryResult;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 use SQLite3;
 use SQLite3Result;
 
@@ -21,7 +21,7 @@ use SQLite3Result;
  *
  * @covers Lunr\Gravity\SQLite3\SQLite3QueryResult
  */
-abstract class SQLite3QueryResultTest extends LunrBaseTest
+abstract class SQLite3QueryResultTest extends LunrBaseTestCase
 {
 
     /**
@@ -85,10 +85,10 @@ abstract class SQLite3QueryResultTest extends LunrBaseTest
 
         parent::baseSetUp($this->class);
 
-        $this->set_reflection_property_value('affected_rows', 12);
-        $this->set_reflection_property_value('insert_id', 0);
-        $this->set_reflection_property_value('error_message', '');
-        $this->set_reflection_property_value('error_number', 0);
+        $this->setReflectionPropertyValue('affected_rows', 12);
+        $this->setReflectionPropertyValue('insert_id', 0);
+        $this->setReflectionPropertyValue('error_message', '');
+        $this->setReflectionPropertyValue('error_number', 0);
     }
 
     /**
@@ -108,8 +108,8 @@ abstract class SQLite3QueryResultTest extends LunrBaseTest
 
         parent::baseSetUp($this->class);
 
-        $this->set_reflection_property_value('error_message', 'The query failed.');
-        $this->set_reflection_property_value('error_number', 8);
+        $this->setReflectionPropertyValue('error_message', 'The query failed.');
+        $this->setReflectionPropertyValue('error_number', 8);
     }
 
     /**

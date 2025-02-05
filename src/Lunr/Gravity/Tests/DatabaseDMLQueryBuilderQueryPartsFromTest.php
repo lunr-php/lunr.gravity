@@ -25,13 +25,13 @@ class DatabaseDMLQueryBuilderQueryPartsFromTest extends DatabaseDMLQueryBuilderT
      */
     public function testFromWithoutIndexHints(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_from');
+        $method = $this->getReflectionMethod('sql_from');
 
         $method->invokeArgs($this->class, [ 'table' ]);
 
         $string = 'FROM table';
 
-        $this->assertEquals($string, $this->get_reflection_property_value('from'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('from'));
     }
 
     /**
@@ -43,14 +43,14 @@ class DatabaseDMLQueryBuilderQueryPartsFromTest extends DatabaseDMLQueryBuilderT
      */
     public function testFromWithSingleIndexHint(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_from');
+        $method = $this->getReflectionMethod('sql_from');
         $hints  = [ 'index_hint' ];
 
         $method->invokeArgs($this->class, [ 'table', $hints ]);
 
         $string = 'FROM table index_hint';
 
-        $this->assertEquals($string, $this->get_reflection_property_value('from'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('from'));
     }
 
     /**
@@ -62,14 +62,14 @@ class DatabaseDMLQueryBuilderQueryPartsFromTest extends DatabaseDMLQueryBuilderT
      */
     public function testFromWithMultipleIndexHints(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_from');
+        $method = $this->getReflectionMethod('sql_from');
         $hints  = [ 'index_hint', 'index_hint' ];
 
         $method->invokeArgs($this->class, [ 'table', $hints ]);
 
         $string = 'FROM table index_hint, index_hint';
 
-        $this->assertEquals($string, $this->get_reflection_property_value('from'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('from'));
     }
 
     /**
@@ -81,14 +81,14 @@ class DatabaseDMLQueryBuilderQueryPartsFromTest extends DatabaseDMLQueryBuilderT
      */
     public function testFromWithNullIndexHints(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_from');
+        $method = $this->getReflectionMethod('sql_from');
         $hints  = [ NULL, NULL ];
 
         $method->invokeArgs($this->class, [ 'table', $hints ]);
 
         $string = 'FROM table ';
 
-        $this->assertEquals($string, $this->get_reflection_property_value('from'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('from'));
     }
 
     /**
@@ -98,14 +98,14 @@ class DatabaseDMLQueryBuilderQueryPartsFromTest extends DatabaseDMLQueryBuilderT
      */
     public function testIncrementalFromWithoutIndices(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_from');
+        $method = $this->getReflectionMethod('sql_from');
 
         $method->invokeArgs($this->class, [ 'table' ]);
         $method->invokeArgs($this->class, [ 'table' ]);
 
         $string = 'FROM table, table';
 
-        $this->assertEquals($string, $this->get_reflection_property_value('from'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('from'));
     }
 
     /**
@@ -117,7 +117,7 @@ class DatabaseDMLQueryBuilderQueryPartsFromTest extends DatabaseDMLQueryBuilderT
      */
     public function testIncrementalFromWithIndices(): void
     {
-        $method = $this->get_accessible_reflection_method('sql_from');
+        $method = $this->getReflectionMethod('sql_from');
         $hints  = [ 'index_hint' ];
 
         $method->invokeArgs($this->class, [ 'table', $hints ]);
@@ -125,7 +125,7 @@ class DatabaseDMLQueryBuilderQueryPartsFromTest extends DatabaseDMLQueryBuilderT
 
         $string = 'FROM table index_hint, table index_hint';
 
-        $this->assertEquals($string, $this->get_reflection_property_value('from'));
+        $this->assertEquals($string, $this->getReflectionPropertyValue('from'));
     }
 
 }

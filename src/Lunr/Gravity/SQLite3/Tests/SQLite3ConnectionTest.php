@@ -11,7 +11,7 @@
 namespace Lunr\Gravity\SQLite3\Tests;
 
 use Lunr\Gravity\SQLite3\SQLite3Connection;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 
 /**
  * This class contains common constructors/destructors and data providers
@@ -19,7 +19,7 @@ use Lunr\Halo\LunrBaseTest;
  *
  * @covers Lunr\Gravity\SQLite3\SQLite3Connection
  */
-abstract class SQLite3ConnectionTest extends LunrBaseTest
+abstract class SQLite3ConnectionTest extends LunrBaseTestCase
 {
 
     /**

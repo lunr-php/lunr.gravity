@@ -11,7 +11,7 @@
 namespace Lunr\Gravity\Tests;
 
 use Lunr\Gravity\DatabaseConnection;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -20,7 +20,7 @@ use PHPUnit\Framework\MockObject\Stub;
  *
  * @covers Lunr\Gravity\DatabaseConnection
  */
-abstract class DatabaseConnectionTest extends LunrBaseTest
+abstract class DatabaseConnectionTest extends LunrBaseTestCase
 {
 
     /**

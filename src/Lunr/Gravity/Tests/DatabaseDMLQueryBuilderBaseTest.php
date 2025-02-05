@@ -31,7 +31,7 @@ class DatabaseDMLQueryBuilderBaseTest extends DatabaseDMLQueryBuilderTest
      */
     public function testSelectModeEmptyByDefault(): void
     {
-        $this->assertArrayEmpty($this->get_reflection_property_value('select_mode'));
+        $this->assertArrayEmpty($this->getReflectionPropertyValue('select_mode'));
     }
 
     /**
@@ -47,7 +47,7 @@ class DatabaseDMLQueryBuilderBaseTest extends DatabaseDMLQueryBuilderTest
      */
     public function testUpdateModeEmptyByDefault(): void
     {
-        $this->assertArrayEmpty($this->get_reflection_property_value('update_mode'));
+        $this->assertArrayEmpty($this->getReflectionPropertyValue('update_mode'));
     }
 
     /**
@@ -63,7 +63,7 @@ class DatabaseDMLQueryBuilderBaseTest extends DatabaseDMLQueryBuilderTest
      */
     public function testDeleteModeEmptyByDefault(): void
     {
-        $this->assertArrayEmpty($this->get_reflection_property_value('delete_mode'));
+        $this->assertArrayEmpty($this->getReflectionPropertyValue('delete_mode'));
     }
 
     /**
@@ -71,7 +71,7 @@ class DatabaseDMLQueryBuilderBaseTest extends DatabaseDMLQueryBuilderTest
      */
     public function testInsertModeEmptyByDefault(): void
     {
-        $this->assertArrayEmpty($this->get_reflection_property_value('insert_mode'));
+        $this->assertArrayEmpty($this->getReflectionPropertyValue('insert_mode'));
     }
 
     /**
@@ -173,7 +173,7 @@ class DatabaseDMLQueryBuilderBaseTest extends DatabaseDMLQueryBuilderTest
      */
     public function testPrepareValidIndexHints($hints, $expected): void
     {
-        $method = $this->get_accessible_reflection_method('prepare_index_hints');
+        $method = $this->getReflectionMethod('prepare_index_hints');
 
         $this->assertEquals($expected, $method->invokeArgs($this->class, [ $hints ]));
     }
@@ -188,7 +188,7 @@ class DatabaseDMLQueryBuilderBaseTest extends DatabaseDMLQueryBuilderTest
      */
     public function testPrepareInvalidIndexHintsReturnsEmptyString($hints): void
     {
-        $method = $this->get_accessible_reflection_method('prepare_index_hints');
+        $method = $this->getReflectionMethod('prepare_index_hints');
 
         $this->assertEquals('', $method->invokeArgs($this->class, [ $hints ]));
     }

@@ -11,7 +11,7 @@
 namespace Lunr\Gravity\MySQL\Tests;
 
 use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 
 /**
  * This class contains common setup routines, providers
@@ -19,7 +19,7 @@ use Lunr\Halo\LunrBaseTest;
  *
  * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder
  */
-abstract class MySQLSimpleDMLQueryBuilderTest extends LunrBaseTest
+abstract class MySQLSimpleDMLQueryBuilderTest extends LunrBaseTestCase
 {
 
     /**

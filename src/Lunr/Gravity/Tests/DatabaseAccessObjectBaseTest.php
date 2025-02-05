@@ -44,11 +44,11 @@ class DatabaseAccessObjectBaseTest extends DatabaseAccessObjectTest
                    ->disableOriginalConstructor()
                    ->getMock();
 
-        $property = $this->get_accessible_reflection_property('db');
+        $property = $this->getReflectionProperty('db');
 
         $this->assertNotSame($db, $property->getValue($this->class));
 
-        $method = $this->get_accessible_reflection_method('swap_generic_connection');
+        $method = $this->getReflectionMethod('swap_generic_connection');
 
         $method->invokeArgs($this->class, [ $db ]);
 
