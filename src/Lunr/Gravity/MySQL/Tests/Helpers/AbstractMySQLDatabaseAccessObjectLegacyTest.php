@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file contains the MySQLDatabaseAccessObjectLegacyTest class.
+ * This file contains the AbstractMySQLDatabaseAccessObjectLegacyTest class.
  *
  * SPDX-FileCopyrightText: Copyright 2014 M2mobi B.V., Amsterdam, The Netherlands
  * SPDX-FileCopyrightText: Copyright 2022 Move Agency Group B.V., Zwolle, The Netherlands
@@ -16,20 +16,21 @@ use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\MySQL\MySQLQueryResult;
 use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
 use Lunr\Halo\LegacyBaseTest;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
 
 /**
  * This class contains setup and tear down methods for DAOs using MySQL access.
  *
- * @deprecated Use `MySQLDatabaseAccessObjectTest` instead
+ * @deprecated Use `AbstractMySQLDatabaseAccessObjectTest` instead
  */
-abstract class MySQLDatabaseAccessObjectLegacyTestCase extends LegacyBaseTest
+abstract class AbstractMySQLDatabaseAccessObjectLegacyTest extends LegacyBaseTest
 {
 
     /**
      * Mock instance of the MySQLConnection class.
-     * @var MySQLConnection
+     * @var MySQLConnection|MockObject
      */
     protected $db;
 
@@ -41,7 +42,7 @@ abstract class MySQLDatabaseAccessObjectLegacyTestCase extends LegacyBaseTest
 
     /**
      * Mock instance of the DMLQueryBuilder class
-     * @var MySQLDMLQueryBuilder
+     * @var MySQLDMLQueryBuilder|MockObject
      */
     protected $builder;
 
@@ -59,7 +60,7 @@ abstract class MySQLDatabaseAccessObjectLegacyTestCase extends LegacyBaseTest
 
     /**
      * Mock instance of the QueryEscaper class
-     * @var MySQLQueryEscaper
+     * @var MySQLQueryEscaper|MockObject
      */
     protected $escaper;
 
@@ -110,14 +111,16 @@ abstract class MySQLDatabaseAccessObjectLegacyTestCase extends LegacyBaseTest
 
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
-        $this->db->expects($this->once())
+        $this->db->expects($this->exactly(1))
                  ->method('get_query_escaper_object')
                  ->will($this->returnValue($this->escaper));
 
         // Assumption: All DAO's end in DAO.
         $name = str_replace('\\Tests\\', '\\', substr(static::class, 0, strrpos(static::class, 'DAO') + 3));
 
-        $this->class = new $name($this->db, $this->logger);
+        $this->class = $this->getMockBuilder($name)
+                            ->setConstructorArgs([ $this->db, $this->logger ])
+                            ->getMockForAbstractClass();
 
         $this->reflection = new ReflectionClass($name);
     }

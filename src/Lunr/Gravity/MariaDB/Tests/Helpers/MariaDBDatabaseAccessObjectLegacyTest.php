@@ -23,7 +23,7 @@ use ReflectionClass;
  *
  * @deprecated User `MariaDBDatabaseAccessObjectTest` instead
  */
-abstract class MariaDBDatabaseAccessObjectLegacyTestCase extends LegacyBaseTest
+abstract class MariaDBDatabaseAccessObjectLegacyTest extends LegacyBaseTest
 {
 
     /**
