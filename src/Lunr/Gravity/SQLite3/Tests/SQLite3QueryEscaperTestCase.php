@@ -12,7 +12,6 @@ namespace Lunr\Gravity\SQLite3\Tests;
 
 use Lunr\Gravity\SQLite3\SQLite3QueryEscaper;
 use Lunr\Halo\LunrBaseTestCase;
-use stdClass;
 
 /**
  * This class contains the tests for the SQLite3QueryEscaper class.
@@ -66,10 +65,6 @@ abstract class SQLite3QueryEscaperTestCase extends LunrBaseTestCase
     public function invalidIndicesProvider(): array
     {
         $indices   = [];
-        $indices[] = [ NULL ];
-        $indices[] = [ FALSE ];
-        $indices[] = [ 'string' ];
-        $indices[] = [ new stdClass() ];
         $indices[] = [ [] ];
 
         return $indices;

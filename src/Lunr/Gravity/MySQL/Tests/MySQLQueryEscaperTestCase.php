@@ -12,7 +12,6 @@ namespace Lunr\Gravity\MySQL\Tests;
 
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Halo\LunrBaseTestCase;
-use stdClass;
 
 /**
  * This class contains the tests for the MySQLQueryEscaper class.
@@ -66,10 +65,6 @@ abstract class MySQLQueryEscaperTestCase extends LunrBaseTestCase
     public function invalidIndicesProvider(): array
     {
         $indices   = [];
-        $indices[] = [ NULL ];
-        $indices[] = [ FALSE ];
-        $indices[] = [ 'string' ];
-        $indices[] = [ new stdClass() ];
         $indices[] = [ [] ];
 
         return $indices;

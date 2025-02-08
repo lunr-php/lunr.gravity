@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC0-1.0
 
 parameters:
-    level: 3
+    level: 5
     paths:
         - ../src
     bootstrapFiles:

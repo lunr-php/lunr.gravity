@@ -14,7 +14,6 @@ use Lunr\Gravity\DatabaseDMLQueryBuilder;
 use Lunr\Halo\LunrBaseTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
-use stdClass;
 
 /**
  * This class contains common setup routines, providers
@@ -108,10 +107,6 @@ abstract class DatabaseDMLQueryBuilderTestCase extends LunrBaseTestCase
         $hints   = [];
         $hints[] = [ [] ];
         $hints[] = [ NULL ];
-        $hints[] = [ FALSE ];
-        $hints[] = [ 1 ];
-        $hints[] = [ 'string' ];
-        $hints[] = [ new stdClass() ];
 
         return $hints;
     }

@@ -118,7 +118,7 @@ class SQLite3QueryEscaperEscapeTest extends SQLite3QueryEscaperTestCase
      */
     public function testEscapingIndexHintWithInvalidIndices($indices): void
     {
-        $this->assertNull($this->class->index_hint('', '', $indices));
+        $this->assertNull($this->class->index_hint('', $indices));
     }
 
     /**

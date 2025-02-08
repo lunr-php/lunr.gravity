@@ -263,7 +263,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
      */
     public function testEscapingIndexHintWithInvalidIndices($indices): void
     {
-        $this->assertNull($this->class->index_hint('', '', $indices));
+        $this->assertNull($this->class->index_hint('', $indices));
     }
 
     /**
