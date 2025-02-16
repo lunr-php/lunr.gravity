@@ -56,7 +56,7 @@ class SQLite3DMLQueryBuilderInsertTest extends SQLite3DMLQueryBuilderTestCase
     public function testInsertModeSetsStandardCorrectly($mode): void
     {
         $this->class->insert_mode($mode);
-        $value = $this->getReflectionPropertyValue('insert_mode');
+        $value = $this->getReflectionPropertyValue('insertMode');
 
         $this->assertContains($mode, $value);
     }
@@ -69,7 +69,7 @@ class SQLite3DMLQueryBuilderInsertTest extends SQLite3DMLQueryBuilderTestCase
     public function testInsertModeSetsIgnoresUnknownValues(): void
     {
         $this->class->insert_mode('UNSUPPORTED');
-        $value = $this->getReflectionPropertyValue('insert_mode');
+        $value = $this->getReflectionPropertyValue('insertMode');
 
         $this->assertIsArray($value);
         $this->assertEmpty($value);
@@ -87,7 +87,7 @@ class SQLite3DMLQueryBuilderInsertTest extends SQLite3DMLQueryBuilderTestCase
     public function testInsertModeCase($value, $expected): void
     {
         $this->class->insert_mode($value);
-        $modes = $this->getReflectionPropertyValue('insert_mode');
+        $modes = $this->getReflectionPropertyValue('insertMode');
 
         $this->assertContains($expected, $modes);
     }

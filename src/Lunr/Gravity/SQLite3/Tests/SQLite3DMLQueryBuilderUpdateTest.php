@@ -30,7 +30,7 @@ class SQLite3DMLQueryBuilderUpdateTest extends SQLite3DMLQueryBuilderTestCase
     public function testUpdateModeSetsStandardCorrectly($mode): void
     {
         $this->class->update_mode($mode);
-        $value = $this->getReflectionPropertyValue('update_mode');
+        $value = $this->getReflectionPropertyValue('updateMode');
 
         $this->assertContains($mode, $value);
     }
@@ -44,7 +44,7 @@ class SQLite3DMLQueryBuilderUpdateTest extends SQLite3DMLQueryBuilderTestCase
     public function testUpdateModeIgnoresUnknownValues(): void
     {
         $this->class->update_mode('UNSUPPORTED');
-        $value = $this->getReflectionPropertyValue('update_mode');
+        $value = $this->getReflectionPropertyValue('updateMode');
 
         $this->assertIsArray($value);
         $this->assertEmpty($value);

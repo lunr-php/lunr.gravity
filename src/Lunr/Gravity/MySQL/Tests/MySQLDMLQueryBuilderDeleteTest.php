@@ -29,7 +29,7 @@ class MySQLDMLQueryBuilderDeleteTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testDeleteModeSetsStandardCorrectly($mode): void
     {
-        $property = $this->builder_reflection->getProperty('delete_mode');
+        $property = $this->builder_reflection->getProperty('deleteMode');
         $property->setAccessible(TRUE);
 
         $this->builder->delete_mode($mode);
@@ -44,7 +44,7 @@ class MySQLDMLQueryBuilderDeleteTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testDeleteModeSetsIgnoresUnknownValues(): void
     {
-        $property = $this->builder_reflection->getProperty('delete_mode');
+        $property = $this->builder_reflection->getProperty('deleteMode');
         $property->setAccessible(TRUE);
 
         $this->builder->delete_mode('UNSUPPORTED');
@@ -79,7 +79,7 @@ class MySQLDMLQueryBuilderDeleteTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testDeleteModeCase($value, $expected): void
     {
-        $property = $this->builder_reflection->getProperty('delete_mode');
+        $property = $this->builder_reflection->getProperty('deleteMode');
         $property->setAccessible(TRUE);
 
         $this->builder->delete_mode($value);

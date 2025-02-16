@@ -137,11 +137,11 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
     /**
      * Run a SQL query.
      *
-     * @param string $sql_query The SQL query to run on the database
+     * @param string $sqlQuery The SQL query to run on the database
      *
      * @return DatabaseQueryResultInterface $result Query Result
      */
-    abstract public function query(string $sql_query): DatabaseQueryResultInterface;
+    abstract public function query(string $sqlQuery): DatabaseQueryResultInterface;
 
     /**
      * Begin a transaction.

@@ -153,21 +153,21 @@ interface DMLQueryBuilderInterface
     /**
      * Define FROM clause of the SQL statement.
      *
-     * @param string $table_reference Table name
+     * @param string $tableReference Table name
      *
      * @return $this Self reference
      */
-    public function from($table_reference): static;
+    public function from($tableReference): static;
 
     /**
      * Define JOIN clause of the SQL statement.
      *
-     * @param string $table_reference Table reference to join with.
-     * @param string $type            Type of JOIN operation to perform.
+     * @param string $tableReference Table reference to join with.
+     * @param string $type           Type of JOIN operation to perform.
      *
      * @return $this Self reference
      */
-    public function join($table_reference, $type = 'INNER'): static;
+    public function join($tableReference, $type = 'INNER'): static;
 
     /**
      * Define ON part of a JOIN clause of the SQL statement.
@@ -441,12 +441,12 @@ interface DMLQueryBuilderInterface
     /**
      * Define a UNION or UNION ALL clause of the SQL statement.
      *
-     * @param string $sql_query SQL query reference
-     * @param string $type      Type of UNION operation to perform.
+     * @param string $sqlQuery SQL query reference
+     * @param string $type     Type of UNION operation to perform.
      *
      * @return $this Self reference
      */
-    public function union(string $sql_query, string $type): static;
+    public function union(string $sqlQuery, string $type): static;
 
     /**
      * Define the lock mode for a transaction.
@@ -474,26 +474,26 @@ interface DMLQueryBuilderInterface
     /**
      * Define a with clause.
      *
-     * @param string $alias        The alias of the WITH statement
-     * @param string $sql_query    Sql query reference
-     * @param array  $column_names An optional parameter to give the result columns a name
+     * @param string $alias       The alias of the WITH statement
+     * @param string $sqlQuery    Sql query reference
+     * @param array  $columnNames An optional parameter to give the result columns a name
      *
      * @return $this Self reference
      */
-    public function with($alias, $sql_query, $column_names = NULL): static;
+    public function with($alias, $sqlQuery, $columnNames = NULL): static;
 
     /**
      * Define a recursive WITH clause.
      *
-     * @param string $alias           The alias of the WITH statement
-     * @param string $anchor_query    The initial select statement
-     * @param string $recursive_query The select statement that selects recursively out of the initial query
-     * @param bool   $union_all       True for UNION ALL false for UNION
-     * @param array  $column_names    An optional parameter to give the result columns a name
+     * @param string $alias          The alias of the WITH statement
+     * @param string $anchorQuery    The initial select statement
+     * @param string $recursiveQuery The select statement that selects recursively out of the initial query
+     * @param bool   $unionAll       True for UNION ALL false for UNION
+     * @param array  $columnNames    An optional parameter to give the result columns a name
      *
      * @return $this Self reference
      */
-    public function with_recursive($alias, $anchor_query, $recursive_query, $union_all = FALSE, $column_names = NULL): static;
+    public function with_recursive($alias, $anchorQuery, $recursiveQuery, $unionAll = FALSE, $columnNames = NULL): static;
 
 }
 

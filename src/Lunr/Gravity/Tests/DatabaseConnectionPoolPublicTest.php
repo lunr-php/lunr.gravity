@@ -72,7 +72,7 @@ class DatabaseConnectionPoolPublicTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetNewRoConnectionIncreasesPoolByOne(): void
     {
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $this->assertEmpty($property->getValue($this->pool));
@@ -92,7 +92,7 @@ class DatabaseConnectionPoolPublicTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetNewRwConnectionIncreasesPoolByOne(): void
     {
-        $property = $this->pool_reflection->getProperty('rw_pool');
+        $property = $this->poolReflection->getProperty('rwPool');
         $property->setAccessible(TRUE);
 
         $this->assertEmpty($property->getValue($this->pool));
@@ -112,7 +112,7 @@ class DatabaseConnectionPoolPublicTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetRoConnectionReturnsNewConnectionIfPoolEmpty(): void
     {
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $this->assertEmpty($property->getValue($this->pool));
@@ -132,7 +132,7 @@ class DatabaseConnectionPoolPublicTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetRwConnectionReturnsNewConnectionIfPoolEmpty(): void
     {
-        $property = $this->pool_reflection->getProperty('rw_pool');
+        $property = $this->poolReflection->getProperty('rwPool');
         $property->setAccessible(TRUE);
 
         $this->assertEmpty($property->getValue($this->pool));
@@ -152,7 +152,7 @@ class DatabaseConnectionPoolPublicTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetRoConnectionReturnsPooledConnection(): void
     {
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $this->assertEmpty($property->getValue($this->pool));
@@ -178,7 +178,7 @@ class DatabaseConnectionPoolPublicTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetRwConnectionReturnsPooledConnection(): void
     {
-        $property = $this->pool_reflection->getProperty('rw_pool');
+        $property = $this->poolReflection->getProperty('rwPool');
         $property->setAccessible(TRUE);
 
         $this->assertEmpty($property->getValue($this->pool));

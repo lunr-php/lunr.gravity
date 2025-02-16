@@ -27,11 +27,11 @@ class DatabaseDMLQueryBuilderBaseTest extends DatabaseDMLQueryBuilderTestCase
     }
 
     /**
-     * Test that select_mode is an empty array by default.
+     * Test that selectMode is an empty array by default.
      */
     public function testSelectModeEmptyByDefault(): void
     {
-        $this->assertArrayEmpty($this->getReflectionPropertyValue('select_mode'));
+        $this->assertArrayEmpty($this->getReflectionPropertyValue('selectMode'));
     }
 
     /**
@@ -43,11 +43,11 @@ class DatabaseDMLQueryBuilderBaseTest extends DatabaseDMLQueryBuilderTestCase
     }
 
     /**
-     * Test that update_mode is an empty array by default.
+     * Test that updateMode is an empty array by default.
      */
     public function testUpdateModeEmptyByDefault(): void
     {
-        $this->assertArrayEmpty($this->getReflectionPropertyValue('update_mode'));
+        $this->assertArrayEmpty($this->getReflectionPropertyValue('updateMode'));
     }
 
     /**
@@ -59,19 +59,19 @@ class DatabaseDMLQueryBuilderBaseTest extends DatabaseDMLQueryBuilderTestCase
     }
 
     /**
-     * Test that delete_mode is an empty array by default.
+     * Test that deleteMode is an empty array by default.
      */
     public function testDeleteModeEmptyByDefault(): void
     {
-        $this->assertArrayEmpty($this->getReflectionPropertyValue('delete_mode'));
+        $this->assertArrayEmpty($this->getReflectionPropertyValue('deleteMode'));
     }
 
     /**
-     * Test that insert_mode is an empty array by default.
+     * Test that insertMode is an empty array by default.
      */
     public function testInsertModeEmptyByDefault(): void
     {
-        $this->assertArrayEmpty($this->getReflectionPropertyValue('insert_mode'));
+        $this->assertArrayEmpty($this->getReflectionPropertyValue('insertMode'));
     }
 
     /**
@@ -91,11 +91,11 @@ class DatabaseDMLQueryBuilderBaseTest extends DatabaseDMLQueryBuilderTestCase
     }
 
     /**
-     * Test that column_names is an empty string by default.
+     * Test that columnNames is an empty string by default.
      */
     public function testColumnNamesEmptyByDefault(): void
     {
-        $this->assertPropertyEquals('column_names', '');
+        $this->assertPropertyEquals('columnNames', '');
     }
 
     /**
@@ -115,11 +115,11 @@ class DatabaseDMLQueryBuilderBaseTest extends DatabaseDMLQueryBuilderTestCase
     }
 
     /**
-     * Test that select_statement is an empty string by default.
+     * Test that selectStatement is an empty string by default.
      */
     public function testSelectStatementEmptyByDefault(): void
     {
-        $this->assertPropertyEquals('select_statement', '');
+        $this->assertPropertyEquals('selectStatement', '');
     }
 
     /**
@@ -131,19 +131,19 @@ class DatabaseDMLQueryBuilderBaseTest extends DatabaseDMLQueryBuilderTestCase
     }
 
     /**
-     * Test that order_by is an empty string by default.
+     * Test that orderBy is an empty string by default.
      */
     public function testOrderByEmptyByDefault(): void
     {
-        $this->assertPropertyEquals('order_by', '');
+        $this->assertPropertyEquals('orderBy', '');
     }
 
     /**
-     * Test that group_by is an empty string by default.
+     * Test that groupBy is an empty string by default.
      */
     public function testGroupByEmptyByDefault(): void
     {
-        $this->assertPropertyEquals('group_by', '');
+        $this->assertPropertyEquals('groupBy', '');
     }
 
     /**

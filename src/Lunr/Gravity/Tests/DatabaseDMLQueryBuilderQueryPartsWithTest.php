@@ -59,9 +59,9 @@ class DatabaseDMLQueryBuilderQueryPartsWithTest extends DatabaseDMLQueryBuilderT
     {
         $method = $this->getReflectionMethod('sql_with');
 
-        $column_names = [ 'column1', 'column2', 'column3' ];
+        $columnNames = [ 'column1', 'column2', 'column3' ];
 
-        $method->invokeArgs($this->class, [ 'alias', 'query', '', '', $column_names ]);
+        $method->invokeArgs($this->class, [ 'alias', 'query', '', '', $columnNames ]);
 
         $string = 'alias (column1, column2, column3) AS ( query )';
 
@@ -110,9 +110,9 @@ class DatabaseDMLQueryBuilderQueryPartsWithTest extends DatabaseDMLQueryBuilderT
     {
         $method = $this->getReflectionMethod('sql_with');
 
-        $column_names = [ 'column1', 'column2', 'column3' ];
+        $columnNames = [ 'column1', 'column2', 'column3' ];
 
-        $method->invokeArgs($this->class, [ 'alias', 'anchor_query', 'recursive_query', 'UNION', $column_names ]);
+        $method->invokeArgs($this->class, [ 'alias', 'anchor_query', 'recursive_query', 'UNION', $columnNames ]);
 
         $string = 'alias (column1, column2, column3) AS ( anchor_query UNION recursive_query )';
 
@@ -148,11 +148,11 @@ class DatabaseDMLQueryBuilderQueryPartsWithTest extends DatabaseDMLQueryBuilderT
         $this->setReflectionPropertyValue
         ('with', 'alias (column1, column2, column3) AS ( query )');
 
-        $column_names = [ 'column1', 'column2', 'column3' ];
+        $columnNames = [ 'column1', 'column2', 'column3' ];
 
         $method = $this->getReflectionMethod('sql_with');
 
-        $method->invokeArgs($this->class, [ 'alias', 'anchor_query', 'recursive_query', 'UNION', $column_names ]);
+        $method->invokeArgs($this->class, [ 'alias', 'anchor_query', 'recursive_query', 'UNION', $columnNames ]);
 
         $string  = 'alias (column1, column2, column3) AS ( anchor_query UNION recursive_query ),';
         $string .= ' alias (column1, column2, column3) AS ( query )';
@@ -189,11 +189,11 @@ class DatabaseDMLQueryBuilderQueryPartsWithTest extends DatabaseDMLQueryBuilderT
         $this->setReflectionPropertyValue
         ('with', 'alias (column1, column2, column3) AS ( anchor_query UNION recursive_query )');
 
-        $column_names = [ 'column1', 'column2', 'column3' ];
+        $columnNames = [ 'column1', 'column2', 'column3' ];
 
         $method = $this->getReflectionMethod('sql_with');
 
-        $method->invokeArgs($this->class, [ 'alias', 'anchor_query', 'recursive_query', 'UNION', $column_names ]);
+        $method->invokeArgs($this->class, [ 'alias', 'anchor_query', 'recursive_query', 'UNION', $columnNames ]);
 
         $string  = 'alias (column1, column2, column3) AS ( anchor_query UNION recursive_query ), ';
         $string .= 'alias (column1, column2, column3) AS ( anchor_query UNION recursive_query )';
@@ -232,9 +232,9 @@ class DatabaseDMLQueryBuilderQueryPartsWithTest extends DatabaseDMLQueryBuilderT
 
         $method = $this->getReflectionMethod('sql_with');
 
-        $column_names = [ 'column1', 'column2', 'column3' ];
+        $columnNames = [ 'column1', 'column2', 'column3' ];
 
-        $method->invokeArgs($this->class, [ 'alias', 'query', '', '', $column_names ]);
+        $method->invokeArgs($this->class, [ 'alias', 'query', '', '', $columnNames ]);
 
         $string  = 'alias (column1, column2, column3) AS ( anchor_query UNION recursive_query ), ';
         $string .= 'alias (column1, column2, column3) AS ( query )';

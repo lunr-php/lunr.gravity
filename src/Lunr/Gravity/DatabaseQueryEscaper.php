@@ -217,13 +217,13 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
     /**
      * Define input as a csv from an array within parentheses.
      *
-     * @param array $array_values Input
+     * @param array $arrayValues Input
      *
      * @return string $output Defined, escaped and within parentheses
      */
-    public function list_value(array $array_values): string
+    public function list_value(array $arrayValues): string
     {
-        return '(' . implode(', ', $array_values) . ')';
+        return '(' . implode(', ', $arrayValues) . ')';
     }
 
     /**

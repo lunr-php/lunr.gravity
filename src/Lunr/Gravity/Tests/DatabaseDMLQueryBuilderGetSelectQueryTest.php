@@ -28,15 +28,15 @@ class DatabaseDMLQueryBuilderGetSelectQueryTest extends DatabaseDMLQueryBuilderT
     public function testGetSelectQuery(): void
     {
         $this->setReflectionPropertyValue('from', 'FROM table');
-        $this->setReflectionPropertyValue('select_mode', [ 'DISTINCT', 'SQL_CACHE' ]);
+        $this->setReflectionPropertyValue('selectMode', [ 'DISTINCT', 'SQL_CACHE' ]);
         $this->setReflectionPropertyValue('select', 'col');
         $this->setReflectionPropertyValue('join', 'INNER JOIN table1');
         $this->setReflectionPropertyValue('where', 'WHERE a = b');
-        $this->setReflectionPropertyValue('order_by', 'ORDER BY col ASC');
-        $this->setReflectionPropertyValue('group_by', 'GROUP BY col');
+        $this->setReflectionPropertyValue('orderBy', 'ORDER BY col ASC');
+        $this->setReflectionPropertyValue('groupBy', 'GROUP BY col');
         $this->setReflectionPropertyValue('having', 'HAVING a = b');
         $this->setReflectionPropertyValue('limit', 'LIMIT 1');
-        $this->setReflectionPropertyValue('lock_mode', 'FOR UPDATE');
+        $this->setReflectionPropertyValue('lockMode', 'FOR UPDATE');
 
         $string  = 'SELECT DISTINCT SQL_CACHE col FROM table INNER JOIN table1 WHERE a = b ';
         $string .= 'GROUP BY col HAVING a = b ORDER BY col ASC LIMIT 1 FOR UPDATE';
@@ -53,7 +53,7 @@ class DatabaseDMLQueryBuilderGetSelectQueryTest extends DatabaseDMLQueryBuilderT
      */
     public function testGetSelectQueryWithUndefinedFromClause(): void
     {
-        $this->setReflectionPropertyValue('select_mode', [ 'DISTINCT', 'SQL_CACHE' ]);
+        $this->setReflectionPropertyValue('selectMode', [ 'DISTINCT', 'SQL_CACHE' ]);
         $this->setReflectionPropertyValue('select', 'col');
 
         $string = 'SELECT DISTINCT SQL_CACHE col';
@@ -100,7 +100,7 @@ class DatabaseDMLQueryBuilderGetSelectQueryTest extends DatabaseDMLQueryBuilderT
     public function testGetSelectQueryUsingRecursiveWith(): void
     {
         $this->setReflectionPropertyValue('with', 'alias AS ( query )');
-        $this->setReflectionPropertyValue('is_recursive', TRUE);
+        $this->setReflectionPropertyValue('isRecursive', TRUE);
         $this->setReflectionPropertyValue('select', '*');
         $this->setReflectionPropertyValue('from', 'FROM alias');
 

@@ -55,7 +55,7 @@ class MySQLDMLQueryBuilderInsertTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testInsertModeSetsStandardCorrectly($mode): void
     {
-        $property = $this->builder_reflection->getProperty('insert_mode');
+        $property = $this->builder_reflection->getProperty('insertMode');
         $property->setAccessible(TRUE);
 
         $this->builder->insert_mode($mode);
@@ -70,7 +70,7 @@ class MySQLDMLQueryBuilderInsertTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testInsertModeSetsIgnoresUnknownValues(): void
     {
-        $property = $this->builder_reflection->getProperty('insert_mode');
+        $property = $this->builder_reflection->getProperty('insertMode');
         $property->setAccessible(TRUE);
 
         $this->builder->insert_mode('UNSUPPORTED');
@@ -92,7 +92,7 @@ class MySQLDMLQueryBuilderInsertTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testInsertModeCase($value, $expected): void
     {
-        $property = $this->builder_reflection->getProperty('insert_mode');
+        $property = $this->builder_reflection->getProperty('insertMode');
         $property->setAccessible(TRUE);
 
         $this->builder->insert_mode($value);

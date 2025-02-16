@@ -36,7 +36,7 @@ class DatabaseConnectionPoolSupportedTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetNewAndReadonlyConnectionReturnsMysqlConnection(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
         $dbr = new ReflectionClass('Lunr\Gravity\MySQL\MySQLConnection');
@@ -57,7 +57,7 @@ class DatabaseConnectionPoolSupportedTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetNewAndReadWriteConnectionReturnsMysqlConnection(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
         $dbr = new ReflectionClass('Lunr\Gravity\MySQL\MySQLConnection');
@@ -78,10 +78,10 @@ class DatabaseConnectionPoolSupportedTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetNewAndReadonlyConnectionIncreasesPoolByOne(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $this->assertEmpty($property->getValue($this->pool));
@@ -101,10 +101,10 @@ class DatabaseConnectionPoolSupportedTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetNewAndReadWriteConnectionIncreasesPoolByOne(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
-        $property = $this->pool_reflection->getProperty('rw_pool');
+        $property = $this->poolReflection->getProperty('rwPool');
         $property->setAccessible(TRUE);
 
         $this->assertEmpty($property->getValue($this->pool));
@@ -124,10 +124,10 @@ class DatabaseConnectionPoolSupportedTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetReadonlyConnectionReturnsNewConnectionIfPoolEmpty(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $this->assertEmpty($property->getValue($this->pool));
@@ -147,10 +147,10 @@ class DatabaseConnectionPoolSupportedTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetReadWriteConnectionReturnsNewConnectionIfPoolEmpty(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
-        $property = $this->pool_reflection->getProperty('rw_pool');
+        $property = $this->poolReflection->getProperty('rwPool');
         $property->setAccessible(TRUE);
 
         $this->assertEmpty($property->getValue($this->pool));
@@ -170,10 +170,10 @@ class DatabaseConnectionPoolSupportedTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetReadonlyConnectionReturnsPooledConnection(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $this->assertEmpty($property->getValue($this->pool));
@@ -199,10 +199,10 @@ class DatabaseConnectionPoolSupportedTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetReadWriteConnectionReturnsPooledConnection(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
-        $property = $this->pool_reflection->getProperty('rw_pool');
+        $property = $this->poolReflection->getProperty('rwPool');
         $property->setAccessible(TRUE);
 
         $this->assertEmpty($property->getValue($this->pool));

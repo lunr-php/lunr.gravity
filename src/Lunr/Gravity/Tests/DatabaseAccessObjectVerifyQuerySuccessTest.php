@@ -92,11 +92,11 @@ class DatabaseAccessObjectVerifyQuerySuccessTest extends DatabaseAccessObjectTes
               ->method('query')
               ->willReturn('query');
 
-        $context        = [ 'query' => 'query', 'warning_count' => 2 ];
-        $warning_string = "\nHY000 (1364): message1\nHY000 (1364): message2";
+        $context       = [ 'query' => 'query', 'warning_count' => 2 ];
+        $warningString = "\nHY000 (1364): message1\nHY000 (1364): message2";
         $this->logger->expects($this->once())
                      ->method('warning')
-                     ->with('{query}; had {warning_count} warnings:' . $warning_string, $context);
+                     ->with('{query}; had {warning_count} warnings:' . $warningString, $context);
 
         $this->class->verify_query_success($query);
     }

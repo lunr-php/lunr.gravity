@@ -36,13 +36,13 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Define a DELETE clause.
      *
-     * @param string $table_references The tables to delete from
+     * @param string $tableReferences The tables to delete from
      *
      * @return $this Self reference
      */
-    public function delete($table_references = ''): static
+    public function delete($tableReferences = ''): static
     {
-        $this->sql_delete($table_references);
+        $this->sql_delete($tableReferences);
         return $this;
     }
 
@@ -127,55 +127,55 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Define a UPDATE clause.
      *
-     * @param string $table_references The tables to update
+     * @param string $tableReferences The tables to update
      *
      * @return $this Self reference
      */
-    public function update($table_references): static
+    public function update($tableReferences): static
     {
-        $this->sql_update($table_references);
+        $this->sql_update($tableReferences);
         return $this;
     }
 
     /**
      * Define FROM clause of the SQL statement.
      *
-     * @param string $table_reference Table reference
-     * @param array  $index_hints     Array of Index Hints
+     * @param string $tableReference Table reference
+     * @param array  $indexHints     Array of Index Hints
      *
      * @return $this Self reference
      */
-    public function from($table_reference, $index_hints = NULL): static
+    public function from($tableReference, $indexHints = NULL): static
     {
-        $this->sql_from($table_reference, $index_hints);
+        $this->sql_from($tableReference, $indexHints);
         return $this;
     }
 
     /**
      * Define JOIN clause of the SQL statement.
      *
-     * @param string $table_reference Table reference
-     * @param string $type            Type of JOIN operation to perform.
-     * @param array  $index_hints     Array of Index Hints
+     * @param string $tableReference Table reference
+     * @param string $type           Type of JOIN operation to perform.
+     * @param array  $indexHints     Array of Index Hints
      *
      * @return $this Self reference
      */
-    public function join($table_reference, $type = 'INNER', $index_hints = NULL): static
+    public function join($tableReference, $type = 'INNER', $indexHints = NULL): static
     {
-        $this->sql_join($table_reference, $type, $index_hints);
+        $this->sql_join($tableReference, $type, $indexHints);
         return $this;
     }
 
     /**
      * Define USING part of the SQL statement.
      *
-     * @param string $column_list Column name to use.
+     * @param string $columnList Column name to use.
      *
      * @return $this Self reference
      */
-    public function using($column_list): static
+    public function using($columnList): static
     {
-        $this->sql_using($column_list);
+        $this->sql_using($columnList);
         return $this;
     }
 
@@ -516,14 +516,14 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
     * Define a UNION, UNION DISTINCT or UNION ALL clause of the SQL statement.
     *
-    * @param string $sql_query SQL query reference
-    * @param string $operator  UNION operation to perform
+    * @param string $sqlQuery SQL query reference
+    * @param string $operator UNION operation to perform
     *
     * @return $this Self reference
     */
-    public function union(string $sql_query, string $operator = ''): static
+    public function union(string $sqlQuery, string $operator = ''): static
     {
-        $this->sql_compound($sql_query, 'UNION', strtoupper($operator));
+        $this->sql_compound($sqlQuery, 'UNION', strtoupper($operator));
         return $this;
     }
 
@@ -576,33 +576,33 @@ abstract class SQLDMLQueryBuilder extends DatabaseDMLQueryBuilder
     /**
      * Define a WITH clause.
      *
-     * @param string $alias        The alias of the WITH statement
-     * @param string $sql_query    Sql query reference
-     * @param array  $column_names An optional parameter to give the result columns a name
+     * @param string $alias       The alias of the WITH statement
+     * @param string $sqlQuery    Sql query reference
+     * @param array  $columnNames An optional parameter to give the result columns a name
      *
      * @return $this Self reference
      */
-    public function with($alias, $sql_query, $column_names = NULL): static
+    public function with($alias, $sqlQuery, $columnNames = NULL): static
     {
-        $this->sql_with($alias, $sql_query, '', '', $column_names);
+        $this->sql_with($alias, $sqlQuery, '', '', $columnNames);
         return $this;
     }
 
     /**
      * Define a recursive WITH clause.
      *
-     * @param string $alias           The alias of the WITH statement
-     * @param string $anchor_query    The initial select statement
-     * @param string $recursive_query The select statement that selects recursively out of the initial query
-     * @param bool   $union_all       True for UNION ALL false for UNION
-     * @param array  $column_names    An optional parameter to give the result columns a name
+     * @param string $alias          The alias of the WITH statement
+     * @param string $anchorQuery    The initial select statement
+     * @param string $recursiveQuery The select statement that selects recursively out of the initial query
+     * @param bool   $unionAll       True for UNION ALL false for UNION
+     * @param array  $columnNames    An optional parameter to give the result columns a name
      *
      * @return $this Self reference
      */
-    public function with_recursive($alias, $anchor_query, $recursive_query, $union_all = FALSE, $column_names = NULL): static
+    public function with_recursive($alias, $anchorQuery, $recursiveQuery, $unionAll = FALSE, $columnNames = NULL): static
     {
-        $base = ($union_all === TRUE) ? 'UNION ALL' : 'UNION';
-        $this->sql_with($alias, $anchor_query, $recursive_query, $base, $column_names);
+        $base = ($unionAll === TRUE) ? 'UNION ALL' : 'UNION';
+        $this->sql_with($alias, $anchorQuery, $recursiveQuery, $base, $columnNames);
         return $this;
     }
 

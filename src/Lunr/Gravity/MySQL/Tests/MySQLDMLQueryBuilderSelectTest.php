@@ -29,7 +29,7 @@ class MySQLDMLQueryBuilderSelectTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testSelectModeSetsDuplicatesCorrectly($mode): void
     {
-        $property = $this->builder_reflection->getProperty('select_mode');
+        $property = $this->builder_reflection->getProperty('selectMode');
         $property->setAccessible(TRUE);
 
         $this->builder->select_mode($mode);
@@ -49,7 +49,7 @@ class MySQLDMLQueryBuilderSelectTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testSelectModeSetsCacheCorrectly($mode): void
     {
-        $property = $this->builder_reflection->getProperty('select_mode');
+        $property = $this->builder_reflection->getProperty('selectMode');
         $property->setAccessible(TRUE);
 
         $this->builder->select_mode($mode);
@@ -69,7 +69,7 @@ class MySQLDMLQueryBuilderSelectTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testSelectModeSetsStandardCorrectly($mode): void
     {
-        $property = $this->builder_reflection->getProperty('select_mode');
+        $property = $this->builder_reflection->getProperty('selectMode');
         $property->setAccessible(TRUE);
 
         $this->builder->select_mode($mode);
@@ -84,7 +84,7 @@ class MySQLDMLQueryBuilderSelectTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testSelectModeSetsIgnoresUnknownValues(): void
     {
-        $property = $this->builder_reflection->getProperty('select_mode');
+        $property = $this->builder_reflection->getProperty('selectMode');
         $property->setAccessible(TRUE);
 
         $this->builder->select_mode('UNSUPPORTED');
@@ -105,7 +105,7 @@ class MySQLDMLQueryBuilderSelectTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testLockModeSetsStandardCorrectly($mode): void
     {
-        $property = $this->builder_reflection->getProperty('lock_mode');
+        $property = $this->builder_reflection->getProperty('lockMode');
         $property->setAccessible(TRUE);
 
         $this->builder->lock_mode($mode);
@@ -120,7 +120,7 @@ class MySQLDMLQueryBuilderSelectTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testLockModeSetsIgnoresUnknownValues(): void
     {
-        $property = $this->builder_reflection->getProperty('lock_mode');
+        $property = $this->builder_reflection->getProperty('lockMode');
         $property->setAccessible(TRUE);
 
         $this->builder->lock_mode('UNSUPPORTED');
@@ -138,7 +138,7 @@ class MySQLDMLQueryBuilderSelectTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testSelectModeAllowsOnlyOneDuplicateStatement(): void
     {
-        $property = $this->builder_reflection->getProperty('select_mode');
+        $property = $this->builder_reflection->getProperty('selectMode');
         $property->setAccessible(TRUE);
 
         $this->builder->select_mode('ALL');
@@ -158,7 +158,7 @@ class MySQLDMLQueryBuilderSelectTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testSelectModeAllowsOnlyOneCacheStatement(): void
     {
-        $property = $this->builder_reflection->getProperty('select_mode');
+        $property = $this->builder_reflection->getProperty('selectMode');
         $property->setAccessible(TRUE);
 
         $this->builder->select_mode('SQL_NO_CACHE');

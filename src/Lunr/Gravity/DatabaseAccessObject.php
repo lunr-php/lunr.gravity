@@ -79,16 +79,16 @@ abstract class DatabaseAccessObject
 
         if ($warnings !== NULL)
         {
-            $warnings_string = '{query}; had {warning_count} warnings:';
-            $format_string   = "\n%s (%d): %s";
+            $warningsString = '{query}; had {warning_count} warnings:';
+            $formatString   = "\n%s (%d): %s";
 
             foreach ($warnings as $warning)
             {
-                $warnings_string .= sprintf($format_string, $warning['sqlstate'], $warning['errno'], $warning['message']);
+                $warningsString .= sprintf($formatString, $warning['sqlstate'], $warning['errno'], $warning['message']);
             }
 
             $context = [ 'query' => $query->query(), 'warning_count' => count($warnings) ];
-            $this->logger->warning($warnings_string, $context);
+            $this->logger->warning($warningsString, $context);
         }
 
         if ($query->has_failed() !== TRUE)
@@ -245,14 +245,14 @@ abstract class DatabaseAccessObject
     /**
      * Retry executing the query in case of deadlock error.
      *
-     * @param DatabaseQueryResultInterface $query       The result of the run query
-     * @param int                          $retry_count The max amount of re-executing the query
+     * @param DatabaseQueryResultInterface $query      The result of the run query
+     * @param int                          $retryCount The max amount of re-executing the query
      *
      * @return DatabaseQueryResultInterface Result value
      */
-    protected function result_retry(DatabaseQueryResultInterface $query, int $retry_count = 5): DatabaseQueryResultInterface
+    protected function result_retry(DatabaseQueryResultInterface $query, int $retryCount = 5): DatabaseQueryResultInterface
     {
-        for ($i = 0; $i < $retry_count; $i++)
+        for ($i = 0; $i < $retryCount; $i++)
         {
             if ($query->has_deadlock() === FALSE && $query->has_lock_timeout() === FALSE)
             {

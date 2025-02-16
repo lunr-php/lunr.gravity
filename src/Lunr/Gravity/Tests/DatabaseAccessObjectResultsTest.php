@@ -105,7 +105,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTestCase
               ->method('number_of_rows')
               ->willReturn(1);
 
-        $query_result = [
+        $queryResult = [
             [
                 'key'  => 'value',
                 'key2' => 'index',
@@ -118,13 +118,13 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTestCase
 
         $query->expects($this->once())
               ->method('result_array')
-              ->willReturn($query_result);
+              ->willReturn($queryResult);
 
         $method = $this->getReflectionMethod('indexed_result_array');
 
         $result = $method->invokeArgs($this->class, [ &$query, 'key2' ]);
 
-        $indexed_result = [
+        $indexedResult = [
             'index'  => [
                 'key'  => 'value',
                 'key2' => 'index',
@@ -136,7 +136,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTestCase
         ];
 
         $this->assertIsArray($result);
-        $this->assertEquals($indexed_result, $result);
+        $this->assertEquals($indexedResult, $result);
     }
 
     /**
@@ -221,18 +221,18 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTestCase
               ->method('number_of_rows')
               ->willReturn(1);
 
-        $query_result = [ 0 => [ 'key' => 'value' ] ];
+        $queryResult = [ 0 => [ 'key' => 'value' ] ];
 
         $query->expects($this->once())
               ->method('result_array')
-              ->willReturn($query_result);
+              ->willReturn($queryResult);
 
         $method = $this->getReflectionMethod('result_array');
 
         $result = $method->invokeArgs($this->class, [ &$query ]);
 
         $this->assertIsArray($result);
-        $this->assertEquals($query_result, $result);
+        $this->assertEquals($queryResult, $result);
     }
 
     /**
@@ -317,18 +317,18 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTestCase
               ->method('number_of_rows')
               ->willReturn(1);
 
-        $query_result = [ 'key' => 'value' ];
+        $queryResult = [ 'key' => 'value' ];
 
         $query->expects($this->once())
               ->method('result_row')
-              ->willReturn($query_result);
+              ->willReturn($queryResult);
 
         $method = $this->getReflectionMethod('result_row');
 
         $result = $method->invokeArgs($this->class, [ &$query ]);
 
         $this->assertIsArray($result);
-        $this->assertEquals($query_result, $result);
+        $this->assertEquals($queryResult, $result);
     }
 
     /**
@@ -413,18 +413,18 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTestCase
               ->method('number_of_rows')
               ->willReturn(1);
 
-        $query_result = [ 0 => 'value' ];
+        $queryResult = [ 0 => 'value' ];
 
         $query->expects($this->once())
               ->method('result_column')
-              ->willReturn($query_result);
+              ->willReturn($queryResult);
 
         $method = $this->getReflectionMethod('result_column');
 
         $result = $method->invokeArgs($this->class, [ &$query, 'col' ]);
 
         $this->assertIsArray($result);
-        $this->assertEquals($query_result, $result);
+        $this->assertEquals($queryResult, $result);
     }
 
     /**
@@ -508,17 +508,17 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTestCase
               ->method('number_of_rows')
               ->willReturn(1);
 
-        $query_result = 'value';
+        $queryResult = 'value';
 
         $query->expects($this->once())
               ->method('result_cell')
-              ->willReturn($query_result);
+              ->willReturn($queryResult);
 
         $method = $this->getReflectionMethod('result_cell');
 
         $result = $method->invokeArgs($this->class, [ &$query, 'col' ]);
 
-        $this->assertEquals($query_result, $result);
+        $this->assertEquals($queryResult, $result);
     }
 
     /**

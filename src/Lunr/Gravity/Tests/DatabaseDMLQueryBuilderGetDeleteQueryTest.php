@@ -27,7 +27,7 @@ class DatabaseDMLQueryBuilderGetDeleteQueryTest extends DatabaseDMLQueryBuilderT
     public function testGetDeleteQuery(): void
     {
         $this->setReflectionPropertyValue('from', 'FROM table');
-        $this->setReflectionPropertyValue('delete_mode', [ 'QUICK', 'IGNORE' ]);
+        $this->setReflectionPropertyValue('deleteMode', [ 'QUICK', 'IGNORE' ]);
         $this->setReflectionPropertyValue('delete', 'table.*');
         $this->setReflectionPropertyValue('join', 'INNER JOIN table1');
         $this->setReflectionPropertyValue('where', 'WHERE a = b');
@@ -47,7 +47,7 @@ class DatabaseDMLQueryBuilderGetDeleteQueryTest extends DatabaseDMLQueryBuilderT
         $this->expectException('\Lunr\Gravity\Exceptions\MissingTableReferenceException');
         $this->expectExceptionMessage('No from() in delete query!');
 
-        $this->setReflectionPropertyValue('delete_mode', [ 'QUICK', 'IGNORE' ]);
+        $this->setReflectionPropertyValue('deleteMode', [ 'QUICK', 'IGNORE' ]);
         $this->setReflectionPropertyValue('delete', 'table.*');
 
         $this->class->get_delete_query();
@@ -62,7 +62,7 @@ class DatabaseDMLQueryBuilderGetDeleteQueryTest extends DatabaseDMLQueryBuilderT
     public function testGetEmptyDeleteQuery(): void
     {
         $this->setReflectionPropertyValue('from', 'FROM table');
-        $this->setReflectionPropertyValue('delete_mode', [ 'QUICK', 'IGNORE' ]);
+        $this->setReflectionPropertyValue('deleteMode', [ 'QUICK', 'IGNORE' ]);
 
         $string = 'DELETE QUICK IGNORE FROM table';
 
@@ -79,7 +79,7 @@ class DatabaseDMLQueryBuilderGetDeleteQueryTest extends DatabaseDMLQueryBuilderT
     {
         $this->setReflectionPropertyValue('from', 'FROM table');
         $this->setReflectionPropertyValue('limit', 'LIMIT 10 OFFSET 0');
-        $this->setReflectionPropertyValue('order_by', 'ORDER BY col ASC');
+        $this->setReflectionPropertyValue('orderBy', 'ORDER BY col ASC');
 
         $string = 'DELETE FROM table ORDER BY col ASC LIMIT 10 OFFSET 0';
 
@@ -97,7 +97,7 @@ class DatabaseDMLQueryBuilderGetDeleteQueryTest extends DatabaseDMLQueryBuilderT
         $this->setReflectionPropertyValue('delete', 'table.*');
         $this->setReflectionPropertyValue('from', 'FROM table');
         $this->setReflectionPropertyValue('limit', 'LIMIT 10 OFFSET 0');
-        $this->setReflectionPropertyValue('order_by', 'ORDER BY col ASC');
+        $this->setReflectionPropertyValue('orderBy', 'ORDER BY col ASC');
 
         $string = 'DELETE table.* FROM table';
 
@@ -115,7 +115,7 @@ class DatabaseDMLQueryBuilderGetDeleteQueryTest extends DatabaseDMLQueryBuilderT
         $this->setReflectionPropertyValue('join', 'INNER JOIN table1');
         $this->setReflectionPropertyValue('from', 'FROM table');
         $this->setReflectionPropertyValue('limit', 'LIMIT 10 OFFSET 0');
-        $this->setReflectionPropertyValue('order_by', 'ORDER BY col ASC');
+        $this->setReflectionPropertyValue('orderBy', 'ORDER BY col ASC');
 
         $string = 'DELETE FROM table INNER JOIN table1';
 

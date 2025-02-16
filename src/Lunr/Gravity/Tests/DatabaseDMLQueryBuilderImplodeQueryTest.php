@@ -55,7 +55,7 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
     {
         $method = $this->getReflectionMethod('implode_query');
 
-        $components = [ 'select_mode', 'select', 'from' ];
+        $components = [ 'selectMode', 'select', 'from' ];
 
         $this->assertEquals('', $method->invokeArgs($this->class, [ $components ]));
     }
@@ -77,7 +77,7 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
     }
 
     /**
-     * Test imploding a query with duplicate select_mode values.
+     * Test imploding a query with duplicate selectMode values.
      *
      * @covers Lunr\Gravity\DatabaseDMLQueryBuilder::implode_query
      */
@@ -86,15 +86,15 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
         $method = $this->getReflectionMethod('implode_query');
 
         $this->setReflectionPropertyValue('from', 'FROM table');
-        $this->setReflectionPropertyValue('select_mode', [ 'DISTINCT', 'DISTINCT', 'SQL_CACHE' ]);
+        $this->setReflectionPropertyValue('selectMode', [ 'DISTINCT', 'DISTINCT', 'SQL_CACHE' ]);
 
-        $components = [ 'select_mode', 'select', 'from' ];
+        $components = [ 'selectMode', 'select', 'from' ];
 
         $this->assertEquals('DISTINCT SQL_CACHE * FROM table', $method->invokeArgs($this->class, [ $components ]));
     }
 
     /**
-     * Test imploding a query with duplicate update_mode values.
+     * Test imploding a query with duplicate updateMode values.
      *
      * @covers Lunr\Gravity\DatabaseDMLQueryBuilder::implode_query
      */
@@ -103,15 +103,15 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
         $method = $this->getReflectionMethod('implode_query');
 
         $this->setReflectionPropertyValue('update', 'table1');
-        $this->setReflectionPropertyValue('update_mode', [ 'LOW_PRIORITY', 'IGNORE', 'LOW_PRIORITY' ]);
+        $this->setReflectionPropertyValue('updateMode', [ 'LOW_PRIORITY', 'IGNORE', 'LOW_PRIORITY' ]);
 
-        $components = [ 'update_mode', 'update' ];
+        $components = [ 'updateMode', 'update' ];
 
         $this->assertEquals('LOW_PRIORITY IGNORE table1', $method->invokeArgs($this->class, [ $components ]));
     }
 
     /**
-     * Test imploding a query with duplicate delete_mode values.
+     * Test imploding a query with duplicate deleteMode values.
      *
      * @covers Lunr\Gravity\DatabaseDMLQueryBuilder::implode_query
      */
@@ -120,15 +120,15 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
         $method = $this->getReflectionMethod('implode_query');
 
         $this->setReflectionPropertyValue('from', 'FROM table');
-        $this->setReflectionPropertyValue('delete_mode', [ 'QUICK', 'IGNORE', 'QUICK' ]);
+        $this->setReflectionPropertyValue('deleteMode', [ 'QUICK', 'IGNORE', 'QUICK' ]);
 
-        $components = [ 'delete_mode', 'from' ];
+        $components = [ 'deleteMode', 'from' ];
 
         $this->assertEquals('QUICK IGNORE FROM table', $method->invokeArgs($this->class, [ $components ]));
     }
 
     /**
-     * Test imploding a query with duplicate insert_mode values.
+     * Test imploding a query with duplicate insertMode values.
      *
      * @covers Lunr\Gravity\DatabaseDMLQueryBuilder::implode_query
      */
@@ -137,9 +137,9 @@ class DatabaseDMLQueryBuilderImplodeQueryTest extends DatabaseDMLQueryBuilderTes
         $method = $this->getReflectionMethod('implode_query');
 
         $this->setReflectionPropertyValue('into', 'INTO table');
-        $this->setReflectionPropertyValue('insert_mode', [ 'DELAYED', 'IGNORE', 'DELAYED' ]);
+        $this->setReflectionPropertyValue('insertMode', [ 'DELAYED', 'IGNORE', 'DELAYED' ]);
 
-        $components = [ 'insert_mode', 'into' ];
+        $components = [ 'insertMode', 'into' ];
 
         $this->assertEquals('DELAYED IGNORE INTO table', $method->invokeArgs($this->class, [ $components ]));
     }

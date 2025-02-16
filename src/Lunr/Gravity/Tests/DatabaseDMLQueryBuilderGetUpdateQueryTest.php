@@ -29,10 +29,10 @@ class DatabaseDMLQueryBuilderGetUpdateQueryTest extends DatabaseDMLQueryBuilderT
         $this->expectException('\Lunr\Gravity\Exceptions\MissingTableReferenceException');
         $this->expectExceptionMessage('No update() in update query!');
 
-        $this->setReflectionPropertyValue('update_mode', [ 'LOW_PRIORITY', 'IGNORE' ]);
+        $this->setReflectionPropertyValue('updateMode', [ 'LOW_PRIORITY', 'IGNORE' ]);
         $this->setReflectionPropertyValue('set', 'SET col1 = val1, col2 = val2');
         $this->setReflectionPropertyValue('where', 'WHERE 1 = 1');
-        $this->setReflectionPropertyValue('order_by', 'ORDER BY col1');
+        $this->setReflectionPropertyValue('orderBy', 'ORDER BY col1');
         $this->setReflectionPropertyValue('limit', 'LIMIT 10');
 
         $this->class->get_update_query();
@@ -47,10 +47,10 @@ class DatabaseDMLQueryBuilderGetUpdateQueryTest extends DatabaseDMLQueryBuilderT
     public function testGetUpdateQueryForSingleTable(): void
     {
         $this->setReflectionPropertyValue('update', 'table1');
-        $this->setReflectionPropertyValue('update_mode', [ 'LOW_PRIORITY', 'IGNORE' ]);
+        $this->setReflectionPropertyValue('updateMode', [ 'LOW_PRIORITY', 'IGNORE' ]);
         $this->setReflectionPropertyValue('set', 'SET col1 = val1, col2 = val2');
         $this->setReflectionPropertyValue('where', 'WHERE 1 = 1');
-        $this->setReflectionPropertyValue('order_by', 'ORDER BY col1');
+        $this->setReflectionPropertyValue('orderBy', 'ORDER BY col1');
         $this->setReflectionPropertyValue('limit', 'LIMIT 10');
 
         $string = 'UPDATE LOW_PRIORITY IGNORE table1 SET col1 = val1, col2 = val2 WHERE 1 = 1 ORDER BY col1 LIMIT 10';
@@ -67,10 +67,10 @@ class DatabaseDMLQueryBuilderGetUpdateQueryTest extends DatabaseDMLQueryBuilderT
     public function testGetUpdateQueryForMultipleTables(): void
     {
         $this->setReflectionPropertyValue('update', 'table1, table2');
-        $this->setReflectionPropertyValue('update_mode', [ 'LOW_PRIORITY', 'IGNORE' ]);
+        $this->setReflectionPropertyValue('updateMode', [ 'LOW_PRIORITY', 'IGNORE' ]);
         $this->setReflectionPropertyValue('set', 'SET col1 = val1, col2 = val2');
         $this->setReflectionPropertyValue('where', 'WHERE 1 = 1');
-        $this->setReflectionPropertyValue('order_by', 'ORDER BY col1');
+        $this->setReflectionPropertyValue('orderBy', 'ORDER BY col1');
         $this->setReflectionPropertyValue('limit', 'LIMIT 10');
 
         $string = 'UPDATE LOW_PRIORITY IGNORE table1, table2 SET col1 = val1, col2 = val2 WHERE 1 = 1';
@@ -88,10 +88,10 @@ class DatabaseDMLQueryBuilderGetUpdateQueryTest extends DatabaseDMLQueryBuilderT
     {
         $this->setReflectionPropertyValue('update', 'table1');
         $this->setReflectionPropertyValue('join', 'INNER JOIN table2');
-        $this->setReflectionPropertyValue('update_mode', [ 'LOW_PRIORITY', 'IGNORE' ]);
+        $this->setReflectionPropertyValue('updateMode', [ 'LOW_PRIORITY', 'IGNORE' ]);
         $this->setReflectionPropertyValue('set', 'SET col1 = val1, col2 = val2');
         $this->setReflectionPropertyValue('where', 'WHERE 1 = 1');
-        $this->setReflectionPropertyValue('order_by', 'ORDER BY col1');
+        $this->setReflectionPropertyValue('orderBy', 'ORDER BY col1');
         $this->setReflectionPropertyValue('limit', 'LIMIT 10');
 
         $string = 'UPDATE LOW_PRIORITY IGNORE table1 INNER JOIN table2 SET col1 = val1, col2 = val2 WHERE 1 = 1';

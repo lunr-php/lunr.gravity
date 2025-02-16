@@ -29,7 +29,7 @@ class MySQLDMLQueryBuilderUpdateTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testUpdateModeSetsStandardCorrectly($mode): void
     {
-        $property = $this->builder_reflection->getProperty('update_mode');
+        $property = $this->builder_reflection->getProperty('updateMode');
         $property->setAccessible(TRUE);
 
         $this->builder->update_mode($mode);
@@ -45,7 +45,7 @@ class MySQLDMLQueryBuilderUpdateTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testUpdateModeIgnoresUnknownValues(): void
     {
-        $property = $this->builder_reflection->getProperty('update_mode');
+        $property = $this->builder_reflection->getProperty('updateMode');
         $property->setAccessible(TRUE);
 
         $this->builder->update_mode('UNSUPPORTED');

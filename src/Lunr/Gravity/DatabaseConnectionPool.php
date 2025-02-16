@@ -36,13 +36,13 @@ class DatabaseConnectionPool
      * Readonly connection pool
      * @var array
      */
-    protected $ro_pool;
+    protected $roPool;
 
     /**
      * Read-Write connection pool
      * @var array
      */
-    protected $rw_pool;
+    protected $rwPool;
 
     /**
      * Constructor.
@@ -55,8 +55,8 @@ class DatabaseConnectionPool
         $this->configuration = $configuration;
         $this->logger        = $logger;
 
-        $this->ro_pool = [];
-        $this->rw_pool = [];
+        $this->roPool = [];
+        $this->rwPool = [];
     }
 
     /**
@@ -66,8 +66,8 @@ class DatabaseConnectionPool
     {
         unset($this->configuration);
         unset($this->logger);
-        unset($this->ro_pool);
-        unset($this->rw_pool);
+        unset($this->roPool);
+        unset($this->rwPool);
     }
 
     /**
@@ -120,7 +120,7 @@ class DatabaseConnectionPool
      */
     protected function get_connection($new, $ro): ?DatabaseConnection
     {
-        $store = $ro ? 'ro_pool' : 'rw_pool';
+        $store = $ro ? 'roPool' : 'rwPool';
 
         switch ($this->configuration['db']['driver'])
         {

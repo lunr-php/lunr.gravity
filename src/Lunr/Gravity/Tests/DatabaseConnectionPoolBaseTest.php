@@ -31,7 +31,7 @@ class DatabaseConnectionPoolBaseTest extends DatabaseConnectionPoolTestCase
      */
     public function testConfigurationPassedByReference(): void
     {
-        $property = $this->pool_reflection->getProperty('configuration');
+        $property = $this->poolReflection->getProperty('configuration');
         $property->setAccessible(TRUE);
 
         $value = $property->getValue($this->pool);
@@ -45,7 +45,7 @@ class DatabaseConnectionPoolBaseTest extends DatabaseConnectionPoolTestCase
      */
     public function testLoggerPassedByReference(): void
     {
-        $property = $this->pool_reflection->getProperty('logger');
+        $property = $this->poolReflection->getProperty('logger');
         $property->setAccessible(TRUE);
 
         $value = $property->getValue($this->pool);
@@ -55,11 +55,11 @@ class DatabaseConnectionPoolBaseTest extends DatabaseConnectionPoolTestCase
     }
 
     /**
-     * Test that the ro_pool was setup correctly.
+     * Test that the roPool was setup correctly.
      */
     public function testReadonlyPoolSetupCorrectly(): void
     {
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $value = $property->getValue($this->pool);
@@ -69,11 +69,11 @@ class DatabaseConnectionPoolBaseTest extends DatabaseConnectionPoolTestCase
     }
 
     /**
-     * Test that the rw_pool was setup correctly.
+     * Test that the rwPool was setup correctly.
      */
     public function testReadWritePoolSetupCorrectly(): void
     {
-        $property = $this->pool_reflection->getProperty('rw_pool');
+        $property = $this->poolReflection->getProperty('rwPool');
         $property->setAccessible(TRUE);
 
         $value = $property->getValue($this->pool);

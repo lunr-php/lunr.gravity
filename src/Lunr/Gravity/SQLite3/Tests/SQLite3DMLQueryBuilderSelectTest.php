@@ -30,7 +30,7 @@ class SQLite3DMLQueryBuilderSelectTest extends SQLite3DMLQueryBuilderTestCase
     public function testSelectModeSetsDuplicatesCorrectly($mode): void
     {
         $this->class->select_mode($mode);
-        $modes = $this->getReflectionPropertyValue('select_mode');
+        $modes = $this->getReflectionPropertyValue('selectMode');
 
         $this->assertEquals($mode, $modes['duplicates']);
     }
@@ -44,7 +44,7 @@ class SQLite3DMLQueryBuilderSelectTest extends SQLite3DMLQueryBuilderTestCase
     {
         $this->class->select_mode('UNSUPPORTED');
 
-        $modes = $this->getReflectionPropertyValue('select_mode');
+        $modes = $this->getReflectionPropertyValue('selectMode');
 
         $this->assertIsArray($modes);
         $this->assertEmpty($modes);
@@ -61,7 +61,7 @@ class SQLite3DMLQueryBuilderSelectTest extends SQLite3DMLQueryBuilderTestCase
         $this->class->select_mode('ALL');
         $this->class->select_mode('DISTINCT');
 
-        $modes = $this->getReflectionPropertyValue('select_mode');
+        $modes = $this->getReflectionPropertyValue('selectMode');
 
         $this->assertEquals('DISTINCT', $modes['duplicates']);
         $this->assertNotContains('ALL', $modes);

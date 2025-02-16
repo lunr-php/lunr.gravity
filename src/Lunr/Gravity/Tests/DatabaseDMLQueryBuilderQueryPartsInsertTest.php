@@ -154,7 +154,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
 
         $string = '(column1, column2, column3)';
 
-        $this->assertPropertyEquals('column_names', $string);
+        $this->assertPropertyEquals('columnNames', $string);
     }
 
     /**
@@ -170,7 +170,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
 
         $string = 'SELECT * FROM table1';
 
-        $this->assertPropertyEquals('select_statement', $string);
+        $this->assertPropertyEquals('selectStatement', $string);
     }
 
     /**
@@ -186,7 +186,7 @@ class DatabaseDMLQueryBuilderQueryPartsInsertTest extends DatabaseDMLQueryBuilde
 
         $string = '';
 
-        $this->assertPropertyEquals('select_statement', $string);
+        $this->assertPropertyEquals('selectStatement', $string);
     }
 
     /**

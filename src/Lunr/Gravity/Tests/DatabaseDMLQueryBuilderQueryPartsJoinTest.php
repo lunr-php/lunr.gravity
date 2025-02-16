@@ -187,7 +187,7 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
     }
 
     /**
-     * Test that specifying a join clause sets the property is_unfinished_join to FALSE
+     * Test that specifying a join clause sets the property isUnfinishedJoin to FALSE
      * when there is a natural join.
      *
      * @covers Lunr\Gravity\DatabaseDMLQueryBuilder::sql_join
@@ -198,11 +198,11 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
 
         $method->invokeArgs($this->class, [ 'table', 'NATURAL LEFT JOIN' ]);
 
-        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
+        $this->assertFalse($this->getReflectionPropertyValue('isUnfinishedJoin'));
     }
 
     /**
-     * Test that specifying a join clause sets the property is_unfinished_join to TRUE
+     * Test that specifying a join clause sets the property isUnfinishedJoin to TRUE
      * when the join still has to be finished.
      *
      * @covers Lunr\Gravity\DatabaseDMLQueryBuilder::sql_join
@@ -213,24 +213,24 @@ class DatabaseDMLQueryBuilderQueryPartsJoinTest extends DatabaseDMLQueryBuilderT
 
         $method->invokeArgs($this->class, [ 'table', 'INNER' ]);
 
-        $this->assertTrue($this->getReflectionPropertyValue('is_unfinished_join'));
+        $this->assertTrue($this->getReflectionPropertyValue('isUnfinishedJoin'));
     }
 
     /**
-     * Test that specifying a join clause resets the property join_type to ' ' after having used join before.
+     * Test that specifying a join clause resets the property joinType to ' ' after having used join before.
      *
      * @covers Lunr\Gravity\DatabaseDMLQueryBuilder::sql_join
      */
     public function testJoinSetsJoinType(): void
     {
-        $this->setReflectionPropertyValue('join_type', 'on');
+        $this->setReflectionPropertyValue('joinType', 'on');
 
         $method = $this->getReflectionMethod('sql_join');
 
         $method->invokeArgs($this->class, [ 'table', 'INNER' ]);
 
-        $this->assertTrue($this->getReflectionPropertyValue('is_unfinished_join'));
-        $this->assertSame('', $this->getReflectionPropertyValue('join_type'));
+        $this->assertTrue($this->getReflectionPropertyValue('isUnfinishedJoin'));
+        $this->assertSame('', $this->getReflectionPropertyValue('joinType'));
     }
 
 }

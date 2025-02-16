@@ -47,13 +47,13 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
         }
 
         $components   = [];
-        $components[] = 'insert_mode';
+        $components[] = 'insertMode';
         $components[] = 'into';
-        $components[] = 'column_names';
+        $components[] = 'columnNames';
 
-        if ($this->select_statement != '')
+        if ($this->selectStatement != '')
         {
-            $components[] = 'select_statement';
+            $components[] = 'selectStatement';
         }
         else
         {
@@ -77,11 +77,11 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
 
         $components   = [];
         $components[] = 'into';
-        $components[] = 'column_names';
+        $components[] = 'columnNames';
 
-        if ($this->select_statement != '')
+        if ($this->selectStatement != '')
         {
-            $components[] = 'select_statement';
+            $components[] = 'selectStatement';
         }
         else
         {
@@ -121,7 +121,7 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
             case 'OR REPLACE':
             case 'OR FAIL':
             case 'OR IGNORE':
-                $this->insert_mode['mode'] = $mode;
+                $this->insertMode['mode'] = $mode;
                 break;
             default:
                 break;
@@ -157,7 +157,7 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
         {
             case 'ALL':
             case 'DISTINCT':
-                $this->select_mode['duplicates'] = $mode;
+                $this->selectMode['duplicates'] = $mode;
                 break;
             default:
                 break;
@@ -184,7 +184,7 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
             case 'OR REPLACE':
             case 'OR FAIL':
             case 'OR IGNORE':
-                $this->update_mode['mode'] = $mode;
+                $this->updateMode['mode'] = $mode;
             default:
                 break;
         }
@@ -282,38 +282,38 @@ class SQLite3DMLQueryBuilder extends SQLDMLQueryBuilder
     /**
      * Define a EXCEPT, EXCEPT ALL or EXCEPT DISTINCT clause of the SQL statement.
      *
-     * @param string $sql_query SQL query reference
-     * @param string $operator  EXCEPT operation to perform
+     * @param string $sqlQuery SQL query reference
+     * @param string $operator EXCEPT operation to perform
      *
      * @return $this Self reference
      */
-    public function except(string $sql_query, string $operator = ''): static
+    public function except(string $sqlQuery, string $operator = ''): static
     {
         if (strtoupper($operator) !== 'DISTINCT')
         {
             $operator = NULL;
         }
 
-        $this->sql_compound($sql_query, 'EXCEPT', $operator);
+        $this->sql_compound($sqlQuery, 'EXCEPT', $operator);
         return $this;
     }
 
     /**
      * Define a INTERSECT, INTERSECT ALL or INTERSECT DISTINCT clause of the SQL statement.
      *
-     * @param string $sql_query SQL query reference
-     * @param string $operator  INTERSECT operation to perform
+     * @param string $sqlQuery SQL query reference
+     * @param string $operator INTERSECT operation to perform
      *
      * @return $this Self reference
      */
-    public function intersect(string $sql_query, string $operator = ''): static
+    public function intersect(string $sqlQuery, string $operator = ''): static
     {
         if (strtoupper($operator) !== 'DISTINCT')
         {
             $operator = NULL;
         }
 
-        $this->sql_compound($sql_query, 'INTERSECT', $operator);
+        $this->sql_compound($sqlQuery, 'INTERSECT', $operator);
         return $this;
     }
 

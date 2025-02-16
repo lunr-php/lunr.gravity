@@ -34,7 +34,7 @@ class DatabaseConnectionPoolEmptyTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetNewAndReadonlyConnectionReturnsNull(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
         $this->assertNull($method->invokeArgs($this->pool, [ TRUE, TRUE ]));
@@ -47,7 +47,7 @@ class DatabaseConnectionPoolEmptyTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetNewAndReadWriteConnectionReturnsNull(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
         $this->assertNull($method->invokeArgs($this->pool, [ TRUE, FALSE ]));
@@ -60,7 +60,7 @@ class DatabaseConnectionPoolEmptyTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetReadonlyConnectionReturnsNull(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
         $this->assertNull($method->invokeArgs($this->pool, [ FALSE, TRUE ]));
@@ -73,23 +73,23 @@ class DatabaseConnectionPoolEmptyTest extends DatabaseConnectionPoolTestCase
      */
     public function testGetReadwriteConnectionReturnsNull(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
         $this->assertNull($method->invokeArgs($this->pool, [ FALSE, FALSE ]));
     }
 
     /**
-     * Test that get_connection() with empty db config does not alter ro_pool.
+     * Test that get_connection() with empty db config does not alter roPool.
      *
      * @covers Lunr\Gravity\DatabaseConnectionPool::get_connection
      */
     public function testGetNewAndReadonlyConnectionDoesNotAlterPool(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $old = $property->getValue($this->pool);
@@ -102,16 +102,16 @@ class DatabaseConnectionPoolEmptyTest extends DatabaseConnectionPoolTestCase
     }
 
     /**
-     * Test that get_connection() with empty db config does not alter rw_pool.
+     * Test that get_connection() with empty db config does not alter rwPool.
      *
      * @covers Lunr\Gravity\DatabaseConnectionPool::get_connection
      */
     public function testGetNewAndReadWriteConnectionDoesNotAlterPool(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
-        $property = $this->pool_reflection->getProperty('rw_pool');
+        $property = $this->poolReflection->getProperty('rwPool');
         $property->setAccessible(TRUE);
 
         $old = $property->getValue($this->pool);
@@ -124,16 +124,16 @@ class DatabaseConnectionPoolEmptyTest extends DatabaseConnectionPoolTestCase
     }
 
     /**
-     * Test that get_connection() with empty db config does not alter ro_pool.
+     * Test that get_connection() with empty db config does not alter roPool.
      *
      * @covers Lunr\Gravity\DatabaseConnectionPool::get_connection
      */
     public function testGetReadonlyConnectionDoesNotAlterPool(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $old = $property->getValue($this->pool);
@@ -146,16 +146,16 @@ class DatabaseConnectionPoolEmptyTest extends DatabaseConnectionPoolTestCase
     }
 
     /**
-     * Test that get_connection() with empty db config does not alter rw_pool.
+     * Test that get_connection() with empty db config does not alter rwPool.
      *
      * @covers Lunr\Gravity\DatabaseConnectionPool::get_connection
      */
     public function testGetReadWriteConnectionDoesNotAlterPool(): void
     {
-        $method = $this->pool_reflection->getMethod('get_connection');
+        $method = $this->poolReflection->getMethod('get_connection');
         $method->setAccessible(TRUE);
 
-        $property = $this->pool_reflection->getProperty('rw_pool');
+        $property = $this->poolReflection->getProperty('rwPool');
         $property->setAccessible(TRUE);
 
         $old = $property->getValue($this->pool);
@@ -212,14 +212,14 @@ class DatabaseConnectionPoolEmptyTest extends DatabaseConnectionPoolTestCase
     }
 
     /**
-     * Test that get_connection() with empty db config does not alter rw_pool.
+     * Test that get_connection() with empty db config does not alter rwPool.
      *
      * @depends testGetNewAndReadonlyConnectionDoesNotAlterPool
      * @covers  Lunr\Gravity\DatabaseConnectionPool::get_connection
      */
     public function testGetNewRoConnectionDoesNotAlterPool(): void
     {
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $old = $property->getValue($this->pool);
@@ -232,14 +232,14 @@ class DatabaseConnectionPoolEmptyTest extends DatabaseConnectionPoolTestCase
     }
 
     /**
-     * Test that get_connection() with empty db config does not alter rw_pool.
+     * Test that get_connection() with empty db config does not alter rwPool.
      *
      * @depends testGetNewAndReadWriteConnectionDoesNotAlterPool
      * @covers  Lunr\Gravity\DatabaseConnectionPool::get_connection
      */
     public function testGetNewRwConnectionDoesNotAlterPool(): void
     {
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $old = $property->getValue($this->pool);
@@ -252,14 +252,14 @@ class DatabaseConnectionPoolEmptyTest extends DatabaseConnectionPoolTestCase
     }
 
     /**
-     * Test that get_connection() with empty db config does not alter rw_pool.
+     * Test that get_connection() with empty db config does not alter rwPool.
      *
      * @depends testGetReadonlyConnectionDoesNotAlterPool
      * @covers  Lunr\Gravity\DatabaseConnectionPool::get_connection
      */
     public function testGetRoConnectionDoesNotAlterPool(): void
     {
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $old = $property->getValue($this->pool);
@@ -272,14 +272,14 @@ class DatabaseConnectionPoolEmptyTest extends DatabaseConnectionPoolTestCase
     }
 
     /**
-     * Test that get_connection() with empty db config does not alter rw_pool.
+     * Test that get_connection() with empty db config does not alter rwPool.
      *
      * @depends testGetReadWriteConnectionDoesNotAlterPool
      * @covers  Lunr\Gravity\DatabaseConnectionPool::get_connection
      */
     public function testGetRwConnectionDoesNotAlterPool(): void
     {
-        $property = $this->pool_reflection->getProperty('ro_pool');
+        $property = $this->poolReflection->getProperty('roPool');
         $property->setAccessible(TRUE);
 
         $old = $property->getValue($this->pool);

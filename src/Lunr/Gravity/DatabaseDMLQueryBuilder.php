@@ -28,13 +28,13 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      * SQL Query part: SELECT mode
      * @var array
      */
-    protected $select_mode;
+    protected $selectMode;
 
     /**
      * SQL Query part: lock mode
      * @var string
      */
-    protected $lock_mode;
+    protected $lockMode;
 
     /**
      * SQL Query part: DELETE clause
@@ -46,7 +46,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      * SQL Query part: DELETE mode
      * @var array
      */
-    protected $delete_mode;
+    protected $deleteMode;
 
     /**
      * SQL Query part: FROM clause
@@ -64,7 +64,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      * SQL Query part: INSERT modes
      * @var array
      */
-    protected $insert_mode;
+    protected $insertMode;
 
     /**
      * SQL Query part: UPDATE clause
@@ -76,7 +76,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      * SQL Query part: UPDATE modes
      * @var array
      */
-    protected $update_mode;
+    protected $updateMode;
 
     /**
      * SQL Query part: SET clause
@@ -88,7 +88,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      * SQL Query part: Column names
      * @var string
      */
-    protected $column_names;
+    protected $columnNames;
 
     /**
      * SQL Query part: VALUES
@@ -106,7 +106,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      * SQL Query part: SELECT statement
      * @var string
      */
-    protected $select_statement;
+    protected $selectStatement;
 
     /**
      * SQL Query part: JOIN clause
@@ -124,7 +124,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      * SQL Query part: GROUP BY clause
      * @var string
      */
-    protected $group_by;
+    protected $groupBy;
 
     /**
      * SQL Query part: HAVING clause
@@ -136,7 +136,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      * SQL Query part: ORDER BY clause
      * @var string
      */
-    protected $order_by;
+    protected $orderBy;
 
     /**
      * SQL Query part: LIMIT clause
@@ -160,13 +160,13 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      * SQL Query part: Boolean identifying if the join is not finished
      * @var bool
      */
-    protected $is_unfinished_join;
+    protected $isUnfinishedJoin;
 
     /**
      * SQL Query part: string identifying if the join type is type "using" or "on"
      * @var string
      */
-    protected $join_type;
+    protected $joinType;
 
     /**
      * SQL Query part: String that contains the with query
@@ -178,7 +178,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      * Whether a recursive with statement is used or not
      * @var bool
      */
-    protected $is_recursive;
+    protected $isRecursive;
 
     /**
      * SQL Query part: returning clause
@@ -191,33 +191,33 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      */
     public function __construct()
     {
-        $this->select             = '';
-        $this->select_mode        = [];
-        $this->update             = '';
-        $this->update_mode        = [];
-        $this->delete             = '';
-        $this->delete_mode        = [];
-        $this->from               = '';
-        $this->join               = '';
-        $this->where              = '';
-        $this->group_by           = '';
-        $this->having             = '';
-        $this->order_by           = '';
-        $this->limit              = '';
-        $this->connector          = '';
-        $this->into               = '';
-        $this->insert_mode        = [];
-        $this->set                = '';
-        $this->column_names       = '';
-        $this->values             = '';
-        $this->upsert             = '';
-        $this->select_statement   = '';
-        $this->compound           = '';
-        $this->is_unfinished_join = FALSE;
-        $this->join_type          = '';
-        $this->with               = '';
-        $this->is_recursive       = FALSE;
-        $this->returning          = '';
+        $this->select           = '';
+        $this->selectMode       = [];
+        $this->update           = '';
+        $this->updateMode       = [];
+        $this->delete           = '';
+        $this->deleteMode       = [];
+        $this->from             = '';
+        $this->join             = '';
+        $this->where            = '';
+        $this->groupBy          = '';
+        $this->having           = '';
+        $this->orderBy          = '';
+        $this->limit            = '';
+        $this->connector        = '';
+        $this->into             = '';
+        $this->insertMode       = [];
+        $this->set              = '';
+        $this->columnNames      = '';
+        $this->values           = '';
+        $this->upsert           = '';
+        $this->selectStatement  = '';
+        $this->compound         = '';
+        $this->isUnfinishedJoin = FALSE;
+        $this->joinType         = '';
+        $this->with             = '';
+        $this->isRecursive      = FALSE;
+        $this->returning        = '';
     }
 
     /**
@@ -226,31 +226,31 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
     public function __destruct()
     {
         unset($this->select);
-        unset($this->select_mode);
+        unset($this->selectMode);
         unset($this->update);
-        unset($this->update_mode);
+        unset($this->updateMode);
         unset($this->delete);
-        unset($this->delete_mode);
+        unset($this->deleteMode);
         unset($this->from);
         unset($this->join);
         unset($this->where);
-        unset($this->group_by);
+        unset($this->groupBy);
         unset($this->having);
-        unset($this->order_by);
+        unset($this->orderBy);
         unset($this->limit);
         unset($this->compound);
         unset($this->connector);
         unset($this->into);
-        unset($this->insert_mode);
+        unset($this->insertMode);
         unset($this->set);
-        unset($this->column_names);
+        unset($this->columnNames);
         unset($this->values);
         unset($this->upsert);
-        unset($this->select_statement);
-        unset($this->is_unfinished_join);
-        unset($this->join_type);
+        unset($this->selectStatement);
+        unset($this->isUnfinishedJoin);
+        unset($this->joinType);
         unset($this->with);
-        unset($this->is_recursive);
+        unset($this->isRecursive);
         unset($this->returning);
     }
 
@@ -263,24 +263,24 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
     {
         $components = [];
 
-        array_push($components, 'select_mode', 'select', 'from', 'join', 'where');
-        array_push($components, 'group_by', 'having', 'order_by', 'limit', 'lock_mode');
+        array_push($components, 'selectMode', 'select', 'from', 'join', 'where');
+        array_push($components, 'groupBy', 'having', 'orderBy', 'limit', 'lockMode');
 
-        $with_query = '';
+        $withQuery = '';
 
         if ($this->with != '')
         {
-            if ($this->is_recursive == TRUE)
+            if ($this->isRecursive == TRUE)
             {
-                $with_query = 'WITH RECURSIVE ' . $this->with . ' ';
+                $withQuery = 'WITH RECURSIVE ' . $this->with . ' ';
             }
             else
             {
-                $with_query = 'WITH ' . $this->with . ' ';
+                $withQuery = 'WITH ' . $this->with . ' ';
             }
         }
 
-        $standard = $with_query . 'SELECT ' . $this->implode_query($components);
+        $standard = $withQuery . 'SELECT ' . $this->implode_query($components);
         if ($this->compound == '')
         {
             return $standard;
@@ -305,11 +305,11 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
         }
 
         $components = [];
-        array_push($components, 'delete_mode', 'delete', 'from', 'join', 'where');
+        array_push($components, 'deleteMode', 'delete', 'from', 'join', 'where');
 
         if (($this->delete == '') && ($this->join == ''))
         {
-            array_push($components, 'order_by', 'limit', 'returning');
+            array_push($components, 'orderBy', 'limit', 'returning');
         }
 
         return 'DELETE ' . $this->implode_query($components);
@@ -328,17 +328,17 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
         }
 
         $components   = [];
-        $components[] = 'insert_mode';
+        $components[] = 'insertMode';
         $components[] = 'into';
 
-        if ($this->select_statement != '')
+        if ($this->selectStatement != '')
         {
-            $components[] = 'column_names';
-            $components[] = 'select_statement';
+            $components[] = 'columnNames';
+            $components[] = 'selectStatement';
 
             $valid = [ 'HIGH_PRIORITY', 'LOW_PRIORITY', 'IGNORE' ];
 
-            $this->insert_mode = array_intersect($this->insert_mode, $valid);
+            $this->insertMode = array_intersect($this->insertMode, $valid);
         }
         elseif ($this->set != '')
         {
@@ -346,7 +346,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
         }
         else
         {
-            $components[] = 'column_names';
+            $components[] = 'columnNames';
             $components[] = 'values';
         }
 
@@ -374,16 +374,16 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
 
         $valid = [ 'LOW_PRIORITY', 'DELAYED' ];
 
-        $this->insert_mode = array_intersect($this->insert_mode, $valid);
+        $this->insertMode = array_intersect($this->insertMode, $valid);
 
         $components   = [];
-        $components[] = 'insert_mode';
+        $components[] = 'insertMode';
         $components[] = 'into';
 
-        if ($this->select_statement != '')
+        if ($this->selectStatement != '')
         {
-            $components[] = 'column_names';
-            $components[] = 'select_statement';
+            $components[] = 'columnNames';
+            $components[] = 'selectStatement';
         }
         elseif ($this->set != '')
         {
@@ -391,7 +391,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
         }
         else
         {
-            $components[] = 'column_names';
+            $components[] = 'columnNames';
             $components[] = 'values';
         }
 
@@ -417,14 +417,14 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
 
         $valid = [ 'LOW_PRIORITY', 'IGNORE' ];
 
-        $this->update_mode = array_intersect($this->update_mode, $valid);
+        $this->updateMode = array_intersect($this->updateMode, $valid);
 
         $components = [];
-        array_push($components, 'update_mode', 'update', 'join', 'set', 'where');
+        array_push($components, 'updateMode', 'update', 'join', 'set', 'where');
 
         if ((strpos($this->update, ',') === FALSE) && $this->join == '')
         {
-            $components[] = 'order_by';
+            $components[] = 'orderBy';
             $components[] = 'limit';
         }
 
@@ -458,63 +458,63 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
     /**
      * Define a WITH clause.
      *
-     * @param string      $alias           The alias of the WITH statement
-     * @param string      $sql_query       Sql query reference
-     * @param string|null $recursive_query The select statement that selects recursively out of the initial query
-     * @param string|null $union           The union part of a recursive query
-     * @param array|null  $column_names    An optional parameter to give the result columns a name
+     * @param string      $alias          The alias of the WITH statement
+     * @param string      $sqlQuery       Sql query reference
+     * @param string|null $recursiveQuery The select statement that selects recursively out of the initial query
+     * @param string|null $union          The union part of a recursive query
+     * @param array|null  $columnNames    An optional parameter to give the result columns a name
      *
      * @return void
      */
-    protected function sql_with($alias, $sql_query, $recursive_query = NULL, $union = NULL, $column_names = NULL): void
+    protected function sql_with($alias, $sqlQuery, $recursiveQuery = NULL, $union = NULL, $columnNames = NULL): void
     {
-        if ($column_names !== NULL)
+        if ($columnNames !== NULL)
         {
-            $column_names = ' (' . implode(', ', $column_names) . ')';
+            $columnNames = ' (' . implode(', ', $columnNames) . ')';
         }
 
-        if ($recursive_query != '')
+        if ($recursiveQuery != '')
         {
-            $this->is_recursive = TRUE;
+            $this->isRecursive = TRUE;
 
             if (!is_null($union))
             {
-                $recursive_query = ' ' . $union . ' ' . $recursive_query;
+                $recursiveQuery = ' ' . $union . ' ' . $recursiveQuery;
             }
         }
 
         if ($this->with != '')
         {
-            if ($recursive_query != '')
+            if ($recursiveQuery != '')
             {
-                $this->with = $alias . $column_names . ' AS ( ' . $sql_query . $recursive_query . ' ), ' . $this->with;
+                $this->with = $alias . $columnNames . ' AS ( ' . $sqlQuery . $recursiveQuery . ' ), ' . $this->with;
             }
             else
             {
-                $this->with .= ', ' . $alias . $column_names . ' AS ( ' . $sql_query . ' )';
+                $this->with .= ', ' . $alias . $columnNames . ' AS ( ' . $sqlQuery . ' )';
             }
         }
         else
         {
-            $this->with = $alias . $column_names . ' AS ( ' . $sql_query . $recursive_query . ' )';
+            $this->with = $alias . $columnNames . ' AS ( ' . $sqlQuery . $recursiveQuery . ' )';
         }
     }
 
     /**
      * Define a UPDATE clause.
      *
-     * @param string $table_references The tables to update
+     * @param string $tableReferences The tables to update
      *
      * @return void
      */
-    protected function sql_update($table_references): void
+    protected function sql_update($tableReferences): void
     {
         if ($this->update != '')
         {
             $this->update .= ', ';
         }
 
-        $this->update .= $table_references;
+        $this->update .= $tableReferences;
     }
 
     /**
@@ -537,12 +537,12 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
     /**
      * Define FROM clause of the SQL statement.
      *
-     * @param string     $table       Table reference
-     * @param array|null $index_hints Array of Index Hints
+     * @param string     $table      Table reference
+     * @param array|null $indexHints Array of Index Hints
      *
      * @return void
      */
-    protected function sql_from($table, $index_hints = NULL): void
+    protected function sql_from($table, $indexHints = NULL): void
     {
         if ($this->from == '')
         {
@@ -553,19 +553,19 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
             $this->from .= ', ';
         }
 
-        $this->from .= $table . $this->prepare_index_hints($index_hints);
+        $this->from .= $table . $this->prepare_index_hints($indexHints);
     }
 
     /**
      * Define JOIN clause of the SQL statement.
      *
-     * @param string     $table_reference Table reference
-     * @param string     $type            Type of JOIN operation to perform.
-     * @param array|null $index_hints     Array of Index Hints
+     * @param string     $tableReference Table reference
+     * @param string     $type           Type of JOIN operation to perform.
+     * @param array|null $indexHints     Array of Index Hints
      *
      * @return void
      */
-    protected function sql_join($table_reference, $type, $index_hints = NULL): void
+    protected function sql_join($tableReference, $type, $indexHints = NULL): void
     {
         $type = strtoupper($type);
 
@@ -576,48 +576,48 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
             $this->join .= ' ';
         }
 
-        $this->join .= $join . $table_reference . $this->prepare_index_hints($index_hints);
+        $this->join .= $join . $tableReference . $this->prepare_index_hints($indexHints);
 
         if (!(substr($type, 0, 7) == 'NATURAL'))
         {
-            $this->is_unfinished_join = TRUE;
+            $this->isUnfinishedJoin = TRUE;
         }
 
-        $this->join_type = '';
+        $this->joinType = '';
     }
 
     /**
      * Define USING clause of the SQL statement.
      *
-     * @param string $column_list Column name to use.
+     * @param string $columnList Column name to use.
      *
      * @return void
      */
-    protected function sql_using($column_list): void
+    protected function sql_using($columnList): void
     {
         // Select join type.
-        if ($this->join_type === '')
+        if ($this->joinType === '')
         {
-            $this->join_type = 'using';
+            $this->joinType = 'using';
         }
 
         // Prevent USING and ON to be used at the same time.
-        if ($this->join_type !== 'using')
+        if ($this->joinType !== 'using')
         {
             return;
         }
 
-        if ($this->is_unfinished_join)
+        if ($this->isUnfinishedJoin)
         {
-            $this->join              .= ' USING (';
-            $this->is_unfinished_join = FALSE;
+            $this->join            .= ' USING (';
+            $this->isUnfinishedJoin = FALSE;
         }
         elseif (substr($this->join, -1) !== '(')
         {
             $this->join = rtrim($this->join, ')') . ', ';
         }
 
-        $this->join .= $column_list . ')';
+        $this->join .= $columnList . ')';
     }
 
     /**
@@ -669,7 +669,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      */
     protected function sql_column_names($keys): void
     {
-        $this->column_names = '(' . implode(', ', $keys) . ')';
+        $this->columnNames = '(' . implode(', ', $keys) . ')';
     }
 
     /**
@@ -743,7 +743,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
     {
         if (strpos($select, 'SELECT') === 0)
         {
-            $this->select_statement = $select;
+            $this->selectStatement = $select;
         }
     }
 
@@ -762,20 +762,20 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
         $condition = ($base === 'ON') ? 'join' : strtolower($base);
 
         // select join type.
-        if ($this->join_type === '' && $this->is_unfinished_join === TRUE && $base === 'ON')
+        if ($this->joinType === '' && $this->isUnfinishedJoin === TRUE && $base === 'ON')
         {
-            $this->join_type = strtolower($base);
+            $this->joinType = strtolower($base);
         }
 
         // Prevent USING and ON to be used at the same time.
-        if ($this->join_type === 'using' && $condition === 'join')
+        if ($this->joinType === 'using' && $condition === 'join')
         {
             return;
         }
 
-        if (rtrim($this->$condition, '(') == '' || $this->is_unfinished_join)
+        if (rtrim($this->$condition, '(') == '' || $this->isUnfinishedJoin)
         {
-            if ($this->is_unfinished_join)
+            if ($this->isUnfinishedJoin)
             {
                 $this->$condition .= ' ' . $base . ' ';
             }
@@ -784,8 +784,8 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
                 $this->$condition = $base . ' ' . $this->$condition;
             }
 
-            $this->connector          = '';
-            $this->is_unfinished_join = FALSE;
+            $this->connector        = '';
+            $this->isUnfinishedJoin = FALSE;
         }
         elseif ($this->connector != '')
         {
@@ -803,13 +803,13 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
     /**
      * Define a compound clause for the SQL statement.
      *
-     * @param string $sql_query Left expression
-     * @param string $type      Whether to construct UNION, EXCEPT or INTERSECT
-     * @param mixed  $operator  Whether to add ALL, DISTINCT or default
+     * @param string $sqlQuery Left expression
+     * @param string $type     Whether to construct UNION, EXCEPT or INTERSECT
+     * @param mixed  $operator Whether to add ALL, DISTINCT or default
      *
      * @return void
      */
-    protected function sql_compound($sql_query, $type, $operator = NULL): void
+    protected function sql_compound($sqlQuery, $type, $operator = NULL): void
     {
         if ($this->compound != '')
         {
@@ -825,7 +825,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
             $base = $type;
         }
 
-        $this->compound .= $base . ' ' . $sql_query;
+        $this->compound .= $base . ' ' . $sqlQuery;
     }
 
     /**
@@ -840,16 +840,16 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
     {
         $direction = ($asc === TRUE) ? 'ASC' : 'DESC';
 
-        if ($this->order_by == '')
+        if ($this->orderBy == '')
         {
-            $this->order_by = 'ORDER BY ';
+            $this->orderBy = 'ORDER BY ';
         }
         else
         {
-            $this->order_by .= ', ';
+            $this->orderBy .= ', ';
         }
 
-        $this->order_by .= $expr . ' ' . $direction;
+        $this->orderBy .= $expr . ' ' . $direction;
     }
 
     /**
@@ -891,16 +891,16 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      */
     protected function sql_group_by($expr): void
     {
-        if ($this->group_by == '')
+        if ($this->groupBy == '')
         {
-            $this->group_by = 'GROUP BY ';
+            $this->groupBy = 'GROUP BY ';
         }
         else
         {
-            $this->group_by .= ', ';
+            $this->groupBy .= ', ';
         }
 
-        $this->group_by .= $expr;
+        $this->groupBy .= $expr;
     }
 
     /**
@@ -918,8 +918,8 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
         {
             if (isset($this->$component) && ($this->$component != ''))
             {
-                if (($component === 'select_mode') || ($component === 'delete_mode')
-                    || ($component === 'insert_mode') || ($component === 'update_mode')
+                if (($component === 'selectMode') || ($component === 'deleteMode')
+                    || ($component === 'insertMode') || ($component === 'updateMode')
                 )
                 {
                     $sql .= implode(' ', array_unique($this->$component)) . ' ';
@@ -943,16 +943,16 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
     /**
      * Prepare the list of index hints for a table reference.
      *
-     * @param array|null $index_hints Array of Index Hints
+     * @param array|null $indexHints Array of Index Hints
      *
      * @return string $hints Comma separated list of index hints.
      */
-    protected function prepare_index_hints(?array $index_hints): string
+    protected function prepare_index_hints(?array $indexHints): string
     {
-        if (!empty($index_hints))
+        if (!empty($indexHints))
         {
-            $index_hints = array_diff($index_hints, [ NULL ]);
-            $hints       = ' ' . implode(', ', $index_hints);
+            $indexHints = array_diff($indexHints, [ NULL ]);
+            $hints      = ' ' . implode(', ', $indexHints);
         }
         else
         {
@@ -974,21 +974,21 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
         $condition = ($base === 'ON') ? 'join' : strtolower($base);
 
         // select join type.
-        if ($this->join_type === '' && $this->is_unfinished_join === TRUE && $base === 'ON')
+        if ($this->joinType === '' && $this->isUnfinishedJoin === TRUE && $base === 'ON')
         {
-            $this->join_type = strtolower($base);
+            $this->joinType = strtolower($base);
         }
 
         // Prevent USING and ON to be used at the same time.
-        if ($this->join_type === 'using' && $condition === 'join')
+        if ($this->joinType === 'using' && $condition === 'join')
         {
             return;
         }
 
-        if ($this->is_unfinished_join)
+        if ($this->isUnfinishedJoin)
         {
-            $this->$condition        .= 'ON ';
-            $this->is_unfinished_join = FALSE;
+            $this->$condition      .= 'ON ';
+            $this->isUnfinishedJoin = FALSE;
         }
         elseif ($this->connector != '')
         {
@@ -1019,7 +1019,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
         $condition = ($condition === 'ON') ? 'join' : strtolower($condition);
 
         // Prevent USING and ON to be used at the same time.
-        if ($this->join_type === 'using' && $condition === 'join')
+        if ($this->joinType === 'using' && $condition === 'join')
         {
             return;
         }

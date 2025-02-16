@@ -25,7 +25,7 @@ class SQLDMLQueryBuilderUsingTest extends SQLDMLQueryBuilderTestCase
      */
     public function testUsing(): void
     {
-        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('isUnfinishedJoin', TRUE);
 
         $this->class->using('column1');
 
@@ -41,7 +41,7 @@ class SQLDMLQueryBuilderUsingTest extends SQLDMLQueryBuilderTestCase
      */
     public function testUsingAddSecondColumn(): void
     {
-        $this->setReflectionPropertyValue('join_type', 'using');
+        $this->setReflectionPropertyValue('joinType', 'using');
         $this->setReflectionPropertyValue('join', ' USING (column1)');
 
         $this->class->using('column2');
@@ -58,7 +58,7 @@ class SQLDMLQueryBuilderUsingTest extends SQLDMLQueryBuilderTestCase
      */
     public function testUsingMultipleColumn(): void
     {
-        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('isUnfinishedJoin', TRUE);
 
         $this->class->using('column1, column2');
 

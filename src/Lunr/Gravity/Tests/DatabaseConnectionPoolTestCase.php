@@ -33,13 +33,13 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
      * Reflection instance of the DatabaseConnectionPool class.
      * @var ReflectionClass
      */
-    protected $pool_reflection;
+    protected $poolReflection;
 
     /**
      * Mock instance of the sub Configuration class.
      * @var Configuration
      */
-    protected $sub_configuration;
+    protected $subConfiguration;
 
     /**
      * Mock instance of the Configuration class.
@@ -60,12 +60,12 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
      */
     public function emptySetup(): void
     {
-        $this->sub_configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
+        $this->subConfiguration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $this->configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $map = [
-            [ 'db', $this->sub_configuration ],
+            [ 'db', $this->subConfiguration ],
         ];
 
         $this->configuration->expects($this->any())
@@ -76,7 +76,7 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
 
         $this->pool = new DatabaseConnectionPool($this->configuration, $this->logger);
 
-        $this->pool_reflection = new ReflectionClass('Lunr\Gravity\DatabaseConnectionPool');
+        $this->poolReflection = new ReflectionClass('Lunr\Gravity\DatabaseConnectionPool');
     }
 
     /**
@@ -86,12 +86,12 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
      */
     public function unsupportedSetup(): void
     {
-        $this->sub_configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
+        $this->subConfiguration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $this->configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $map = [
-            [ 'db', $this->sub_configuration ],
+            [ 'db', $this->subConfiguration ],
         ];
 
         $this->configuration->expects($this->any())
@@ -106,7 +106,7 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
             [ 'driver', 'unsupported' ],
         ];
 
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
                       ->will($this->returnValueMap($map));
 
@@ -114,7 +114,7 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
 
         $this->pool = new DatabaseConnectionPool($this->configuration, $this->logger);
 
-        $this->pool_reflection = new ReflectionClass('Lunr\Gravity\DatabaseConnectionPool');
+        $this->poolReflection = new ReflectionClass('Lunr\Gravity\DatabaseConnectionPool');
     }
 
     /**
@@ -124,12 +124,12 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
      */
     public function supportedSetup(): void
     {
-        $this->sub_configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
+        $this->subConfiguration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $this->configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $map = [
-            [ 'db', $this->sub_configuration ],
+            [ 'db', $this->subConfiguration ],
         ];
 
         $this->configuration->expects($this->any())
@@ -144,7 +144,7 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
             [ 'driver', 'mysql' ],
         ];
 
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
                       ->will($this->returnValueMap($map));
 
@@ -152,7 +152,7 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
 
         $this->pool = new DatabaseConnectionPool($this->configuration, $this->logger);
 
-        $this->pool_reflection = new ReflectionClass('Lunr\Gravity\DatabaseConnectionPool');
+        $this->poolReflection = new ReflectionClass('Lunr\Gravity\DatabaseConnectionPool');
     }
 
     /**
@@ -161,7 +161,7 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
     public function tearDown(): void
     {
         unset($this->pool);
-        unset($this->pool_reflection);
+        unset($this->poolReflection);
         unset($this->configuration);
         unset($this->logger);
     }

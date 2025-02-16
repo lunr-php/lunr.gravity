@@ -126,7 +126,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTestC
 
         $method->invokeArgs($this->class, [ 'col1' ]);
 
-        $this->assertPropertyEquals('order_by', $string);
+        $this->assertPropertyEquals('orderBy', $string);
     }
 
     /**
@@ -142,7 +142,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTestC
 
         $method->invokeArgs($this->class, [ 'col1', FALSE ]);
 
-        $this->assertPropertyEquals('order_by', $string);
+        $this->assertPropertyEquals('orderBy', $string);
     }
 
     /**
@@ -154,7 +154,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTestC
     {
         $value = 'ORDER BY col1 DESC';
 
-        $this->setReflectionPropertyValue('order_by', $value);
+        $this->setReflectionPropertyValue('orderBy', $value);
 
         $method = $this->getReflectionMethod('sql_order_by');
 
@@ -162,7 +162,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTestC
 
         $string = 'ORDER BY col1 DESC, col2 DESC';
 
-        $this->assertPropertyEquals('order_by', $string);
+        $this->assertPropertyEquals('orderBy', $string);
     }
 
     /**
@@ -178,7 +178,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTestC
 
         $method->invokeArgs($this->class, [ 'group1' ]);
 
-        $this->assertPropertyEquals('group_by', $string);
+        $this->assertPropertyEquals('groupBy', $string);
     }
 
     /**
@@ -190,7 +190,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTestC
     {
         $value = 'GROUP BY group1';
 
-        $this->setReflectionPropertyValue('group_by', $value);
+        $this->setReflectionPropertyValue('groupBy', $value);
 
         $method = $this->getReflectionMethod('sql_group_by');
 
@@ -198,7 +198,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTestC
 
         $string = 'GROUP BY group1, group2';
 
-        $this->assertPropertyEquals('group_by', $string);
+        $this->assertPropertyEquals('groupBy', $string);
     }
 
     /**
@@ -257,13 +257,13 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTestC
     */
     public function testOpenGroupIfJoin(): void
     {
-        $this->setReflectionPropertyValue('is_unfinished_join', TRUE);
+        $this->setReflectionPropertyValue('isUnfinishedJoin', TRUE);
 
         $method = $this->getReflectionMethod('sql_group_start');
         $method->invokeArgs($this->class, [ 'ON' ]);
 
         $this->assertEquals('ON (', $this->getReflectionPropertyValue('join'));
-        $this->assertFalse($this->getReflectionPropertyValue('is_unfinished_join'));
+        $this->assertFalse($this->getReflectionPropertyValue('isUnfinishedJoin'));
     }
 
     /**
@@ -273,7 +273,7 @@ class DatabaseDMLQueryBuilderQueryPartsTest extends DatabaseDMLQueryBuilderTestC
      */
     public function testOpenGroupIfNaturalJoin(): void
     {
-        $this->setReflectionPropertyValue('is_unfinished_join', FALSE);
+        $this->setReflectionPropertyValue('isUnfinishedJoin', FALSE);
 
         $method = $this->getReflectionMethod('sql_group_start');
         $method->invokeArgs($this->class, [ 'WHERE' ]);

@@ -51,7 +51,7 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
             case 'LOW_PRIORITY':
             case 'QUICK':
             case 'IGNORE':
-                $this->delete_mode[] = $mode;
+                $this->deleteMode[] = $mode;
             default:
                 break;
         }
@@ -73,12 +73,12 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
         switch ($mode)
         {
             case 'IGNORE':
-                $this->insert_mode['errors'] = $mode;
+                $this->insertMode['errors'] = $mode;
                 break;
             case 'HIGH_PRIORITY':
             case 'LOW_PRIORITY':
             case 'DELAYED':
-                $this->insert_mode['priority'] = $mode;
+                $this->insertMode['priority'] = $mode;
             default:
                 break;
         }
@@ -114,11 +114,11 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
             case 'ALL':
             case 'DISTINCT':
             case 'DISTINCTROW':
-                $this->select_mode['duplicates'] = $mode;
+                $this->selectMode['duplicates'] = $mode;
                 break;
             case 'SQL_CACHE':
             case 'SQL_NO_CACHE':
-                $this->select_mode['cache'] = $mode;
+                $this->selectMode['cache'] = $mode;
                 break;
             case 'HIGH_PRIORITY':
             case 'STRAIGHT_JOIN':
@@ -126,7 +126,7 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
             case 'SQL_BIG_RESULT':
             case 'SQL_BUFFER_RESULT':
             case 'SQL_CALC_FOUND_ROWS':
-                $this->select_mode[] = $mode;
+                $this->selectMode[] = $mode;
             default:
                 break;
         }
@@ -149,7 +149,7 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
         {
             case 'LOW_PRIORITY':
             case 'IGNORE':
-                $this->update_mode[] = $mode;
+                $this->updateMode[] = $mode;
             default:
                 break;
         }
@@ -203,8 +203,8 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
 
         if ($order !== NULL)
         {
-            $direction       = ($order === TRUE) ? ' ASC' : ' DESC';
-            $this->group_by .= $direction;
+            $direction      = ($order === TRUE) ? ' ASC' : ' DESC';
+            $this->groupBy .= $direction;
         }
 
         return $this;
@@ -241,7 +241,7 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
         {
             case 'FOR UPDATE':
             case 'LOCK IN SHARE MODE':
-                $this->lock_mode = $mode;
+                $this->lockMode = $mode;
             default:
                 break;
         }
