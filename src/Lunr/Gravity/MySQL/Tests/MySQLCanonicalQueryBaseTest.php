@@ -31,7 +31,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTestCase
      */
     public function testFindPositions(array $data, array $expected): void
     {
-        $property = $this->getReflectionProperty('ignore_positions');
+        $property = $this->getReflectionProperty('ignorePositions');
         $property->setValue($this->class, ($data[1] ?? []));
 
         $method = $this->getReflectionMethod('find_positions');
@@ -86,7 +86,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTestCase
      */
     public function testFindDigit(array $data, $expected): void
     {
-        $property = $this->getReflectionProperty('ignore_positions');
+        $property = $this->getReflectionProperty('ignorePositions');
         $property->setValue($this->class, ($data[1] ?? []));
 
         $method = $this->getReflectionMethod('find_digit');
@@ -107,7 +107,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTestCase
      */
     public function testJumpIgnore(array $data, int $expected): void
     {
-        $property = $this->getReflectionProperty('ignore_positions');
+        $property = $this->getReflectionProperty('ignorePositions');
         $property->setValue($this->class, ($data[1] ?? []));
 
         $method = $this->getReflectionMethod('jump_ignore');
@@ -149,7 +149,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTestCase
      */
     public function testReplaceBetween(array $data, string $expected): void
     {
-        $property = $this->getReflectionProperty('ignore_positions');
+        $property = $this->getReflectionProperty('ignorePositions');
         $property->setValue($this->class, ($data[1] ?? []));
 
         $method = $this->getReflectionMethod('replace_between');
@@ -166,7 +166,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTestCase
      */
     public function testAddIgnorePositions(): void
     {
-        $property = $this->getReflectionProperty('ignore_positions');
+        $property = $this->getReflectionProperty('ignorePositions');
         $property->setValue($this->class, []);
 
         $method = $this->getReflectionMethod('add_ignore_positions');
@@ -209,7 +209,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTestCase
      */
     public function testReplaceNumeric(array $data, string $expected): void
     {
-        $property = $this->getReflectionProperty('ignore_positions');
+        $property = $this->getReflectionProperty('ignorePositions');
         $property->setValue($this->class, ($data[1] ?? []));
 
         $method = $this->getReflectionMethod('replace_numeric');
@@ -291,7 +291,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTestCase
      */
     public function testFindNext(array $data, ?int $expected): void
     {
-        $property = $this->getReflectionProperty('ignore_positions');
+        $property = $this->getReflectionProperty('ignorePositions');
         $property->setValue($this->class, ($data[1] ?? []));
 
         $method = $this->getReflectionMethod('find_next');
@@ -337,7 +337,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTestCase
             $this->markTestSkipped("File \"$expected\" could not be read!");
         }
 
-        $property = $this->getReflectionProperty('ignore_positions');
+        $property = $this->getReflectionProperty('ignorePositions');
         $property->setValue($this->class, []);
 
         $method = $this->getReflectionMethod('collapse_multirows');

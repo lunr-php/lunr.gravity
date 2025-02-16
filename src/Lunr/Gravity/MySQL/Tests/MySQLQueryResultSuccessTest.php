@@ -72,7 +72,7 @@ class MySQLQueryResultSuccessTest extends MySQLQueryResultTestCase
      */
     public function testNumberOfRowsReturnsNumber(): void
     {
-        $this->setReflectionPropertyValue('num_rows', 10);
+        $this->setReflectionPropertyValue('numRows', 10);
 
         $value = $this->class->number_of_rows();
         $this->assertIsInt($value);

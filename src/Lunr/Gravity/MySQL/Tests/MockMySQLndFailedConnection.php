@@ -21,20 +21,20 @@ class MockMySQLndFailedConnection extends MySQLndUhConnection
     /**
      * Fake a failed connection to the database server.
      *
-     * @param mysqlnd_connection $connection  Mysqlnd connection handle
-     * @param string             $host        Hostname or IP address
-     * @param string             $user        Username
-     * @param string             $password    Password
-     * @param string             $database    Database
-     * @param int                $port        Port
-     * @param string             $socket      Socket
-     * @param int                $mysql_flags Connection options
+     * @param mysqlnd_connection $connection Mysqlnd connection handle
+     * @param string             $host       Hostname or IP address
+     * @param string             $user       Username
+     * @param string             $password   Password
+     * @param string             $database   Database
+     * @param int                $port       Port
+     * @param string             $socket     Socket
+     * @param int                $mysqlFlags Connection options
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @return bool $return Whether the connection was successful or not.
      */
-    public function connect($connection, $host, $user, $password, $database, $port, $socket, $mysql_flags)
+    public function connect($connection, $host, $user, $password, $database, $port, $socket, $mysqlFlags)
     {
         return TRUE;
     }

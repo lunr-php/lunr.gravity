@@ -72,7 +72,7 @@ class MySQLQueryResultResultTest extends MySQLQueryResultTestCase
      */
     public function testNumberOfRowsReturnsNumber(): void
     {
-        $this->setReflectionPropertyValue('num_rows', 5);
+        $this->setReflectionPropertyValue('numRows', 5);
 
         $value = $this->class->number_of_rows();
         $this->assertIsInt($value);
@@ -98,10 +98,10 @@ class MySQLQueryResultResultTest extends MySQLQueryResultTestCase
             ],
         ];
 
-        $this->query_result->expects($this->once())
-                           ->method('fetch_all')
-                           ->with(MYSQLI_ASSOC)
-                           ->willReturn($result);
+        $this->queryResult->expects($this->once())
+                          ->method('fetch_all')
+                          ->with(MYSQLI_ASSOC)
+                          ->willReturn($result);
 
         $value = $this->class->result_array();
 
@@ -126,10 +126,10 @@ class MySQLQueryResultResultTest extends MySQLQueryResultTestCase
             ],
         ];
 
-        $this->query_result->expects($this->once())
-                           ->method('fetch_all')
-                           ->with(MYSQLI_NUM)
-                           ->willReturn($result);
+        $this->queryResult->expects($this->once())
+                          ->method('fetch_all')
+                          ->with(MYSQLI_NUM)
+                          ->willReturn($result);
 
         $value = $this->class->result_array(FALSE);
 
@@ -146,9 +146,9 @@ class MySQLQueryResultResultTest extends MySQLQueryResultTestCase
     public function testResultRowReturnsArray(): void
     {
         $result = [ 'col1' => 'val1', 'col2' => 'val2' ];
-        $this->query_result->expects($this->once())
-                           ->method('fetch_assoc')
-                           ->will($this->returnValue($result));
+        $this->queryResult->expects($this->once())
+                          ->method('fetch_assoc')
+                          ->will($this->returnValue($result));
 
         $value = $this->class->result_row();
 
@@ -164,13 +164,13 @@ class MySQLQueryResultResultTest extends MySQLQueryResultTestCase
      */
     public function testResultColumnReturnsArray(): void
     {
-        $this->query_result->expects($this->exactly(3))
-                           ->method('fetch_assoc')
-                           ->willReturnOnConsecutiveCalls(
-                               [ 'col1' => 'val1', 'col2' => 'val2' ],
-                               [ 'col1' => 'val3', 'col2' => 'val4' ],
-                               NULL
-                           );
+        $this->queryResult->expects($this->exactly(3))
+                          ->method('fetch_assoc')
+                          ->willReturnOnConsecutiveCalls(
+                              [ 'col1' => 'val1', 'col2' => 'val2' ],
+                              [ 'col1' => 'val3', 'col2' => 'val4' ],
+                              NULL
+                          );
 
         $value = $this->class->result_column('col1');
 
@@ -186,9 +186,9 @@ class MySQLQueryResultResultTest extends MySQLQueryResultTestCase
      */
     public function testResultCellReturnsValue(): void
     {
-        $this->query_result->expects($this->once())
-                           ->method('fetch_assoc')
-                           ->will($this->returnValue([ 'cell' => 'value' ]));
+        $this->queryResult->expects($this->once())
+                          ->method('fetch_assoc')
+                          ->will($this->returnValue([ 'cell' => 'value' ]));
 
         $this->assertEquals('value', $this->class->result_cell('cell'));
     }
@@ -201,9 +201,9 @@ class MySQLQueryResultResultTest extends MySQLQueryResultTestCase
      */
     public function testResultCellReturnsNullIfColumnDoesNotExist(): void
     {
-        $this->query_result->expects($this->once())
-                           ->method('fetch_assoc')
-                           ->will($this->returnValue([ 'cell' => 'value' ]));
+        $this->queryResult->expects($this->once())
+                          ->method('fetch_assoc')
+                          ->will($this->returnValue([ 'cell' => 'value' ]));
 
         $this->assertNull($this->class->result_cell('cell1'));
     }

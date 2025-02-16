@@ -26,13 +26,13 @@ class MySQLCanonicalQuery
      * Canonicalized query.
      * @var string
      */
-    private readonly string $canonical_query;
+    private readonly string $canonicalQuery;
 
     /**
      * List of index ranges to ignore.
      * @var array
      */
-    private $ignore_positions;
+    private $ignorePositions;
 
     /**
      * Constructor.
@@ -61,87 +61,87 @@ class MySQLCanonicalQuery
      */
     public function get_canonical_query(): string
     {
-        if (isset($this->canonical_query) === TRUE)
+        if (isset($this->canonicalQuery) === TRUE)
         {
-            return $this->canonical_query;
+            return $this->canonicalQuery;
         }
 
-        $this->ignore_positions = [];
+        $this->ignorePositions = [];
 
-        $tmp_query = $this->query;
+        $tmpQuery = $this->query;
 
-        $tmp_query = $this->replace_between($tmp_query, '#', PHP_EOL, '');
-        $tmp_query = $this->replace_between($tmp_query, '--', PHP_EOL, '');
+        $tmpQuery = $this->replace_between($tmpQuery, '#', PHP_EOL, '');
+        $tmpQuery = $this->replace_between($tmpQuery, '--', PHP_EOL, '');
 
-        $tmp_query = $this->remove_eol_blank_spaces($tmp_query);
+        $tmpQuery = $this->remove_eol_blank_spaces($tmpQuery);
 
-        $this->add_ignore_positions($this->find_positions($tmp_query, '/*M', '*/'));
-        $this->add_ignore_positions($this->find_positions($tmp_query, '/*!', '*/'));
-        $this->add_ignore_positions($this->find_positions($tmp_query, '`', '`'));
-        $this->add_ignore_positions($this->find_positions($tmp_query, '\\'));
+        $this->add_ignore_positions($this->find_positions($tmpQuery, '/*M', '*/'));
+        $this->add_ignore_positions($this->find_positions($tmpQuery, '/*!', '*/'));
+        $this->add_ignore_positions($this->find_positions($tmpQuery, '`', '`'));
+        $this->add_ignore_positions($this->find_positions($tmpQuery, '\\'));
 
-        $tmp_query = $this->replace_between($tmp_query, '/*', '*/', '');
-        $tmp_query = $this->replace_between($tmp_query, '"', '"', '"?"', TRUE);
-        $tmp_query = $this->replace_between($tmp_query, '\'', '\'', '\'?\'', TRUE);
+        $tmpQuery = $this->replace_between($tmpQuery, '/*', '*/', '');
+        $tmpQuery = $this->replace_between($tmpQuery, '"', '"', '"?"', TRUE);
+        $tmpQuery = $this->replace_between($tmpQuery, '\'', '\'', '\'?\'', TRUE);
 
-        $tmp_query = $this->replace_numeric($tmp_query, '?');
+        $tmpQuery = $this->replace_numeric($tmpQuery, '?');
 
-        $tmp_query = $this->collapse_multirows($tmp_query);
+        $tmpQuery = $this->collapse_multirows($tmpQuery);
 
-        $this->canonical_query = $this->remove_eol_blank_spaces($tmp_query);
+        $this->canonicalQuery = $this->remove_eol_blank_spaces($tmpQuery);
 
-        return $this->canonical_query;
+        return $this->canonicalQuery;
     }
 
     /**
      * Replaces text in between two strings
      *
-     * @param string $string        Input string to replace
-     * @param string $from          Input string to start replacing
-     * @param string $to            Input string to end replacing
-     * @param string $replace       Input string to replace with
-     * @param bool   $add_to_ignore Input bool to decide if add to ignore list
+     * @param string $string      Input string to replace
+     * @param string $from        Input string to start replacing
+     * @param string $to          Input string to end replacing
+     * @param string $replace     Input string to replace with
+     * @param bool   $addToIgnore Input bool to decide if add to ignore list
      *
      * @return string $string The provided string replaced
      */
-    private function replace_between(string $string, string $from, string $to, string $replace, bool $add_to_ignore = FALSE): string
+    private function replace_between(string $string, string $from, string $to, string $replace, bool $addToIgnore = FALSE): string
     {
         $offset = 0;
 
         while ($offset < strlen($string))
         {
-            $start_pos = strpos($string, $from, $offset);
+            $startPos = strpos($string, $from, $offset);
 
-            if ($start_pos === FALSE)
+            if ($startPos === FALSE)
             {
                 break;
             }
 
-            $offset = $this->jump_ignore($start_pos);
-            if ($offset > $start_pos)
+            $offset = $this->jump_ignore($startPos);
+            if ($offset > $startPos)
             {
                 continue;
             }
 
-            $end_pos = strpos($string, $to, ($start_pos + 1));
+            $endPos = strpos($string, $to, ($startPos + 1));
 
-            if ($end_pos === FALSE)
+            if ($endPos === FALSE)
             {
-                $end_pos = strlen($string) - 1;
+                $endPos = strlen($string) - 1;
             }
 
-            $len_to_remove = ($end_pos + strlen($to)) - $start_pos;
+            $lenToRemove = ($endPos + strlen($to)) - $startPos;
 
-            $string = substr_replace($string, $replace, $start_pos, $len_to_remove);
+            $string = substr_replace($string, $replace, $startPos, $lenToRemove);
 
-            $this->ignore_positions = $this->update_positions($this->ignore_positions, $start_pos, $len_to_remove - strlen($replace));
+            $this->ignorePositions = $this->update_positions($this->ignorePositions, $startPos, $lenToRemove - strlen($replace));
 
-            if ($add_to_ignore === TRUE)
+            if ($addToIgnore === TRUE)
             {
-                $this->add_ignore_positions([[ $start_pos, $start_pos + strlen($replace) - 1 ]]);
+                $this->add_ignore_positions([[ $startPos, $startPos + strlen($replace) - 1 ]]);
             }
 
-            $offset = $start_pos + strlen($replace);
+            $offset = $startPos + strlen($replace);
         }
 
         return $string;
@@ -172,20 +172,20 @@ class MySQLCanonicalQuery
         $end       = strlen($string);
         while ($offset < $end)
         {
-            $tmp_position = [ strpos($string, $from, $offset), NULL ];
-            if ($tmp_position[0] === FALSE)
+            $tmpPosition = [ strpos($string, $from, $offset), NULL ];
+            if ($tmpPosition[0] === FALSE)
             {
                 break;
             }
 
-            $jump = $this->jump_ignore($tmp_position[0]);
-            if ($jump > $tmp_position[0])
+            $jump = $this->jump_ignore($tmpPosition[0]);
+            if ($jump > $tmpPosition[0])
             {
                 $offset = $jump;
                 continue;
             }
 
-            $position = $tmp_position;
+            $position = $tmpPosition;
 
             if (is_null($to) || $to === '')
             {
@@ -233,9 +233,9 @@ class MySQLCanonicalQuery
      */
     private function add_ignore_positions(array $positions): void
     {
-        $this->ignore_positions = array_merge($this->ignore_positions, $positions);
-        asort($this->ignore_positions);
-        $this->ignore_positions = array_values($this->ignore_positions);
+        $this->ignorePositions = array_merge($this->ignorePositions, $positions);
+        asort($this->ignorePositions);
+        $this->ignorePositions = array_values($this->ignorePositions);
     }
 
     /**
@@ -306,11 +306,11 @@ class MySQLCanonicalQuery
                 break;
             }
 
-            $number_end = $this->is_numeric_value($string, $pos);
+            $numberEnd = $this->is_numeric_value($string, $pos);
 
-            $i = $number_end[1];
+            $i = $numberEnd[1];
 
-            if ($number_end[0] === FALSE)
+            if ($numberEnd[0] === FALSE)
             {
                 continue;
             }
@@ -320,12 +320,12 @@ class MySQLCanonicalQuery
                 $pos--;
             }
 
-            $replace_size           = strlen($replace);
-            $to_replace_length      = $number_end[1] - $pos + 1;
-            $string                 = substr_replace($string, $replace, $pos, $to_replace_length);
-            $this->ignore_positions = $this->update_positions($this->ignore_positions, $pos, $to_replace_length - $replace_size);
+            $replaceSize           = strlen($replace);
+            $toReplaceLength       = $numberEnd[1] - $pos + 1;
+            $string                = substr_replace($string, $replace, $pos, $toReplaceLength);
+            $this->ignorePositions = $this->update_positions($this->ignorePositions, $pos, $toReplaceLength - $replaceSize);
 
-            $i = $pos + $replace_size;
+            $i = $pos + $replaceSize;
         }
 
         return $string;
@@ -341,25 +341,25 @@ class MySQLCanonicalQuery
      */
     private function is_negative_number(string $string, int $i): bool
     {
-        $is_negative_number = FALSE;
+        $isNegativeNumber = FALSE;
         if ($i > 0 && $string[$i - 1] == '-')
         {
             $i--;
             // Possibly a negative number
-            $is_negative_number = TRUE;
+            $isNegativeNumber = TRUE;
             for ($j = $i - 1; $j >= 0; $j--)
             {
                 if (!ctype_space($string[$j]))
                 {
                     /** If we find a previously converted value, we know that it
                      * is not a negation but a subtraction. */
-                    $is_negative_number = ($string[$j] != '?');
+                    $isNegativeNumber = ($string[$j] != '?');
                     break;
                 }
             }
         }
 
-        return $is_negative_number;
+        return $isNegativeNumber;
     }
 
     /**
@@ -372,21 +372,21 @@ class MySQLCanonicalQuery
      */
     private function is_numeric_value(string $string, int $i): array
     {
-        $allow_hex      = FALSE;
-        $is_hexadecimal = (($string[$i] == '0'));
+        $allowHex      = FALSE;
+        $isHexadecimal = (($string[$i] == '0'));
 
         $i++; //first number we already know is numeric
-        $end       = strlen($string);
-        $is_number = TRUE;
+        $end      = strlen($string);
+        $isNumber = TRUE;
 
         while ($i < $end)
         {
-            if (!(ctype_digit($string[$i]) || ($allow_hex && ctype_xdigit($string[$i]))))
+            if (!(ctype_digit($string[$i]) || ($allowHex && ctype_xdigit($string[$i]))))
             {
-                if ($is_hexadecimal == TRUE && strtolower($string[$i]) == 'x')
+                if ($isHexadecimal == TRUE && strtolower($string[$i]) == 'x')
                 {
-                    $is_hexadecimal = FALSE;
-                    $allow_hex      = TRUE;
+                    $isHexadecimal = FALSE;
+                    $allowHex      = TRUE;
                 }
                 elseif (strtolower($string[$i]) == 'e')
                 {
@@ -394,8 +394,8 @@ class MySQLCanonicalQuery
                     // Possible scientific notation number
                     if ($next == $end || (!ctype_digit($string[$next]) && $string[$next] != '-'))
                     {
-                        $i         = ++$next;
-                        $is_number = FALSE;
+                        $i        = ++$next;
+                        $isNumber = FALSE;
                         break;
                     }
 
@@ -418,7 +418,7 @@ class MySQLCanonicalQuery
                 else
                 {
                     // If we have a non-text character, we treat it as a number
-                    $is_number = !ctype_alpha($string[$i]);
+                    $isNumber = !ctype_alpha($string[$i]);
                     break;
                 }
             }
@@ -426,7 +426,7 @@ class MySQLCanonicalQuery
             $i++;
         }
 
-        return [ $is_number, --$i ];
+        return [ $isNumber, --$i ];
     }
 
     /**
@@ -438,7 +438,7 @@ class MySQLCanonicalQuery
      */
     private function jump_ignore(int $index): int
     {
-        foreach ($this->ignore_positions as $position)
+        foreach ($this->ignorePositions as $position)
         {
             if ($position[0] <= $index && $position[1] >= $index)
             {
@@ -471,122 +471,122 @@ class MySQLCanonicalQuery
             return $string;
         }
 
-        $first_row_position = $this->get_between_delimiter($string, '(', ')', $offset[0][1] + 1, [ ' ' ]);
+        $firstRowPosition = $this->get_between_delimiter($string, '(', ')', $offset[0][1] + 1, [ ' ' ]);
 
-        if ($first_row_position === NULL)
+        if ($firstRowPosition === NULL)
         {
             return $string;
         }
 
-        $first_row = substr($string, $first_row_position[0], $first_row_position[1] - $first_row_position[0] + 1);
+        $firstRow = substr($string, $firstRowPosition[0], $firstRowPosition[1] - $firstRowPosition[0] + 1);
 
-        $tmp_string = $string;
-        $i          = $first_row_position[1] + 1;
+        $tmpString = $string;
+        $i         = $firstRowPosition[1] + 1;
         while ($i < $end)
         {
-            $next_row_start = $this->find_next($tmp_string, ',', $first_row_position[1] + 1, [ ' ' ]);
-            if ($next_row_start === NULL)
+            $nextRowStart = $this->find_next($tmpString, ',', $firstRowPosition[1] + 1, [ ' ' ]);
+            if ($nextRowStart === NULL)
             {
                 break;
             }
 
-            $row_position = $this->get_between_delimiter($tmp_string, '(', ')', $next_row_start + 1, [ ' ' ]);
-            if ($row_position === NULL)
+            $rowPosition = $this->get_between_delimiter($tmpString, '(', ')', $nextRowStart + 1, [ ' ' ]);
+            if ($rowPosition === NULL)
             {
                 return $string;
             }
 
-            $row = substr($tmp_string, $row_position[0], $row_position[1] - $row_position[0] + 1);
+            $row = substr($tmpString, $rowPosition[0], $rowPosition[1] - $rowPosition[0] + 1);
 
-            if ($first_row != $row)
+            if ($firstRow != $row)
             {
                 return $string;
             }
 
-            $tmp_string = substr_replace($tmp_string, '', $first_row_position[1] + 1, $row_position[1] - $first_row_position[1]);
+            $tmpString = substr_replace($tmpString, '', $firstRowPosition[1] + 1, $rowPosition[1] - $firstRowPosition[1]);
 
-            $end = strlen($tmp_string);
-            $i   = $first_row_position[1] + 1;
+            $end = strlen($tmpString);
+            $i   = $firstRowPosition[1] + 1;
         }
 
-        return $tmp_string;
+        return $tmpString;
     }
 
     /**
      * Finds the next start and end index positions between two delimiters, ignoring delimiters in between
      *
-     * @param string $string    Input string to search
-     * @param string $start_del Input string with start delimiter
-     * @param string $end_del   Input string with end delimiter
-     * @param int    $offset    Input int with index to start the search
-     * @param array  $ignore    Input array with chars to ignore until start position is found
+     * @param string $string   Input string to search
+     * @param string $startDel Input string with start delimiter
+     * @param string $endDel   Input string with end delimiter
+     * @param int    $offset   Input int with index to start the search
+     * @param array  $ignore   Input array with chars to ignore until start position is found
      *
      * @return array|null returns the range position of the start and end delimiters, if is not found returns null
      */
-    private function get_between_delimiter(string $string, string $start_del, string $end_del, int $offset = 0, array $ignore = []): ?array
+    private function get_between_delimiter(string $string, string $startDel, string $endDel, int $offset = 0, array $ignore = []): ?array
     {
-        $end                   = strlen($string);
-        $delimiter_start_index = NULL;
-        $delimiter_end_index   = NULL;
+        $end                 = strlen($string);
+        $delimiterStartIndex = NULL;
+        $delimiterEndIndex   = NULL;
         for ($i = $offset; $i < $end; $i++)
         {
-            if ($string[$i] === $start_del)
+            if ($string[$i] === $startDel)
             {
-                $delimiter_start_index = $i;
+                $delimiterStartIndex = $i;
                 break;
             }
             elseif ($string[$i] == in_array($string[$i], $ignore))
             {
                 continue;
             }
-            elseif ($string[$i] != $start_del)
+            elseif ($string[$i] != $startDel)
             {
                 return NULL;
             }
         }
 
-        if ($delimiter_start_index === NULL)
+        if ($delimiterStartIndex === NULL)
         {
             return NULL;
         }
 
-        $count_p = 0;
-        for ($i = $delimiter_start_index + 1; $i < $end; $i++)
+        $countP = 0;
+        for ($i = $delimiterStartIndex + 1; $i < $end; $i++)
         {
-            if ($string[$i] === $start_del)
+            if ($string[$i] === $startDel)
             {
-                $count_p++;
+                $countP++;
             }
-            elseif ($string[$i] === $end_del && $count_p > 0)
+            elseif ($string[$i] === $endDel && $countP > 0)
             {
-                $count_p--;
+                $countP--;
             }
-            elseif ($string[$i] === $end_del && $count_p === 0)
+            elseif ($string[$i] === $endDel && $countP === 0)
             {
-                $delimiter_end_index = $i;
+                $delimiterEndIndex = $i;
                 break;
             }
         }
 
-        if ($delimiter_end_index === NULL)
+        if ($delimiterEndIndex === NULL)
         {
             return NULL;
         }
 
-        return [ $delimiter_start_index, $delimiter_end_index ];
+        return [ $delimiterStartIndex, $delimiterEndIndex ];
     }
 
     /**
      * Finds the next index position of a char
      *
-     * @param string     $string      Input string to search
-     * @param string     $char        Input string with character to find
-     * @param int        $offset      Input string start position
-     * @param array|null $ignore_char Input array with characters to ignore, if null ignores all chars
+     * @param string     $string     Input string to search
+     * @param string     $char       Input string with character to find
+     * @param int        $offset     Input string start position
+     * @param array|null $ignoreChar Input array with characters to ignore, if null ignores all chars
      *
      * @return int|null returns the index position of the value found, if not found returns null
      */
-    private function find_next(string $string, string $char, int $offset, ?array $ignore_char = NULL): ?int
+    private function find_next(string $string, string $char, int $offset, ?array $ignoreChar = NULL): ?int
     {
         $end = strlen($string);
 
@@ -604,13 +604,13 @@ class MySQLCanonicalQuery
                 return $offset;
             }
 
-            if ($ignore_char !== NULL && $string[$offset] == in_array($string[$offset], $ignore_char))
+            if ($ignoreChar !== NULL && $string[$offset] == in_array($string[$offset], $ignoreChar))
             {
                 $offset++;
                 continue;
             }
 
-            if ($string[$offset] !== $char && $ignore_char !== NULL)
+            if ($string[$offset] !== $char && $ignoreChar !== NULL)
             {
                 break;
             }

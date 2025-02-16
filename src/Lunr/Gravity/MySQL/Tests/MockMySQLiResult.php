@@ -22,16 +22,16 @@ class MockMySQLiResult
      * Instance of a real MySQLi_result class.
      * @var MySQLi_result
      */
-    private $mysqli_result;
+    private $mysqliResult;
 
     /**
      * Constructor.
      *
-     * @param MySQLi_result $mysqli_result Instance of the MySQLi_result class
+     * @param MySQLi_result $mysqliResult Instance of the MySQLi_result class
      */
-    public function __construct($mysqli_result)
+    public function __construct($mysqliResult)
     {
-        $this->mysqli_result = $mysqli_result;
+        $this->mysqliResult = $mysqliResult;
     }
 
     /**
@@ -39,7 +39,7 @@ class MockMySQLiResult
      */
     public function __destruct()
     {
-        unset($this->mysqli_result);
+        unset($this->mysqliResult);
     }
 
     /**
@@ -52,7 +52,7 @@ class MockMySQLiResult
      */
     public function __call($method, $arguments)
     {
-        return call_user_func_array([ $this->mysqli_result, $method ], $arguments);
+        return call_user_func_array([ $this->mysqliResult, $method ], $arguments);
     }
 
     /**
@@ -69,7 +69,7 @@ class MockMySQLiResult
             case 'num_rows':
                 return 5;
             default:
-                return $this->mysqli_result->{$name};
+                return $this->mysqliResult->{$name};
         }
     }
 

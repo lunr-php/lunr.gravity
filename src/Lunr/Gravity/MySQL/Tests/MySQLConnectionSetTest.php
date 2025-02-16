@@ -22,7 +22,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      * Sample configuration values.
      * @var array
      */
-    protected array $values_map;
+    protected array $valuesMap;
 
     /**
      * TestCase Constructor.
@@ -31,7 +31,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->emptySetUp();
 
-        $this->values_map = [
+        $this->valuesMap = [
             [ 'rw_host', 'rw_host' ],
             [ 'username', 'username' ],
             [ 'password', 'password' ],
@@ -52,17 +52,17 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsRWHostCorrectly(): void
     {
-        $this->sub_configuration->expects($this->any())
-                                ->method('offsetGet')
-                                ->will($this->returnValueMap($this->values_map));
+        $this->subConfiguration->expects($this->any())
+                               ->method('offsetGet')
+                               ->will($this->returnValueMap($this->valuesMap));
 
-        $property = $this->getReflectionProperty('rw_host');
+        $property = $this->getReflectionProperty('rwHost');
         $property->setValue($this->class, '');
 
         $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
-        $this->assertPropertyEquals('rw_host', $property->getValue($this->class));
+        $this->assertPropertyEquals('rwHost', $property->getValue($this->class));
     }
 
     /**
@@ -72,9 +72,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsUsernameCorrectly(): void
     {
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('user');
         $property->setValue($this->class, '');
@@ -92,9 +92,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsPasswordCorrectly(): void
     {
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('pwd');
         $property->setValue($this->class, '');
@@ -112,9 +112,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsDatabaseCorrectly(): void
     {
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('db');
         $property->setValue($this->class, '');
@@ -132,11 +132,11 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsROHostToRWHostIfItIsNotSet(): void
     {
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
-        $property = $this->getReflectionProperty('ro_host');
+        $property = $this->getReflectionProperty('roHost');
         $property->setValue($this->class, '');
 
         $method = $this->getReflectionMethod('set_configuration');
@@ -152,13 +152,13 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsROHostToRWHostIfItIsEmpty(): void
     {
-        $this->values_map[] = [ 'ro_host', '' ];
+        $this->valuesMap[] = [ 'ro_host', '' ];
 
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
-        $property = $this->getReflectionProperty('ro_host');
+        $property = $this->getReflectionProperty('roHost');
         $property->setValue($this->class, '');
 
         $method = $this->getReflectionMethod('set_configuration');
@@ -174,17 +174,17 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsROHostCorrectly(): void
     {
-        $this->values_map[] = [ 'ro_host', 'ro_host' ];
+        $this->valuesMap[] = [ 'ro_host', 'ro_host' ];
 
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetExists')
                       ->will($this->returnValue(TRUE));
 
-        $property = $this->getReflectionProperty('ro_host');
+        $property = $this->getReflectionProperty('roHost');
         $property->setValue($this->class, '');
 
         $method = $this->getReflectionMethod('set_configuration');
@@ -200,9 +200,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsPortToIniValueIfNotSet(): void
     {
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
         $this->setReflectionPropertyValue('port', 0);
 
@@ -221,9 +221,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->mockFunction('ini_get', fn($arg) => FALSE);
 
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
         $this->setReflectionPropertyValue('port', 0);
 
@@ -242,11 +242,11 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsPortCorrectly(): void
     {
-        $this->values_map[] = [ 'port', 20 ];
+        $this->valuesMap[] = [ 'port', 20 ];
 
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
         $this->setReflectionPropertyValue('port', 0);
 
@@ -263,9 +263,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsSocketToIniValueIfNotSet(): void
     {
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('socket');
         $property->setValue($this->class, '');
@@ -283,11 +283,11 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsSocketCorrectly(): void
     {
-        $this->values_map[] = [ 'socket', 'socket' ];
+        $this->valuesMap[] = [ 'socket', 'socket' ];
 
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('socket');
         $property->setValue($this->class, '');
@@ -305,11 +305,11 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsSSLKeyCorrectly(): void
     {
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
-        $property = $this->getReflectionProperty('ssl_key');
+        $property = $this->getReflectionProperty('sslKey');
         $property->setValue($this->class, '');
 
         $method = $this->getReflectionMethod('set_configuration');
@@ -325,11 +325,11 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsSSLCertCorrectly(): void
     {
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
-        $property = $this->getReflectionProperty('ssl_cert');
+        $property = $this->getReflectionProperty('sslCert');
         $property->setValue($this->class, '');
 
         $method = $this->getReflectionMethod('set_configuration');
@@ -345,11 +345,11 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsCACertCorrectly(): void
     {
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
-        $property = $this->getReflectionProperty('ca_cert');
+        $property = $this->getReflectionProperty('caCert');
         $property->setValue($this->class, '');
 
         $method = $this->getReflectionMethod('set_configuration');
@@ -365,11 +365,11 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsCAPathCorrectly(): void
     {
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
-        $property = $this->getReflectionProperty('ca_path');
+        $property = $this->getReflectionProperty('caPath');
         $property->setValue($this->class, '');
 
         $method = $this->getReflectionMethod('set_configuration');
@@ -385,9 +385,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsCipherCorrectly(): void
     {
-        $this->sub_configuration->expects($this->any())
+        $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($this->values_map));
+                      ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('cipher');
         $property->setValue($this->class, '');

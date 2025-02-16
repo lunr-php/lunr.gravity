@@ -23,7 +23,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
      */
     public function testErrorMessageIsEmpty(): void
     {
-        $property = $this->reflection->getProperty('error_message');
+        $property = $this->reflection->getProperty('errorMessage');
         $property->setAccessible(TRUE);
 
         $this->assertNull($property->getValue($this->class));
@@ -34,7 +34,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
      */
     public function testErrorNumberIsZero(): void
     {
-        $property = $this->reflection->getProperty('error_number');
+        $property = $this->reflection->getProperty('errorNumber');
         $property->setAccessible(TRUE);
 
         $this->assertNull($property->getValue($this->class));
@@ -45,7 +45,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
      */
     public function testInsertIDIsZero(): void
     {
-        $property = $this->reflection->getProperty('insert_id');
+        $property = $this->reflection->getProperty('insertId');
         $property->setAccessible(TRUE);
 
         $this->assertNull($property->getValue($this->class));
@@ -56,7 +56,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
      */
     public function testAffectedRowsIsNumber(): void
     {
-        $property = $this->reflection->getProperty('affected_rows');
+        $property = $this->reflection->getProperty('affectedRows');
         $property->setAccessible(TRUE);
 
         $this->assertNull($property->getValue($this->class));
@@ -67,7 +67,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
      */
     public function testNumberOfRowsIsNumber(): void
     {
-        $property = $this->reflection->getProperty('num_rows');
+        $property = $this->reflection->getProperty('numRows');
         $property->setAccessible(TRUE);
 
         $this->assertNull($property->getValue($this->class));
@@ -297,7 +297,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
 
         $method->invoke($this->class);
 
-        $property = $this->reflection->getProperty('error_message');
+        $property = $this->reflection->getProperty('errorMessage');
         $property->setAccessible(TRUE);
 
         $this->assertEquals('', $property->getValue($this->class));
@@ -324,7 +324,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
 
         $method->invoke($this->class);
 
-        $property = $this->reflection->getProperty('error_number');
+        $property = $this->reflection->getProperty('errorNumber');
         $property->setAccessible(TRUE);
 
         $this->assertEquals(0, $property->getValue($this->class));
@@ -351,7 +351,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
 
         $method->invoke($this->class);
 
-        $property = $this->reflection->getProperty('insert_id');
+        $property = $this->reflection->getProperty('insertId');
         $property->setAccessible(TRUE);
 
         $this->assertEquals(0, $property->getValue($this->class));
@@ -378,7 +378,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
 
         $method->invoke($this->class);
 
-        $property = $this->reflection->getProperty('affected_rows');
+        $property = $this->reflection->getProperty('affectedRows');
         $property->setAccessible(TRUE);
 
         $this->assertEquals(10, $property->getValue($this->class));
@@ -405,7 +405,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
 
         $method->invoke($this->class);
 
-        $property = $this->reflection->getProperty('num_rows');
+        $property = $this->reflection->getProperty('numRows');
         $property->setAccessible(TRUE);
 
         $this->assertEquals(10, $property->getValue($this->class));

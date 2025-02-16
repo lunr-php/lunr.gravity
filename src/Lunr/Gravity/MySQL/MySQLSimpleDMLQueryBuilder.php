@@ -184,15 +184,15 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
     /**
      * Define a DELETE clause.
      *
-     * @param string $table_references The table references to delete from
+     * @param string $tableReferences The table references to delete from
      *
      * @return $this Self reference
      */
-    public function delete($table_references): static
+    public function delete($tableReferences): static
     {
         $tables = '';
 
-        foreach (explode(',', $table_references) as $table)
+        foreach (explode(',', $tableReferences) as $table)
         {
             $tables .= $this->escape_alias($table, TRUE) . ', ';
         }
@@ -273,15 +273,15 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
     /**
      * Define a UPDATE clause.
      *
-     * @param string $table_references The tables to update
+     * @param string $tableReferences The tables to update
      *
      * @return $this Self reference
      */
-    public function update($table_references): static
+    public function update($tableReferences): static
     {
         $tables = '';
 
-        foreach (explode(',', $table_references) as $table)
+        foreach (explode(',', $tableReferences) as $table)
         {
             $tables .= $this->escape_alias($table, TRUE) . ', ';
         }
@@ -313,44 +313,44 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
     /**
      * Define FROM clause of the SQL statement.
      *
-     * @param string $table_reference Table reference
-     * @param array  $index_hints     Array of Index Hints
+     * @param string $tableReference Table reference
+     * @param array  $indexHints     Array of Index Hints
      *
      * @return $this Self reference
      */
-    public function from($table_reference, $index_hints = NULL): static
+    public function from($tableReference, $indexHints = NULL): static
     {
-        $this->builder->from($this->escape_alias($table_reference), $index_hints);
+        $this->builder->from($this->escape_alias($tableReference), $indexHints);
         return $this;
     }
 
     /**
      * Define JOIN clause of the SQL statement.
      *
-     * @param string $table_reference Table reference
-     * @param string $type            Type of JOIN operation to perform.
-     * @param array  $index_hints     Array of Index Hints
+     * @param string $tableReference Table reference
+     * @param string $type           Type of JOIN operation to perform.
+     * @param array  $indexHints     Array of Index Hints
      *
      * @return $this Self reference
      */
-    public function join($table_reference, $type = 'INNER', $index_hints = NULL): static
+    public function join($tableReference, $type = 'INNER', $indexHints = NULL): static
     {
-        $this->builder->join($this->escape_alias($table_reference), $type, $index_hints);
+        $this->builder->join($this->escape_alias($tableReference), $type, $indexHints);
         return $this;
     }
 
     /**
      * Define USING part of the SQL statement.
      *
-     * @param string $column_list Columns to use.
+     * @param string $columnList Columns to use.
      *
      * @return $this Self reference
      */
-    public function using($column_list): static
+    public function using($columnList): static
     {
         $columns = '';
 
-        foreach (explode(',', $column_list) as $column)
+        foreach (explode(',', $columnList) as $column)
         {
             $columns .= $this->escaper->column(trim($column)) . ', ';
         }
@@ -862,46 +862,46 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
     /**
      * Define a UNION or UNION ALL clause of the SQL statement.
      *
-     * @param string $sql_query SQL query reference
-     * @param string $type      Type of UNION operation to perform.
+     * @param string $sqlQuery SQL query reference
+     * @param string $type     Type of UNION operation to perform.
      *
      * @return $this Self reference
      */
-    public function union(string $sql_query, string $type = ''): static
+    public function union(string $sqlQuery, string $type = ''): static
     {
-        $this->builder->union($this->escaper->query_value($sql_query), $type);
+        $this->builder->union($this->escaper->query_value($sqlQuery), $type);
         return $this;
     }
 
     /**
      * Define a with clause.
      *
-     * @param string $alias        The alias of the WITH statement
-     * @param string $sql_query    Sql query reference
-     * @param array  $column_names An optional parameter to give the result columns a name
+     * @param string $alias       The alias of the WITH statement
+     * @param string $sqlQuery    Sql query reference
+     * @param array  $columnNames An optional parameter to give the result columns a name
      *
      * @return $this Self reference
      */
-    public function with($alias, $sql_query, $column_names = NULL): static
+    public function with($alias, $sqlQuery, $columnNames = NULL): static
     {
-        $this->builder->with($alias, $sql_query, $column_names);
+        $this->builder->with($alias, $sqlQuery, $columnNames);
         return $this;
     }
 
     /**
      * Define a recursive WITH clause.
      *
-     * @param string $alias           The alias of the WITH statement
-     * @param string $anchor_query    The initial select statement
-     * @param string $recursive_query The select statement that selects recursively out of the initial query
-     * @param bool   $union_all       True for UNION ALL false for UNION
-     * @param array  $column_names    An optional parameter to give the result columns a name
+     * @param string $alias          The alias of the WITH statement
+     * @param string $anchorQuery    The initial select statement
+     * @param string $recursiveQuery The select statement that selects recursively out of the initial query
+     * @param bool   $unionAll       True for UNION ALL false for UNION
+     * @param array  $columnNames    An optional parameter to give the result columns a name
      *
      * @return $this Self reference
      */
-    public function with_recursive($alias, $anchor_query, $recursive_query, $union_all = FALSE, $column_names = NULL): static
+    public function with_recursive($alias, $anchorQuery, $recursiveQuery, $unionAll = FALSE, $columnNames = NULL): static
     {
-        $this->builder->with_recursive($alias, $anchor_query, $recursive_query, $union_all, $column_names);
+        $this->builder->with_recursive($alias, $anchorQuery, $recursiveQuery, $unionAll, $columnNames);
         return $this;
     }
 
@@ -921,28 +921,28 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
     /**
      * Escape a table reference.
      *
-     * @param string $location_reference A location reference
-     * @param bool   $table              Whether to escape a table or a result_column
+     * @param string $locationReference A location reference
+     * @param bool   $table             Whether to escape a table or a result_column
      *
      * @return string Escaped location reference
      */
-    protected function escape_alias($location_reference, $table = TRUE): string
+    protected function escape_alias($locationReference, $table = TRUE): string
     {
         $method = $table ? 'table' : 'result_column';
 
-        if (strpos($location_reference, ' AS '))
+        if (strpos($locationReference, ' AS '))
         {
-            $parts = explode(' AS ', $location_reference);
+            $parts = explode(' AS ', $locationReference);
             return $this->escaper->{$method}($parts[0], $parts[1]);
         }
-        elseif (strpos($location_reference, ' as '))
+        elseif (strpos($locationReference, ' as '))
         {
-            $parts = explode(' as ', $location_reference);
+            $parts = explode(' as ', $locationReference);
             return $this->escaper->{$method}($parts[0], $parts[1]);
         }
         else
         {
-            return $this->escaper->{$method}($location_reference);
+            return $this->escaper->{$method}($locationReference);
         }
     }
 

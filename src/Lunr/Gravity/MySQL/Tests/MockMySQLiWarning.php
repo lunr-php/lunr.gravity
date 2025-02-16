@@ -38,22 +38,22 @@ class MockMySQLiWarning
      * The next MockMySQLiWarning or FALSE if no next warning for the next() method
      * @var MockMySQLiWarning|boolean
      */
-    public $next_warning;
+    public $nextWarning;
 
     /**
      * Constructor.
      *
-     * @param string                 $message      Message of the warning
-     * @param string                 $sqlstate     Sqlstate of the warning
-     * @param int                    $errno        Error number of the warning
-     * @param MockMySQLiWarning|bool $next_warning Next warning for the next() method
+     * @param string                 $message     Message of the warning
+     * @param string                 $sqlstate    Sqlstate of the warning
+     * @param int                    $errno       Error number of the warning
+     * @param MockMySQLiWarning|bool $nextWarning Next warning for the next() method
      */
-    public function __construct($message, $sqlstate, $errno, $next_warning)
+    public function __construct($message, $sqlstate, $errno, $nextWarning)
     {
-        $this->message      = $message;
-        $this->sqlstate     = $sqlstate;
-        $this->errno        = $errno;
-        $this->next_warning = $next_warning;
+        $this->message     = $message;
+        $this->sqlstate    = $sqlstate;
+        $this->errno       = $errno;
+        $this->nextWarning = $nextWarning;
     }
 
     /**
@@ -64,15 +64,15 @@ class MockMySQLiWarning
      */
     public function next()
     {
-        if (!$this->next_warning)
+        if (!$this->nextWarning)
         {
             return FALSE;
         }
 
-        $this->message      = $this->next_warning->message;
-        $this->sqlstate     = $this->next_warning->sqlstate;
-        $this->errno        = $this->next_warning->errno;
-        $this->next_warning = $this->next_warning->next_warning;
+        $this->message     = $this->nextWarning->message;
+        $this->sqlstate    = $this->nextWarning->sqlstate;
+        $this->errno       = $this->nextWarning->errno;
+        $this->nextWarning = $this->nextWarning->nextWarning;
 
         return TRUE;
     }

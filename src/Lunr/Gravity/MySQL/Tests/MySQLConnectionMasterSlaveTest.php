@@ -27,7 +27,7 @@ class MySQLConnectionMasterSlaveTest extends MySQLConnectionTestCase
     {
         $this->class->run_on_master();
 
-        $this->assertPropertyEquals('query_hint', '/* maxscale route to master */');
+        $this->assertPropertyEquals('queryHint', '/* maxscale route to master */');
     }
 
     /**
@@ -39,7 +39,7 @@ class MySQLConnectionMasterSlaveTest extends MySQLConnectionTestCase
     {
         $this->class->run_on_slave();
 
-        $this->assertPropertyEquals('query_hint', '/* maxscale route to slave */');
+        $this->assertPropertyEquals('queryHint', '/* maxscale route to slave */');
     }
 
     /**
@@ -51,7 +51,7 @@ class MySQLConnectionMasterSlaveTest extends MySQLConnectionTestCase
     {
         $this->class->run_on_master('maxscale');
 
-        $this->assertPropertyEquals('query_hint', '/* maxscale route to master */');
+        $this->assertPropertyEquals('queryHint', '/* maxscale route to master */');
     }
 
     /**
@@ -63,7 +63,7 @@ class MySQLConnectionMasterSlaveTest extends MySQLConnectionTestCase
     {
         $this->class->run_on_slave('maxscale');
 
-        $this->assertPropertyEquals('query_hint', '/* maxscale route to slave */');
+        $this->assertPropertyEquals('queryHint', '/* maxscale route to slave */');
     }
 
     /**

@@ -34,7 +34,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $this->setReflectionPropertyValue('mysqli', $mysqli);
         $this->setReflectionPropertyValue('readonly', TRUE);
-        $this->setReflectionPropertyValue('ro_host', 'ro_host');
+        $this->setReflectionPropertyValue('roHost', 'ro_host');
 
         $port   = ini_get('mysqli.default_port');
         $socket = ini_get('mysqli.default_socket');
@@ -105,10 +105,10 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
         $port   = ini_get('mysqli.default_port');
         $socket = ini_get('mysqli.default_socket');
 
-        $this->setReflectionPropertyValue('ssl_key', 'ssl_key');
-        $this->setReflectionPropertyValue('ssl_cert', 'ssl_cert');
-        $this->setReflectionPropertyValue('ca_cert', 'ca_cert');
-        $this->setReflectionPropertyValue('ca_path', 'ca_path');
+        $this->setReflectionPropertyValue('sslKey', 'ssl_key');
+        $this->setReflectionPropertyValue('sslCert', 'ssl_cert');
+        $this->setReflectionPropertyValue('caCert', 'ca_cert');
+        $this->setReflectionPropertyValue('caPath', 'ca_path');
         $this->setReflectionPropertyValue('cipher', 'cipher');
 
         $mysqli->expects($this->once())
@@ -145,10 +145,10 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
         $port   = ini_get('mysqli.default_port');
         $socket = ini_get('mysqli.default_socket');
 
-        $this->setReflectionPropertyValue('ssl_key', 'ssl_key');
-        $this->setReflectionPropertyValue('ssl_cert', 'ssl_cert');
-        $this->setReflectionPropertyValue('ca_cert', 'ca_cert');
-        $this->setReflectionPropertyValue('ca_path', 'ca_path');
+        $this->setReflectionPropertyValue('sslKey', 'ssl_key');
+        $this->setReflectionPropertyValue('sslCert', 'ssl_cert');
+        $this->setReflectionPropertyValue('caCert', 'ca_cert');
+        $this->setReflectionPropertyValue('caPath', 'ca_path');
         $this->setReflectionPropertyValue('cipher', 'cipher');
 
         $mysqli->expects($this->exactly(5))
@@ -223,10 +223,10 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
         $port   = ini_get('mysqli.default_port');
         $socket = ini_get('mysqli.default_socket');
 
-        $this->setReflectionPropertyValue('ssl_key', 'ssl_key');
-        $this->setReflectionPropertyValue('ssl_cert', 'ssl_cert');
-        $this->setReflectionPropertyValue('ca_cert', 'ca_cert');
-        $this->setReflectionPropertyValue('ca_path', 'ca_path');
+        $this->setReflectionPropertyValue('sslKey', 'ssl_key');
+        $this->setReflectionPropertyValue('sslCert', 'ssl_cert');
+        $this->setReflectionPropertyValue('caCert', 'ca_cert');
+        $this->setReflectionPropertyValue('caPath', 'ca_path');
         $this->setReflectionPropertyValue('cipher', 'cipher');
 
         $mysqli->expects($this->exactly(5))
@@ -291,11 +291,11 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
      */
     public function testConnectFailsWhenDriverIsNotMysql(): void
     {
-        $sub_configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
+        $subConfiguration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
-        $map = [ [ 'db', $sub_configuration ] ];
+        $map = [ [ 'db', $subConfiguration ] ];
 
         $configuration->expects($this->any())
                       ->method('offsetGet')
@@ -309,7 +309,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
             [ 'driver', 'not_mysql' ],
         ];
 
-        $sub_configuration->expects($this->any())
+        $subConfiguration->expects($this->any())
                           ->method('offsetGet')
                           ->will($this->returnValueMap($map));
 

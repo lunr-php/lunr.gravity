@@ -73,11 +73,11 @@ class MySQLAsyncQueryResult extends MySQLQueryResult
 
         $this->fetched = TRUE;
 
-        $this->error_message = $this->mysqli->error;
-        $this->error_number  = $this->mysqli->errno;
-        $this->insert_id     = $this->mysqli->insert_id;
-        $this->affected_rows = mysqli_affected_rows($this->mysqli);
-        $this->num_rows      = is_object($this->result) ? mysqli_num_rows($this->result) : $this->affected_rows;
+        $this->errorMessage = $this->mysqli->error;
+        $this->errorNumber  = $this->mysqli->errno;
+        $this->insertId     = $this->mysqli->insert_id;
+        $this->affectedRows = mysqli_affected_rows($this->mysqli);
+        $this->numRows      = is_object($this->result) ? mysqli_num_rows($this->result) : $this->affectedRows;
     }
 
     /**

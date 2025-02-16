@@ -38,22 +38,22 @@ class MySQLConnectionEscapeTest extends MySQLConnectionTestCase
     /**
      * Test that escape_string() properly escapes the given string.
      *
-     * @param string $string       String to escape
-     * @param string $part_escaped Partially escaped string (as returned by mysqli_escape_string)
-     * @param string $escaped      Expected escaped string
+     * @param string $string      String to escape
+     * @param string $partEscaped Partially escaped string (as returned by mysqli_escape_string)
+     * @param string $escaped     Expected escaped string
      *
      * @dataProvider escapeStringProvider
      * @requires     extension mysqli
      * @covers       Lunr\Gravity\MySQL\MySQLConnection::escape_string
      */
-    public function testEscapeString($string, $part_escaped, $escaped): void
+    public function testEscapeString($string, $partEscaped, $escaped): void
     {
         $property = $this->getReflectionProperty('connected');
         $property->setValue($this->class, TRUE);
 
         $this->mysqli->expects($this->once())
                      ->method('escape_string')
-                     ->will($this->returnValue($part_escaped));
+                     ->will($this->returnValue($partEscaped));
 
         $value = $this->class->escape_string($string);
 

@@ -23,6 +23,9 @@ use ReflectionClass;
 /**
  * This class contains setup and tear down methods for DAOs using MySQL access.
  *
+ * phpcs:disable Lunr.NamingConventions.CamelCapsVariableName.NotCamelCaps
+ * phpcs:disable Lunr.NamingConventions.CamelCapsVariableName.MemberVarNotCamelCaps
+ *
  * @deprecated Use `AbstractMySQLDatabaseAccessObjectTest` instead
  */
 abstract class AbstractMySQLDatabaseAccessObjectLegacyTest extends LegacyBaseTest

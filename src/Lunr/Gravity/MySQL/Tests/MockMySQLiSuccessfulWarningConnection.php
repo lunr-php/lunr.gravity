@@ -23,9 +23,9 @@ class MockMySQLiSuccessfulWarningConnection extends MockMySQLiSuccessfulConnecti
      */
     public function get_warnings()
     {
-        $mysqli_warning = new MockMySQLiWarning("Data truncated for column 'a' at row 1", 'HY000', 1265, FALSE);
+        $mysqliWarning = new MockMySQLiWarning("Data truncated for column 'a' at row 1", 'HY000', 1265, FALSE);
 
-        return new MockMySQLiWarning("Field 'c' doesn't have a default value", 'HY000', 1364, $mysqli_warning);
+        return new MockMySQLiWarning("Field 'c' doesn't have a default value", 'HY000', 1364, $mysqliWarning);
     }
 
 }

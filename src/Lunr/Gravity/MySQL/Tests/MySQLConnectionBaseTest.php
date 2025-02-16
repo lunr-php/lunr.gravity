@@ -44,7 +44,7 @@ class MySQLConnectionBaseTest extends MySQLConnectionTestCase
      */
     public function testRWHostIsSetCorrectly(): void
     {
-        $this->assertPropertyEquals('rw_host', 'rw_host');
+        $this->assertPropertyEquals('rwHost', 'rw_host');
     }
 
     /**
@@ -52,7 +52,7 @@ class MySQLConnectionBaseTest extends MySQLConnectionTestCase
      */
     public function testROHostIsSetToRWHost(): void
     {
-        $this->assertPropertyEquals('ro_host', 'rw_host');
+        $this->assertPropertyEquals('roHost', 'rw_host');
     }
 
     /**
@@ -100,7 +100,7 @@ class MySQLConnectionBaseTest extends MySQLConnectionTestCase
      */
     public function testQueryHintIsEmpty(): void
     {
-        $this->assertPropertySame('query_hint', '');
+        $this->assertPropertySame('queryHint', '');
     }
 
     /**
@@ -108,7 +108,7 @@ class MySQLConnectionBaseTest extends MySQLConnectionTestCase
      */
     public function testSSLKeyIsSetCorrectly(): void
     {
-        $this->assertPropertyEquals('ssl_key', NULL);
+        $this->assertPropertyEquals('sslKey', NULL);
     }
 
     /**
@@ -116,7 +116,7 @@ class MySQLConnectionBaseTest extends MySQLConnectionTestCase
      */
     public function testSSLCertIsSetCorrectly(): void
     {
-        $this->assertPropertyEquals('ssl_cert', NULL);
+        $this->assertPropertyEquals('sslCert', NULL);
     }
 
     /**
@@ -124,7 +124,7 @@ class MySQLConnectionBaseTest extends MySQLConnectionTestCase
      */
     public function testCACertIsSetCorrectly(): void
     {
-        $this->assertPropertyEquals('ca_cert', NULL);
+        $this->assertPropertyEquals('caCert', NULL);
     }
 
     /**
@@ -132,7 +132,7 @@ class MySQLConnectionBaseTest extends MySQLConnectionTestCase
      */
     public function testCAPathIsSetCorrectly(): void
     {
-        $this->assertPropertyEquals('ca_path', NULL);
+        $this->assertPropertyEquals('caPath', NULL);
     }
 
     /**
@@ -158,6 +158,7 @@ class MySQLConnectionBaseTest extends MySQLConnectionTestCase
     {
         $driver = new MySQLi_Driver();
 
+        // phpcs:ignore Lunr.NamingConventions.CamelCapsVariableName.NotCamelCaps
         $this->assertEquals($driver->report_mode, MYSQLI_REPORT_ERROR);
     }
 

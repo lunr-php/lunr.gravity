@@ -27,13 +27,13 @@ class MySQLConnection extends DatabaseConnection
      * Hostname of the database server (read/write access)
      * @var string|null
      */
-    protected ?string $rw_host;
+    protected ?string $rwHost;
 
     /**
      * Hostname of the database server (readonly access)
      * @var string|null
      */
-    protected ?string $ro_host;
+    protected ?string $roHost;
 
     /**
      * Username of the user used to connect to the database
@@ -75,31 +75,31 @@ class MySQLConnection extends DatabaseConnection
      * SQL hint to send along with the query.
      * @var string
      */
-    protected string $query_hint;
+    protected string $queryHint;
 
     /**
      * The path name to the key file.
      * @var string|null
      */
-    protected ?string $ssl_key;
+    protected ?string $sslKey;
 
     /**
      * The path name to the certificate file.
      * @var string|null
      */
-    protected ?string $ssl_cert;
+    protected ?string $sslCert;
 
     /**
      * The path name to the certificate authority file.
      * @var string|null
      */
-    protected ?string $ca_cert;
+    protected ?string $caCert;
 
     /**
      * The pathname to a directory that contains trusted SSL CA certificates in PEM format.
      * @var string|null
      */
-    protected ?string $ca_path;
+    protected ?string $caPath;
 
     /**
      * A list of allowable ciphers to use for SSL encryption.
@@ -138,7 +138,7 @@ class MySQLConnection extends DatabaseConnection
 
         $this->mysqli =& $mysqli;
 
-        $this->query_hint                                 = '';
+        $this->queryHint                                  = '';
         $this->options[ MYSQLI_OPT_INT_AND_FLOAT_NATIVE ] = TRUE;
 
         $this->set_configuration();
@@ -158,18 +158,18 @@ class MySQLConnection extends DatabaseConnection
         }
 
         unset($this->mysqli);
-        unset($this->rw_host);
-        unset($this->ro_host);
+        unset($this->rwHost);
+        unset($this->roHost);
         unset($this->user);
         unset($this->pwd);
         unset($this->db);
         unset($this->port);
         unset($this->socket);
-        unset($this->query_hint);
-        unset($this->ssl_key);
-        unset($this->ssl_cert);
-        unset($this->ca_cert);
-        unset($this->ca_path);
+        unset($this->queryHint);
+        unset($this->sslKey);
+        unset($this->sslCert);
+        unset($this->caCert);
+        unset($this->caPath);
         unset($this->cipher);
 
         parent::__destruct();
@@ -182,23 +182,23 @@ class MySQLConnection extends DatabaseConnection
      */
     private function set_configuration(): void
     {
-        $this->rw_host  = $this->configuration['db']['rw_host'];
-        $this->user     = $this->configuration['db']['username'];
-        $this->pwd      = $this->configuration['db']['password'];
-        $this->db       = $this->configuration['db']['database'];
-        $this->ssl_key  = $this->configuration['db']['ssl_key'];
-        $this->ssl_cert = $this->configuration['db']['ssl_cert'];
-        $this->ca_cert  = $this->configuration['db']['ca_cert'];
-        $this->ca_path  = $this->configuration['db']['ca_path'];
-        $this->cipher   = $this->configuration['db']['cipher'];
+        $this->rwHost  = $this->configuration['db']['rw_host'];
+        $this->user    = $this->configuration['db']['username'];
+        $this->pwd     = $this->configuration['db']['password'];
+        $this->db      = $this->configuration['db']['database'];
+        $this->sslKey  = $this->configuration['db']['ssl_key'];
+        $this->sslCert = $this->configuration['db']['ssl_cert'];
+        $this->caCert  = $this->configuration['db']['ca_cert'];
+        $this->caPath  = $this->configuration['db']['ca_path'];
+        $this->cipher  = $this->configuration['db']['cipher'];
 
         if ($this->configuration['db']['ro_host'] != NULL)
         {
-            $this->ro_host = $this->configuration['db']['ro_host'];
+            $this->roHost = $this->configuration['db']['ro_host'];
         }
         else
         {
-            $this->ro_host = $this->rw_host;
+            $this->roHost = $this->rwHost;
         }
 
         if ($this->configuration['db']['port'] != NULL)
@@ -223,11 +223,11 @@ class MySQLConnection extends DatabaseConnection
     /**
      * Establishes a connection to the defined mysql-server.
      *
-     * @param int $reconnect_count How often we already tried to connect.
+     * @param int $reconnectCount How often we already tried to connect.
      *
      * @return void
      */
-    public function connect(int $reconnect_count = 0): void
+    public function connect(int $reconnectCount = 0): void
     {
         if ($this->connected === TRUE)
         {
@@ -239,16 +239,16 @@ class MySQLConnection extends DatabaseConnection
             throw new ConnectionException('Cannot connect to a non-mysql database connection!');
         }
 
-        if ($reconnect_count > static::RECONNECT_LIMIT)
+        if ($reconnectCount > static::RECONNECT_LIMIT)
         {
             throw new ConnectionException('Could not establish connection to the database! Exceeded reconnect count!');
         }
 
-        $host = ($this->readonly === TRUE) ? $this->ro_host : $this->rw_host;
+        $host = ($this->readonly === TRUE) ? $this->roHost : $this->rwHost;
 
-        if (isset($this->ssl_key, $this->ssl_cert, $this->ca_cert))
+        if (isset($this->sslKey, $this->sslCert, $this->caCert))
         {
-            $this->mysqli->ssl_set($this->ssl_key, $this->ssl_cert, $this->ca_cert, $this->ca_path, $this->cipher);
+            $this->mysqli->ssl_set($this->sslKey, $this->sslCert, $this->caCert, $this->caPath, $this->cipher);
         }
 
         foreach ($this->options as $key => $value)
@@ -266,7 +266,7 @@ class MySQLConnection extends DatabaseConnection
             {
                 // manual re-connect
                 $this->disconnect();
-                $this->connect(++$reconnect_count);
+                $this->connect(++$reconnectCount);
             }
         }
 
@@ -397,7 +397,7 @@ class MySQLConnection extends DatabaseConnection
         switch ($style)
         {
             case 'maxscale':
-                $this->query_hint = '/* maxscale route to master */';
+                $this->queryHint = '/* maxscale route to master */';
                 break;
             default:
                 break;
@@ -418,7 +418,7 @@ class MySQLConnection extends DatabaseConnection
         switch ($style)
         {
             case 'maxscale':
-                $this->query_hint = '/* maxscale route to slave */';
+                $this->queryHint = '/* maxscale route to slave */';
                 break;
             default:
                 break;
@@ -430,47 +430,47 @@ class MySQLConnection extends DatabaseConnection
     /**
      * Run a SQL query.
      *
-     * @param string $sql_query The SQL query to run on the database
+     * @param string $sqlQuery The SQL query to run on the database
      *
      * @return MySQLQueryResult $result Query Result
      */
-    public function query($sql_query): MySQLQueryResult
+    public function query($sqlQuery): MySQLQueryResult
     {
         $this->connect();
 
-        $sql_query        = $this->query_hint . $sql_query;
-        $this->query_hint = '';
+        $sqlQuery        = $this->queryHint . $sqlQuery;
+        $this->queryHint = '';
 
-        $this->logger->debug('query: {query}', [ 'query' => $sql_query ]);
+        $this->logger->debug('query: {query}', [ 'query' => $sqlQuery ]);
 
-        $query_start = microtime(TRUE);
-        $result      = $this->mysqli->query($sql_query);
-        $query_end   = microtime(TRUE);
+        $queryStart = microtime(TRUE);
+        $result     = $this->mysqli->query($sqlQuery);
+        $queryEnd   = microtime(TRUE);
 
-        $this->logger->debug('Query executed in ' . ($query_end - $query_start) . ' seconds');
+        $this->logger->debug('Query executed in ' . ($queryEnd - $queryStart) . ' seconds');
 
-        return new MySQLQueryResult($sql_query, $result, $this->mysqli);
+        return new MySQLQueryResult($sqlQuery, $result, $this->mysqli);
     }
 
     /**
      * Run an asynchronous SQL query.
      *
-     * @param string $sql_query The SQL query to run on the database
+     * @param string $sqlQuery The SQL query to run on the database
      *
      * @return MySQLAsyncQueryResult $result Query Result
      */
-    public function async_query(string $sql_query): MySQLAsyncQueryResult
+    public function async_query(string $sqlQuery): MySQLAsyncQueryResult
     {
         $this->connect();
 
-        $sql_query        = $this->query_hint . $sql_query;
-        $this->query_hint = '';
+        $sqlQuery        = $this->queryHint . $sqlQuery;
+        $this->queryHint = '';
 
-        $this->logger->debug('query: {query}', [ 'query' => $sql_query ]);
+        $this->logger->debug('query: {query}', [ 'query' => $sqlQuery ]);
 
-        $this->mysqli->query($sql_query, MYSQLI_ASYNC);
+        $this->mysqli->query($sqlQuery, MYSQLI_ASYNC);
 
-        return new MySQLAsyncQueryResult($sql_query, $this->mysqli);
+        return new MySQLAsyncQueryResult($sqlQuery, $this->mysqli);
     }
 
     /**

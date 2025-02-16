@@ -40,7 +40,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      * The canonicalized query string that was executed.
      * @var string
      */
-    protected readonly string $canonical_query;
+    protected readonly string $canonicalQuery;
 
     /**
      * Return value from mysqli->query().
@@ -70,13 +70,13 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      * Description of the error.
      * @var string
      */
-    protected $error_message;
+    protected $errorMessage;
 
     /**
      * Error code.
      * @var int
      */
-    protected $error_number;
+    protected $errorNumber;
 
     /**
      * Warnings from Mysqli or NULL if no warnings
@@ -88,19 +88,19 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      * Autoincremented ID generated on last insert.
      * @var mixed
      */
-    protected $insert_id;
+    protected $insertId;
 
     /**
      * Number of affected rows.
      * @var int|string
      */
-    protected $affected_rows;
+    protected $affectedRows;
 
     /**
      * Number of rows in the result set.
      * @var int
      */
-    protected $num_rows;
+    protected $numRows;
 
     /**
      * Constructor.
@@ -129,11 +129,11 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
 
         if ($async === FALSE)
         {
-            $this->error_message = $mysqli->error;
-            $this->error_number  = $mysqli->errno;
-            $this->insert_id     = $mysqli->insert_id;
-            $this->affected_rows = mysqli_affected_rows($mysqli);
-            $this->num_rows      = is_object($this->result) ? mysqli_num_rows($result) : $this->affected_rows;
+            $this->errorMessage = $this->mysqli->error;
+            $this->errorNumber  = $this->mysqli->errno;
+            $this->insertId     = $this->mysqli->insert_id;
+            $this->affectedRows = mysqli_affected_rows($this->mysqli);
+            $this->numRows      = is_object($this->result) ? mysqli_num_rows($result) : $this->affectedRows;
 
             $this->set_warnings();
         }
@@ -150,9 +150,9 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
         unset($this->result);
         unset($this->success);
         unset($this->freed);
-        unset($this->error_message);
-        unset($this->error_number);
-        unset($this->insert_id);
+        unset($this->errorMessage);
+        unset($this->errorNumber);
+        unset($this->insertId);
         unset($this->query);
         unset($this->warnings);
     }
@@ -188,7 +188,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      */
     public function has_deadlock()
     {
-        return ($this->error_number == self::DEADLOCK_ERR_CODE) ? TRUE : FALSE;
+        return ($this->errorNumber == self::DEADLOCK_ERR_CODE) ? TRUE : FALSE;
     }
 
     /**
@@ -198,7 +198,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      */
     public function has_lock_timeout()
     {
-        return $this->error_number == self::LOCK_TIMEOUT_ERR_CODE;
+        return $this->errorNumber == self::LOCK_TIMEOUT_ERR_CODE;
     }
 
     /**
@@ -208,7 +208,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      */
     public function error_message()
     {
-        return $this->error_message;
+        return $this->errorMessage;
     }
 
     /**
@@ -218,7 +218,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      */
     public function error_number()
     {
-        return $this->error_number;
+        return $this->errorNumber;
     }
 
     /**
@@ -239,9 +239,9 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      */
     protected function set_warnings()
     {
-        $mysqli_warnings = $this->mysqli->get_warnings();
+        $mysqliWarnings = $this->mysqli->get_warnings();
 
-        if ($mysqli_warnings == FALSE)
+        if ($mysqliWarnings == FALSE)
         {
             $this->warnings = NULL;
             return;
@@ -249,13 +249,13 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
 
         do
         {
-            $warning['message']  = $mysqli_warnings->message;
-            $warning['sqlstate'] = $mysqli_warnings->sqlstate;
-            $warning['errno']    = $mysqli_warnings->errno;
+            $warning['message']  = $mysqliWarnings->message;
+            $warning['sqlstate'] = $mysqliWarnings->sqlstate;
+            $warning['errno']    = $mysqliWarnings->errno;
 
             $this->warnings[] = $warning;
         }
-        while ($mysqli_warnings->next());
+        while ($mysqliWarnings->next());
     }
 
     /**
@@ -266,7 +266,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      */
     public function insert_id()
     {
-        return $this->insert_id;
+        return $this->insertId;
     }
 
     /**
@@ -288,7 +288,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      */
     public function affected_rows()
     {
-        return $this->affected_rows;
+        return $this->affectedRows;
     }
 
     /**
@@ -300,7 +300,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      */
     public function number_of_rows()
     {
-        return $this->num_rows;
+        return $this->numRows;
     }
 
     /**
@@ -315,14 +315,14 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
     {
         $output = [];
 
-        $return_type = $associative ? MYSQLI_ASSOC : MYSQLI_NUM;
+        $returnType = $associative ? MYSQLI_ASSOC : MYSQLI_NUM;
 
         if (!is_object($this->result))
         {
             return $output;
         }
 
-        $output = $this->result->fetch_all($return_type);
+        $output = $this->result->fetch_all($returnType);
 
         $this->free_result();
 
@@ -397,12 +397,12 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      */
     public function canonical_query(): string
     {
-        if (isset($this->canonical_query) === FALSE)
+        if (isset($this->canonicalQuery) === FALSE)
         {
-            $this->canonical_query = new MySQLCanonicalQuery($this->query());
+            $this->canonicalQuery = new MySQLCanonicalQuery($this->query());
         }
 
-        return $this->canonical_query;
+        return $this->canonicalQuery;
     }
 
 }

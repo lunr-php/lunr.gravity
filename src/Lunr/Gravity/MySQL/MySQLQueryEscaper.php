@@ -152,15 +152,15 @@ class MySQLQueryEscaper extends DatabaseQueryEscaper
 
         $keyword = strtoupper($keyword);
 
-        $valid_keywords = [ 'USE', 'IGNORE', 'FORCE' ];
-        $valid_for      = [ 'JOIN', 'ORDER BY', 'GROUP BY', '' ];
+        $validKeywords = [ 'USE', 'IGNORE', 'FORCE' ];
+        $validFor      = [ 'JOIN', 'ORDER BY', 'GROUP BY', '' ];
 
-        if (!in_array($keyword, $valid_keywords))
+        if (!in_array($keyword, $validKeywords))
         {
             $keyword = 'USE';
         }
 
-        if (!in_array($for, $valid_for))
+        if (!in_array($for, $validFor))
         {
             $for = '';
         }

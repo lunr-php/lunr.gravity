@@ -26,7 +26,7 @@ class MySQLDMLQueryBuilderGroupByTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testGroupByWithDefaultOrder(): void
     {
-        $property = $this->builder_reflection->getProperty('groupBy');
+        $property = $this->builderReflection->getProperty('groupBy');
         $property->setAccessible(TRUE);
 
         $this->builder->group_by('group1');
@@ -41,7 +41,7 @@ class MySQLDMLQueryBuilderGroupByTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testGroupByWithCustomOrder(): void
     {
-        $property = $this->builder_reflection->getProperty('groupBy');
+        $property = $this->builderReflection->getProperty('groupBy');
         $property->setAccessible(TRUE);
 
         $this->builder->group_by('group1', FALSE);

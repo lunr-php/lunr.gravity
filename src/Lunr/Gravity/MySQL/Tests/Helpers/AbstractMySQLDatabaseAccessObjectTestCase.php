@@ -47,13 +47,13 @@ abstract class AbstractMySQLDatabaseAccessObjectTestCase extends DatabaseAccessO
      * Real instance of the DMLQueryBuilder class
      * @var MySQLDMLQueryBuilder
      */
-    protected $real_builder;
+    protected $realBuilder;
 
     /**
      * Real instance of the SimpleDMLQueryBuilder class
      * @var MySQLSimpleDMLQueryBuilder
      */
-    protected $real_simple_builder;
+    protected $realSimpleBuilder;
 
     /**
      * Mock instance of the QueryEscaper class
@@ -65,7 +65,7 @@ abstract class AbstractMySQLDatabaseAccessObjectTestCase extends DatabaseAccessO
      * Real instance of the QueryEscaper class
      * @var MySQLQueryEscaper
      */
-    protected $real_escaper;
+    protected $realEscaper;
 
     /**
      * Mock instance of the QueryResult class
@@ -78,17 +78,17 @@ abstract class AbstractMySQLDatabaseAccessObjectTestCase extends DatabaseAccessO
      */
     public function setUp(): void
     {
-        $mock_escaper = $this->getMockBuilder('Lunr\Gravity\DatabaseStringEscaperInterface')
-                             ->getMock();
+        $mockEscaper = $this->getMockBuilder('Lunr\Gravity\DatabaseStringEscaperInterface')
+                            ->getMock();
 
-        $mock_escaper->expects($this->any())
-                     ->method('escape_string')
-                     ->willReturnArgument(0);
+        $mockEscaper->expects($this->any())
+                    ->method('escape_string')
+                    ->willReturnArgument(0);
 
-        $this->real_builder = new MySQLDMLQueryBuilder();
-        $this->real_escaper = new MySQLQueryEscaper($mock_escaper);
+        $this->realBuilder = new MySQLDMLQueryBuilder();
+        $this->realEscaper = new MySQLQueryEscaper($mockEscaper);
 
-        $this->real_simple_builder = new MySQLSimpleDMLQueryBuilder($this->real_builder, $this->real_escaper);
+        $this->realSimpleBuilder = new MySQLSimpleDMLQueryBuilder($this->realBuilder, $this->realEscaper);
 
         $this->db = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLConnection')
                          ->disableOriginalConstructor()
@@ -123,9 +123,9 @@ abstract class AbstractMySQLDatabaseAccessObjectTestCase extends DatabaseAccessO
         unset($this->builder);
         unset($this->escaper);
         unset($this->result);
-        unset($this->real_escaper);
-        unset($this->real_builder);
-        unset($this->real_simple_builder);
+        unset($this->realEscaper);
+        unset($this->realBuilder);
+        unset($this->realSimpleBuilder);
 
         parent::tearDown();
     }

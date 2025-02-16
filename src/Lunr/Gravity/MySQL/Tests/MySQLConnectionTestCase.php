@@ -26,7 +26,7 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
      * Mock instance of the sub Configuration class.
      * @var Configuration
      */
-    protected $sub_configuration;
+    protected $subConfiguration;
 
     /**
      * Mock instance of the Configuration class.
@@ -59,12 +59,12 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
      */
     public function emptySetUp(): void
     {
-        $this->sub_configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
+        $this->subConfiguration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $this->configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $map = [
-            [ 'db', $this->sub_configuration ],
+            [ 'db', $this->subConfiguration ],
         ];
 
         $this->configuration->expects($this->any())
@@ -85,12 +85,12 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
      */
     public function setUp(): void
     {
-        $this->sub_configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
+        $this->subConfiguration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $this->configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $map = [
-            [ 'db', $this->sub_configuration ],
+            [ 'db', $this->subConfiguration ],
         ];
 
         $this->configuration->expects($this->any())
@@ -105,9 +105,9 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
             [ 'driver', 'mysql' ],
         ];
 
-        $this->sub_configuration->expects($this->any())
-                                ->method('offsetGet')
-                                ->will($this->returnValueMap($map));
+        $this->subConfiguration->expects($this->any())
+                               ->method('offsetGet')
+                               ->will($this->returnValueMap($map));
 
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 

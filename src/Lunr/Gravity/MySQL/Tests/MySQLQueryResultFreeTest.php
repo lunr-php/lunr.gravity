@@ -39,7 +39,7 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTestCase
      */
     public function testFreeResultFreesIfFreedIsFalse(): void
     {
-        $this->query_result->expects($this->once())
+        $this->queryResult->expects($this->once())
                     ->method('free');
 
         $method = $this->getReflectionMethod('free_result');
@@ -56,7 +56,7 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTestCase
     {
         $this->setReflectionPropertyValue('freed', TRUE);
 
-        $this->query_result->expects($this->never())
+        $this->queryResult->expects($this->never())
                     ->method('free');
 
         $method = $this->getReflectionMethod('free_result');
@@ -73,8 +73,8 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTestCase
      */
     public function testResultArrayFreesDataIfFreedIsFalse(): void
     {
-        $this->query_result->expects($this->once())
-                           ->method('free');
+        $this->queryResult->expects($this->once())
+                          ->method('free');
 
         $this->class->result_array();
     }
@@ -88,8 +88,8 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTestCase
     {
         $this->setReflectionPropertyValue('freed', TRUE);
 
-        $this->query_result->expects($this->never())
-                           ->method('free');
+        $this->queryResult->expects($this->never())
+                          ->method('free');
 
         $this->class->result_array();
     }
@@ -101,8 +101,8 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTestCase
      */
     public function testResultRowFreesDataIfFreedIsFalse(): void
     {
-        $this->query_result->expects($this->once())
-                           ->method('free');
+        $this->queryResult->expects($this->once())
+                          ->method('free');
 
         $this->class->result_row();
     }
@@ -116,8 +116,8 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTestCase
     {
         $this->setReflectionPropertyValue('freed', TRUE);
 
-        $this->query_result->expects($this->never())
-                           ->method('free');
+        $this->queryResult->expects($this->never())
+                          ->method('free');
 
         $this->class->result_row();
     }
@@ -129,8 +129,8 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTestCase
      */
     public function testResultColumnFreesDataIfFreedIsFalse(): void
     {
-        $this->query_result->expects($this->once())
-                           ->method('free');
+        $this->queryResult->expects($this->once())
+                          ->method('free');
 
         $this->class->result_column('col');
     }
@@ -144,8 +144,8 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTestCase
     {
         $this->setReflectionPropertyValue('freed', TRUE);
 
-        $this->query_result->expects($this->never())
-                           ->method('free');
+        $this->queryResult->expects($this->never())
+                          ->method('free');
 
         $this->class->result_column('col');
     }
@@ -157,8 +157,8 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTestCase
      */
     public function testResultCellFreesDataIfFreedIsFalse(): void
     {
-        $this->query_result->expects($this->once())
-                           ->method('free');
+        $this->queryResult->expects($this->once())
+                          ->method('free');
 
         $this->class->result_cell('cell');
     }
@@ -172,8 +172,8 @@ class MySQLQueryResultFreeTest extends MySQLQueryResultTestCase
     {
         $this->setReflectionPropertyValue('freed', TRUE);
 
-        $this->query_result->expects($this->never())
-                           ->method('free');
+        $this->queryResult->expects($this->never())
+                          ->method('free');
 
         $this->class->result_cell('cell');
     }

@@ -83,7 +83,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
 
         $this->setReflectionPropertyValue('mysqli', $mysqli);
         $this->setReflectionPropertyValue('connected', TRUE);
-        $this->setReflectionPropertyValue('query_hint', '/*hint*/');
+        $this->setReflectionPropertyValue('queryHint', '/*hint*/');
 
         $mysqli->expects($this->once())
                ->method('query')
@@ -118,7 +118,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $this->setReflectionPropertyValue('mysqli', $mysqli);
         $this->setReflectionPropertyValue('connected', TRUE);
 
-        $hint = $this->getReflectionProperty('query_hint');
+        $hint = $this->getReflectionProperty('queryHint');
         $hint->setValue($this->class, '/*hint*/');
 
         $mysqli->expects($this->once())
@@ -211,7 +211,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
 
         $this->setReflectionPropertyValue('mysqli', $mysqli);
         $this->setReflectionPropertyValue('connected', TRUE);
-        $this->setReflectionPropertyValue('query_hint', '/*hint*/');
+        $this->setReflectionPropertyValue('queryHint', '/*hint*/');
 
         $mysqli->expects($this->once())
                ->method('query')
@@ -239,7 +239,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $this->setReflectionPropertyValue('mysqli', $mysqli);
         $this->setReflectionPropertyValue('connected', TRUE);
 
-        $hint = $this->getReflectionProperty('query_hint');
+        $hint = $this->getReflectionProperty('queryHint');
         $hint->setValue($this->class, '/*hint*/');
 
         $mysqli->expects($this->once())

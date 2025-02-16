@@ -103,13 +103,13 @@ class MockMySQLiSuccessfulConnection
     /**
      * Fake killing the connection.
      *
-     * @param int $thread_id The thread_id of the connection to kill.
+     * @param int $threadId The thread_id of the connection to kill.
      *
      * @return bool $return TRUE if the thread_id matches the faked one, FALSE otherwise.
      */
-    public function kill($thread_id)
+    public function kill($threadId)
     {
-        if ($thread_id === 666)
+        if ($threadId === 666)
         {
             return TRUE;
         }

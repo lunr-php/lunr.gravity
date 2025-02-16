@@ -27,7 +27,7 @@ abstract class MySQLQueryResultTestCase extends LunrBaseTestCase
      * Query result
      * @var mixed
      */
-    protected $query_result;
+    protected $queryResult;
 
     /**
      * Instance of the mysqli class.
@@ -56,13 +56,13 @@ abstract class MySQLQueryResultTestCase extends LunrBaseTestCase
     {
         $this->mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->query_result = new MockMySQLiResult($this->getMockBuilder('mysqli_result')
-                                                        ->disableOriginalConstructor()
-                                                        ->getMock());
+        $this->queryResult = new MockMySQLiResult($this->getMockBuilder('mysqli_result')
+                                                       ->disableOriginalConstructor()
+                                                       ->getMock());
 
         $this->query = 'SELECT * FROM table';
 
-        $this->class = new MySQLQueryResult($this->query, $this->query_result, $this->mysqli);
+        $this->class = new MySQLQueryResult($this->query, $this->queryResult, $this->mysqli);
 
         parent::baseSetUp($this->class);
     }
@@ -74,13 +74,13 @@ abstract class MySQLQueryResultTestCase extends LunrBaseTestCase
      */
     public function failedSetup(): void
     {
-        $this->query_result = FALSE;
+        $this->queryResult = FALSE;
 
         $this->mysqli = new MockMySQLiFailedConnection($this->getMockBuilder('\mysqli')->getMock());
 
         $this->query = 'SELECT * FROM table';
 
-        $this->class = new MySQLQueryResult($this->query, $this->query_result, $this->mysqli);
+        $this->class = new MySQLQueryResult($this->query, $this->queryResult, $this->mysqli);
 
         parent::baseSetUp($this->class);
     }
@@ -92,13 +92,13 @@ abstract class MySQLQueryResultTestCase extends LunrBaseTestCase
      */
     public function successfulSetup(): void
     {
-        $this->query_result = TRUE;
+        $this->queryResult = TRUE;
 
         $this->mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
 
         $this->query = 'SELECT * FROM table';
 
-        $this->class = new MySQLQueryResult($this->query, $this->query_result, $this->mysqli);
+        $this->class = new MySQLQueryResult($this->query, $this->queryResult, $this->mysqli);
 
         parent::baseSetUp($this->class);
     }
@@ -112,13 +112,13 @@ abstract class MySQLQueryResultTestCase extends LunrBaseTestCase
     {
         $this->mysqli = new MockMySQLiSuccessfulWarningConnection($this->getMockBuilder('\mysqli')->getMock());
 
-        $this->query_result = new MockMySQLiResult($this->getMockBuilder('mysqli_result')
-                                                        ->disableOriginalConstructor()
-                                                        ->getMock());
+        $this->queryResult = new MockMySQLiResult($this->getMockBuilder('mysqli_result')
+                                                       ->disableOriginalConstructor()
+                                                       ->getMock());
 
         $this->query = 'SELECT * FROM table';
 
-        $this->class = new MySQLQueryResult($this->query, $this->query_result, $this->mysqli);
+        $this->class = new MySQLQueryResult($this->query, $this->queryResult, $this->mysqli);
 
         parent::baseSetUp($this->class);
     }
@@ -129,7 +129,7 @@ abstract class MySQLQueryResultTestCase extends LunrBaseTestCase
     public function tearDown(): void
     {
         unset($this->mysqli);
-        unset($this->query_result);
+        unset($this->queryResult);
         unset($this->query);
         unset($this->class);
 

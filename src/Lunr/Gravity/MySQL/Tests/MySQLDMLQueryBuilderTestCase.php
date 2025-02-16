@@ -33,7 +33,7 @@ abstract class MySQLDMLQueryBuilderTestCase extends TestCase
      * Reflection instance of the MySQLDMLQueryBuilder class.
      * @var ReflectionClass
      */
-    protected $builder_reflection;
+    protected $builderReflection;
 
     /**
      * TestCase Constructor.
@@ -41,8 +41,8 @@ abstract class MySQLDMLQueryBuilderTestCase extends TestCase
     public function setUp(): void
     {
 
-        $this->builder            = new MySQLDMLQueryBuilder();
-        $this->builder_reflection = new ReflectionClass('Lunr\Gravity\MySQL\MySQLDMLQueryBuilder');
+        $this->builder           = new MySQLDMLQueryBuilder();
+        $this->builderReflection = new ReflectionClass('Lunr\Gravity\MySQL\MySQLDMLQueryBuilder');
     }
 
     /**
@@ -51,7 +51,7 @@ abstract class MySQLDMLQueryBuilderTestCase extends TestCase
     public function tearDown(): void
     {
         unset($this->builder);
-        unset($this->builder_reflection);
+        unset($this->builderReflection);
     }
 
     /**

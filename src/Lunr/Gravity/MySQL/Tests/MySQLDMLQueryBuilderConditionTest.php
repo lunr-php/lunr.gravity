@@ -27,7 +27,7 @@ class MySQLDMLQueryBuilderConditionTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testOnRegexp(): void
     {
-        $property = $this->builder_reflection->getProperty('join');
+        $property = $this->builderReflection->getProperty('join');
         $property->setAccessible(TRUE);
 
         $this->builder->on_regexp('left', 'right');
@@ -43,7 +43,7 @@ class MySQLDMLQueryBuilderConditionTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testOnNotRegexp(): void
     {
-        $property = $this->builder_reflection->getProperty('join');
+        $property = $this->builderReflection->getProperty('join');
         $property->setAccessible(TRUE);
 
         $this->builder->on_regexp('left', 'right', TRUE);
@@ -72,7 +72,7 @@ class MySQLDMLQueryBuilderConditionTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testWhereRegexp(): void
     {
-        $property = $this->builder_reflection->getProperty('where');
+        $property = $this->builderReflection->getProperty('where');
         $property->setAccessible(TRUE);
 
         $this->builder->where_regexp('left', 'right');
@@ -88,7 +88,7 @@ class MySQLDMLQueryBuilderConditionTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testWhereNotRegexp(): void
     {
-        $property = $this->builder_reflection->getProperty('where');
+        $property = $this->builderReflection->getProperty('where');
         $property->setAccessible(TRUE);
 
         $this->builder->where_regexp('left', 'right', TRUE);
@@ -117,7 +117,7 @@ class MySQLDMLQueryBuilderConditionTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testHavingRegexp(): void
     {
-        $property = $this->builder_reflection->getProperty('having');
+        $property = $this->builderReflection->getProperty('having');
         $property->setAccessible(TRUE);
 
         $this->builder->having_regexp('left', 'right');
@@ -133,7 +133,7 @@ class MySQLDMLQueryBuilderConditionTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testHavingNotRegexp(): void
     {
-        $property = $this->builder_reflection->getProperty('having');
+        $property = $this->builderReflection->getProperty('having');
         $property->setAccessible(TRUE);
 
         $this->builder->having_regexp('left', 'right', TRUE);
@@ -161,7 +161,7 @@ class MySQLDMLQueryBuilderConditionTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testSQLXor(): void
     {
-        $property = $this->builder_reflection->getProperty('connector');
+        $property = $this->builderReflection->getProperty('connector');
         $property->setAccessible(TRUE);
 
         $this->builder->sql_xor();
@@ -189,7 +189,7 @@ class MySQLDMLQueryBuilderConditionTest extends MySQLDMLQueryBuilderTestCase
      */
     public function testXor(): void
     {
-        $property = $this->builder_reflection->getProperty('connector');
+        $property = $this->builderReflection->getProperty('connector');
         $property->setAccessible(TRUE);
 
         $this->builder->xor();
