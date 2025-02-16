@@ -28,26 +28,26 @@ class QueryException extends DatabaseException
      * Numerical error code for the error from the database system.
      * @var int
      */
-    private int $database_error_code;
+    private int $databaseErrorCode;
 
     /**
      * Error message from the database system.
      * @var string
      */
-    private string $database_error_message;
+    private string $databaseErrorMessage;
 
     /**
      * Constructor.
      *
-     * @param DatabaseQueryResultInterface $query_result The query result class
-     * @param string                       $message      The exception message
+     * @param DatabaseQueryResultInterface $queryResult The query result class
+     * @param string                       $message     The exception message
      */
-    public function __construct(DatabaseQueryResultInterface $query_result, string $message = 'Query Exception!')
+    public function __construct(DatabaseQueryResultInterface $queryResult, string $message = 'Query Exception!')
     {
-        $this->query = $query_result->query();
+        $this->query = $queryResult->query();
 
-        $this->database_error_code    = $query_result->error_number();
-        $this->database_error_message = $query_result->error_message();
+        $this->databaseErrorCode    = $queryResult->error_number();
+        $this->databaseErrorMessage = $queryResult->error_message();
 
         parent::__construct($message);
     }
@@ -81,7 +81,7 @@ class QueryException extends DatabaseException
      */
     final public function getDatabaseErrorCode(): int
     {
-        return $this->database_error_code;
+        return $this->databaseErrorCode;
     }
 
     /**
@@ -91,7 +91,7 @@ class QueryException extends DatabaseException
      */
     final public function getDatabaseErrorMessage(): string
     {
-        return $this->database_error_message;
+        return $this->databaseErrorMessage;
     }
 
 }
