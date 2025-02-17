@@ -31,7 +31,7 @@ class QueryExceptionBaseTest extends QueryExceptionTestCase
      */
     public function testDatabaseErrorCodeSetCorrectly(): void
     {
-        $this->assertPropertySame('database_error_code', 1024);
+        $this->assertPropertySame('databaseErrorCode', 1024);
     }
 
     /**
@@ -39,7 +39,7 @@ class QueryExceptionBaseTest extends QueryExceptionTestCase
      */
     public function testDatabaseErrorMessageSetCorrectly(): void
     {
-        $this->assertPropertySame('database_error_message', "There's an error in your query.");
+        $this->assertPropertySame('databaseErrorMessage', "There's an error in your query.");
     }
 
     /**
