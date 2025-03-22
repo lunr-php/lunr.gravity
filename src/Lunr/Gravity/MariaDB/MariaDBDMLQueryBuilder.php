@@ -50,28 +50,28 @@ class MariaDBDMLQueryBuilder extends MySQLDMLQueryBuilder
     /**
      * Define a EXCEPT, EXCEPT ALL or EXCEPT DISTINCT clause of the SQL statement.
      *
-     * @param string $sql_query SQL query reference
-     * @param string $operator  EXCEPT operation to perform
+     * @param string $sqlQuery SQL query reference
+     * @param string $operator EXCEPT operation to perform
      *
      * @return $this Self reference
      */
-    public function except(string $sql_query, string $operator = ''): static
+    public function except(string $sqlQuery, string $operator = ''): static
     {
-        $this->sql_compound($sql_query, 'EXCEPT', strtoupper($operator));
+        $this->sql_compound($sqlQuery, 'EXCEPT', strtoupper($operator));
         return $this;
     }
 
     /**
      * Define a INTERSECT, INTERSECT ALL or INTERSECT DISTINCT clause of the SQL statement.
      *
-     * @param string $sql_query SQL query reference
-     * @param string $operator  INTERSECT operation to perform
+     * @param string $sqlQuery SQL query reference
+     * @param string $operator INTERSECT operation to perform
      *
      * @return $this Self reference
      */
-    public function intersect(string $sql_query, string $operator = ''): static
+    public function intersect(string $sqlQuery, string $operator = ''): static
     {
-        $this->sql_compound($sql_query, 'INTERSECT', strtoupper($operator));
+        $this->sql_compound($sqlQuery, 'INTERSECT', strtoupper($operator));
         return $this;
     }
 

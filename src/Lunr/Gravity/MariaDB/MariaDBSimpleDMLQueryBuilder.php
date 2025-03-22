@@ -77,28 +77,28 @@ class MariaDBSimpleDMLQueryBuilder extends MySQLSimpleDMLQueryBuilder
     /**
      * Define a INTERSECT, INTERSECT DISTINCT or INTERSECT ALL clause of the SQL statement.
      *
-     * @param string $sql_query SQL query reference
-     * @param string $type      Type of INTERSECT operation to perform.
+     * @param string $sqlQuery SQL query reference
+     * @param string $type     Type of INTERSECT operation to perform.
      *
      * @return $this Self reference
      */
-    public function intersect(string $sql_query, string $type = ''): static
+    public function intersect(string $sqlQuery, string $type = ''): static
     {
-        $this->builder->intersect($this->escaper->query_value($sql_query), $type);
+        $this->builder->intersect($this->escaper->query_value($sqlQuery), $type);
         return $this;
     }
 
     /**
      * Define a EXCEPT, EXCEPT DISTINCT or EXCEPT ALL clause of the SQL statement.
      *
-     * @param string $sql_query SQL query reference
-     * @param string $type      Type of EXCEPT operation to perform.
+     * @param string $sqlQuery SQL query reference
+     * @param string $type     Type of EXCEPT operation to perform.
      *
      * @return $this Self reference
      */
-    public function except($sql_query, $type = NULL): static
+    public function except($sqlQuery, $type = NULL): static
     {
-        $this->builder->except($this->escaper->query_value($sql_query), $type);
+        $this->builder->except($this->escaper->query_value($sqlQuery), $type);
         return $this;
     }
 
