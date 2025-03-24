@@ -55,7 +55,7 @@ class SQLite3ConnectionDefragmentTest extends SQLite3ConnectionTestCase
         $this->sqlite3->expects($this->once())
                       ->method('query')
                       ->with('VACUUM')
-                      ->willReturn($this->sqlite3_result);
+                      ->willReturn($this->sqlite3Result);
 
         $this->class->defragment();
     }

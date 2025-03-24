@@ -35,7 +35,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTestCase
      */
     public function testErrorMessageIsEmpty(): void
     {
-        $property = $this->getReflectionProperty('error_message');
+        $property = $this->getReflectionProperty('errorMessage');
         $this->assertSame('', $property->getValue($this->class));
     }
 
@@ -46,7 +46,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTestCase
      */
     public function testErrorNumberIsZero(): void
     {
-        $property = $this->getReflectionProperty('error_number');
+        $property = $this->getReflectionProperty('errorNumber');
         $this->assertSame(0, $property->getValue($this->class));
     }
 
@@ -57,7 +57,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTestCase
      */
     public function testInsertIDIsZero(): void
     {
-        $property = $this->getReflectionProperty('insert_id');
+        $property = $this->getReflectionProperty('insertID');
         $this->assertSame(0, $property->getValue($this->class));
     }
 
@@ -68,7 +68,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTestCase
      */
     public function testAffectedRowsIsNumber(): void
     {
-        $property = $this->getReflectionProperty('affected_rows');
+        $property = $this->getReflectionProperty('affectedRows');
         $this->assertIsInt($property->getValue($this->class));
     }
 
@@ -90,7 +90,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTestCase
      */
     public function testAffectedRowsReturnsNumber(): void
     {
-        $this->setReflectionPropertyValue('affected_rows', 12);
+        $this->setReflectionPropertyValue('affectedRows', 12);
         $this->assertSame(12, $this->class->affected_rows());
     }
 
@@ -101,7 +101,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTestCase
      */
     public function testErrorMessageReturnsString(): void
     {
-        $this->setReflectionPropertyValue('error_message', '');
+        $this->setReflectionPropertyValue('errorMessage', '');
         $this->assertSame('', $this->class->error_message());
     }
 
@@ -112,7 +112,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTestCase
      */
     public function testErrorNumberReturnsNumber(): void
     {
-        $this->setReflectionPropertyValue('error_number', 0);
+        $this->setReflectionPropertyValue('errorNumber', 0);
         $this->assertSame(0, $this->class->error_number());
     }
 
@@ -123,7 +123,7 @@ class SQLite3QueryResultBaseTest extends SQLite3QueryResultTestCase
      */
     public function testInsertIDReturnsNumber(): void
     {
-        $this->setReflectionPropertyValue('insert_id', 0);
+        $this->setReflectionPropertyValue('insertID', 0);
         $this->assertSame(0, $this->class->insert_id());
     }
 

@@ -66,25 +66,25 @@ class SQLite3QueryResult implements DatabaseQueryResultInterface
      * Description of the error.
      * @var string
      */
-    protected $error_message;
+    protected $errorMessage;
 
     /**
      * Error code.
      * @var int
      */
-    protected $error_number;
+    protected $errorNumber;
 
     /**
      * Auto incremented ID generated on last insert.
      * @var mixed
      */
-    protected $insert_id;
+    protected $insertID;
 
     /**
      * Number of affected rows.
      * @var int
      */
-    protected $affected_rows;
+    protected $affectedRows;
 
     /**
      * Constructor to build the results.
@@ -110,10 +110,10 @@ class SQLite3QueryResult implements DatabaseQueryResultInterface
         $this->sqlite3 = $sqlite3;
         $this->query   = $query;
 
-        $this->error_message = $sqlite3->lastErrorMsg();
-        $this->error_number  = $sqlite3->lastErrorCode();
-        $this->insert_id     = $sqlite3->lastInsertRowID();
-        $this->affected_rows = $sqlite3->changes();
+        $this->errorMessage = $sqlite3->lastErrorMsg();
+        $this->errorNumber  = $sqlite3->lastErrorCode();
+        $this->insertID     = $sqlite3->lastInsertRowID();
+        $this->affectedRows = $sqlite3->changes();
     }
 
     /**
@@ -128,10 +128,10 @@ class SQLite3QueryResult implements DatabaseQueryResultInterface
         unset($this->result);
         unset($this->sqlite3);
         unset($this->query);
-        unset($this->error_message);
-        unset($this->error_number);
-        unset($this->insert_id);
-        unset($this->affected_rows);
+        unset($this->errorMessage);
+        unset($this->errorNumber);
+        unset($this->insertID);
+        unset($this->affectedRows);
     }
 
     /**
@@ -155,7 +155,7 @@ class SQLite3QueryResult implements DatabaseQueryResultInterface
      */
     public function has_deadlock()
     {
-        return $this->error_number == self::DEADLOCK_ERR_CODE;
+        return $this->errorNumber == self::DEADLOCK_ERR_CODE;
     }
 
     /**
@@ -165,7 +165,7 @@ class SQLite3QueryResult implements DatabaseQueryResultInterface
      */
     public function has_lock_timeout()
     {
-        return $this->error_number == self::LOCK_TIMEOUT_ERR_CODE;
+        return $this->errorNumber == self::LOCK_TIMEOUT_ERR_CODE;
     }
 
     /**
@@ -185,7 +185,7 @@ class SQLite3QueryResult implements DatabaseQueryResultInterface
      */
     public function error_message()
     {
-        return $this->error_message;
+        return $this->errorMessage;
     }
 
     /**
@@ -195,7 +195,7 @@ class SQLite3QueryResult implements DatabaseQueryResultInterface
      */
     public function error_number()
     {
-        return $this->error_number;
+        return $this->errorNumber;
     }
 
     /**
@@ -216,7 +216,7 @@ class SQLite3QueryResult implements DatabaseQueryResultInterface
      */
     public function insert_id()
     {
-        return $this->insert_id;
+        return $this->insertID;
     }
 
     /**
@@ -236,7 +236,7 @@ class SQLite3QueryResult implements DatabaseQueryResultInterface
      */
     public function affected_rows()
     {
-        return $this->affected_rows;
+        return $this->affectedRows;
     }
 
     /**
@@ -273,14 +273,14 @@ class SQLite3QueryResult implements DatabaseQueryResultInterface
     {
         $output = [];
 
-        $return_type = $associative ? SQLITE3_ASSOC : SQLITE3_NUM;
+        $returnType = $associative ? SQLITE3_ASSOC : SQLITE3_NUM;
 
         if (!is_object($this->result))
         {
             return $output;
         }
 
-        while ($row = $this->result->fetchArray($return_type))
+        while ($row = $this->result->fetchArray($returnType))
         {
             $output[] = $row;
         }

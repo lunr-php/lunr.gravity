@@ -21,14 +21,14 @@ class SQLite3ConnectionEscapeTest extends SQLite3ConnectionTestCase
     /**
      * Test that escape_string() properly escapes the given string.
      *
-     * @param string $string       String to escape
-     * @param string $part_escaped Partially escaped string (as returned by escapeString)
-     * @param string $escaped      Expected escaped string
+     * @param string $string      String to escape
+     * @param string $partEscaped Partially escaped string (as returned by escapeString)
+     * @param string $escaped     Expected escaped string
      *
      * @dataProvider escapeStringProvider
      * @covers       Lunr\Gravity\SQLite3\SQLite3Connection::escape_string
      */
-    public function testEscapeString($string, $part_escaped, $escaped): void
+    public function testEscapeString($string, $partEscaped, $escaped): void
     {
         $method = [ get_class($this->sqlite3), 'escapeString' ];
 

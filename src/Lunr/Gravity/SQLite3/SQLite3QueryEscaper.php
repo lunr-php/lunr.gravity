@@ -124,9 +124,9 @@ class SQLite3QueryEscaper extends DatabaseQueryEscaper
 
         $keyword = strtoupper($keyword);
 
-        $valid_keywords = [ 'INDEXED BY', 'NOT INDEXED' ];
+        $validKeywords = [ 'INDEXED BY', 'NOT INDEXED' ];
 
-        if (!in_array($keyword, $valid_keywords))
+        if (!in_array($keyword, $validKeywords))
         {
             $keyword = 'INDEXED BY';
         }

@@ -61,7 +61,7 @@ class SQLite3QueryResultResultTest extends SQLite3QueryResultTestCase
      */
     public function testAffectedRowsReturnsNumber(): void
     {
-        $this->setReflectionPropertyValue('affected_rows', 8);
+        $this->setReflectionPropertyValue('affectedRows', 8);
         $this->assertSame(8, $this->class->affected_rows());
     }
 
@@ -74,8 +74,8 @@ class SQLite3QueryResultResultTest extends SQLite3QueryResultTestCase
     {
         $row = [ 'col1' => 'val1', 'col2' => 'val2' ];
 
-        $this->sqlite3_result->method('fetchArray')
-                             ->will($this->onConsecutiveCalls($row, $row, $row, FALSE));
+        $this->sqlite3Result->method('fetchArray')
+                            ->will($this->onConsecutiveCalls($row, $row, $row, FALSE));
 
         $value = $this->class->number_of_rows();
 
@@ -92,9 +92,9 @@ class SQLite3QueryResultResultTest extends SQLite3QueryResultTestCase
     {
         $result = [ 'col1' => 'val1', 'col2' => 'val2' ];
 
-        $this->sqlite3_result->expects($this->once())
-                             ->method('fetchArray')
-                             ->will($this->returnValue($result));
+        $this->sqlite3Result->expects($this->once())
+                            ->method('fetchArray')
+                            ->will($this->returnValue($result));
 
         $value = $this->class->result_row();
 
@@ -111,10 +111,10 @@ class SQLite3QueryResultResultTest extends SQLite3QueryResultTestCase
     {
         $result = [ 0 => [ 'col1' => 'val1', 'col2' => 'val2' ], 1 => [ 'col1' => 'val3', 'col2' => 'val4' ] ];
 
-        $this->sqlite3_result->expects($this->exactly(3))
-                             ->method('fetchArray')
-                             ->with(SQLITE3_ASSOC)
-                             ->willReturnOnConsecutiveCalls($result[0], $result[1], FALSE);
+        $this->sqlite3Result->expects($this->exactly(3))
+                            ->method('fetchArray')
+                            ->with(SQLITE3_ASSOC)
+                            ->willReturnOnConsecutiveCalls($result[0], $result[1], FALSE);
 
         $value = $this->class->result_array();
 
@@ -131,10 +131,10 @@ class SQLite3QueryResultResultTest extends SQLite3QueryResultTestCase
     {
         $result = [ 0 => [ 'col1' => 'val1', 'col2' => 'val2' ], 1 => [ 'col1' => 'val3', 'col2' => 'val4' ] ];
 
-        $this->sqlite3_result->expects($this->exactly(3))
-                             ->method('fetchArray')
-                             ->with(SQLITE3_NUM)
-                             ->willReturnOnConsecutiveCalls($result[0], $result[1], FALSE);
+        $this->sqlite3Result->expects($this->exactly(3))
+                            ->method('fetchArray')
+                            ->with(SQLITE3_NUM)
+                            ->willReturnOnConsecutiveCalls($result[0], $result[1], FALSE);
 
         $value = $this->class->result_array(FALSE);
 
@@ -151,13 +151,13 @@ class SQLite3QueryResultResultTest extends SQLite3QueryResultTestCase
     {
         $result = [ 'val1', 'val3' ];
 
-        $this->sqlite3_result->expects($this->exactly(3))
-                             ->method('fetchArray')
-                             ->willReturnOnConsecutiveCalls(
-                                 [ 'col1' => 'val1', 'col2' => 'val2' ],
-                                 [ 'col1' => 'val3', 'col2' => 'val4' ],
-                                 FALSE
-                             );
+        $this->sqlite3Result->expects($this->exactly(3))
+                            ->method('fetchArray')
+                            ->willReturnOnConsecutiveCalls(
+                                [ 'col1' => 'val1', 'col2' => 'val2' ],
+                                [ 'col1' => 'val3', 'col2' => 'val4' ],
+                                FALSE
+                            );
 
         $value = $this->class->result_column('col1');
 
@@ -172,9 +172,9 @@ class SQLite3QueryResultResultTest extends SQLite3QueryResultTestCase
      */
     public function testResultCellReturnsValue(): void
     {
-        $this->sqlite3_result->expects($this->once())
-                             ->method('fetchArray')
-                             ->will($this->returnValue([ 'cell' => 'value' ]));
+        $this->sqlite3Result->expects($this->once())
+                            ->method('fetchArray')
+                            ->will($this->returnValue([ 'cell' => 'value' ]));
 
         $this->assertEquals('value', $this->class->result_cell('cell'));
     }
@@ -186,9 +186,9 @@ class SQLite3QueryResultResultTest extends SQLite3QueryResultTestCase
      */
     public function testResultCellReturnsNullIfColumnDoesNotExist(): void
     {
-        $this->sqlite3_result->expects($this->once())
-                             ->method('fetchArray')
-                             ->will($this->returnValue([ 'cell' => 'value' ]));
+        $this->sqlite3Result->expects($this->once())
+                            ->method('fetchArray')
+                            ->will($this->returnValue([ 'cell' => 'value' ]));
 
         $this->assertNull($this->class->result_cell('cell1'));
     }

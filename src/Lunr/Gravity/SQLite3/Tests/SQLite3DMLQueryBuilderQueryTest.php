@@ -159,12 +159,12 @@ class SQLite3DMLQueryBuilderQueryTest extends SQLite3DMLQueryBuilderTestCase
      */
     public function expectedReturningDataProvider(): array
     {
-        $expected_return   = [];
-        $expected_return[] = [ '*', 'RETURNING *' ];
-        $expected_return[] = [ 'id, name', 'RETURNING id, name' ];
-        $expected_return[] = [ "'test'", "RETURNING 'test'" ];
+        $expectedReturn   = [];
+        $expectedReturn[] = [ '*', 'RETURNING *' ];
+        $expectedReturn[] = [ 'id, name', 'RETURNING id, name' ];
+        $expectedReturn[] = [ "'test'", "RETURNING 'test'" ];
 
-        return $expected_return;
+        return $expectedReturn;
     }
 
 }

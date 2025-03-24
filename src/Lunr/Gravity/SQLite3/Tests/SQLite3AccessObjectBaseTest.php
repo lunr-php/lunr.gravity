@@ -62,11 +62,11 @@ class SQLite3AccessObjectBaseTest extends SQLite3AccessObjectTestCase
 
         $parent = $this->reflection->getParentClass();
 
-        $parent_property = $parent->getProperty('db');
-        $parent_property->setAccessible(TRUE);
+        $parentProperty = $parent->getProperty('db');
+        $parentProperty->setAccessible(TRUE);
 
         $this->assertNotSame($db, $property->getValue($this->class));
-        $this->assertNotSame($db, $parent_property->getValue($this->class));
+        $this->assertNotSame($db, $parentProperty->getValue($this->class));
 
         $db->expects($this->once())
            ->method('get_query_escaper_object')
@@ -75,7 +75,7 @@ class SQLite3AccessObjectBaseTest extends SQLite3AccessObjectTestCase
         $this->class->swap_connection($db);
 
         $this->assertSame($db, $property->getValue($this->class));
-        $this->assertSame($db, $parent_property->getValue($this->class));
+        $this->assertSame($db, $parentProperty->getValue($this->class));
     }
 
     /**

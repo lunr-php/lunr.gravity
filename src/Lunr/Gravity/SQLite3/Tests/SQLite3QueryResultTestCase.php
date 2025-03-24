@@ -40,7 +40,7 @@ abstract class SQLite3QueryResultTestCase extends LunrBaseTestCase
      * Instance of the SQLite3Result class.
      * @var SQLite3Result
      */
-    protected $sqlite3_result;
+    protected $sqlite3Result;
 
     /**
      * Instance of the tested class.
@@ -59,11 +59,11 @@ abstract class SQLite3QueryResultTestCase extends LunrBaseTestCase
 
         $this->query = 'SELECT * FROM table';
 
-        $this->sqlite3_result = $this->getMockBuilder('SQLite3Result')
-                                     ->disableOriginalConstructor()
-                                     ->getMock();
+        $this->sqlite3Result = $this->getMockBuilder('SQLite3Result')
+                                    ->disableOriginalConstructor()
+                                    ->getMock();
 
-        $this->class = new SQLite3QueryResult($this->query, $this->sqlite3_result, $this->sqlite3);
+        $this->class = new SQLite3QueryResult($this->query, $this->sqlite3Result, $this->sqlite3);
 
         parent::baseSetUp($this->class);
     }
@@ -79,16 +79,16 @@ abstract class SQLite3QueryResultTestCase extends LunrBaseTestCase
 
         $this->query = 'SELECT * FROM table';
 
-        $this->sqlite3_result = TRUE;
+        $this->sqlite3Result = TRUE;
 
-        $this->class = new SQLite3QueryResult($this->query, $this->sqlite3_result, $this->sqlite3);
+        $this->class = new SQLite3QueryResult($this->query, $this->sqlite3Result, $this->sqlite3);
 
         parent::baseSetUp($this->class);
 
-        $this->setReflectionPropertyValue('affected_rows', 12);
-        $this->setReflectionPropertyValue('insert_id', 0);
-        $this->setReflectionPropertyValue('error_message', '');
-        $this->setReflectionPropertyValue('error_number', 0);
+        $this->setReflectionPropertyValue('affectedRows', 12);
+        $this->setReflectionPropertyValue('insertID', 0);
+        $this->setReflectionPropertyValue('errorMessage', '');
+        $this->setReflectionPropertyValue('errorNumber', 0);
     }
 
     /**
@@ -102,14 +102,14 @@ abstract class SQLite3QueryResultTestCase extends LunrBaseTestCase
 
         $this->query = 'SELECT * FROM table';
 
-        $this->sqlite3_result = FALSE;
+        $this->sqlite3Result = FALSE;
 
-        $this->class = new SQLite3QueryResult($this->query, $this->sqlite3_result, $this->sqlite3);
+        $this->class = new SQLite3QueryResult($this->query, $this->sqlite3Result, $this->sqlite3);
 
         parent::baseSetUp($this->class);
 
-        $this->setReflectionPropertyValue('error_message', 'The query failed.');
-        $this->setReflectionPropertyValue('error_number', 8);
+        $this->setReflectionPropertyValue('errorMessage', 'The query failed.');
+        $this->setReflectionPropertyValue('errorNumber', 8);
     }
 
     /**
@@ -119,7 +119,7 @@ abstract class SQLite3QueryResultTestCase extends LunrBaseTestCase
     {
         unset($this->sqlite3);
         unset($this->query);
-        unset($this->sqlite3_result);
+        unset($this->sqlite3Result);
         unset($this->class);
 
         parent::tearDown();

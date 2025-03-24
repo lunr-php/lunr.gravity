@@ -73,7 +73,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTestCase
      */
     public function testErrorMessageIsString(): void
     {
-        $property = $this->getReflectionProperty('error_message');
+        $property = $this->getReflectionProperty('errorMessage');
 
         $this->assertIsString($property->getValue($this->class));
     }
@@ -85,7 +85,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTestCase
      */
     public function testErrorNumberIsNumber(): void
     {
-        $property = $this->getReflectionProperty('error_number');
+        $property = $this->getReflectionProperty('errorNumber');
 
         $this->assertIsInt($property->getValue($this->class));
     }
@@ -97,7 +97,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTestCase
      */
     public function testInsertIDIsZero(): void
     {
-        $property = $this->getReflectionProperty('insert_id');
+        $property = $this->getReflectionProperty('insertID');
 
         $this->assertEquals(0, $property->getValue($this->class));
     }
@@ -158,7 +158,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTestCase
      */
     public function testHasDeadlockReturnsTrue(): void
     {
-        $this->setReflectionPropertyValue('error_number', 6);
+        $this->setReflectionPropertyValue('errorNumber', 6);
 
         $this->assertTrue($this->class->has_deadlock());
     }
@@ -170,7 +170,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTestCase
      */
     public function testHasDeadlockReturnsFalse(): void
     {
-        $this->setReflectionPropertyValue('error_number', 999);
+        $this->setReflectionPropertyValue('errorNumber', 999);
 
         $this->assertFalse($this->class->has_deadlock());
     }
@@ -182,7 +182,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTestCase
      */
     public function testLockTimeoutReturnsTrue(): void
     {
-        $this->setReflectionPropertyValue('error_number', 5);
+        $this->setReflectionPropertyValue('errorNumber', 5);
 
         $this->assertTrue($this->class->has_lock_timeout());
     }
@@ -194,7 +194,7 @@ class SQLite3QueryResultFailedTest extends SQLite3QueryResultTestCase
      */
     public function testLockTimeoutReturnsFalse(): void
     {
-        $this->setReflectionPropertyValue('error_number', 999);
+        $this->setReflectionPropertyValue('errorNumber', 999);
 
         $this->assertFalse($this->class->has_lock_timeout());
     }

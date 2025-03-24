@@ -198,15 +198,15 @@ class SQLite3Connection extends DatabaseConnection
     /**
      * Run a SQL query.
      *
-     * @param string $sql_query The SQL query to run on the database
+     * @param string $sqlQuery The SQL query to run on the database
      *
      * @return SQLite3QueryResult $result Query Result
      */
-    public function query(string $sql_query): SQLite3QueryResult
+    public function query(string $sqlQuery): SQLite3QueryResult
     {
         $this->connect();
 
-        return new SQLite3QueryResult($sql_query, $this->sqlite3->query($sql_query), $this->sqlite3);
+        return new SQLite3QueryResult($sqlQuery, $this->sqlite3->query($sqlQuery), $this->sqlite3);
     }
 
     /**

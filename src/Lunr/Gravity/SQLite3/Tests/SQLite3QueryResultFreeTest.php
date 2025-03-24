@@ -33,8 +33,8 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTestCase
      */
     public function testFreeResultFreesIfFreedIsFalse(): void
     {
-        $this->sqlite3_result->expects($this->once())
-                             ->method('finalize');
+        $this->sqlite3Result->expects($this->once())
+                            ->method('finalize');
 
         $method = $this->getReflectionMethod('free_result');
         $method->invoke($this->class);
@@ -49,8 +49,8 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTestCase
     {
         $this->setReflectionPropertyValue('freed', TRUE);
 
-        $this->sqlite3_result->expects($this->never())
-                             ->method('finalize');
+        $this->sqlite3Result->expects($this->never())
+                            ->method('finalize');
 
         $method = $this->getReflectionMethod('free_result');
         $method->invoke($this->class);
@@ -65,8 +65,8 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTestCase
      */
     public function testResultArrayFreesDataIfFreedIsFalse(): void
     {
-        $this->sqlite3_result->expects($this->once())
-                             ->method('finalize');
+        $this->sqlite3Result->expects($this->once())
+                            ->method('finalize');
 
         $this->class->result_array();
     }
@@ -80,8 +80,8 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTestCase
     {
         $this->setReflectionPropertyValue('freed', TRUE);
 
-        $this->sqlite3_result->expects($this->never())
-                             ->method('finalize');
+        $this->sqlite3Result->expects($this->never())
+                            ->method('finalize');
 
         $this->class->result_array();
     }
@@ -93,8 +93,8 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTestCase
      */
     public function testResultRowFreesDataIfFreedIsFalse(): void
     {
-        $this->sqlite3_result->expects($this->once())
-                             ->method('finalize');
+        $this->sqlite3Result->expects($this->once())
+                            ->method('finalize');
 
         $this->class->result_row();
     }
@@ -108,8 +108,8 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTestCase
     {
         $this->setReflectionPropertyValue('freed', TRUE);
 
-        $this->sqlite3_result->expects($this->never())
-                             ->method('finalize');
+        $this->sqlite3Result->expects($this->never())
+                            ->method('finalize');
 
         $this->class->result_row();
     }
@@ -121,8 +121,8 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTestCase
      */
     public function testResultColumnFreesDataIfFreedIsFalse(): void
     {
-        $this->sqlite3_result->expects($this->once())
-                             ->method('finalize');
+        $this->sqlite3Result->expects($this->once())
+                            ->method('finalize');
 
         $this->class->result_column('col');
     }
@@ -136,8 +136,8 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTestCase
     {
         $this->setReflectionPropertyValue('freed', TRUE);
 
-        $this->sqlite3_result->expects($this->never())
-                             ->method('finalize');
+        $this->sqlite3Result->expects($this->never())
+                            ->method('finalize');
 
         $this->class->result_column('col');
     }
@@ -149,8 +149,8 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTestCase
      */
     public function testResultCellFreesDataIfFreedIsFalse(): void
     {
-        $this->sqlite3_result->expects($this->once())
-                             ->method('finalize');
+        $this->sqlite3Result->expects($this->once())
+                            ->method('finalize');
 
         $this->class->result_cell('cell');
     }
@@ -164,8 +164,8 @@ class SQLite3QueryResultFreeTest extends SQLite3QueryResultTestCase
     {
         $this->setReflectionPropertyValue('freed', TRUE);
 
-        $this->sqlite3_result->expects($this->never())
-                             ->method('finalize');
+        $this->sqlite3Result->expects($this->never())
+                            ->method('finalize');
 
         $this->class->result_cell('cell');
     }

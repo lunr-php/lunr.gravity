@@ -120,12 +120,12 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTestCase
      */
     public function testConnectThrowsExceptionWhenDriverIsNotSQLite3()
     {
-        $sub_configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
+        $subConfiguration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $map = [
-            [ 'db', $sub_configuration ],
+            [ 'db', $subConfiguration ],
         ];
 
         $configuration->expects($this->any())
@@ -137,9 +137,9 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTestCase
             [ 'driver', 'not_sqlite3' ],
         ];
 
-        $sub_configuration->expects($this->any())
-                          ->method('offsetGet')
-                          ->will($this->returnValueMap($map));
+        $subConfiguration->expects($this->any())
+                         ->method('offsetGet')
+                         ->will($this->returnValueMap($map));
 
         $this->setReflectionPropertyValue('configuration', $configuration);
 
