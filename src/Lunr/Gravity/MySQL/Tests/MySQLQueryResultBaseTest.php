@@ -59,7 +59,7 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTestCase
      */
     public function testInsertIDIsZero(): void
     {
-        $this->assertPropertyEquals('insertId', 0);
+        $this->assertPropertyEquals('insertID', 0);
     }
 
     /**
@@ -149,7 +149,7 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTestCase
      */
     public function testInsertIDReturnsNumber(): void
     {
-        $this->setReflectionPropertyValue('insertId', 0);
+        $this->setReflectionPropertyValue('insertID', 0);
 
         $value = $this->class->insert_id();
         $this->assertIsInt($value);

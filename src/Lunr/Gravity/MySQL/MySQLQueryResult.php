@@ -88,7 +88,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      * Autoincremented ID generated on last insert.
      * @var mixed
      */
-    protected $insertId;
+    protected $insertID;
 
     /**
      * Number of affected rows.
@@ -131,7 +131,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
         {
             $this->errorMessage = $this->mysqli->error;
             $this->errorNumber  = $this->mysqli->errno;
-            $this->insertId     = $this->mysqli->insert_id;
+            $this->insertID     = $this->mysqli->insert_id;
             $this->affectedRows = mysqli_affected_rows($this->mysqli);
             $this->numRows      = is_object($this->result) ? mysqli_num_rows($result) : $this->affectedRows;
 
@@ -152,7 +152,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
         unset($this->freed);
         unset($this->errorMessage);
         unset($this->errorNumber);
-        unset($this->insertId);
+        unset($this->insertID);
         unset($this->query);
         unset($this->warnings);
     }
@@ -266,7 +266,7 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      */
     public function insert_id()
     {
-        return $this->insertId;
+        return $this->insertID;
     }
 
     /**

@@ -45,7 +45,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
      */
     public function testInsertIDIsZero(): void
     {
-        $property = $this->reflection->getProperty('insertId');
+        $property = $this->reflection->getProperty('insertID');
         $property->setAccessible(TRUE);
 
         $this->assertNull($property->getValue($this->class));
@@ -351,7 +351,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
 
         $method->invoke($this->class);
 
-        $property = $this->reflection->getProperty('insertId');
+        $property = $this->reflection->getProperty('insertID');
         $property->setAccessible(TRUE);
 
         $this->assertEquals(0, $property->getValue($this->class));

@@ -86,7 +86,7 @@ class MySQLQueryResultFailedTest extends MySQLQueryResultTestCase
      */
     public function testInsertIDIsZero(): void
     {
-        $this->assertPropertyEquals('insertId', 0);
+        $this->assertPropertyEquals('insertID', 0);
     }
 
     /**
