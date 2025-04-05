@@ -11,6 +11,10 @@
 namespace Lunr\Gravity;
 
 use Lunr\Core\Configuration;
+use Lunr\Ticks\AnalyticsDetailLevel;
+use Lunr\Ticks\EventLogging\EventLoggerInterface;
+use Lunr\Ticks\TracingControllerInterface;
+use Lunr\Ticks\TracingInfoInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -32,6 +36,12 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
     protected bool $readonly;
 
     /**
+     * The detail level for query profiling
+     * @var AnalyticsDetailLevel
+     */
+    protected AnalyticsDetailLevel $analyticsDetailLevel;
+
+    /**
      * Shared instance of the Configuration class
      * @var Configuration
      */
@@ -44,6 +54,18 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
     protected LoggerInterface $logger;
 
     /**
+     * Shared instance of an EventLogger class
+     * @var EventLoggerInterface
+     */
+    protected readonly EventLoggerInterface $eventLogger;
+
+    /**
+     * Shared instance of a tracing controller
+     * @var TracingControllerInterface&TracingInfoInterface
+     */
+    protected readonly TracingControllerInterface&TracingInfoInterface $tracingController;
+
+    /**
      * Constructor.
      *
      * @param Configuration   $configuration Shared instance of the configuration class
@@ -53,6 +75,8 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
     {
         $this->connected = FALSE;
         $this->readonly  = FALSE;
+
+        $this->analyticsDetailLevel = AnalyticsDetailLevel::None;
 
         $this->configuration = $configuration;
         $this->logger        = $logger;
@@ -66,6 +90,7 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
         unset($this->configuration);
         unset($this->logger);
         unset($this->readonly);
+        unset($this->analyticsDetailLevel);
         unset($this->connected);
     }
 
@@ -79,6 +104,26 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
     public function set_readonly(bool $switch): void
     {
         $this->readonly = $switch;
+    }
+
+    /**
+     * Enable SQL query profiling.
+     *
+     * @param EventLoggerInterface                            $eventLogger Instance of an event logger
+     * @param TracingControllerInterface&TracingInfoInterface $controller  Instance of a tracing controller
+     * @param AnalyticsDetailLevel                            $level       Analytics detail level (defaults to Info)
+     *
+     * @return void
+     */
+    public function enableAnalytics(
+        EventLoggerInterface $eventLogger,
+        TracingControllerInterface&TracingInfoInterface $controller,
+        AnalyticsDetailLevel $level = AnalyticsDetailLevel::Info,
+    ): void
+    {
+        $this->eventLogger          = $eventLogger;
+        $this->tracingController    = $controller;
+        $this->analyticsDetailLevel = $level;
     }
 
     /**

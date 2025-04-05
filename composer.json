@@ -8,7 +8,8 @@
   "require": {
     "psr/log": ">=1.1",
     "php": ">=8.1",
-    "lunr/config": "dev-master"
+    "lunr/config": "dev-master",
+    "lunr/ticks": "dev-master"
   },
   "suggest": {
     "ext-mysqli": "Needed for MySQL/MariaDB support in Gravity",
@@ -16,6 +17,7 @@
   },
   "require-dev": {
     "lunr/halo": "dev-master",
+    "mockery/mockery": "~1.6",
     "phpunit/phpunit": ">=9.0 <9.6",
     "ext-xdebug": "~3.1"
   },

@@ -18,6 +18,15 @@
             "search-path": "/src/Lunr/Core/"
         }
     },
+    "Lunr.Ticks": {
+        "url": "https://github.com/lunr-php/lunr.ticks.git",
+        "version": "0.12.0",
+        "revision": "master",
+        "psr4": {
+            "prefix": "Lunr\\Ticks",
+            "search-path": "/src/Lunr/Ticks/"
+        }
+    },
     "Psr-Log": {
         "url": "https://github.com/php-fig/log.git",
         "version": "3.0.0",
@@ -25,5 +34,13 @@
             "prefix": "Psr\\Log",
             "search-path": "/src/"
         }
+    },
+    "Mockery": {
+        "url": "https://github.com/mockery/mockery.git",
+        "version": "1.6.12",
+        "psr0": {
+            "path": "/library/"
+        },
+        "development-only": true
     }
 }

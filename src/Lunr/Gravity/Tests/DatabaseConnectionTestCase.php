@@ -12,8 +12,14 @@ namespace Lunr\Gravity\Tests;
 
 use Lunr\Gravity\DatabaseConnection;
 use Lunr\Halo\LunrBaseTestCase;
+use Lunr\Ticks\EventLogging\EventInterface;
+use Lunr\Ticks\EventLogging\EventLoggerInterface;
+use Lunr\Ticks\TracingControllerInterface;
+use Lunr\Ticks\TracingInfoInterface;
+use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\MockInterface;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\MockObject\Stub;
 
 /**
  * This class contains the tests for the DatabaseConnection class.
@@ -22,6 +28,8 @@ use PHPUnit\Framework\MockObject\Stub;
  */
 abstract class DatabaseConnectionTestCase extends LunrBaseTestCase
 {
+
+    use MockeryPHPUnitIntegration;
 
     /**
      * Mock instance of the Configuration class.
@@ -36,10 +44,28 @@ abstract class DatabaseConnectionTestCase extends LunrBaseTestCase
     protected $logger;
 
     /**
-     * Instance of the tested class.
-     * @var DatabaseConnection&MockObject&Stub
+     * Mock Instance of an event logger.
+     * @var EventLoggerInterface&MockObject
      */
-    protected DatabaseConnection&MockObject&Stub $class;
+    protected EventLoggerInterface&MockObject $eventLogger;
+
+    /**
+     * Mock instance of a Controller
+     * @var TracingControllerInterface&TracingInfoInterface&MockInterface
+     */
+    protected TracingControllerInterface&TracingInfoInterface&MockInterface $controller;
+
+    /**
+     * Mock Instance of an analytics event.
+     * @var EventInterface&MockObject
+     */
+    protected EventInterface&MockObject $event;
+
+    /**
+     * Instance of the tested class.
+     * @var DatabaseConnection&MockObject
+     */
+    protected DatabaseConnection&MockObject $class;
 
     /**
      * TestCase Constructor.
@@ -49,6 +75,17 @@ abstract class DatabaseConnectionTestCase extends LunrBaseTestCase
         $this->configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+
+        $this->eventLogger = $this->getMockBuilder(EventLoggerInterface::class)
+                                  ->getMock();
+
+        $this->event = $this->getMockBuilder(EventInterface::class)
+                            ->getMock();
+
+        $this->controller = Mockery::mock(
+                                TracingControllerInterface::class,
+                                TracingInfoInterface::class,
+                            );
 
         $this->class = $this->getMockBuilder('Lunr\Gravity\DatabaseConnection')
                             ->setConstructorArgs([ &$this->configuration, &$this->logger ])
@@ -64,6 +101,9 @@ abstract class DatabaseConnectionTestCase extends LunrBaseTestCase
     {
         unset($this->configuration);
         unset($this->logger);
+        unset($this->eventLogger);
+        unset($this->event);
+        unset($this->controller);
         unset($this->class);
 
         parent::tearDown();
