@@ -12,6 +12,14 @@ namespace Lunr\Gravity\MySQL\Tests;
 
 use Lunr\Gravity\MySQL\MySQLConnection;
 use Lunr\Halo\LunrBaseTestCase;
+use Lunr\Ticks\EventLogging\EventInterface;
+use Lunr\Ticks\EventLogging\EventLoggerInterface;
+use Lunr\Ticks\TracingControllerInterface;
+use Lunr\Ticks\TracingInfoInterface;
+use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\MockInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * This class contains common constructors/destructors and data providers
@@ -21,6 +29,8 @@ use Lunr\Halo\LunrBaseTestCase;
  */
 abstract class MySQLConnectionTestCase extends LunrBaseTestCase
 {
+
+    use MockeryPHPUnitIntegration;
 
     /**
      * Mock instance of the Configuration class.
@@ -41,6 +51,24 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
     protected $mysqli;
 
     /**
+     * Mock Instance of an event logger.
+     * @var EventLoggerInterface&MockObject
+     */
+    protected EventLoggerInterface&MockObject $eventLogger;
+
+    /**
+     * Mock instance of a Controller
+     * @var TracingControllerInterface&TracingInfoInterface&MockInterface
+     */
+    protected TracingControllerInterface&TracingInfoInterface&MockInterface $controller;
+
+    /**
+     * Mock Instance of an analytics event.
+     * @var EventInterface&MockObject
+     */
+    protected EventInterface&MockObject $event;
+
+    /**
      * Instance of the tested class.
      * @var MySQLConnection
      */
@@ -58,6 +86,17 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $this->mysqli = $this->getMockBuilder('\mysqli')->getMock();
+
+        $this->eventLogger = $this->getMockBuilder(EventLoggerInterface::class)
+                                  ->getMock();
+
+        $this->event = $this->getMockBuilder(EventInterface::class)
+                            ->getMock();
+
+        $this->controller = Mockery::mock(
+                                TracingControllerInterface::class,
+                                TracingInfoInterface::class,
+                            );
 
         $this->class = new MySQLConnection($this->configuration, $this->logger, $this->mysqli);
 
@@ -87,6 +126,17 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
 
         $this->mysqli = $this->getMockBuilder('\mysqli')->getMock();
 
+        $this->eventLogger = $this->getMockBuilder(EventLoggerInterface::class)
+                                  ->getMock();
+
+        $this->event = $this->getMockBuilder(EventInterface::class)
+                            ->getMock();
+
+        $this->controller = Mockery::mock(
+                                TracingControllerInterface::class,
+                                TracingInfoInterface::class,
+                            );
+
         $this->class = new MySQLConnection($this->configuration, $this->logger, $this->mysqli);
 
         parent::baseSetUp($this->class);
@@ -100,6 +150,9 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
         unset($this->class);
         unset($this->configuration);
         unset($this->logger);
+        unset($this->eventLogger);
+        unset($this->event);
+        unset($this->controller);
 
         parent::tearDown();
     }

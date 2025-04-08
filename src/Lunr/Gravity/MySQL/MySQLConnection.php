@@ -14,6 +14,7 @@ use Lunr\Core\Configuration;
 use Lunr\Gravity\DatabaseConnection;
 use Lunr\Gravity\Exceptions\ConnectionException;
 use Lunr\Gravity\Exceptions\DefragmentationException;
+use Lunr\Ticks\AnalyticsDetailLevel;
 use MySQLi;
 use Psr\Log\LoggerInterface;
 
@@ -431,18 +432,73 @@ class MySQLConnection extends DatabaseConnection
     {
         $this->connect();
 
-        $sqlQuery        = $this->queryHint . $sqlQuery;
+        $profilingHint = '';
+
+        if ($this->analyticsDetailLevel->atLeast(AnalyticsDetailLevel::Info))
+        {
+            $this->tracingController->startChildSpan();
+
+            $traceID = $this->tracingController->getTraceId();
+            $spanID  = $this->tracingController->getSpanId();
+
+            $profilingHint = "/* traceID=$traceID,spanID=$spanID */ ";
+        }
+
+        $sqlQuery        = $profilingHint . $this->queryHint . $sqlQuery;
         $this->queryHint = '';
 
         $this->logger->debug('query: {query}', [ 'query' => $sqlQuery ]);
 
-        $queryStart = microtime(TRUE);
-        $result     = $this->mysqli->query($sqlQuery);
-        $queryEnd   = microtime(TRUE);
+        $startTimestamp = microtime(TRUE);
+        $result         = $this->mysqli->query($sqlQuery);
 
-        $this->logger->debug('Query executed in ' . ($queryEnd - $queryStart) . ' seconds');
+        $endTimestamp  = microtime(TRUE);
+        $executionTime = (float) bcsub((string) $endTimestamp, (string) $startTimestamp, 4);
 
-        return new MySQLQueryResult($sqlQuery, $result, $this->mysqli);
+        $this->logger->debug('Query executed in ' . $executionTime . ' seconds');
+
+        $queryResult = new MySQLQueryResult($sqlQuery, $result, $this->mysqli);
+
+        if ($this->analyticsDetailLevel->atLeast(AnalyticsDetailLevel::Info))
+        {
+            $message  = $queryResult->error_message();
+            $warnings = $queryResult->warnings();
+
+            $fields = [
+                'startTimestamp' => $startTimestamp,
+                'endTimestamp'   => $endTimestamp,
+                'executionTime'  => $executionTime,
+                'canonicalQuery' => $queryResult->canonical_query(),
+                'numberOfRows'   => $queryResult->number_of_rows(),
+                'errorMessage'   => !empty($message) ? $message : NULL,
+                'warnings'       => !empty($warnings) ? json_encode($warnings) : NULL,
+                'traceID'        => $traceID,
+                'spanID'         => $spanID,
+                'parentSpanID'   => $this->tracingController->getParentSpanId(),
+            ];
+            $tags   = [
+                'digest'      => sha1($fields['canonicalQuery']),
+                'host'        => $this->getHost(),
+                'successful'  => !$queryResult->has_failed(),
+                'errorNumber' => $queryResult->error_number(),
+            ];
+
+            if ($this->analyticsDetailLevel->atLeast(AnalyticsDetailLevel::Full))
+            {
+                $fields['query'] = $queryResult->query();
+            }
+
+            $event = $this->eventLogger->newEvent('mysql_query_log');
+
+            $event->recordTimestamp();
+            $event->addTags(array_merge($this->tracingController->getSpanSpecificTags(), $tags));
+            $event->addFields($fields);
+            $event->record();
+
+            $this->tracingController->stopChildSpan();
+        }
+
+        return $queryResult;
     }
 
     /**
@@ -534,6 +590,30 @@ class MySQLConnection extends DatabaseConnection
 
             throw new DefragmentationException($query, "Failed to optimize table: $table");
         }
+    }
+
+    /**
+     * Get the hostname of the server the last query ran on.
+     *
+     * @return string|null Hostname
+     */
+    protected function getHost(): ?string
+    {
+        $result = $this->mysqli->query('/* maxscale route to last */ SELECT @@hostname');
+
+        if (!is_object($result))
+        {
+            return NULL;
+        }
+
+        $row = $result->fetch_row();
+
+        if (!is_array($row) || empty($row))
+        {
+            return NULL;
+        }
+
+        return $row[0];
     }
 
 }
