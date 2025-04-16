@@ -70,18 +70,7 @@ abstract class SQLite3ConnectionTestCase extends LunrBaseTestCase
             $this->markTestSkipped('Extension sqlite3 is required.');
         }
 
-        $this->subConfiguration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
-
         $this->configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
-
-        $this->configuration->expects($this->any())
-                            ->method('offsetExists')
-                            ->will($this->returnValue(TRUE));
-
-        $this->configuration->expects($this->atLeast(1))
-                            ->method('offsetGet')
-                            ->with('db')
-                            ->will($this->returnValue($this->subConfiguration));
 
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
@@ -110,30 +99,19 @@ abstract class SQLite3ConnectionTestCase extends LunrBaseTestCase
             $this->markTestSkipped('Extension sqlite3 is required.');
         }
 
-        $this->subConfiguration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
-
         $this->configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $this->configuration->expects($this->any())
                             ->method('offsetExists')
                             ->will($this->returnValue(TRUE));
 
-        $this->configuration->expects($this->atLeast(1))
-                            ->method('offsetGet')
-                            ->with('db')
-                            ->will($this->returnValue($this->subConfiguration));
-
-        $this->subConfiguration->expects($this->atLeast(1))
-                               ->method('offsetExists')
-                               ->will($this->returnValue(TRUE));
-
         $map = [
             [ 'file', '/tmp/test.db' ],
             [ 'driver', 'sqlite3' ],
         ];
 
-        $this->subConfiguration->expects($this->atLeast(1))
-                               ->method('offsetGet')
+        $this->configuration->expects($this->atLeast(1))
+                            ->method('offsetGet')
                                ->will($this->returnValueMap($map));
 
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
@@ -155,7 +133,6 @@ abstract class SQLite3ConnectionTestCase extends LunrBaseTestCase
     public function tearDown(): void
     {
         unset($this->logger);
-        unset($this->subConfiguration);
         unset($this->configuration);
         unset($this->sqlite3);
         unset($this->sqlite3Result);

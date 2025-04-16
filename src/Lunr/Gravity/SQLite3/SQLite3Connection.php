@@ -18,6 +18,12 @@ use Psr\Log\LoggerInterface;
 
 /**
  * SQLite database access class.
+ *
+ * @phpstan-type SQLite3Config array{
+ *  'file'?: string,
+ *  'driver': string,
+ *  'errorReporting'?: int|bool
+ * }
  */
 class SQLite3Connection extends DatabaseConnection
 {
@@ -43,19 +49,19 @@ class SQLite3Connection extends DatabaseConnection
     /**
      * Constructor.
      *
-     * @param Configuration   $configuration Shared instance of the configuration class
-     * @param LoggerInterface $logger        Shared instance of a logger class
-     * @param LunrSQLite3     $sqlite3       Instance of the LunrSQLite3 class
+     * @param Configuration|SQLite3Config $config  Database config
+     * @param LoggerInterface             $logger  Shared instance of a logger class
+     * @param LunrSQLite3                 $sqlite3 Instance of the LunrSQLite3 class
      */
-    public function __construct(Configuration $configuration, LoggerInterface $logger, LunrSQLite3 $sqlite3)
+    public function __construct(Configuration|array $config, LoggerInterface $logger, LunrSQLite3 $sqlite3)
     {
-        parent::__construct($configuration, $logger);
+        parent::__construct($config, $logger);
 
         $this->sqlite3 =& $sqlite3;
 
         $this->set_configuration();
 
-        $this->sqlite3->enableExceptions($configuration['db']['error_reporting'] ?? FALSE);
+        $this->sqlite3->enableExceptions($config['errorReporting'] ?? FALSE);
     }
 
     /**
@@ -72,13 +78,13 @@ class SQLite3Connection extends DatabaseConnection
     }
 
     /**
-     * Set the configuration values.
+     * Set the config values.
      *
      * @return void
      */
     private function set_configuration(): void
     {
-        $this->db = isset($this->configuration['db']['file']) ? $this->configuration['db']['file'] : ':memory:';
+        $this->db = $this->config['file'] ?? ':memory:';
     }
 
     /**
@@ -93,7 +99,7 @@ class SQLite3Connection extends DatabaseConnection
             return;
         }
 
-        if ($this->configuration['db']['driver'] != 'sqlite3')
+        if ($this->config['driver'] != 'sqlite3')
         {
             throw new ConnectionException('Cannot connect to a non-sqlite3 database connection!');
         }

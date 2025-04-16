@@ -27,7 +27,7 @@ class DatabaseConnectionBaseTest extends DatabaseConnectionTestCase
      */
     public function testConfigurationIsPassedByReference(): void
     {
-        $this->assertPropertySame('configuration', $this->configuration);
+        $this->assertPropertySame('config', $this->config);
     }
 
     /**

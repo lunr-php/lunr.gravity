@@ -19,6 +19,23 @@ use Psr\Log\LoggerInterface;
 
 /**
  * MySQL/MariaDB database access class.
+ *
+ * @phpstan-type MySQLConfig array{
+ *  'rwHost': string,
+ *  'roHost'?: string,
+ *  'port'?: int,
+ *  'socket'?: string,
+ *  'sslKey'?: string,
+ *  'sslCert'?: string,
+ *  'caCert'?: string,
+ *  'caPath'?: string,
+ *  'cipher'?: string,
+ *  'username': string,
+ *  'password': string,
+ *  'database': string,
+ *  'driver': string,
+ *  'errorReporting'?: int|bool
+ * }
  */
 class MySQLConnection extends DatabaseConnection
 {
@@ -128,13 +145,13 @@ class MySQLConnection extends DatabaseConnection
     /**
      * Constructor.
      *
-     * @param Configuration   $configuration Shared instance of the configuration class
-     * @param LoggerInterface $logger        Shared instance of a logger class
-     * @param MySQLi          $mysqli        Instance of the mysqli class
+     * @param Configuration|MySQLConfig $config Database config
+     * @param LoggerInterface           $logger Shared instance of a logger class
+     * @param MySQLi                    $mysqli Instance of the mysqli class
      */
-    public function __construct(Configuration $configuration, LoggerInterface $logger, MySQLi $mysqli)
+    public function __construct(Configuration|array $config, LoggerInterface $logger, MySQLi $mysqli)
     {
-        parent::__construct($configuration, $logger);
+        parent::__construct($config, $logger);
 
         $this->mysqli =& $mysqli;
 
@@ -143,7 +160,7 @@ class MySQLConnection extends DatabaseConnection
 
         $this->set_configuration();
 
-        mysqli_report($configuration['db']['error_reporting'] ?? MYSQLI_REPORT_ERROR);
+        mysqli_report($config['errorReporting'] ?? MYSQLI_REPORT_ERROR);
     }
 
     /**
@@ -176,48 +193,24 @@ class MySQLConnection extends DatabaseConnection
     }
 
     /**
-     * Set the configuration values.
+     * Set the config values.
      *
      * @return void
      */
     private function set_configuration(): void
     {
-        $this->rwHost  = $this->configuration['db']['rw_host'];
-        $this->user    = $this->configuration['db']['username'];
-        $this->pwd     = $this->configuration['db']['password'];
-        $this->db      = $this->configuration['db']['database'];
-        $this->sslKey  = $this->configuration['db']['ssl_key'];
-        $this->sslCert = $this->configuration['db']['ssl_cert'];
-        $this->caCert  = $this->configuration['db']['ca_cert'];
-        $this->caPath  = $this->configuration['db']['ca_path'];
-        $this->cipher  = $this->configuration['db']['cipher'];
-
-        if ($this->configuration['db']['ro_host'] != NULL)
-        {
-            $this->roHost = $this->configuration['db']['ro_host'];
-        }
-        else
-        {
-            $this->roHost = $this->rwHost;
-        }
-
-        if ($this->configuration['db']['port'] != NULL)
-        {
-            $this->port = $this->configuration['db']['port'];
-        }
-        else
-        {
-            $this->port = (int) (ini_get('mysqli.default_port') ?: 3306 );
-        }
-
-        if ($this->configuration['db']['socket'] != NULL)
-        {
-            $this->socket = $this->configuration['db']['socket'];
-        }
-        else
-        {
-            $this->socket = ini_get('mysqli.default_socket');
-        }
+        $this->rwHost  = $this->config['rwHost'];
+        $this->roHost  = $this->config['roHost'] ?? $this->config['rwHost'];
+        $this->port    = $this->config['port'] ?? (int) (ini_get('mysqli.default_port') ?: 3306 );
+        $this->socket  = $this->config['socket'] ?? ini_get('mysqli.default_socket');
+        $this->user    = $this->config['username'];
+        $this->pwd     = $this->config['password'];
+        $this->db      = $this->config['database'];
+        $this->sslKey  = $this->config['sslKey'] ?? NULL;
+        $this->sslCert = $this->config['sslCert'] ?? NULL;
+        $this->caCert  = $this->config['caCert'] ?? NULL;
+        $this->caPath  = $this->config['caPath'] ?? NULL;
+        $this->cipher  = $this->config['cipher'] ?? NULL;
     }
 
     /**
@@ -234,7 +227,7 @@ class MySQLConnection extends DatabaseConnection
             return;
         }
 
-        if ($this->configuration['db']['driver'] != 'mysql')
+        if ($this->config['driver'] != 'mysql')
         {
             throw new ConnectionException('Cannot connect to a non-mysql database connection!');
         }

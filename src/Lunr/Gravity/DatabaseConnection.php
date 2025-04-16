@@ -19,6 +19,11 @@ use Psr\Log\LoggerInterface;
 
 /**
  * This class defines abstract database access.
+ *
+ * @phpstan-type DatabaseConfig array{
+ *  'driver': string,
+ *  'errorReporting'?: int|bool
+ * }
  */
 abstract class DatabaseConnection implements DatabaseStringEscaperInterface
 {
@@ -42,10 +47,10 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
     protected AnalyticsDetailLevel $analyticsDetailLevel;
 
     /**
-     * Shared instance of the Configuration class
-     * @var Configuration
+     * Database config
+     * @var Configuration|array
      */
-    protected Configuration $configuration;
+    protected Configuration|array $config;
 
     /**
      * Shared instance of a Logger class
@@ -68,18 +73,18 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
     /**
      * Constructor.
      *
-     * @param Configuration   $configuration Shared instance of the configuration class
-     * @param LoggerInterface $logger        Shared instance of a logger class
+     * @param Configuration|array $config Database config
+     * @param LoggerInterface     $logger Shared instance of a logger class
      */
-    public function __construct(Configuration $configuration, LoggerInterface $logger)
+    public function __construct(Configuration|array $config, LoggerInterface $logger)
     {
         $this->connected = FALSE;
         $this->readonly  = FALSE;
 
         $this->analyticsDetailLevel = AnalyticsDetailLevel::None;
 
-        $this->configuration = $configuration;
-        $this->logger        = $logger;
+        $this->config = $config;
+        $this->logger = $logger;
     }
 
     /**
@@ -87,7 +92,7 @@ abstract class DatabaseConnection implements DatabaseStringEscaperInterface
      */
     public function __destruct()
     {
-        unset($this->configuration);
+        unset($this->config);
         unset($this->logger);
         unset($this->readonly);
         unset($this->analyticsDetailLevel);

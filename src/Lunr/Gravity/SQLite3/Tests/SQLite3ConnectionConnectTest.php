@@ -141,7 +141,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTestCase
                          ->method('offsetGet')
                          ->will($this->returnValueMap($map));
 
-        $this->setReflectionPropertyValue('configuration', $configuration);
+        $this->setReflectionPropertyValue('config', $configuration);
 
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Cannot connect to a non-sqlite3 database connection!');

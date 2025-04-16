@@ -32,29 +32,29 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
         $this->emptySetUp();
 
         $this->valuesMap = [
-            [ 'rw_host', 'rw_host' ],
+            [ 'rwHost', 'rwHost' ],
             [ 'username', 'username' ],
             [ 'password', 'password' ],
             [ 'database', 'database' ],
             [ 'driver', 'mysql' ],
-            [ 'ssl_key', 'ssl_key' ],
-            [ 'ssl_cert', 'ssl_cert' ],
-            [ 'ca_cert', 'ca_cert' ],
-            [ 'ca_path', 'ca_path' ],
+            [ 'sslKey', 'sslKey' ],
+            [ 'sslCert', 'sslCert' ],
+            [ 'caCert', 'caCert' ],
+            [ 'caPath', 'caPath' ],
             [ 'cipher', 'cipher' ],
         ];
     }
 
     /**
-     * Test that set_configuration sets rw_host correctly.
+     * Test that set_configuration sets rwHost correctly.
      *
      * @covers Lunr\Gravity\MySQL\MySQLConnection::set_configuration
      */
     public function testSetConfigurationSetsRWHostCorrectly(): void
     {
-        $this->subConfiguration->expects($this->any())
-                               ->method('offsetGet')
-                               ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('rwHost');
         $property->setValue($this->class, '');
@@ -72,9 +72,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsUsernameCorrectly(): void
     {
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('user');
         $property->setValue($this->class, '');
@@ -92,9 +92,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsPasswordCorrectly(): void
     {
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('pwd');
         $property->setValue($this->class, '');
@@ -112,9 +112,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsDatabaseCorrectly(): void
     {
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('db');
         $property->setValue($this->class, '');
@@ -126,15 +126,15 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     }
 
     /**
-     * Test that set_configuration sets ro_host to rw_host if it is not set.
+     * Test that set_configuration sets roHost to rwHost if it is not set.
      *
      * @covers Lunr\Gravity\MySQL\MySQLConnection::set_configuration
      */
     public function testSetConfigurationSetsROHostToRWHostIfItIsNotSet(): void
     {
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('roHost');
         $property->setValue($this->class, '');
@@ -142,21 +142,21 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
         $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
-        $this->assertEquals('rw_host', $property->getValue($this->class));
+        $this->assertEquals('rwHost', $property->getValue($this->class));
     }
 
     /**
-     * Test that set_configuration sets ro_host to rw_host if it is empty.
+     * Test that set_configuration sets roHost to rwHost if it is empty.
      *
      * @covers Lunr\Gravity\MySQL\MySQLConnection::set_configuration
      */
     public function testSetConfigurationSetsROHostToRWHostIfItIsEmpty(): void
     {
-        $this->valuesMap[] = [ 'ro_host', '' ];
+        $this->valuesMap[] = [ 'roHost', '' ];
 
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('roHost');
         $property->setValue($this->class, '');
@@ -164,25 +164,25 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
         $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
-        $this->assertEquals('rw_host', $property->getValue($this->class));
+        $this->assertEquals('rwHost', $property->getValue($this->class));
     }
 
     /**
-     * Test that set_configuration sets ro_host correctly.
+     * Test that set_configuration sets roHost correctly.
      *
      * @covers Lunr\Gravity\MySQL\MySQLConnection::set_configuration
      */
     public function testSetConfigurationSetsROHostCorrectly(): void
     {
-        $this->valuesMap[] = [ 'ro_host', 'ro_host' ];
+        $this->valuesMap[] = [ 'roHost', 'roHost' ];
 
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetExists')
-                      ->will($this->returnValue(TRUE));
+        $this->configuration->expects($this->any())
+                            ->method('offsetExists')
+                            ->will($this->returnValue(TRUE));
 
         $property = $this->getReflectionProperty('roHost');
         $property->setValue($this->class, '');
@@ -190,7 +190,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
         $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
-        $this->assertEquals('ro_host', $property->getValue($this->class));
+        $this->assertEquals('roHost', $property->getValue($this->class));
     }
 
     /**
@@ -200,9 +200,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsPortToIniValueIfNotSet(): void
     {
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $this->setReflectionPropertyValue('port', 0);
 
@@ -221,9 +221,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->mockFunction('ini_get', fn($arg) => FALSE);
 
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $this->setReflectionPropertyValue('port', 0);
 
@@ -244,9 +244,13 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->valuesMap[] = [ 'port', 20 ];
 
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetExists')
+                            ->will($this->returnValue(TRUE));
+
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $this->setReflectionPropertyValue('port', 0);
 
@@ -263,9 +267,9 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsSocketToIniValueIfNotSet(): void
     {
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('socket');
         $property->setValue($this->class, '');
@@ -285,9 +289,13 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->valuesMap[] = [ 'socket', 'socket' ];
 
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetExists')
+                            ->will($this->returnValue(TRUE));
+
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('socket');
         $property->setValue($this->class, '');
@@ -299,15 +307,19 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     }
 
     /**
-     * Test that set_configuration sets ssl_key correctly.
+     * Test that set_configuration sets sslKey correctly.
      *
      * @covers Lunr\Gravity\MySQL\MySQLConnection::set_configuration
      */
     public function testSetConfigurationSetsSSLKeyCorrectly(): void
     {
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetExists')
+                            ->will($this->returnValue(TRUE));
+
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('sslKey');
         $property->setValue($this->class, '');
@@ -315,19 +327,23 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
         $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
-        $this->assertEquals('ssl_key', $property->getValue($this->class));
+        $this->assertEquals('sslKey', $property->getValue($this->class));
     }
 
     /**
-     * Test that set_configuration sets ssl_cert correctly.
+     * Test that set_configuration sets sslCert correctly.
      *
      * @covers Lunr\Gravity\MySQL\MySQLConnection::set_configuration
      */
     public function testSetConfigurationSetsSSLCertCorrectly(): void
     {
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetExists')
+                            ->will($this->returnValue(TRUE));
+
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('sslCert');
         $property->setValue($this->class, '');
@@ -335,19 +351,23 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
         $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
-        $this->assertEquals('ssl_cert', $property->getValue($this->class));
+        $this->assertEquals('sslCert', $property->getValue($this->class));
     }
 
     /**
-     * Test that set_configuration sets ca_cert correctly.
+     * Test that set_configuration sets caCert correctly.
      *
      * @covers Lunr\Gravity\MySQL\MySQLConnection::set_configuration
      */
     public function testSetConfigurationSetsCACertCorrectly(): void
     {
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetExists')
+                            ->will($this->returnValue(TRUE));
+
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('caCert');
         $property->setValue($this->class, '');
@@ -355,19 +375,23 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
         $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
-        $this->assertEquals('ca_cert', $property->getValue($this->class));
+        $this->assertEquals('caCert', $property->getValue($this->class));
     }
 
     /**
-     * Test that set_configuration sets ca_path correctly.
+     * Test that set_configuration sets caPath correctly.
      *
      * @covers Lunr\Gravity\MySQL\MySQLConnection::set_configuration
      */
     public function testSetConfigurationSetsCAPathCorrectly(): void
     {
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetExists')
+                            ->will($this->returnValue(TRUE));
+
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('caPath');
         $property->setValue($this->class, '');
@@ -375,7 +399,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
         $method = $this->getReflectionMethod('set_configuration');
         $method->invoke($this->class);
 
-        $this->assertEquals('ca_path', $property->getValue($this->class));
+        $this->assertEquals('caPath', $property->getValue($this->class));
     }
 
     /**
@@ -385,9 +409,13 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
      */
     public function testSetConfigurationSetsCipherCorrectly(): void
     {
-        $this->subConfiguration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($this->valuesMap));
+        $this->configuration->expects($this->any())
+                            ->method('offsetExists')
+                            ->will($this->returnValue(TRUE));
+
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($this->valuesMap));
 
         $property = $this->getReflectionProperty('cipher');
         $property->setValue($this->class, '');

@@ -23,12 +23,6 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
 {
 
     /**
-     * Mock instance of the sub Configuration class.
-     * @var Configuration
-     */
-    protected $subConfiguration;
-
-    /**
      * Mock instance of the Configuration class.
      * @var Configuration
      */
@@ -59,17 +53,7 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
      */
     public function emptySetUp(): void
     {
-        $this->subConfiguration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
-
         $this->configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
-
-        $map = [
-            [ 'db', $this->subConfiguration ],
-        ];
-
-        $this->configuration->expects($this->any())
-                            ->method('offsetGet')
-                            ->will($this->returnValueMap($map));
 
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
@@ -85,29 +69,19 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
      */
     public function setUp(): void
     {
-        $this->subConfiguration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
-
         $this->configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
         $map = [
-            [ 'db', $this->subConfiguration ],
-        ];
-
-        $this->configuration->expects($this->any())
-                            ->method('offsetGet')
-                            ->will($this->returnValueMap($map));
-
-        $map = [
-            [ 'rw_host', 'rw_host' ],
+            [ 'rwHost', 'rwHost' ],
             [ 'username', 'username' ],
             [ 'password', 'password' ],
             [ 'database', 'database' ],
             [ 'driver', 'mysql' ],
         ];
 
-        $this->subConfiguration->expects($this->any())
-                               ->method('offsetGet')
-                               ->will($this->returnValueMap($map));
+        $this->configuration->expects($this->any())
+                            ->method('offsetGet')
+                            ->will($this->returnValueMap($map));
 
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 

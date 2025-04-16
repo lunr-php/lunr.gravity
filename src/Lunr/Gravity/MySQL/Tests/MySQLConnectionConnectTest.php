@@ -74,7 +74,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->once())
                ->method('connect')
-               ->with('rw_host', 'username', 'password', 'database', $port, $socket);
+               ->with('rwHost', 'username', 'password', 'database', $port, $socket);
 
         $mysqli->expects($this->never())
                ->method('ssl_set');
@@ -113,7 +113,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->once())
                ->method('connect')
-               ->with('rw_host', 'username', 'password', 'database', $port, $socket);
+               ->with('rwHost', 'username', 'password', 'database', $port, $socket);
 
         $mysqli->expects($this->once())
                ->method('ssl_set')
@@ -153,7 +153,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->exactly(5))
                ->method('connect')
-               ->with('rw_host', 'username', 'password', 'database', $port, $socket);
+               ->with('rwHost', 'username', 'password', 'database', $port, $socket);
 
         $mysqli->expects($this->exactly(5))
                ->method('ssl_set')
@@ -231,7 +231,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->exactly(5))
                ->method('connect')
-               ->with('rw_host', 'username', 'password', 'database', $port, $socket);
+               ->with('rwHost', 'username', 'password', 'database', $port, $socket);
 
         $mysqli->expects($this->exactly(5))
                ->method('ssl_set')
@@ -291,32 +291,24 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
      */
     public function testConnectFailsWhenDriverIsNotMysql(): void
     {
-        $subConfiguration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
-
         $configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
-        $map = [ [ 'db', $subConfiguration ] ];
-
-        $configuration->expects($this->any())
-                      ->method('offsetGet')
-                      ->will($this->returnValueMap($map));
-
         $map = [
-            [ 'rw_host', 'rw_host' ],
+            [ 'rwHost', 'rwHost' ],
             [ 'username', 'username' ],
             [ 'password', 'password' ],
             [ 'database', 'database' ],
             [ 'driver', 'not_mysql' ],
         ];
 
-        $subConfiguration->expects($this->any())
-                          ->method('offsetGet')
-                          ->will($this->returnValueMap($map));
+        $configuration->expects($this->any())
+                      ->method('offsetGet')
+                      ->will($this->returnValueMap($map));
 
         $this->mysqli->expects($this->never())
                      ->method('ssl_set');
 
-        $this->setReflectionPropertyValue('configuration', $configuration);
+        $this->setReflectionPropertyValue('config', $configuration);
 
         $this->mysqli->expects($this->any())
                      ->method('options');

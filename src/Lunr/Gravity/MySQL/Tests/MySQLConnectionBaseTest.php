@@ -44,7 +44,7 @@ class MySQLConnectionBaseTest extends MySQLConnectionTestCase
      */
     public function testRWHostIsSetCorrectly(): void
     {
-        $this->assertPropertyEquals('rwHost', 'rw_host');
+        $this->assertPropertyEquals('rwHost', 'rwHost');
     }
 
     /**
@@ -52,7 +52,7 @@ class MySQLConnectionBaseTest extends MySQLConnectionTestCase
      */
     public function testROHostIsSetToRWHost(): void
     {
-        $this->assertPropertyEquals('roHost', 'rw_host');
+        $this->assertPropertyEquals('roHost', 'rwHost');
     }
 
     /**

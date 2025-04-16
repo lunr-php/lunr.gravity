@@ -17,6 +17,8 @@ use Psr\Log\LoggerInterface;
 
 /**
 * MariaDB database access class.
+*
+* @phpstan-import-type MySQLConfig from MySQLConnection
 */
 class MariaDBConnection extends MySQLConnection
 {
@@ -24,13 +26,13 @@ class MariaDBConnection extends MySQLConnection
     /**
      * Constructor.
      *
-     * @param Configuration   $configuration Shared instance of the configuration class
-     * @param LoggerInterface $logger        Shared instance of a logger class
-     * @param MySQLi          $mysqli        Instance of the mysqli class
+     * @param Configuration|MySQLConfig $config Database config
+     * @param LoggerInterface           $logger Shared instance of a logger class
+     * @param MySQLi                    $mysqli Instance of the mysqli class
      */
-    public function __construct(Configuration $configuration, LoggerInterface $logger, MySQLi $mysqli)
+    public function __construct(Configuration|array $config, LoggerInterface $logger, MySQLi $mysqli)
     {
-        parent::__construct($configuration, $logger, $mysqli);
+        parent::__construct($config, $logger, $mysqli);
     }
 
     /**
