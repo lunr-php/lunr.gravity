@@ -15,13 +15,13 @@ use Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder;
 use Lunr\Gravity\MariaDB\MariaDBSimpleDMLQueryBuilder;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\MySQL\MySQLQueryResult;
-use Lunr\Gravity\Tests\Helpers\DatabaseAccessObjectBaseTest;
+use Lunr\Gravity\Tests\Helpers\DatabaseAccessObjectBaseTestCase;
 use Psr\Log\LoggerInterface;
 
 /**
  * This class contains setup and tear down methods for DAOs using MariaDB access.
  */
-abstract class MariaDBDatabaseAccessObjectTestCase extends DatabaseAccessObjectBaseTest
+abstract class MariaDBDatabaseAccessObjectTestCase extends DatabaseAccessObjectBaseTestCase
 {
 
     /**
