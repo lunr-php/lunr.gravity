@@ -15,13 +15,13 @@ use Lunr\Gravity\MySQL\MySQLDMLQueryBuilder;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\MySQL\MySQLQueryResult;
 use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
-use Lunr\Gravity\Tests\Helpers\DatabaseAccessObjectBaseTest;
+use Lunr\Gravity\Tests\Helpers\DatabaseAccessObjectBaseTestCase;
 use Psr\Log\LoggerInterface;
 
 /**
  * This class contains setup and tear down methods for DAOs using MySQL access.
  */
-abstract class MySQLDatabaseAccessObjectTestCase extends DatabaseAccessObjectBaseTest
+abstract class MySQLDatabaseAccessObjectTestCase extends DatabaseAccessObjectBaseTestCase
 {
 
     /**
