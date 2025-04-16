@@ -158,7 +158,7 @@ class MySQLConnectionBaseTest extends MySQLConnectionTest
     {
         $driver = new MySQLi_Driver();
 
-        $this->assertEquals($driver->report_mode, MYSQLI_REPORT_ERROR);
+        $this->assertEquals($driver->report_mode, MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     }
 
     /**
