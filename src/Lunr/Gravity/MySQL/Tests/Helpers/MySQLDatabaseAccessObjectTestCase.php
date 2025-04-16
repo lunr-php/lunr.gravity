@@ -16,6 +16,7 @@ use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\MySQL\MySQLQueryResult;
 use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
 use Lunr\Gravity\Tests\Helpers\DatabaseAccessObjectBaseTestCase;
+use MySQLi;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -89,13 +90,23 @@ abstract class MySQLDatabaseAccessObjectTestCase extends DatabaseAccessObjectBas
 
         $this->realSimpleBuilder = new MySQLSimpleDMLQueryBuilder($this->realBuilder, $this->realEscaper);
 
-        $this->db = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLConnection')
-                         ->disableOriginalConstructor()
-                         ->getMock();
+        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
-        $this->builder = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLDMLQueryBuilder')
-                              ->disableOriginalConstructor()
-                              ->getMock();
+        $mysqli = $this->getMockBuilder(MySQLi::class)
+                       ->disableOriginalConstructor()
+                       ->getMock();
+
+        $config = [
+            'rwHost'   => 'localhost',
+            'username' => 'user',
+            'password' => 'pass',
+            'database' => 'db',
+            'driver'   => 'mysql',
+        ];
+
+        $this->db = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLConnection')
+                         ->setConstructorArgs([ $config, $this->logger, $mysqli ])
+                         ->getMock();
 
         $this->escaper = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryEscaper')
                               ->disableOriginalConstructor()
@@ -104,8 +115,6 @@ abstract class MySQLDatabaseAccessObjectTestCase extends DatabaseAccessObjectBas
         $this->result = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
                              ->disableOriginalConstructor()
                              ->getMock();
-
-        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $this->db->expects($this->once())
                  ->method('get_query_escaper_object')

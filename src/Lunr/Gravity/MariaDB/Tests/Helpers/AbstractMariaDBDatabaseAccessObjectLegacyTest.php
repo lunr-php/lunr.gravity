@@ -15,6 +15,7 @@ use Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\MySQL\MySQLQueryResult;
 use Lunr\Halo\LegacyBaseTest;
+use MySQLi;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
 
@@ -61,8 +62,22 @@ abstract class AbstractMariaDBDatabaseAccessObjectLegacyTest extends LegacyBaseT
      */
     public function setUp(): void
     {
+        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+
+        $mysqli = $this->getMockBuilder(MySQLi::class)
+                       ->disableOriginalConstructor()
+                       ->getMock();
+
+        $config = [
+            'rwHost'   => 'localhost',
+            'username' => 'user',
+            'password' => 'pass',
+            'database' => 'db',
+            'driver'   => 'mysql',
+        ];
+
         $this->db = $this->getMockBuilder('Lunr\Gravity\MariaDB\MariaDBConnection')
-                         ->disableOriginalConstructor()
+                         ->setConstructorArgs([ $config, $this->logger, $mysqli ])
                          ->getMock();
 
         $this->builder = $this->getMockBuilder('Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder')
@@ -76,8 +91,6 @@ abstract class AbstractMariaDBDatabaseAccessObjectLegacyTest extends LegacyBaseT
         $this->result = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
                              ->disableOriginalConstructor()
                              ->getMock();
-
-        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $this->db->expects($this->once())
                  ->method('get_query_escaper_object')
