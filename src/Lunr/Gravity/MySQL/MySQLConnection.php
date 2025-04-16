@@ -15,6 +15,7 @@ use Lunr\Gravity\DatabaseConnection;
 use Lunr\Gravity\Exceptions\ConnectionException;
 use Lunr\Gravity\Exceptions\DefragmentationException;
 use MySQLi;
+use mysqli_sql_exception;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -143,7 +144,7 @@ class MySQLConnection extends DatabaseConnection
 
         $this->set_configuration();
 
-        mysqli_report($configuration['db']['error_reporting'] ?? MYSQLI_REPORT_ERROR);
+        mysqli_report($configuration['db']['error_reporting'] ?? MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     }
 
     /**
@@ -256,7 +257,14 @@ class MySQLConnection extends DatabaseConnection
             $this->mysqli->options($key, $value);
         }
 
-        $this->mysqli->connect($host, $this->user, $this->pwd, $this->db, $this->port, $this->socket);
+        try
+        {
+            $this->mysqli->connect($host, $this->user, $this->pwd, $this->db, $this->port, $this->socket);
+        }
+        catch (mysqli_sql_exception $mse)
+        {
+            throw new ConnectionException('Could not establish connection to the database! ' . $mse->getMessage(), previous: $mse);
+        }
 
         if ($this->mysqli->errno === 0)
         {

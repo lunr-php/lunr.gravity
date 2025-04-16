@@ -10,6 +10,8 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
+use Lunr\Gravity\Exceptions\ConnectionException;
+use mysqli_sql_exception;
 use Throwable;
 
 /**
@@ -185,6 +187,38 @@ class MySQLConnectionConnectTest extends MySQLConnectionTest
         $this->assertTrue($property->getValue($this->class));
 
         $property->setValue($this->class, FALSE);
+    }
+
+    /**
+     * Test a failed connection attempt.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLConnection::connect
+     */
+    public function testConnectThrowsMysqlisqlexception(): void
+    {
+        $this->mysqli->expects($this->once())
+                     ->method('connect')
+                     ->with('rw_host', 'username', 'password', 'database', ini_get('mysqli.default_port'), ini_get('mysqli.default_socket'))
+                     ->willThrowException(new mysqli_sql_exception('Operation timed out'));
+
+        $this->expectException(ConnectionException::class);
+        $this->expectExceptionMessage('Could not establish connection to the database! Operation timed out');
+
+        try
+        {
+            $this->class->connect();
+        }
+        catch (Throwable $e)
+        {
+            throw $e;
+        }
+        finally
+        {
+            $property = $this->reflection->getProperty('connected');
+            $property->setAccessible(TRUE);
+
+            $this->assertFalse($this->get_reflection_property_value('connected'));
+        }
     }
 
     /**
