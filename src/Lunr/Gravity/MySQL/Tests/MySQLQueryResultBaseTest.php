@@ -192,11 +192,11 @@ class MySQLQueryResultBaseTest extends MySQLQueryResultTestCase
 
         $value = $this->class->canonical_query();
         $this->assertIsString($value);
-        $this->assertEquals('SELECT * FROM table1 WHERE value="?"', $value);
+        $this->assertEquals('SELECT * FROM table1 WHERE value=?', $value);
 
         $value = $this->getReflectionPropertyValue('canonicalQuery');
         $this->assertIsString($value);
-        $this->assertEquals('SELECT * FROM table1 WHERE value="?"', $value);
+        $this->assertEquals('SELECT * FROM table1 WHERE value=?', $value);
     }
 
     /**

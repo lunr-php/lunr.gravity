@@ -81,8 +81,8 @@ class MySQLCanonicalQuery
         $this->add_ignore_positions($this->find_positions($tmpQuery, '\\'));
 
         $tmpQuery = $this->replace_between($tmpQuery, '/*', '*/', '');
-        $tmpQuery = $this->replace_between($tmpQuery, '"', '"', '"?"', TRUE);
-        $tmpQuery = $this->replace_between($tmpQuery, '\'', '\'', '\'?\'', TRUE);
+        $tmpQuery = $this->replace_between($tmpQuery, '"', '"', '?', TRUE);
+        $tmpQuery = $this->replace_between($tmpQuery, '\'', '\'', '?', TRUE);
 
         $tmpQuery = $this->replace_numeric($tmpQuery, '?');
 

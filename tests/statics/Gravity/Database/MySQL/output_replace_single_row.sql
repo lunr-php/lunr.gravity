@@ -1,1 +1,1 @@
-REPLACE INTO db.table VALUES (?, '?', '?');
+REPLACE INTO db.table VALUES (?, ?, ?);
