@@ -16,6 +16,7 @@ use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\MySQL\MySQLQueryResult;
 use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
 use Lunr\Halo\LegacyBaseTest;
+use MySQLi;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
@@ -96,8 +97,22 @@ abstract class AbstractMySQLDatabaseAccessObjectLegacyTest extends LegacyBaseTes
 
         $this->real_simple_builder = new MySQLSimpleDMLQueryBuilder($this->real_builder, $this->real_escaper);
 
+        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+
+        $mysqli = $this->getMockBuilder(MySQLi::class)
+                       ->disableOriginalConstructor()
+                       ->getMock();
+
+        $config = [
+            'rwHost'   => 'localhost',
+            'username' => 'user',
+            'password' => 'pass',
+            'database' => 'db',
+            'driver'   => 'mysql',
+        ];
+
         $this->db = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLConnection')
-                         ->disableOriginalConstructor()
+                         ->setConstructorArgs([ $config, $this->logger, $mysqli ])
                          ->getMock();
 
         $this->builder = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLDMLQueryBuilder')
@@ -111,8 +126,6 @@ abstract class AbstractMySQLDatabaseAccessObjectLegacyTest extends LegacyBaseTes
         $this->result = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryResult')
                              ->disableOriginalConstructor()
                              ->getMock();
-
-        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $this->db->expects($this->exactly(1))
                  ->method('get_query_escaper_object')

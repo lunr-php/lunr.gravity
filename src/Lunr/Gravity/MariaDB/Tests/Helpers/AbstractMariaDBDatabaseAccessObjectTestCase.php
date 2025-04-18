@@ -16,6 +16,7 @@ use Lunr\Gravity\MariaDB\MariaDBSimpleDMLQueryBuilder;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\MySQL\MySQLQueryResult;
 use Lunr\Gravity\Tests\Helpers\DatabaseAccessObjectBaseTestCase;
+use MySQLi;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 
@@ -90,8 +91,22 @@ abstract class AbstractMariaDBDatabaseAccessObjectTestCase extends DatabaseAcces
 
         $this->realSimpleBuilder = new MariaDBSimpleDMLQueryBuilder($this->realBuilder, $this->realEscaper);
 
+        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+
+        $mysqli = $this->getMockBuilder(MySQLi::class)
+                       ->disableOriginalConstructor()
+                       ->getMock();
+
+        $config = [
+            'rwHost'   => 'localhost',
+            'username' => 'user',
+            'password' => 'pass',
+            'database' => 'db',
+            'driver'   => 'mysql',
+        ];
+
         $this->db = $this->getMockBuilder('Lunr\Gravity\MariaDB\MariaDBConnection')
-                         ->disableOriginalConstructor()
+                         ->setConstructorArgs([ $config, $this->logger, $mysqli ])
                          ->getMock();
 
         $this->builder = $this->getMockBuilder('Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder')
@@ -105,8 +120,6 @@ abstract class AbstractMariaDBDatabaseAccessObjectTestCase extends DatabaseAcces
         $this->result = $this->getMockBuilder('Lunr\Gravity\MariaDB\MySQLQueryResult')
                              ->disableOriginalConstructor()
                              ->getMock();
-
-        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
         $this->db->expects($this->exactly(1))
                  ->method('get_query_escaper_object')
