@@ -43,7 +43,7 @@ class MockMySQLi
     {
         switch ($name)
         {
-            case 'errno':
+            case 'connect_errno':
                 return 0;
         }
     }

@@ -72,6 +72,8 @@ class MockMySQLiFailedConnection
                 return 10;
             case 'errno':
                 return 666;
+            case 'connect_errno':
+                return 666;
             case 'error':
                 return 'bad';
             case 'insert_id':
@@ -97,7 +99,7 @@ class MockMySQLiFailedConnection
      */
     public function connect($host, $user, $password, $database, $port, $socket)
     {
-        return TRUE;
+        return FALSE;
     }
 
     /**
