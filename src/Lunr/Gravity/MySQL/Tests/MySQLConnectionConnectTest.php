@@ -41,7 +41,8 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->once())
                ->method('connect')
-               ->with('ro_host', 'username', 'password', 'database', $port, $socket);
+               ->with('ro_host', 'username', 'password', 'database', $port, $socket)
+               ->willReturn(TRUE);
 
         $mysqli->expects($this->never())
                ->method('ssl_set');
@@ -74,7 +75,8 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->once())
                ->method('connect')
-               ->with('rwHost', 'username', 'password', 'database', $port, $socket);
+               ->with('rwHost', 'username', 'password', 'database', $port, $socket)
+               ->willReturn(TRUE);
 
         $mysqli->expects($this->never())
                ->method('ssl_set');
@@ -113,7 +115,8 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->once())
                ->method('connect')
-               ->with('rwHost', 'username', 'password', 'database', $port, $socket);
+               ->with('rwHost', 'username', 'password', 'database', $port, $socket)
+               ->willReturn(TRUE);
 
         $mysqli->expects($this->once())
                ->method('ssl_set')
@@ -153,7 +156,8 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->exactly(5))
                ->method('connect')
-               ->with('rwHost', 'username', 'password', 'database', $port, $socket);
+               ->with('rwHost', 'username', 'password', 'database', $port, $socket)
+               ->willReturn(TRUE);
 
         $mysqli->expects($this->exactly(5))
                ->method('ssl_set')
@@ -231,7 +235,8 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->exactly(5))
                ->method('connect')
-               ->with('rwHost', 'username', 'password', 'database', $port, $socket);
+               ->with('rwHost', 'username', 'password', 'database', $port, $socket)
+               ->willReturn(TRUE);
 
         $mysqli->expects($this->exactly(5))
                ->method('ssl_set')

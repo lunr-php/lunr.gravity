@@ -250,23 +250,18 @@ class MySQLConnection extends DatabaseConnection
             $this->mysqli->options($key, $value);
         }
 
-        $this->mysqli->connect($host, $this->user, $this->pwd, $this->db, $this->port, $this->socket);
+        $this->connected = $this->mysqli->connect($host, $this->user, $this->pwd, $this->db, $this->port, $this->socket);
 
-        if ($this->mysqli->errno === 0)
-        {
-            $this->connected = TRUE;
-
-            if ($this->mysqli->set_charset('utf8mb4') === FALSE)
-            {
-                // manual re-connect
-                $this->disconnect();
-                $this->connect(++$reconnectCount);
-            }
-        }
-
-        if ($this->connected === FALSE)
+        if ($this->connected === FALSE || $this->mysqli->connect_errno !== 0)
         {
             throw new ConnectionException('Could not establish connection to the database!');
+        }
+
+        if ($this->mysqli->set_charset('utf8mb4') === FALSE)
+        {
+            // manual re-connect
+            $this->disconnect();
+            $this->connect(++$reconnectCount);
         }
     }
 
