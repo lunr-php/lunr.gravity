@@ -196,11 +196,11 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $this->event->expects($this->once())
                     ->method('addTags')
                     ->with([
-                        'digest'      => '7cd9148ec5a552dbf68de5a6debcf8e4d974db72',
-                        'host'        => 'db-server',
-                        'successful'  => TRUE,
-                        'errorNumber' => 0,
-                        'call'        => 'controller/method',
+                        'digest'       => '7cd9148ec5a552dbf68de5a6debcf8e4d974db72',
+                        'databaseHost' => 'db-server',
+                        'successful'   => TRUE,
+                        'errorNumber'  => 0,
+                        'call'         => 'controller/method',
                     ]);
 
         $this->event->expects($this->once())
@@ -308,11 +308,11 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $this->event->expects($this->once())
                     ->method('addTags')
                     ->with([
-                        'digest'      => '7cd9148ec5a552dbf68de5a6debcf8e4d974db72',
-                        'host'        => 'db-server',
-                        'successful'  => TRUE,
-                        'errorNumber' => 0,
-                        'call'        => 'controller/method',
+                        'digest'       => '7cd9148ec5a552dbf68de5a6debcf8e4d974db72',
+                        'databaseHost' => 'db-server',
+                        'successful'   => TRUE,
+                        'errorNumber'  => 0,
+                        'call'         => 'controller/method',
                     ]);
 
         $this->event->expects($this->once())

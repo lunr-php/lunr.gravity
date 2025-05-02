@@ -473,10 +473,10 @@ class MySQLConnection extends DatabaseConnection
                 'parentSpanID'   => $this->tracingController->getParentSpanId(),
             ];
             $tags   = [
-                'digest'      => sha1($fields['canonicalQuery']),
-                'host'        => $this->getHost(),
-                'successful'  => !$queryResult->has_failed(),
-                'errorNumber' => $queryResult->error_number(),
+                'digest'       => sha1($fields['canonicalQuery']),
+                'databaseHost' => $this->getHost(),
+                'successful'   => !$queryResult->has_failed(),
+                'errorNumber'  => $queryResult->error_number(),
             ];
 
             if ($this->analyticsDetailLevel->atLeast(AnalyticsDetailLevel::Full))
