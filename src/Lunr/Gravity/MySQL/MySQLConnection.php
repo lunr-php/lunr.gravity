@@ -250,7 +250,8 @@ class MySQLConnection extends DatabaseConnection
             $this->mysqli->options($key, $value);
         }
 
-        $this->connected = $this->mysqli->connect($host, $this->user, $this->pwd, $this->db, $this->port, $this->socket);
+        // Mysqli::connect() will return NULL on success before PHP 8.1, so we need this for backwards compatibility
+        $this->connected = $this->mysqli->connect($host, $this->user, $this->pwd, $this->db, $this->port, $this->socket) !== FALSE;
 
         if ($this->connected === FALSE || $this->mysqli->connect_errno !== 0)
         {
