@@ -1,1 +1,1 @@
-REPLACE INTO `database`.`table` (`param1`, `param2`, `param3`) VALUES (?, '?', '?')
+REPLACE INTO `database`.`table` (`param1`, `param2`, `param3`) VALUES (...)

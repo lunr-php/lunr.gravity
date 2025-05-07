@@ -75,18 +75,19 @@ class MySQLCanonicalQuery
 
         $tmpQuery = $this->remove_eol_blank_spaces($tmpQuery);
 
+        $tmpQuery = $this->collapse_multirows($tmpQuery);
+
         $this->add_ignore_positions($this->find_positions($tmpQuery, '/*M', '*/'));
         $this->add_ignore_positions($this->find_positions($tmpQuery, '/*!', '*/'));
         $this->add_ignore_positions($this->find_positions($tmpQuery, '`', '`'));
         $this->add_ignore_positions($this->find_positions($tmpQuery, '\\'));
+        $this->add_ignore_positions($this->find_positions($tmpQuery, '/* , ... */'));
 
         $tmpQuery = $this->replace_between($tmpQuery, '/*', '*/', '');
         $tmpQuery = $this->replace_between($tmpQuery, '"', '"', '?', TRUE);
         $tmpQuery = $this->replace_between($tmpQuery, '\'', '\'', '?', TRUE);
 
         $tmpQuery = $this->replace_numeric($tmpQuery, '?');
-
-        $tmpQuery = $this->collapse_multirows($tmpQuery);
 
         $this->canonicalQuery = $this->remove_eol_blank_spaces($tmpQuery);
 
@@ -463,162 +464,25 @@ class MySQLCanonicalQuery
             return $string;
         }
 
-        $end    = strlen($string);
         $offset = $this->find_positions($string, 'VALUES');
 
-        if (count($offset) === 0)
+        if (empty($offset))
         {
             return $string;
         }
 
-        $firstRowPosition = $this->get_between_delimiter($string, '(', ')', $offset[0][1] + 1, [ ' ' ]);
+        $tmpString = substr($string, 0, $offset[0][1] + 1) . ' (...)';
 
-        if ($firstRowPosition === NULL)
+        $offset = $this->find_positions($string, 'ON DUPLICATE KEY UPDATE');
+
+        if (empty($offset))
         {
-            return $string;
+            return $tmpString;
         }
 
-        $firstRow = substr($string, $firstRowPosition[0], $firstRowPosition[1] - $firstRowPosition[0] + 1);
-
-        $tmpString = $string;
-        $i         = $firstRowPosition[1] + 1;
-        while ($i < $end)
-        {
-            $nextRowStart = $this->find_next($tmpString, ',', $firstRowPosition[1] + 1, [ ' ' ]);
-            if ($nextRowStart === NULL)
-            {
-                break;
-            }
-
-            $rowPosition = $this->get_between_delimiter($tmpString, '(', ')', $nextRowStart + 1, [ ' ' ]);
-            if ($rowPosition === NULL)
-            {
-                return $string;
-            }
-
-            $row = substr($tmpString, $rowPosition[0], $rowPosition[1] - $rowPosition[0] + 1);
-
-            if ($firstRow != $row)
-            {
-                return $string;
-            }
-
-            $tmpString = substr_replace($tmpString, '', $firstRowPosition[1] + 1, $rowPosition[1] - $firstRowPosition[1]);
-
-            $end = strlen($tmpString);
-            $i   = $firstRowPosition[1] + 1;
-        }
+        $tmpString .= ' /* , ... */ ' . substr($string, $offset[0][0]);
 
         return $tmpString;
-    }
-
-    /**
-     * Finds the next start and end index positions between two delimiters, ignoring delimiters in between
-     *
-     * @param string $string   Input string to search
-     * @param string $startDel Input string with start delimiter
-     * @param string $endDel   Input string with end delimiter
-     * @param int    $offset   Input int with index to start the search
-     * @param array  $ignore   Input array with chars to ignore until start position is found
-     *
-     * @return array|null returns the range position of the start and end delimiters, if is not found returns null
-     */
-    private function get_between_delimiter(string $string, string $startDel, string $endDel, int $offset = 0, array $ignore = []): ?array
-    {
-        $end                 = strlen($string);
-        $delimiterStartIndex = NULL;
-        $delimiterEndIndex   = NULL;
-        for ($i = $offset; $i < $end; $i++)
-        {
-            if ($string[$i] === $startDel)
-            {
-                $delimiterStartIndex = $i;
-                break;
-            }
-            elseif ($string[$i] == in_array($string[$i], $ignore))
-            {
-                continue;
-            }
-            elseif ($string[$i] != $startDel)
-            {
-                return NULL;
-            }
-        }
-
-        if ($delimiterStartIndex === NULL)
-        {
-            return NULL;
-        }
-
-        $countP = 0;
-        for ($i = $delimiterStartIndex + 1; $i < $end; $i++)
-        {
-            if ($string[$i] === $startDel)
-            {
-                $countP++;
-            }
-            elseif ($string[$i] === $endDel && $countP > 0)
-            {
-                $countP--;
-            }
-            elseif ($string[$i] === $endDel && $countP === 0)
-            {
-                $delimiterEndIndex = $i;
-                break;
-            }
-        }
-
-        if ($delimiterEndIndex === NULL)
-        {
-            return NULL;
-        }
-
-        return [ $delimiterStartIndex, $delimiterEndIndex ];
-    }
-
-    /**
-     * Finds the next index position of a char
-     *
-     * @param string     $string     Input string to search
-     * @param string     $char       Input string with character to find
-     * @param int        $offset     Input string start position
-     * @param array|null $ignoreChar Input array with characters to ignore, if null ignores all chars
-     *
-     * @return int|null returns the index position of the value found, if not found returns null
-     */
-    private function find_next(string $string, string $char, int $offset, ?array $ignoreChar = NULL): ?int
-    {
-        $end = strlen($string);
-
-        while ($offset < $end)
-        {
-            $jump = $this->jump_ignore($offset);
-            if ($jump > $offset)
-            {
-                $offset = $jump;
-                continue;
-            }
-
-            if ($string[$offset] === $char)
-            {
-                return $offset;
-            }
-
-            if ($ignoreChar !== NULL && $string[$offset] == in_array($string[$offset], $ignoreChar))
-            {
-                $offset++;
-                continue;
-            }
-
-            if ($string[$offset] !== $char && $ignoreChar !== NULL)
-            {
-                break;
-            }
-
-            $offset++;
-        }
-
-        return NULL;
     }
 
 }

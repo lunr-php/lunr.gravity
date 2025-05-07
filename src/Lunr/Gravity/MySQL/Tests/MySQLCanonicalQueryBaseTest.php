@@ -322,45 +322,6 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTestCase
     }
 
     /**
-     * Test that get_between_delimiter() returns the range of index between the next start and end delimiters provided
-     *
-     * @param array       $data     Data values
-     * @param string|null $expected Modified data values
-     *
-     * @dataProvider getBetweenDelimiterDataProvider
-     * @covers       Lunr\Gravity\MySQL\MySQLCanonicalQuery::get_between_delimiter
-     */
-    public function testGetBetweenDelimiter(array $data, ?array $expected): void
-    {
-        $method = $this->getReflectionMethod('get_between_delimiter');
-
-        $result = $method->invokeArgs($this->class, $data);
-
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * Test that find_next() returns the index of the string provided,
-     *
-     * @param array    $data     Data values
-     * @param int|null $expected Modified data values
-     *
-     * @dataProvider findNextDataProvider
-     * @covers       Lunr\Gravity\MySQL\MySQLCanonicalQuery::find_next
-     */
-    public function testFindNext(array $data, ?int $expected): void
-    {
-        $property = $this->getReflectionProperty('ignorePositions');
-        $property->setValue($this->class, ($data[1] ?? []));
-
-        $method = $this->getReflectionMethod('find_next');
-
-        $result = $method->invokeArgs($this->class, $data[0]);
-
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
      * Test that collapse_multi_rows() returns the canonical query collapsed.
      *
      * @param string $data     Data values
@@ -403,7 +364,7 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTestCase
 
         $result = $method->invokeArgs($this->class, [ $input ]);
 
-        $this->assertEquals($output, $result);
+        $this->assertEquals($output, trim($result) . "\n");
     }
 
 }

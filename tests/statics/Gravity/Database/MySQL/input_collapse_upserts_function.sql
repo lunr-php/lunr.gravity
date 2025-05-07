@@ -1,1 +1,1 @@
-INSERT INTO `database`.`table` (`identifier`, `language`, `content`) VALUES (COALESCE("?","?",?),"?","?") ,(COALESCE("?","?",?),"?","?") ,(COALESCE("?","?",?),"?","?") ,(COALESCE("?","?",?),"?","?") ,(COALESCE("?","?",?),"?","?") ON DUPLICATE KEY UPDATE `content`="?"
+INSERT INTO `database`.`table` (`identifier`, `language`, `content`) VALUES (COALESCE("?","?",1),"?","?") ,(COALESCE("?","?",2),"?","?") ,(COALESCE("?","?",3),"?","?") ,(COALESCE("?","?",4),"?","?") ,(COALESCE("?","?",5),"?","?") ON DUPLICATE KEY UPDATE `content`="?"

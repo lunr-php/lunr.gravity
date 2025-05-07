@@ -254,6 +254,10 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
             $path . 'input_upserts_function_multi_rows.sql',
             $path . 'output_upserts_function_multi_rows.sql',
         ];
+        $dataProvider['upserts huge']                      = [
+            $path . 'input_upserts_huge.sql',
+            $path . 'output_upserts_huge.sql',
+        ];
         $dataProvider['maxscalehints']                     = [
             $path . 'input_maxscalehints.sql',
             $path . 'output_maxscalehints.sql',
@@ -262,40 +266,6 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
             $path . 'input_cte.sql',
             $path . 'output_cte.sql',
         ];
-
-        return $dataProvider;
-    }
-
-    /**
-     * Unit Test Data Provider.
-     *
-     * @return array $dataProvider Array of data values.
-     */
-    public function findNextDataProvider(): array
-    {
-        $dataProvider                      = [];
-        $dataProvider['find']              = [[[ 'VALUES (?) , (?)',',',4,NULL ],[]],11 ];
-        $dataProvider['find ignore char']  = [[[ ' ,(?),(?)',',',0,[ ' ' ]],[]],1 ];
-        $dataProvider['found first index'] = [[[ ',(?),(?)',',',0,[ ' ' ]],[]],0 ];
-        $dataProvider['offset']            = [[[ ',(?) ,(?)',',',4,[ ' ' ]],[]],5 ];
-        $dataProvider['find not ignore']   = [[[ 'VALUES (?) , (?)',',',4,[ ' ' ]],[]],NULL ];
-        $dataProvider['not found']         = [[[ '(?,?) ON ',',',4,NULL ],[]],NULL ];
-
-        return $dataProvider;
-    }
-
-    /**
-     * Unit Test Data Provider.
-     *
-     * @return array $dataProvider Array of data values.
-     */
-    public function getBetweenDelimiterDataProvider(): array
-    {
-        $dataProvider                      = [];
-        $dataProvider['simple']            = [[ ' (?,?,"?") , (?,?,"?") ','(',')',0,[ ' ' ]],[ 1,9 ]];
-        $dataProvider['offset']            = [[ 'values (?,?,"?") , (?,?,"?") ','(',')',18,[ ' ' ]],[ 19,27 ]];
-        $dataProvider['delimiters inside'] = [[ 'values (COALESCE(?,"?"),?,"?") ','(',')',6,[ ' ' ]],[ 7,29 ]];
-        $dataProvider['not found']         = [[ 'values (?,?,"?") , (?,?,"?") ','{','}',6,[ ' ' ]],NULL ];
 
         return $dataProvider;
     }
