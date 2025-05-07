@@ -68,7 +68,7 @@ class MySQLCanonicalQuery
 
         $this->ignorePositions = [];
 
-        $tmpQuery = $this->query;
+        $tmpQuery = rtrim($this->query, " \n\r\t\v\x00;");
 
         $tmpQuery = $this->replace_between($tmpQuery, '#', PHP_EOL, '');
         $tmpQuery = $this->replace_between($tmpQuery, '--', PHP_EOL, '');
