@@ -262,18 +262,6 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
             $path . 'input_cte.sql',
             $path . 'output_cte.sql',
         ];
-        $dataProvider['unix_lf']                           = [
-            $path . 'input_unix_lf.sql',
-            $path . 'output_unix_lf.sql',
-        ];
-        $dataProvider['win_crlf']                          = [
-            $path . 'input_win_crlf.sql',
-            $path . 'output_win_crlf.sql',
-        ];
-        $dataProvider['mac_cr']                            = [
-            $path . 'input_mac_cr.sql',
-            $path . 'output_mac_cr.sql',
-        ];
 
         return $dataProvider;
     }

@@ -259,7 +259,66 @@ class MySQLCanonicalQueryBaseTest extends MySQLCanonicalQueryTestCase
 
         $value = $class->get_canonical_query();
 
-        $this->assertEquals($output, $value);
+        $this->assertEquals($output, $value . "\n");
+    }
+
+    /**
+     * Test that get_canonical_query() returns the canonical query.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLCanonicalQuery::get_canonical_query
+     */
+    public function testCanonicalQueryWithUnixLineEnding(): void
+    {
+        $input  = file_get_contents(TEST_STATICS . '/Gravity/Database/MySQL/input_unix_lf.sql');
+        $output = file_get_contents(TEST_STATICS . '/Gravity/Database/MySQL/output_unix_lf.sql');
+
+        $this->assertStringContainsString("\n", $input);
+        $this->assertStringNotContainsString("\r", $input);
+
+        $class = new MySQLCanonicalQuery($input);
+
+        $value = $class->get_canonical_query();
+
+        $this->assertEquals($output, $value . "\n");
+    }
+
+    /**
+     * Test that get_canonical_query() returns the canonical query.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLCanonicalQuery::get_canonical_query
+     */
+    public function testCanonicalQueryWithWindowsLineEnding(): void
+    {
+        $input  = file_get_contents(TEST_STATICS . '/Gravity/Database/MySQL/input_win_crlf.sql');
+        $output = file_get_contents(TEST_STATICS . '/Gravity/Database/MySQL/output_win_crlf.sql');
+
+        $this->assertStringContainsString("\r\n", $input);
+
+        $class = new MySQLCanonicalQuery($input);
+
+        $value = $class->get_canonical_query();
+
+        $this->assertEquals($output, $value . "\n");
+    }
+
+    /**
+     * Test that get_canonical_query() returns the canonical query.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLCanonicalQuery::get_canonical_query
+     */
+    public function testCanonicalQueryWithMacLineEnding(): void
+    {
+        $input  = file_get_contents(TEST_STATICS . '/Gravity/Database/MySQL/input_mac_cr.sql');
+        $output = file_get_contents(TEST_STATICS . '/Gravity/Database/MySQL/output_mac_cr.sql');
+
+        $this->assertStringContainsString("\r", $input);
+        $this->assertStringNotContainsString("\n", $input);
+
+        $class = new MySQLCanonicalQuery($input);
+
+        $value = $class->get_canonical_query();
+
+        $this->assertEquals($output, $value . "\n");
     }
 
     /**
