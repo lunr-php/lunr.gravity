@@ -57,10 +57,8 @@ class MariaDBConnection extends MySQLConnection
         {
             return new MariaDBSimpleDMLQueryBuilder($querybuilder, $this->get_query_escaper_object());
         }
-        else
-        {
-            return $querybuilder;
-        }
+
+        return $querybuilder;
     }
 
 }

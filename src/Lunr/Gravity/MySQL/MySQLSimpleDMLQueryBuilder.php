@@ -935,15 +935,14 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
             $parts = explode(' AS ', $locationReference);
             return $this->escaper->{$method}($parts[0], $parts[1]);
         }
-        elseif (strpos($locationReference, ' as '))
+
+        if (strpos($locationReference, ' as '))
         {
             $parts = explode(' as ', $locationReference);
             return $this->escaper->{$method}($parts[0], $parts[1]);
         }
-        else
-        {
-            return $this->escaper->{$method}($locationReference);
-        }
+
+        return $this->escaper->{$method}($locationReference);
     }
 
 }

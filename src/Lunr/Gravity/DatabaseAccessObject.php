@@ -103,14 +103,13 @@ abstract class DatabaseAccessObject
         {
             throw new LockTimeoutException($query, 'Database query lock timeout!');
         }
-        elseif ($query->has_deadlock() === TRUE)
+
+        if ($query->has_deadlock() === TRUE)
         {
             throw new DeadlockException($query, 'Database query deadlock!');
         }
-        else
-        {
-            throw new QueryException($query, 'Database query error!');
-        }
+
+        throw new QueryException($query, 'Database query error!');
     }
 
     /**
@@ -171,10 +170,8 @@ abstract class DatabaseAccessObject
         {
             return [];
         }
-        else
-        {
-            return $query->result_array($associative);
-        }
+
+        return $query->result_array($associative);
     }
 
     /**
@@ -192,10 +189,8 @@ abstract class DatabaseAccessObject
         {
             return [];
         }
-        else
-        {
-            return $query->result_row();
-        }
+
+        return $query->result_row();
     }
 
     /**
@@ -214,10 +209,8 @@ abstract class DatabaseAccessObject
         {
             return [];
         }
-        else
-        {
-            return $query->result_column($column);
-        }
+
+        return $query->result_column($column);
     }
 
     /**
@@ -236,10 +229,8 @@ abstract class DatabaseAccessObject
         {
             return '';
         }
-        else
-        {
-            return $query->result_cell($cell);
-        }
+
+        return $query->result_cell($cell);
     }
 
     /**

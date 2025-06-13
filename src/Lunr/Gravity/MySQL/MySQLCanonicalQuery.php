@@ -441,10 +441,12 @@ class MySQLCanonicalQuery
     {
         foreach ($this->ignorePositions as $position)
         {
-            if ($position[0] <= $index && $position[1] >= $index)
+            if ($position[0] > $index || $position[1] < $index)
             {
-                $index = $position[1] + 1;
+                continue;
             }
+
+            $index = $position[1] + 1;
         }
 
         return $index;

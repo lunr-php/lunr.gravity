@@ -741,10 +741,12 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
      */
     protected function sql_select_statement($select): void
     {
-        if (strpos($select, 'SELECT') === 0)
+        if (strpos($select, 'SELECT') !== 0)
         {
-            $this->selectStatement = $select;
+            return;
         }
+
+        $this->selectStatement = $select;
     }
 
     /**
@@ -864,10 +866,12 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
     {
         $this->limit = "LIMIT $amount";
 
-        if ($offset > -1)
+        if ($offset <= -1)
         {
-            $this->limit .= " OFFSET $offset";
+            return;
         }
+
+        $this->limit .= " OFFSET $offset";
     }
 
     /**
