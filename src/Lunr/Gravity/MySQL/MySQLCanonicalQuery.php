@@ -482,9 +482,7 @@ class MySQLCanonicalQuery
             return $tmpString;
         }
 
-        $tmpString .= ' /* , ... */ ' . substr($string, $offset[0][0]);
-
-        return $tmpString;
+        return $tmpString . ' /* , ... */ ' . substr($string, $offset[0][0]);
     }
 
 }
