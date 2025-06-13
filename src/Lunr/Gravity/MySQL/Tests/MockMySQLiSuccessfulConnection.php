@@ -113,10 +113,8 @@ class MockMySQLiSuccessfulConnection
         {
             return TRUE;
         }
-        else
-        {
-            return FALSE;
-        }
+
+        return FALSE;
     }
 
     /**

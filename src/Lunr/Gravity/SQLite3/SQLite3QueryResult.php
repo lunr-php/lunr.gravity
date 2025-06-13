@@ -141,11 +141,13 @@ class SQLite3QueryResult implements DatabaseQueryResultInterface
      */
     protected function free_result()
     {
-        if ($this->freed === FALSE)
+        if ($this->freed !== FALSE)
         {
-            $this->result->finalize();
-            $this->freed = TRUE;
+            return;
         }
+
+        $this->result->finalize();
+        $this->freed = TRUE;
     }
 
     /**

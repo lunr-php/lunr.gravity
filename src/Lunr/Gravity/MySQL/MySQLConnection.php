@@ -258,12 +258,14 @@ class MySQLConnection extends DatabaseConnection
             throw new ConnectionException('Could not establish connection to the database!');
         }
 
-        if ($this->mysqli->set_charset('utf8mb4') === FALSE)
+        if ($this->mysqli->set_charset('utf8mb4') !== FALSE)
         {
-            // manual re-connect
-            $this->disconnect();
-            $this->connect(++$reconnectCount);
+            return;
         }
+
+        // manual re-connect
+        $this->disconnect();
+        $this->connect(++$reconnectCount);
     }
 
     /**
@@ -340,10 +342,8 @@ class MySQLConnection extends DatabaseConnection
         {
             return new MySQLSimpleDMLQueryBuilder($querybuilder, $this->get_query_escaper_object());
         }
-        else
-        {
-            return $querybuilder;
-        }
+
+        return $querybuilder;
     }
 
     /**

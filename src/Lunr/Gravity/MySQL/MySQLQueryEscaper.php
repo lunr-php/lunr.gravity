@@ -172,10 +172,8 @@ class MySQLQueryEscaper extends DatabaseQueryEscaper
         {
             return $keyword . ' INDEX (' . $indices . ')';
         }
-        else
-        {
-            return $keyword . ' INDEX FOR ' . $for . ' (' . $indices . ')';
-        }
+
+        return $keyword . ' INDEX FOR ' . $for . ' (' . $indices . ')';
     }
 
 }

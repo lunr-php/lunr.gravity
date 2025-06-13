@@ -127,16 +127,18 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
         $this->mysqli = $mysqli;
         $this->query  = $query;
 
-        if ($async === FALSE)
+        if ($async !== FALSE)
         {
-            $this->errorMessage = $this->mysqli->error;
-            $this->errorNumber  = $this->mysqli->errno;
-            $this->insertID     = $this->mysqli->insert_id;
-            $this->affectedRows = mysqli_affected_rows($this->mysqli);
-            $this->numRows      = is_object($this->result) ? mysqli_num_rows($result) : $this->affectedRows;
-
-            $this->set_warnings();
+            return;
         }
+
+        $this->errorMessage = $this->mysqli->error;
+        $this->errorNumber  = $this->mysqli->errno;
+        $this->insertID     = $this->mysqli->insert_id;
+        $this->affectedRows = mysqli_affected_rows($this->mysqli);
+        $this->numRows      = is_object($this->result) ? mysqli_num_rows($result) : $this->affectedRows;
+
+        $this->set_warnings();
     }
 
     /**
@@ -164,11 +166,13 @@ class MySQLQueryResult implements DatabaseQueryResultInterface
      */
     protected function free_result()
     {
-        if ($this->freed === FALSE)
+        if ($this->freed !== FALSE)
         {
-            $this->result->free();
-            $this->freed = TRUE;
+            return;
         }
+
+        $this->result->free();
+        $this->freed = TRUE;
     }
 
     /**

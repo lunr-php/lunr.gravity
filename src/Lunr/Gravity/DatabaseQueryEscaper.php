@@ -75,12 +75,10 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
             {
                 return NULL;
             }
-            else
-            {
-                $method = substr($name, 8);
 
-                return $this->{$method}(...$arguments);
-            }
+            $method = substr($name, 8);
+
+            return $this->{$method}(...$arguments);
         }
 
         return NULL;
@@ -115,10 +113,8 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
         {
             return $column;
         }
-        else
-        {
-            return $column . ' AS ' . static::IDENTIFIER_DELIMITER_L . $alias . static::IDENTIFIER_DELIMITER_R;
-        }
+
+        return $column . ' AS ' . static::IDENTIFIER_DELIMITER_L . $alias . static::IDENTIFIER_DELIMITER_R;
     }
 
     /**
@@ -153,10 +149,8 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
         {
             return $table;
         }
-        else
-        {
-            return $table . ' AS ' . static::IDENTIFIER_DELIMITER_L . $alias . static::IDENTIFIER_DELIMITER_R;
-        }
+
+        return $table . ' AS ' . static::IDENTIFIER_DELIMITER_L . $alias . static::IDENTIFIER_DELIMITER_R;
     }
 
     /**
@@ -240,10 +234,8 @@ abstract class DatabaseQueryEscaper implements QueryEscaperInterface
         {
             return $value;
         }
-        else
-        {
-            return $value . ' COLLATE ' . $collation;
-        }
+
+        return $value . ' COLLATE ' . $collation;
     }
 
     /**
