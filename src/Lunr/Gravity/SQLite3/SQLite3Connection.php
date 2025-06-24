@@ -275,7 +275,7 @@ class SQLite3Connection extends DatabaseConnection
             $context = [ 'query' => $query->query(), 'error' => $query->error_message() ];
             $this->logger->error('{query}; failed with error: {error}', $context);
 
-            throw new DefragmentationException($query, 'Database defragmentation failed.');
+            throw new DefragmentationException($query->error_number(), $query->error_message(), 'Database defragmentation failed.');
         }
     }
 
