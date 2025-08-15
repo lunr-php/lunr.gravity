@@ -66,7 +66,7 @@ abstract class DatabaseQueryEscaperTestCase extends LunrBaseTestCase
      *
      * @return array $cols Array of column names and expected escaped values.
      */
-    public function columnNameProvider(): array
+    public static function columnNameProvider(): array
     {
         $cols   = [];
         $cols[] = [ '*', '*' ];
@@ -83,7 +83,7 @@ abstract class DatabaseQueryEscaperTestCase extends LunrBaseTestCase
      *
      * @return array $cols Array of table names and expected escaped values.
      */
-    public function tableNameProvider(): array
+    public static function tableNameProvider(): array
     {
         $cols   = [];
         $cols[] = [ 'table', '`table`' ];
@@ -97,7 +97,7 @@ abstract class DatabaseQueryEscaperTestCase extends LunrBaseTestCase
      *
      *  @return array $expecteds array of value to be escaped and their result
      */
-    public function expectedIntegerProvider(): array
+    public static function expectedIntegerProvider(): array
     {
         $expecteds   = [];
         $expecteds[] = [ '1', 1 ];
@@ -112,7 +112,7 @@ abstract class DatabaseQueryEscaperTestCase extends LunrBaseTestCase
      *
      *  @return array $expecteds array of value to be escaped and their result
      */
-    public function expectedFloatProvider(): array
+    public static function expectedFloatProvider(): array
     {
         $expecteds   = [];
         $expecteds[] = [ '1.0', 1 ];
@@ -126,7 +126,7 @@ abstract class DatabaseQueryEscaperTestCase extends LunrBaseTestCase
      *
      *  @return array $illegals array of value to be escaped and their result
      */
-    public function illegalIntegerProvider(): array
+    public static function illegalIntegerProvider(): array
     {
         $illegals   = [];
         $illegals[] = [ 3.3, 3 ];
@@ -150,7 +150,7 @@ abstract class DatabaseQueryEscaperTestCase extends LunrBaseTestCase
      *
      *  @return array $illegals array of value to be escaped and their result
      */
-    public function illegalFloatProvider(): array
+    public static function illegalFloatProvider(): array
     {
         $illegals   = [];
         $illegals[] = [ '3.3.3', 3.3 ];

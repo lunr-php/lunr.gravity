@@ -757,7 +757,7 @@ class DatabaseAccessObjectResultsTest extends DatabaseAccessObjectTestCase
 
         $query->expects($this->once())
               ->method('affected_rows')
-              ->will($this->returnValue(100));
+              ->willReturn(100);
 
         $method = $this->getReflectionMethod('get_affected_rows');
 

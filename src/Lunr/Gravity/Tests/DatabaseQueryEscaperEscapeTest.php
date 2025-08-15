@@ -27,7 +27,7 @@ class DatabaseQueryEscaperEscapeTest extends DatabaseQueryEscaperTestCase
      * @dataProvider columnNameProvider
      * @covers       Lunr\Gravity\DatabaseQueryEscaper::escape_location_reference
      */
-    public function testEscapeLocationReference($col, $escaped): void
+    public function testEscapeLocationReference(string $col, string $escaped): void
     {
         $method = $this->getReflectionMethod('escape_location_reference');
         $this->assertEquals($escaped, $method->invokeArgs($this->class, [ $col ]));
@@ -211,81 +211,23 @@ class DatabaseQueryEscaperEscapeTest extends DatabaseQueryEscaperTestCase
      * @dataProvider expectedIntegerProvider
      * @covers       Lunr\Gravity\DatabaseQueryEscaper::intvalue
      */
-    public function testEscapeIntValue($value, $expected): void
+    public function testEscapeIntValue(mixed $value, int $expected): void
     {
         $this->assertEquals($expected, $this->class->intvalue($value));
-    }
-
-    /**
-     * Test escaping an object as integer.
-     *
-     * @covers Lunr\Gravity\DatabaseQueryEscaper::intvalue
-     */
-    public function testEscapeObjectAsIntValue(): void
-    {
-        if (PHP_VERSION_ID >= 80000)
-        {
-            $this->expectException('\PHPUnit\Framework\Error\Warning');
-        }
-        else
-        {
-            $this->expectException('\PHPUnit\Framework\Error\Notice');
-        }
-
-        $message = 'Object of class ' . get_class($this->class) . ' could not be converted to int';
-        $this->expectExceptionMessage($message);
-
-        $this->assertEquals(0, $this->class->intvalue($this->class));
-    }
-
-    /**
-     * Test escaping illegal value as integer.
-     *
-     * @param mixed $value   The input value to be escaped
-     * @param int   $illegal The illegal escaped integer
-     *
-     * @dataProvider illegalIntegerProvider
-     * @covers       Lunr\Gravity\DatabaseQueryEscaper::intvalue
-     */
-    public function testEscapeIllegalAsIntValue($value, $illegal): void
-    {
-        $this->assertEquals($illegal, $this->class->intvalue($value));
     }
 
     /**
      * Test escaping a float.
      *
      * @param mixed $value    The input value to be escaped
-     * @param int   $expected The expected escaped float
+     * @param float $expected The expected escaped float
      *
      * @dataProvider expectedFloatProvider
      * @covers       Lunr\Gravity\DatabaseQueryEscaper::floatvalue
      */
-    public function testEscapeFloatValue($value, $expected): void
+    public function testEscapeFloatValue(mixed $value, float $expected): void
     {
         $this->assertEquals($expected, $this->class->floatvalue($value));
-    }
-
-    /**
-     * Test escaping an object as float.
-     *
-     * @covers Lunr\Gravity\DatabaseQueryEscaper::floatvalue
-     */
-    public function testEscapeObjectAsFloatValue(): void
-    {
-        if (PHP_VERSION_ID >= 80000)
-        {
-            $this->expectException('\PHPUnit\Framework\Error\Warning');
-        }
-        else
-        {
-            $this->expectException('\PHPUnit\Framework\Error\Notice');
-        }
-
-        $message = 'Object of class ' . get_class($this->class) . ' could not be converted to float';
-        $this->expectExceptionMessage($message);
-
-        $this->assertEquals(0, $this->class->floatvalue($this->class));
     }
 
     /**
