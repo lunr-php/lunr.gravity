@@ -48,7 +48,7 @@ class MariaDBSimpleDMLQueryBuilderSelectTest extends MariaDBSimpleDMLQueryBuilde
      * @dataProvider compoundOperatorProvider
      * @covers Lunr\Gravity\MariaDB\MariaDBSimpleDMLQueryBuilder::except
      */
-    public function testExcept($operators): void
+    public function testExcept(mixed $operators): void
     {
         $this->escaper->expects($this->once())
                       ->method('query_value')

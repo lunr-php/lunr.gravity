@@ -76,7 +76,7 @@ abstract class MariaDBSimpleDMLQueryBuilderTestCase extends LunrBaseTestCase
     *
     * @return array $compound operators for union query
     */
-    public function compoundOperatorProvider(): array
+    public static function compoundOperatorProvider(): array
     {
         $operators   = [];
         $operators[] = [ '' ];
