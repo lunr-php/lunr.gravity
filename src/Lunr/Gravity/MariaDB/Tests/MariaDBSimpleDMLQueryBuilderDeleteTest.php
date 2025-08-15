@@ -27,13 +27,13 @@ class MariaDBSimpleDMLQueryBuilderDeleteTest extends MariaDBSimpleDMLQueryBuilde
     {
         $this->escaper->expects($this->once())
                       ->method('result_column')
-                      ->with($this->equalTo('id'))
-                      ->will($this->returnValue('`id`'));
+                      ->with('id')
+                      ->willReturn('`id`');
 
         $this->builder->expects($this->once())
                       ->method('returning')
-                      ->with($this->equalTo('`id`'))
-                      ->will($this->returnSelf());
+                      ->with('`id`')
+                      ->willReturnSelf();
 
         $this->class->returning('id');
     }
@@ -51,8 +51,8 @@ class MariaDBSimpleDMLQueryBuilderDeleteTest extends MariaDBSimpleDMLQueryBuilde
 
         $this->builder->expects($this->once())
                       ->method('returning')
-                      ->with($this->equalTo('`id`, `name`'))
-                      ->will($this->returnSelf());
+                      ->with('`id`, `name`')
+                      ->willReturnSelf();
 
         $this->class->returning('id, name');
     }
