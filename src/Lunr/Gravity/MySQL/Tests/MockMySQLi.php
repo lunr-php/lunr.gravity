@@ -62,7 +62,7 @@ class MockMySQLi
      *
      * @return bool $return Whether the connection was successful or not.
      */
-    public function connect($host, $user, $password, $database, $port, $socket)
+    public function connect($host, $user, $password, $database, $port, $socket): bool
     {
         return TRUE;
     }
@@ -76,7 +76,7 @@ class MockMySQLi
      *
      * @return bool $return Whether setting the charset was successful or not.
      */
-    public function set_charset($charset)
+    public function set_charset($charset): bool
     {
         return TRUE;
     }
@@ -90,9 +90,9 @@ class MockMySQLi
      * @param string $capath The pathname to a directory that contains trusted SSL CA certificates in PEM format.
      * @param string $cipher A list of allowable ciphers to use for SSL encryption.
      *
-     * @return bool $return Always returns TRUE
+     * @return true $return Always returns TRUE
      */
-    public function ssl_set($key, $cert, $ca, $capath, $cipher)
+    public function ssl_set($key, $cert, $ca, $capath, $cipher): bool
     {
         return TRUE;
     }
@@ -103,10 +103,21 @@ class MockMySQLi
      * @param int   $key   Mysqli option key.
      * @param mixed $value Mysqli option value.
      *
-     * @return bool $return Always returns TRUE
+     * @return true $return Always returns TRUE
      */
-    public function options($key, $value)
+    public function options($key, $value): bool
     {
+        return TRUE;
+    }
+
+    /**
+     * Close the mysqli connection to the database.
+     *
+     * @return bool
+     */
+    public function close(): bool
+    {
+        //NO-OP
         return TRUE;
     }
 

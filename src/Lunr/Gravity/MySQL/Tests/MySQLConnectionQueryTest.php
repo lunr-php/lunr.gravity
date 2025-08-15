@@ -35,8 +35,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Could not establish connection to the database!');
 
-        $this->logger->expects($this->never())
-                     ->method('debug');
+        $this->logger->expects('debug')->never();
 
         $this->class->query('query');
     }
@@ -56,14 +55,18 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->once())
                ->method('query')
-               ->will($this->returnValue(TRUE));
+               ->willReturn(TRUE);
 
         $this->mockFunction('mysqli_affected_rows', fn() => 0);
         $this->mockFunction('microtime', function () { return 1; });
 
-        $this->logger->expects($this->exactly(2))
-                     ->method('debug')
-                     ->withConsecutive([ 'query: {query}', [ 'query' => 'query' ] ], [ 'Query executed in 0 seconds' ]);
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with('query: {query}', [ 'query' => 'query' ]);
+
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with('Query executed in 0 seconds');
 
         $query = $this->class->query('query');
 
@@ -90,15 +93,19 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->once())
                ->method('query')
-               ->with($this->equalTo('/*hint*/query'))
-               ->will($this->returnValue(TRUE));
+               ->with('/*hint*/query')
+               ->willReturn(TRUE);
 
         $this->mockFunction('mysqli_affected_rows', fn() => 0);
         $this->mockFunction('microtime', function () { return 1; });
 
-        $this->logger->expects($this->exactly(2))
-                     ->method('debug')
-                     ->withConsecutive([ 'query: {query}', [ 'query' => '/*hint*/query' ] ], [ 'Query executed in 0 seconds' ]);
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with('Query executed in 0 seconds');
+
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with('query: {query}', [ 'query' => '/*hint*/query' ]);
 
         $query = $this->class->query('query');
 
@@ -126,15 +133,19 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->once())
                ->method('query')
-               ->with($this->equalTo('/*hint*/query'))
-               ->will($this->returnValue(TRUE));
+               ->with('/*hint*/query')
+               ->willReturn(TRUE);
 
         $this->mockFunction('mysqli_affected_rows', fn() => 0);
         $this->mockFunction('microtime', function () { return 1; });
 
-        $this->logger->expects($this->exactly(2))
-                     ->method('debug')
-                     ->withConsecutive([ 'query: {query}', [ 'query' => '/*hint*/query' ] ], [ 'Query executed in 0 seconds' ]);
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with('query: {query}', [ 'query' => '/*hint*/query' ]);
+
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with('Query executed in 0 seconds');
 
         $this->class->query('query');
 
@@ -241,9 +252,13 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $this->mockFunction('microtime', fn(bool $float) => $float ? $floatval : $stringval);
         $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
-        $this->logger->expects($this->exactly(2))
-                     ->method('debug')
-                     ->withConsecutive([ 'query: {query}', [ 'query' => $profilingHint . 'query' ] ], [ 'Query executed in 0 seconds' ]);
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with( 'query: {query}', [ 'query' => $profilingHint . 'query' ]);
+
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with('Query executed in 0 seconds');
 
         $query = $this->class->query('query');
 
@@ -352,9 +367,13 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $this->mockFunction('microtime', fn(bool $float) => $float ? $floatval : $stringval);
         $this->mockFunction('mysqli_affected_rows', fn() => 0);
 
-        $this->logger->expects($this->exactly(2))
-                     ->method('debug')
-                     ->withConsecutive([ 'query: {query}', [ 'query' => $profilingHint . 'query' ] ], [ 'Query executed in 0 seconds' ]);
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with( 'query: {query}', [ 'query' => $profilingHint . 'query' ]);
+
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with( 'Query executed in 0 seconds');
 
         $query = $this->class->query('query');
 
@@ -379,8 +398,8 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Could not establish connection to the database!');
 
-        $this->logger->expects($this->never())
-                     ->method('debug');
+        $this->logger->expects('debug')
+                     ->never();
 
         $this->class->async_query('query');
     }
@@ -407,10 +426,10 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->once())
                ->method('reap_async_query')
-               ->will($this->returnValue(TRUE));
+               ->willReturn(TRUE);
 
-        $this->logger->expects($this->once())
-                     ->method('debug')
+        $this->logger->expects('debug')
+                     ->once()
                      ->with('query: {query}', [ 'query' => 'query' ]);
 
         $query = $this->class->async_query('query');
@@ -439,10 +458,10 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->once())
                ->method('query')
-               ->with($this->equalTo('/*hint*/query'), $this->equalTo(MYSQLI_ASYNC));
+               ->with('/*hint*/query', MYSQLI_ASYNC);
 
-        $this->logger->expects($this->once())
-                     ->method('debug')
+        $this->logger->expects('debug')
+                     ->once()
                      ->with('query: {query}', [ 'query' => '/*hint*/query' ]);
 
         $query = $this->class->async_query('query');
@@ -468,10 +487,10 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
 
         $mysqli->expects($this->once())
                ->method('query')
-               ->with($this->equalTo('/*hint*/query'), $this->equalTo(MYSQLI_ASYNC));
+               ->with('/*hint*/query', MYSQLI_ASYNC);
 
-        $this->logger->expects($this->once())
-                     ->method('debug')
+        $this->logger->expects('debug')
+                     ->once()
                      ->with('query: {query}', [ 'query' => '/*hint*/query' ]);
 
         $this->class->async_query('query');

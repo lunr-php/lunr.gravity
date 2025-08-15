@@ -182,7 +182,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetExists')
-                            ->will($this->returnValue(TRUE));
+                            ->willReturn(TRUE);
 
         $property = $this->getReflectionProperty('roHost');
         $property->setValue($this->class, '');
@@ -246,7 +246,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetExists')
-                            ->will($this->returnValue(TRUE));
+                            ->willReturn(TRUE);
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
@@ -291,7 +291,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetExists')
-                            ->will($this->returnValue(TRUE));
+                            ->willReturn(TRUE);
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
@@ -315,7 +315,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->configuration->expects($this->any())
                             ->method('offsetExists')
-                            ->will($this->returnValue(TRUE));
+                            ->willReturn(TRUE);
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
@@ -339,7 +339,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->configuration->expects($this->any())
                             ->method('offsetExists')
-                            ->will($this->returnValue(TRUE));
+                            ->willReturn(TRUE);
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
@@ -363,7 +363,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->configuration->expects($this->any())
                             ->method('offsetExists')
-                            ->will($this->returnValue(TRUE));
+                            ->willReturn(TRUE);
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
@@ -387,7 +387,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->configuration->expects($this->any())
                             ->method('offsetExists')
-                            ->will($this->returnValue(TRUE));
+                            ->willReturn(TRUE);
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
@@ -411,7 +411,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->configuration->expects($this->any())
                             ->method('offsetExists')
-                            ->will($this->returnValue(TRUE));
+                            ->willReturn(TRUE);
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')

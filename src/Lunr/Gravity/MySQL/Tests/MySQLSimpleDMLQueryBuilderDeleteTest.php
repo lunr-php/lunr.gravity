@@ -25,15 +25,15 @@ class MySQLSimpleDMLQueryBuilderDeleteTest extends MySQLSimpleDMLQueryBuilderTes
      */
     public function testDeleteWithOneColumn(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('table')
-                      ->with($this->equalTo('col'))
-                      ->will($this->returnValue('`col`'));
+        $this->escaper->expects('table')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
 
         $this->builder->expects($this->once())
                       ->method('delete')
-                      ->with($this->equalTo('`col`'))
-                      ->will($this->returnSelf());
+                      ->with('`col`')
+                      ->willReturnSelf();
 
         $this->class->delete('col');
     }
@@ -45,17 +45,17 @@ class MySQLSimpleDMLQueryBuilderDeleteTest extends MySQLSimpleDMLQueryBuilderTes
      */
     public function testDeleteWithMultipleColumns(): void
     {
-        $this->escaper->expects($this->exactly(2))
-                      ->method('table')
-                      ->withConsecutive([ 'col' ], [ ' col' ])
-                      ->will($this->returnValue('`col`'));
+        $this->escaper->expects('table')
+                      ->twice()
+                      ->with( 'col')
+                      ->andReturn('`col`');
 
         $this->builder->expects($this->once())
                       ->method('delete')
-                      ->with($this->equalTo('`col`, `col`'))
+                      ->with('`col`, `col`')
                       ->willReturnSelf();
 
-        $this->class->delete('col, col');
+        $this->class->delete('col,col');
     }
 
 }

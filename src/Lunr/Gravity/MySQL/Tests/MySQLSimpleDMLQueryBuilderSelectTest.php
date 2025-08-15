@@ -42,7 +42,7 @@ class MySQLSimpleDMLQueryBuilderSelectTest extends MySQLSimpleDMLQueryBuilderTes
         $this->builder->expects($this->once())
                       ->method('select_mode')
                       ->with('ALL')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->select_mode('ALL');
     }
@@ -54,15 +54,15 @@ class MySQLSimpleDMLQueryBuilderSelectTest extends MySQLSimpleDMLQueryBuilderTes
      */
     public function testSelectWithOneColumn(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('result_column')
-                      ->with($this->equalTo('col'))
-                      ->will($this->returnValue('`col`'));
+        $this->escaper->expects('result_column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
 
         $this->builder->expects($this->once())
                       ->method('select')
-                      ->with($this->equalTo('`col`'))
-                      ->will($this->returnSelf());
+                      ->with('`col`')
+                      ->willReturnSelf();
 
         $this->class->select('col');
     }
@@ -74,17 +74,17 @@ class MySQLSimpleDMLQueryBuilderSelectTest extends MySQLSimpleDMLQueryBuilderTes
      */
     public function testSelectWithMultipleColumns(): void
     {
-        $this->escaper->expects($this->exactly(2))
-                      ->method('result_column')
-                      ->withConsecutive([ 'col' ], [ ' col' ])
-                      ->will($this->returnValue('`col`'));
+        $this->escaper->expects('result_column')
+                      ->times(2)
+                      ->with('col')
+                      ->andReturn('`col`');
 
         $this->builder->expects($this->once())
                       ->method('select')
-                      ->with($this->equalTo('`col`, `col`'))
+                      ->with('`col`, `col`')
                       ->willReturnSelf();
 
-        $this->class->select('col, col');
+        $this->class->select('col,col');
     }
 
     /**
@@ -94,15 +94,15 @@ class MySQLSimpleDMLQueryBuilderSelectTest extends MySQLSimpleDMLQueryBuilderTes
      */
     public function testFrom(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('table')
-                      ->with($this->equalTo('table'))
-                      ->will($this->returnValue('`table`'));
+        $this->escaper->expects('table')
+                      ->once()
+                      ->with('table')
+                      ->andReturn('`table`');
 
         $this->builder->expects($this->once())
                       ->method('from')
-                      ->with($this->equalTo('`table`'))
-                      ->will($this->returnSelf());
+                      ->with('`table`')
+                      ->willReturnSelf();
 
         $this->class->from('table');
     }
@@ -114,15 +114,15 @@ class MySQLSimpleDMLQueryBuilderSelectTest extends MySQLSimpleDMLQueryBuilderTes
      */
     public function testJoin(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('table')
-                      ->with($this->equalTo('table'))
-                      ->will($this->returnValue('`table`'));
+        $this->escaper->expects('table')
+                      ->once()
+                      ->with('table')
+                      ->andReturn('`table`');
 
         $this->builder->expects($this->once())
                       ->method('join')
-                      ->with($this->equalTo('`table`'))
-                      ->will($this->returnSelf());
+                      ->with('`table`')
+                      ->willReturnSelf();
 
         $this->class->join('table');
     }
@@ -134,15 +134,15 @@ class MySQLSimpleDMLQueryBuilderSelectTest extends MySQLSimpleDMLQueryBuilderTes
      */
     public function testGroupBy(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('col'))
-                      ->will($this->returnValue('`col`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
 
         $this->builder->expects($this->once())
                       ->method('group_by')
-                      ->with($this->equalTo('`col`'))
-                      ->will($this->returnSelf());
+                      ->with('`col`')
+                      ->willReturnSelf();
 
         $this->class->group_by('col');
     }
@@ -154,15 +154,15 @@ class MySQLSimpleDMLQueryBuilderSelectTest extends MySQLSimpleDMLQueryBuilderTes
      */
     public function testOrderBy(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('col'))
-                      ->will($this->returnValue('`col`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
 
         $this->builder->expects($this->once())
                       ->method('order_by')
-                      ->with($this->equalTo('`col`'), $this->equalTo(TRUE))
-                      ->will($this->returnSelf());
+                      ->with('`col`', TRUE)
+                      ->willReturnSelf();
 
         $this->class->order_by('col');
     }
@@ -174,15 +174,20 @@ class MySQLSimpleDMLQueryBuilderSelectTest extends MySQLSimpleDMLQueryBuilderTes
      */
     public function testLimit(): void
     {
-        $this->escaper->expects($this->exactly(2))
-                      ->method('intvalue')
-                      ->withConsecutive([ 10 ], [ -1 ])
-                      ->will($this->returnArgument(0));
+        $this->escaper->expects('intvalue')
+                      ->once()
+                      ->with( 10)
+                      ->andReturnArg(0);
+
+        $this->escaper->expects('intvalue')
+                      ->once()
+                      ->with( -1)
+                      ->andReturnArg(0);
 
         $this->builder->expects($this->once())
                       ->method('limit')
-                      ->with($this->equalTo(10))
-                      ->will($this->returnSelf());
+                      ->with(10)
+                      ->willReturnSelf();
 
         $this->class->limit(10);
     }
@@ -190,17 +195,17 @@ class MySQLSimpleDMLQueryBuilderSelectTest extends MySQLSimpleDMLQueryBuilderTes
     /**
      * Test union().
      *
-     * @param string $operators UNION operator
+     * @param string|bool $operators UNION operator
      *
      * @dataProvider unionOperatorProvider
      * @covers       Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::union
      */
-    public function testUnion($operators): void
+    public function testUnion(string|bool $operators): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('query_value')
+        $this->escaper->expects('query_value')
+                      ->once()
                       ->with('query')
-                      ->willReturn('(query)');
+                      ->andReturn('(query)');
 
         $this->builder->expects($this->once())
                       ->method('union')

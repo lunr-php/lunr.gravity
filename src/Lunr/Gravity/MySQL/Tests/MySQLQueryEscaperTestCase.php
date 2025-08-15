@@ -62,7 +62,7 @@ abstract class MySQLQueryEscaperTestCase extends LunrBaseTestCase
      *
      * @return array $indices Array of invalid indices
      */
-    public function invalidIndicesProvider(): array
+    public static function invalidIndicesProvider(): array
     {
         $indices   = [];
         $indices[] = [ [] ];
@@ -75,7 +75,7 @@ abstract class MySQLQueryEscaperTestCase extends LunrBaseTestCase
      *
      * @return array $keywords Array of valid index keywords.
      */
-    public function validIndexKeywordProvider(): array
+    public static function validIndexKeywordProvider(): array
     {
         $keywords   = [];
         $keywords[] = [ 'USE' ];
@@ -90,7 +90,7 @@ abstract class MySQLQueryEscaperTestCase extends LunrBaseTestCase
      *
      * @return array $for Array of valid index use definitions.
      */
-    public function validIndexForProvider(): array
+    public static function validIndexForProvider(): array
     {
         $for   = [];
         $for[] = [ 'JOIN' ];

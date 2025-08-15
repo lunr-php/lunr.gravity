@@ -28,9 +28,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
      */
     public function testSuccessfulConnectReadonly(): void
     {
-        $mysqli = $this->getMockBuilder('Lunr\Gravity\MySQL\Tests\MockMySQLi')
-                       ->setMethods([ 'connect', 'ssl_set', 'set_charset' ])
-                       ->getMock();
+        $mysqli = $this->getMockBuilder(MockMySQLi::class)->getMock();
 
         $this->setReflectionPropertyValue('mysqli', $mysqli);
         $this->setReflectionPropertyValue('readonly', TRUE);
@@ -48,7 +46,13 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
                ->method('ssl_set');
 
         $mysqli->expects($this->once())
-               ->method('set_charset');
+               ->method('set_charset')
+               ->willReturn(TRUE);
+
+        $mysqli->expects($this->once())
+               ->method('__get')
+               ->with('connect_errno')
+               ->willReturn(0);
 
         $this->class->connect();
 
@@ -64,9 +68,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
      */
     public function testSuccessfulConnectReadwrite(): void
     {
-        $mysqli = $this->getMockBuilder('Lunr\Gravity\MySQL\Tests\MockMySQLi')
-                       ->setMethods([ 'connect', 'ssl_set', 'set_charset' ])
-                       ->getMock();
+        $mysqli = $this->getMockBuilder(MockMySQLi::class)->getMock();
 
         $this->setReflectionPropertyValue('mysqli', $mysqli);
 
@@ -82,7 +84,13 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
                ->method('ssl_set');
 
         $mysqli->expects($this->once())
-               ->method('set_charset');
+               ->method('set_charset')
+               ->willReturn(TRUE);
+
+        $mysqli->expects($this->once())
+               ->method('__get')
+               ->with('connect_errno')
+               ->willReturn(0);
 
         $this->class->connect();
 
@@ -98,9 +106,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
      */
     public function testSuccessfulConnectReadwriteWithSSL(): void
     {
-        $mysqli = $this->getMockBuilder('Lunr\Gravity\MySQL\Tests\MockMySQLi')
-                       ->setMethods([ 'connect', 'ssl_set', 'set_charset' ])
-                       ->getMock();
+        $mysqli = $this->getMockBuilder(MockMySQLi::class)->getMock();
 
         $this->setReflectionPropertyValue('mysqli', $mysqli);
 
@@ -123,7 +129,13 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
                ->with('ssl_key', 'ssl_cert', 'ca_cert', 'ca_path', 'cipher');
 
         $mysqli->expects($this->once())
-               ->method('set_charset');
+               ->method('set_charset')
+               ->willReturn(TRUE);
+
+        $mysqli->expects($this->once())
+               ->method('__get')
+               ->with('connect_errno')
+               ->willReturn(0);
 
         $this->class->connect();
 
@@ -139,9 +151,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
      */
     public function testSuccessfulReconnect(): void
     {
-        $mysqli = $this->getMockBuilder('Lunr\Gravity\MySQL\Tests\MockMySQLi')
-                       ->setMethods([ 'connect', 'ssl_set', 'set_charset', 'close' ])
-                       ->getMock();
+        $mysqli = $this->getMockBuilder(MockMySQLi::class)->getMock();
 
         $this->setReflectionPropertyValue('mysqli', $mysqli);
 
@@ -169,6 +179,11 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
         $mysqli->expects($this->exactly(5))
                ->method('set_charset')
                ->willReturnOnConsecutiveCalls(FALSE, FALSE, FALSE, FALSE, TRUE);
+
+        $mysqli->expects($this->exactly(5))
+               ->method('__get')
+               ->with('connect_errno')
+               ->willReturn(0);
 
         $this->class->connect();
 
@@ -218,9 +233,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
      */
     public function testUnsuccessfulReconnect(): void
     {
-        $mysqli = $this->getMockBuilder('Lunr\Gravity\MySQL\Tests\MockMySQLi')
-                       ->setMethods([ 'connect', 'ssl_set', 'set_charset', 'close' ])
-                       ->getMock();
+        $mysqli = $this->getMockBuilder(MockMySQLi::class)->getMock();
 
         $this->setReflectionPropertyValue('mysqli', $mysqli);
 
@@ -248,6 +261,11 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
         $mysqli->expects($this->exactly(5))
                ->method('set_charset')
                ->willReturnOnConsecutiveCalls(FALSE, FALSE, FALSE, FALSE, FALSE);
+
+        $mysqli->expects($this->exactly(5))
+               ->method('__get')
+               ->with('connect_errno')
+               ->willReturn(0);
 
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Could not establish connection to the database! Exceeded reconnect count!');
@@ -392,7 +410,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('select_db')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->assertFalse($this->class->change_database('new_db'));
 
@@ -411,7 +429,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('select_db')
-                     ->will($this->returnValue(TRUE));
+                     ->willReturn(TRUE);
 
         $this->assertTrue($this->class->change_database('new_db'));
 

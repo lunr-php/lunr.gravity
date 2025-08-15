@@ -25,14 +25,19 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testOn(): void
     {
-        $this->escaper->expects($this->exactly(2))
-                      ->method('column')
-                      ->will($this->returnValueMap([[ 'left', '', '`left`' ], [ 'right', '', '`right`' ]]));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('right')
+                      ->andReturn('`right`');
 
         $this->builder->expects($this->once())
                       ->method('on')
-                      ->with($this->equalTo('`left`'), $this->equalTo('`right`'))
-                      ->will($this->returnSelf());
+                      ->with('`left`', '`right`')
+                      ->willReturnSelf();
 
         $this->class->on('left', 'right');
     }
@@ -44,15 +49,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testOnLike(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
         $this->builder->expects($this->once())
                       ->method('on_like')
-                      ->with($this->equalTo('`left`'))
-                      ->will($this->returnSelf());
+                      ->with('`left`')
+                      ->willReturnSelf();
 
         $this->class->on_like('left', 'right');
     }
@@ -64,15 +69,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testOnIn(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
-        $this->escaper->expects($this->once())
-                      ->method('query_value')
+        $this->escaper->expects('query_value')
+                      ->once()
                       ->with('SELECT column FROM table')
-                      ->willReturn('(SELECT column FROM table)');
+                      ->andReturn('(SELECT column FROM table)');
 
         $this->builder->expects($this->once())
                       ->method('on_in')
@@ -89,22 +94,24 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testOnInList(): void
     {
-        $this->escaper->expects($this->exactly(2))
-                      ->method('value')
-                      ->will($this->returnValueMap([
-                          [ 'val1', '', '', '"val1"' ],
-                          [ 'val2', '', '', '"val2"' ],
-                      ]));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('val1')
+                      ->andReturn('"val1"');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('val2')
+                      ->andReturn('"val2"');
 
-        $this->escaper->expects($this->once())
-                      ->method('list_value')
-                      ->with($this->equalTo([ '"val1"', '"val2"' ]))
-                      ->will($this->returnValue('("val1", "val2")'));
+        $this->escaper->expects('list_value')
+                      ->once()
+                      ->with([ '"val1"', '"val2"' ])
+                      ->andReturn('("val1", "val2")');
 
         $this->builder->expects($this->once())
                       ->method('on_in')
@@ -121,20 +128,24 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testOnBetween(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
-        $this->escaper->expects($this->exactly(2))
-                      ->method('value')
-                      ->withConsecutive([ 'a' ], [ 'b' ])
-                      ->willReturnOnConsecutiveCalls('"a"', '"b"');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('a')
+                      ->andReturn('"a"');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('b')
+                      ->andReturn('"b"');
 
         $this->builder->expects($this->once())
                       ->method('on_between')
                       ->with('`left`', '"a"', '"b"')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->on_between('left', 'a', 'b');
     }
@@ -146,15 +157,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testOnRegexp(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
         $this->builder->expects($this->once())
                       ->method('on_regexp')
-                      ->with($this->equalTo('`left`'))
-                      ->will($this->returnSelf());
+                      ->with('`left`')
+                      ->willReturnSelf();
 
         $this->class->on_regexp('left', 'right');
     }
@@ -168,7 +179,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
     {
         $this->builder->expects($this->once())
                       ->method('start_on_group')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->start_on_group();
     }
@@ -182,7 +193,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
     {
         $this->builder->expects($this->once())
                       ->method('end_on_group')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->end_on_group();
     }
@@ -194,15 +205,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testOnNull(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
         $this->builder->expects($this->once())
                       ->method('on_null')
-                      ->with($this->equalTo('`left`'))
-                      ->will($this->returnSelf());
+                      ->with('`left`')
+                      ->willReturnSelf();
 
         $this->class->on_null('left');
     }
@@ -214,15 +225,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testOnNotNull(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
         $this->builder->expects($this->once())
                       ->method('on_null')
-                      ->with($this->equalTo('`left`'))
-                      ->will($this->returnValue($this->builder));
+                      ->with('`left`')
+                      ->willReturn($this->builder);
 
         $this->class->on_null('left', TRUE);
     }
@@ -234,20 +245,19 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testWhere(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
-
-        $this->escaper->expects($this->once())
-                      ->method('value')
-                      ->with($this->equalTo('right'))
-                      ->will($this->returnValue('"right"'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('right')
+                      ->andReturn('"right"');
 
         $this->builder->expects($this->once())
                       ->method('where')
-                      ->with($this->equalTo('`left`'))
-                      ->will($this->returnSelf());
+                      ->with('`left`')
+                      ->willReturnSelf();
 
         $this->class->where('left', 'right');
     }
@@ -261,7 +271,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
     {
         $this->builder->expects($this->once())
                       ->method('start_where_group')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->start_where_group();
     }
@@ -275,7 +285,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
     {
         $this->builder->expects($this->once())
                       ->method('end_where_group')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->end_where_group();
     }
@@ -289,7 +299,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
     {
         $this->builder->expects($this->once())
                       ->method('sql_or')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->sql_or();
     }
@@ -303,7 +313,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
     {
         $this->builder->expects($this->once())
                       ->method('or')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->or();
     }
@@ -317,7 +327,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
     {
         $this->builder->expects($this->once())
                       ->method('sql_and')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->sql_and();
     }
@@ -331,7 +341,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
     {
         $this->builder->expects($this->once())
                       ->method('and')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->and();
     }
@@ -345,7 +355,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
     {
         $this->builder->expects($this->once())
                       ->method('xor')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->xor();
     }
@@ -357,15 +367,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testWhereLike(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
         $this->builder->expects($this->once())
                       ->method('where_like')
-                      ->with($this->equalTo('`left`'))
-                      ->will($this->returnSelf());
+                      ->with('`left`')
+                      ->willReturnSelf();
 
         $this->class->where_like('left', 'right');
     }
@@ -377,15 +387,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testWhereIn(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
-        $this->escaper->expects($this->once())
-                      ->method('query_value')
+        $this->escaper->expects('query_value')
+                      ->once()
                       ->with('SELECT column FROM table')
-                      ->willReturn('(SELECT column FROM table)');
+                      ->andReturn('(SELECT column FROM table)');
 
         $this->builder->expects($this->once())
                       ->method('where_in')
@@ -402,19 +412,24 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testWhereInList(): void
     {
-        $this->escaper->expects($this->exactly(2))
-                      ->method('value')
-                      ->will($this->returnValueMap([[ 'val1', '', '', '"val1"' ], [ 'val2', '', '', '"val2"' ]]));
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('val1')
+                      ->andReturn('"val1"');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('val2')
+                      ->andReturn('"val2"');
 
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
-        $this->escaper->expects($this->once())
-                      ->method('list_value')
-                      ->with($this->equalTo([ '"val1"', '"val2"' ]))
-                      ->will($this->returnValue('("val1", "val2")'));
+        $this->escaper->expects('list_value')
+                      ->once()
+                      ->with([ '"val1"', '"val2"' ])
+                      ->andReturn('("val1", "val2")');
 
         $this->builder->expects($this->once())
                       ->method('where_in')
@@ -431,18 +446,25 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testWhereBetween(): void
     {
-        $this->escaper->expects($this->exactly(1))
-                      ->method('column')
-                      ->will($this->returnValueMap([[ 'left', '', '`left`' ]]));
 
-        $this->escaper->expects($this->exactly(2))
-                      ->method('value')
-                      ->will($this->returnValueMap([[ 'a', '', '', '"a"' ], [ 'b', '', '', '"b"' ]]));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
+
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('a')
+                      ->andReturn('"a"');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('b')
+                      ->andReturn('"b"');
 
         $this->builder->expects($this->once())
                       ->method('where_between')
-                      ->with($this->equalTo('`left`'), $this->equalTo('"a"'), $this->equalTo('"b"'))
-                      ->will($this->returnSelf());
+                      ->with('`left`', '"a"', '"b"')
+                      ->willReturnSelf();
 
         $this->class->where_between('left', 'a', 'b');
     }
@@ -454,15 +476,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testWhereRegexp(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
         $this->builder->expects($this->once())
                       ->method('where_regexp')
-                      ->with($this->equalTo('`left`'), $this->equalTo('right'))
-                      ->will($this->returnSelf());
+                      ->with('`left`', 'right')
+                      ->willReturnSelf();
 
         $this->class->where_regexp('left', 'right');
     }
@@ -474,15 +496,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testWhereNull(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
         $this->builder->expects($this->once())
                       ->method('where_null')
-                      ->with($this->equalTo('`left`'))
-                      ->will($this->returnSelf());
+                      ->with('`left`')
+                      ->willReturnSelf();
 
         $this->class->where_null('left');
     }
@@ -494,15 +516,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testWhereNotNull(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
         $this->builder->expects($this->once())
                       ->method('where_null')
-                      ->with($this->equalTo('`left`'), $this->equalTo(TRUE))
-                      ->will($this->returnSelf());
+                      ->with('`left`', TRUE)
+                      ->willReturnSelf();
 
         $this->class->where_null('left', TRUE);
     }
@@ -514,20 +536,19 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testHaving(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
-
-        $this->escaper->expects($this->once())
-                      ->method('value')
-                      ->with($this->equalTo('right'))
-                      ->will($this->returnValue('"right"'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('right')
+                      ->andReturn('"right"');
 
         $this->builder->expects($this->once())
                       ->method('having')
-                      ->with($this->equalTo('`left`'), $this->equalTo('"right"'))
-                      ->will($this->returnSelf());
+                      ->with('`left`', '"right"')
+                      ->willReturnSelf();
 
         $this->class->having('left', 'right');
     }
@@ -539,15 +560,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testHavingLike(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
         $this->builder->expects($this->once())
                       ->method('having_like')
-                      ->with($this->equalTo('`left`'), $this->equalTo('right'))
-                      ->will($this->returnSelf());
+                      ->with('`left`', 'right')
+                      ->willReturnSelf();
 
         $this->class->having_like('left', 'right');
     }
@@ -559,15 +580,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testHavingIn(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
-        $this->escaper->expects($this->once())
-                      ->method('query_value')
+        $this->escaper->expects('query_value')
+                      ->once()
                       ->with('SELECT column FROM table')
-                      ->willReturn('(SELECT column FROM table)');
+                      ->andReturn('(SELECT column FROM table)');
 
         $this->builder->expects($this->once())
                       ->method('having_in')
@@ -584,19 +605,24 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testHavingInList(): void
     {
-        $this->escaper->expects($this->exactly(2))
-                      ->method('value')
-                      ->will($this->returnValueMap([[ 'val1', '', '', '"val1"' ], [ 'val2', '', '', '"val2"' ]]));
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('val1')
+                      ->andReturn('"val1"');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('val2')
+                      ->andReturn('"val2"');
 
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
-        $this->escaper->expects($this->once())
-                      ->method('list_value')
-                      ->with($this->equalTo([ '"val1"', '"val2"' ]))
-                      ->will($this->returnValue('("val1", "val2")'));
+        $this->escaper->expects('list_value')
+                      ->once()
+                      ->with([ '"val1"', '"val2"' ])
+                      ->andReturn('("val1", "val2")');
 
         $this->builder->expects($this->once())
                       ->method('having_in')
@@ -613,22 +639,24 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testHavingBetween(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
-        $this->escaper->expects($this->exactly(2))
-                      ->method('value')
-                      ->will($this->returnValueMap([
-                          [ 'a', '', '', '"a"' ],
-                          [ 'b', '', '', '"b"' ]
-                      ]));
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('a')
+                      ->andReturn('"a"');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('b')
+                      ->andReturn('"b"');
 
         $this->builder->expects($this->once())
                       ->method('having_between')
-                      ->with($this->equalTo('`left`'), $this->equalTo('"a"'), $this->equalTo('"b"'))
-                      ->will($this->returnSelf());
+                      ->with('`left`', '"a"', '"b"')
+                      ->willReturnSelf();
 
         $this->class->having_between('left', 'a', 'b');
     }
@@ -640,15 +668,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testHavingRegexp(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
         $this->builder->expects($this->once())
                       ->method('having_regexp')
-                      ->with($this->equalTo('`left`'), $this->equalTo('right'))
-                      ->will($this->returnSelf());
+                      ->with('`left`', 'right')
+                      ->willReturnSelf();
 
         $this->class->having_regexp('left', 'right');
     }
@@ -660,15 +688,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testHavingNull(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
         $this->builder->expects($this->once())
                       ->method('having_null')
-                      ->with($this->equalTo('`left`'), $this->equalTo(FALSE))
-                      ->will($this->returnSelf());
+                      ->with('`left`', FALSE)
+                      ->willReturnSelf();
 
         $this->class->having_null('left');
     }
@@ -680,15 +708,15 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
      */
     public function testHavingNotNull(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('left'))
-                      ->will($this->returnValue('`left`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
 
         $this->builder->expects($this->once())
                       ->method('having_null')
-                      ->with($this->equalTo('`left`'), $this->equalTo(TRUE))
-                      ->will($this->returnSelf());
+                      ->with('`left`', TRUE)
+                      ->willReturnSelf();
 
         $this->class->having_null('left', TRUE);
     }
@@ -702,7 +730,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
     {
         $this->builder->expects($this->once())
                       ->method('start_having_group')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->start_having_group();
     }
@@ -716,7 +744,7 @@ class MySQLSimpleDMLQueryBuilderConditionalTest extends MySQLSimpleDMLQueryBuild
     {
         $this->builder->expects($this->once())
                       ->method('end_having_group')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->end_having_group();
     }
