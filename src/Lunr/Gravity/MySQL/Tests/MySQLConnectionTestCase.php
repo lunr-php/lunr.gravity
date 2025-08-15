@@ -10,6 +10,7 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
+use Lunr\Core\Configuration;
 use Lunr\Gravity\MySQL\MySQLConnection;
 use Lunr\Halo\LunrBaseTestCase;
 use Lunr\Ticks\EventLogging\EventInterface;
@@ -19,7 +20,9 @@ use Lunr\Ticks\TracingInfoInterface;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
+use mysqli;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
 
 /**
  * This class contains common constructors/destructors and data providers
@@ -34,21 +37,21 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
 
     /**
      * Mock instance of the Configuration class.
-     * @var Configuration
+     * @var Configuration&MockObject
      */
-    protected $configuration;
+    protected Configuration&MockObject $configuration;
 
     /**
      * Mock instance of the Logger class.
-     * @var LoggerInterface
+     * @var LoggerInterface&MockInterface
      */
-    protected $logger;
+    protected LoggerInterface&MockInterface $logger;
 
     /**
      * Mock instance of the mysqli class.
-     * @var mysqli
+     * @var mysqli&MockObject
      */
-    protected $mysqli;
+    protected mysqli&MockObject $mysqli;
 
     /**
      * Mock Instance of an event logger.
@@ -83,9 +86,9 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
     {
         $this->configuration = $this->getMockBuilder('Lunr\Core\Configuration')->getMock();
 
-        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $this->logger = Mockery::mock(LoggerInterface::class);
 
-        $this->mysqli = $this->getMockBuilder('\mysqli')->getMock();
+        $this->mysqli = $this->getMockBuilder(mysqli::class)->getMock();
 
         $this->eventLogger = $this->getMockBuilder(EventLoggerInterface::class)
                                   ->getMock();
@@ -120,11 +123,11 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($map));
+                            ->willReturnMap($map);
 
-        $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $this->logger = Mockery::mock(LoggerInterface::class);
 
-        $this->mysqli = $this->getMockBuilder('\mysqli')->getMock();
+        $this->mysqli = $this->getMockBuilder(mysqli::class)->getMock();
 
         $this->eventLogger = $this->getMockBuilder(EventLoggerInterface::class)
                                   ->getMock();
@@ -162,7 +165,7 @@ abstract class MySQLConnectionTestCase extends LunrBaseTestCase
      *
      * @return array $strings Array of strings and their expected escaped value
      */
-    public function escapeStringProvider(): array
+    public static function escapeStringProvider(): array
     {
         $strings   = [];
         $strings[] = [ "'--", "\'--", "\'--" ];

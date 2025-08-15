@@ -31,7 +31,7 @@ class MySQLConnectionTransactionTest extends MySQLConnectionTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('autocommit')
-                     ->will($this->returnValue(TRUE));
+                     ->willReturn(TRUE);
 
         $this->assertTrue($this->class->begin_transaction());
 
@@ -68,7 +68,7 @@ class MySQLConnectionTransactionTest extends MySQLConnectionTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('commit')
-                     ->will($this->returnValue(TRUE));
+                     ->willReturn(TRUE);
 
         $this->assertTrue($this->class->commit());
 
@@ -105,7 +105,7 @@ class MySQLConnectionTransactionTest extends MySQLConnectionTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('rollback')
-                     ->will($this->returnValue(TRUE));
+                     ->willReturn(TRUE);
 
         $this->assertTrue($this->class->rollback());
 
@@ -142,7 +142,7 @@ class MySQLConnectionTransactionTest extends MySQLConnectionTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('autocommit')
-                     ->will($this->returnValue(TRUE));
+                     ->willReturn(TRUE);
 
         $this->assertTrue($this->class->end_transaction());
 

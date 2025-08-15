@@ -30,7 +30,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->has_failed();
 
@@ -50,7 +50,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->never())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->has_failed();
 
@@ -69,7 +69,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->affected_rows();
 
@@ -89,7 +89,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->never())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->affected_rows();
 
@@ -108,7 +108,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->number_of_rows();
 
@@ -128,7 +128,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->never())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->number_of_rows();
 
@@ -147,7 +147,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->error_message();
 
@@ -167,7 +167,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->never())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->error_message();
 
@@ -186,7 +186,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->error_number();
 
@@ -206,7 +206,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->never())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->error_number();
 
@@ -225,7 +225,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->insert_id();
 
@@ -245,7 +245,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->never())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->insert_id();
 
@@ -264,7 +264,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->result_array();
 
@@ -284,7 +284,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->never())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->result_array();
 
@@ -303,7 +303,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->result_row();
 
@@ -323,7 +323,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->never())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->result_row();
 
@@ -342,7 +342,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->result_column('col');
 
@@ -362,7 +362,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->never())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->result_column('col');
 
@@ -381,7 +381,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->result_cell('cell');
 
@@ -401,7 +401,7 @@ class MySQLAsyncQueryResultFetchTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->never())
                      ->method('reap_async_query')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->class->result_cell('cell');
 

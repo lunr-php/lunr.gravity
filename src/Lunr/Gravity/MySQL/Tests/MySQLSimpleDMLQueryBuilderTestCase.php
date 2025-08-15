@@ -10,8 +10,13 @@
 
 namespace Lunr\Gravity\MySQL\Tests;
 
+use Lunr\Gravity\MySQL\MySQLDMLQueryBuilder;
+use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder;
 use Lunr\Halo\LunrBaseTestCase;
+use Mockery;
+use Mockery\MockInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * This class contains common setup routines, providers
@@ -24,15 +29,15 @@ abstract class MySQLSimpleDMLQueryBuilderTestCase extends LunrBaseTestCase
 
     /**
      * Mock instance of the MySQLQueryEscaper class.
-     * @var MySQLQueryEscaper
+     * @var MySQLQueryEscaper&MockInterface
      */
-    protected $escaper;
+    protected MySQLQueryEscaper&MockInterface $escaper;
 
     /**
      * Mock instance of the MySQLDMLQueryBuilder class.
-     * @var MySQLDMLQueryBuilder
+     * @var MySQLDMLQueryBuilder&MockObject
      */
-    protected $builder;
+    protected MySQLDMLQueryBuilder&MockObject $builder;
 
     /**
      * Instance of the tested class.
@@ -45,11 +50,9 @@ abstract class MySQLSimpleDMLQueryBuilderTestCase extends LunrBaseTestCase
      */
     public function setUp(): void
     {
-        $this->escaper = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLQueryEscaper')
-                              ->disableOriginalConstructor()
-                              ->getMock();
+        $this->escaper = Mockery::mock(MySQLQueryEscaper::class);
 
-        $this->builder = $this->getMockBuilder('Lunr\Gravity\MySQL\MySQLDMLQueryBuilder')
+        $this->builder = $this->getMockBuilder(MySQLDMLQueryBuilder::class)
                               ->getMock();
 
         $this->class = new MySQLSimpleDMLQueryBuilder($this->builder, $this->escaper);
@@ -74,7 +77,7 @@ abstract class MySQLSimpleDMLQueryBuilderTestCase extends LunrBaseTestCase
      *
      * @return array $values Array of location reference values.
      */
-    public function locationReferenceAliasProvider(): array
+    public static function locationReferenceAliasProvider(): array
     {
         $values   = [];
         $values[] = [ 'table AS t', TRUE, 'table', 't', 'table AS t' ];
@@ -90,7 +93,7 @@ abstract class MySQLSimpleDMLQueryBuilderTestCase extends LunrBaseTestCase
      *
      * @return array $values Array of location reference values.
      */
-    public function locationReferenceProvider(): array
+    public static function locationReferenceProvider(): array
     {
         $values   = [];
         $values[] = [ 'table', TRUE, 'table' ];
@@ -104,7 +107,7 @@ abstract class MySQLSimpleDMLQueryBuilderTestCase extends LunrBaseTestCase
     *
     * @return array $compound operators for union query
     */
-    public function unionOperatorProvider(): array
+    public static function unionOperatorProvider(): array
     {
         $operators   = [];
         $operators[] = [ '' ];

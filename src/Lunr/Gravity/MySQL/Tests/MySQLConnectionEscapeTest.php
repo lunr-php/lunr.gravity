@@ -46,7 +46,7 @@ class MySQLConnectionEscapeTest extends MySQLConnectionTestCase
      * @requires     extension mysqli
      * @covers       Lunr\Gravity\MySQL\MySQLConnection::escape_string
      */
-    public function testEscapeString($string, $partEscaped, $escaped): void
+    public function testEscapeString(string $string, string $partEscaped, string $escaped): void
     {
         $property = $this->getReflectionProperty('connected');
         $property->setValue($this->class, TRUE);

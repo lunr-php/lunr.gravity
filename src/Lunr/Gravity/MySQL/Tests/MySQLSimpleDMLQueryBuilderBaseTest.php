@@ -48,14 +48,14 @@ class MySQLSimpleDMLQueryBuilderBaseTest extends MySQLSimpleDMLQueryBuilderTestC
      * @dataProvider locationReferenceAliasProvider
      * @covers       Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::escape_alias
      */
-    public function testEscapeAliasWithAlias($input, $type, $name, $alias, $expected): void
+    public function testEscapeAliasWithAlias(string $input, bool $type, string $name, string $alias, string $expected): void
     {
         $method = $type ? 'table' : 'result_column';
 
-        $this->escaper->expects($this->once())
-                      ->method($method)
-                      ->with($this->equalTo($name), $this->equalTo($alias))
-                      ->will($this->returnValue($expected));
+        $this->escaper->expects($method)
+                      ->once()
+                      ->with($name, $alias)
+                      ->andReturn($expected);
 
         $method = $this->getReflectionMethod('escape_alias');
 
@@ -74,14 +74,14 @@ class MySQLSimpleDMLQueryBuilderBaseTest extends MySQLSimpleDMLQueryBuilderTestC
      * @dataProvider locationReferenceProvider
      * @covers       Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::escape_alias
      */
-    public function testEscapeAliasPlain($input, $type, $expected): void
+    public function testEscapeAliasPlain(string $input, bool $type, string $expected): void
     {
         $method = $type ? 'table' : 'result_column';
 
-        $this->escaper->expects($this->once())
-                      ->method($method)
-                      ->with($this->equalTo($input))
-                      ->will($this->returnValue($expected));
+        $this->escaper->expects($method)
+                      ->once()
+                      ->with($input)
+                      ->andReturn($expected);
 
         $method = $this->getReflectionMethod('escape_alias');
 

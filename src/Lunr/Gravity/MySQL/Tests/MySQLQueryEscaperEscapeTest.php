@@ -28,7 +28,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('\'value\'', $this->class->value('value'));
     }
@@ -43,7 +43,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('\'value\' COLLATE utf8_general_ci', $this->class->value('value', 'utf8_general_ci'));
     }
@@ -58,7 +58,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('ascii \'value\'', $this->class->value('value', '', 'ascii'));
     }
@@ -73,7 +73,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $string = 'ascii \'value\' COLLATE utf8_general_ci';
 
@@ -90,7 +90,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('UNHEX(\'value\')', $this->class->hexvalue('value'));
     }
@@ -105,7 +105,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $string = 'UNHEX(\'value\') COLLATE utf8_general_ci';
 
@@ -122,7 +122,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('ascii UNHEX(\'value\')', $this->class->hexvalue('value', '', 'ascii'));
     }
@@ -137,7 +137,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $string = 'ascii UNHEX(\'value\') COLLATE utf8_general_ci';
 
@@ -154,7 +154,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('\'%value%\'', $this->class->likevalue('value'));
     }
@@ -169,7 +169,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $string = '\'%value%\' COLLATE utf8_general_ci';
 
@@ -186,7 +186,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('ascii \'%value%\'', $this->class->likevalue('value', 'both', '', 'ascii'));
     }
@@ -201,7 +201,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $string = 'ascii \'%value%\' COLLATE utf8_general_ci';
 
@@ -218,7 +218,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('\'value%\'', $this->class->likevalue('value', 'forward'));
     }
@@ -233,7 +233,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('\'%value\'', $this->class->likevalue('value', 'backward'));
     }
@@ -248,7 +248,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('\'%value%\'', $this->class->likevalue('value', 'unsupported'));
     }
@@ -348,7 +348,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals("ST_GeomFromText('value')", $this->class->geovalue('value'));
     }
@@ -362,7 +362,7 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals("ST_GeomFromText('value', 5)", $this->class->geovalue('value', 5));
     }

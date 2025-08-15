@@ -25,7 +25,7 @@ class MySQLConnectionDefragmentTest extends MySQLConnectionTestCase
      *
      * @covers Lunr\Gravity\MySQL\MySQLConnection::defragment
      */
-    public function testDefragmentThrowsExceptionIfQueryfails(): void
+    public function testDefragmentThrowsExceptionIfQueryFails(): void
     {
         $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
 
@@ -51,9 +51,11 @@ class MySQLConnectionDefragmentTest extends MySQLConnectionTestCase
         $this->expectException(DefragmentationException::class);
         $this->expectExceptionMessage('Failed to optimize table: flights');
 
-        $this->logger->expects($this->once())
-                     ->method('error')
-                     ->with('{query}; failed with error: {error}');
+        $this->logger->expects('debug')->twice();
+
+        $this->logger->expects('error')
+                     ->once()
+                     ->with('{query}; failed with error: {error}', [ 'query' => 'OPTIMIZE TABLE flights', 'error' => '' ]);
 
         $this->class->defragment('flights');
 
@@ -86,6 +88,14 @@ class MySQLConnectionDefragmentTest extends MySQLConnectionTestCase
         $mysqli->expects($this->once())
                ->method('query')
                ->willReturn(TRUE);
+
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with('query: {query}', [ 'query' => 'OPTIMIZE TABLE flights' ]);
+
+        $this->logger->expects('debug')
+                     ->once()
+                     ->withAnyArgs();
 
         $this->mockFunction('mysqli_affected_rows', fn() => 0);
 

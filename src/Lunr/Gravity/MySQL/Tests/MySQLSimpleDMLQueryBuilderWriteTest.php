@@ -84,7 +84,7 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
         $this->builder->expects($this->once())
                       ->method('insert_mode')
                       ->with('DELAYED')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->insert_mode('DELAYED');
     }
@@ -99,7 +99,7 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
         $this->builder->expects($this->once())
                       ->method('replace_mode')
                       ->with('LOW_PRIORITY')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->replace_mode('LOW_PRIORITY');
     }
@@ -114,7 +114,7 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
         $this->builder->expects($this->once())
                       ->method('update_mode')
                       ->with('IGNORE')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->update_mode('IGNORE');
     }
@@ -129,7 +129,7 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
         $this->builder->expects($this->once())
                       ->method('delete_mode')
                       ->with('QUICK')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->delete_mode('QUICK');
     }
@@ -141,15 +141,15 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
      */
     public function testInto(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('table')
-                      ->with($this->equalTo('table'))
-                      ->will($this->returnValue('`table`'));
+        $this->escaper->expects('table')
+                      ->once()
+                      ->with('table')
+                      ->andReturn('`table`');
 
         $this->builder->expects($this->once())
                       ->method('into')
-                      ->with($this->equalTo('`table`'))
-                      ->will($this->returnSelf());
+                      ->with('`table`')
+                      ->willReturnSelf();
 
         $this->class->into('table');
     }
@@ -161,15 +161,15 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
      */
     public function testColumnNamesWithOneColumn(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('column')
-                      ->with($this->equalTo('col'))
-                      ->will($this->returnValue('`col`'));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
 
         $this->builder->expects($this->once())
                       ->method('column_names')
-                      ->with($this->equalTo([ '`col`' ]))
-                      ->will($this->returnSelf());
+                      ->with([ '`col`' ])
+                      ->willReturnSelf();
 
         $this->class->column_names([ 'col' ]);
     }
@@ -181,17 +181,20 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
      */
     public function testColumnNamesWithMultipleColumns(): void
     {
-        $this->escaper->expects($this->exactly(2))
-             ->method('column')
-             ->will($this->returnValueMap([
-                 [ 'col1', '', '`col1`' ],
-                 [ 'col2', '', '`col2`' ],
-             ]));
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col1')
+                      ->andReturn('`col1`');
+
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col2')
+                      ->andReturn('`col2`');
 
         $this->builder->expects($this->once())
                       ->method('column_names')
-                      ->with($this->equalTo([ '`col1`', '`col2`' ]))
-                      ->will($this->returnSelf());
+                      ->with([ '`col1`', '`col2`' ])
+                      ->willReturnSelf();
 
         $this->class->column_names([ 'col1', 'col2' ]);
     }
@@ -203,15 +206,15 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
      */
     public function testUpdateWithOneTable(): void
     {
-        $this->escaper->expects($this->once())
-                      ->method('table')
-                      ->with($this->equalTo('table'))
-                      ->will($this->returnValue('`table`'));
+        $this->escaper->expects('table')
+                      ->once()
+                      ->with('table')
+                      ->andReturn('`table`');
 
         $this->builder->expects($this->once())
                       ->method('update')
-                      ->with($this->equalTo('`table`'))
-                      ->will($this->returnSelf());
+                      ->with('`table`')
+                      ->willReturnSelf();
 
         $this->class->update('table');
     }
@@ -223,16 +226,17 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
      */
     public function testUpdateWithMultipleTables(): void
     {
-        $this->escaper->expects($this->exactly(2))
-                      ->method('table')
-                      ->will($this->returnValue('`table`'));
+        $this->escaper->expects('table')
+                      ->times(2)
+                      ->with('table')
+                      ->andReturn('`table`');
 
         $this->builder->expects($this->once())
                       ->method('update')
-                      ->with($this->equalTo('`table`, `table`'))
-                      ->will($this->returnSelf());
+                      ->with('`table`, `table`')
+                      ->willReturnSelf();
 
-        $this->class->update('table, table');
+        $this->class->update('table,table');
     }
 
     /**
@@ -242,10 +246,14 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
      */
     public function testDelete(): void
     {
+        $this->escaper->expects('table')
+                      ->once()
+                      ->andReturnArg(0);
+
         $this->builder->expects($this->once())
                       ->method('delete')
                       ->with('')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->delete('');
     }
@@ -261,7 +269,7 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
         $this->builder->expects($this->once())
                       ->method('select_statement')
                       ->with($query)
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->select_statement($query);
     }
@@ -276,7 +284,7 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
         $this->builder->expects($this->once())
                       ->method('lock_mode')
                       ->with('')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->lock_mode('');
     }
@@ -291,7 +299,7 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
         $this->builder->expects($this->once())
                       ->method('values')
                       ->with('')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->values('');
     }
@@ -306,7 +314,7 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
         $this->builder->expects($this->once())
                       ->method('set')
                       ->with('')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->set('');
     }
@@ -321,7 +329,7 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
         $this->builder->expects($this->once())
                       ->method('with')
                       ->with('alias', 'query')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->with('alias', 'query');
     }
@@ -336,7 +344,7 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
         $this->builder->expects($this->once())
                       ->method('with_recursive')
                       ->with('alias', 'anchor_query', 'recursive_query')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->with_recursive('alias', 'anchor_query', 'recursive_query');
     }
@@ -351,7 +359,7 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
         $this->builder->expects($this->once())
                       ->method('on_duplicate_key_update')
                       ->with('col=col+1')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $this->class->on_duplicate_key_update('col=col+1');
     }

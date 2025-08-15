@@ -25,10 +25,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testIntoReturnsSelf(): void
     {
+        $this->escaper->expects('table')
+                      ->once()
+                      ->with('table')
+                      ->andReturn('`table`');
+
         $this->builder->expects($this->once())
                       ->method('into')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`table`')
+                      ->willReturnSelf();
 
         $return = $this->class->into('table');
 
@@ -42,10 +47,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testColumnNamesReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+
         $this->builder->expects($this->once())
                       ->method('column_names')
-                      ->with($this->equalTo([ 0 => NULL ]))
-                      ->will($this->returnSelf());
+                      ->with([ '`col`' ])
+                      ->willReturnSelf();
 
         $return = $this->class->column_names([ 'col' ]);
 
@@ -59,10 +69,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testSelectReturnsSelf(): void
     {
+        $this->escaper->expects('result_column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+
         $this->builder->expects($this->once())
                       ->method('select')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`')
+                      ->willReturnSelf();
 
         $return = $this->class->select('col');
 
@@ -76,10 +91,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testFromReturnsSelf(): void
     {
+        $this->escaper->expects('table')
+                      ->once()
+                      ->with('table')
+                      ->andReturn('`table`');
+
         $this->builder->expects($this->once())
                       ->method('from')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`table`')
+                      ->willReturnSelf();
 
         $return = $this->class->from('table');
 
@@ -93,10 +113,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testJoinReturnsSelf(): void
     {
+        $this->escaper->expects('table')
+                      ->once()
+                      ->with('table')
+                      ->andReturn('`table`');
+
         $this->builder->expects($this->once())
                       ->method('join')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`table`')
+                      ->willReturnSelf();
 
         $return = $this->class->join('table');
 
@@ -110,10 +135,19 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testOnReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('right')
+                      ->andReturn('`right`');
+
         $this->builder->expects($this->once())
                       ->method('on')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`left`', '`right`')
+                      ->willReturnSelf();
 
         $return = $this->class->on('left', 'right');
 
@@ -127,10 +161,19 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testOnLikeReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('left')
+                      ->andReturn('`left`');
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('right')
+                      ->andReturn('`right`');
+
         $this->builder->expects($this->once())
                       ->method('on_like')
-                      ->with($this->equalTo(NULL), $this->equalTo('right'))
-                      ->will($this->returnSelf());
+                      ->with('`left`', 'right')
+                      ->willReturnSelf();
 
         $return = $this->class->on_like('left', 'right');
 
@@ -144,10 +187,19 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testOnInReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+        $this->escaper->expects('query_value')
+                      ->once()
+                      ->with('SELECT column FROM table')
+                      ->andReturnArg(0);
+
         $this->builder->expects($this->once())
                       ->method('on_in')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', 'SELECT column FROM table', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->on_in('col', 'SELECT column FROM table');
 
@@ -161,10 +213,23 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testOnInListReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with( 'val')
+                      ->andReturn('"val"');
+        $this->escaper->expects('list_value')
+                      ->once()
+                      ->with( [ '"val"' ])
+                      ->andReturn('("val")');
+
         $this->builder->expects($this->once())
                       ->method('on_in')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', '("val")', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->on_in_list('col', [ 'val' ]);
 
@@ -178,12 +243,25 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testOnBetweenReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('lower')
+                      ->andReturnArg(0);
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('upper')
+                      ->andReturnArg(0);
+
         $this->builder->expects($this->once())
                       ->method('on_between')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', 'lower', 'upper', FALSE)
+                      ->willReturnSelf();
 
-        $return = $this->class->on_between('col', 'upper', 'lower');
+        $return = $this->class->on_between('col', 'lower', 'upper');
 
         $this->assertSame($this->class, $return);
     }
@@ -195,10 +273,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testOnRegexpReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+
         $this->builder->expects($this->once())
                       ->method('on_regexp')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', 'val', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->on_regexp('col', 'val');
 
@@ -214,7 +297,7 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
     {
         $this->builder->expects($this->once())
                       ->method('start_on_group')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $return = $this->class->start_on_group();
 
@@ -230,7 +313,7 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
     {
         $this->builder->expects($this->once())
                       ->method('end_on_group')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $return = $this->class->end_on_group();
 
@@ -246,7 +329,7 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
     {
         $this->builder->expects($this->once())
                       ->method('start_having_group')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $return = $this->class->start_having_group();
 
@@ -262,7 +345,7 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
     {
         $this->builder->expects($this->once())
                       ->method('end_having_group')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $return = $this->class->end_having_group();
 
@@ -276,10 +359,19 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testWhereReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('val')
+                      ->andReturn('"val"');
+
         $this->builder->expects($this->once())
                       ->method('where')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', '"val"', '=')
+                      ->willReturnSelf();
 
         $return = $this->class->where('col', 'val');
 
@@ -293,10 +385,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testWhereLikeReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+
         $this->builder->expects($this->once())
                       ->method('where_like')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', 'val', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->where_like('col', 'val');
 
@@ -310,10 +407,19 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testWhereInReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+        $this->escaper->expects('query_value')
+                      ->once()
+                      ->with('SELECT column FROM table')
+                      ->andReturnArg(0);
+
         $this->builder->expects($this->once())
                       ->method('where_in')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', 'SELECT column FROM table', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->where_in('col', 'SELECT column FROM table');
 
@@ -327,10 +433,23 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testWhereInListReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('val')
+                      ->andReturn('"val"');
+        $this->escaper->expects('list_value')
+                      ->once()
+                      ->with([ '"val"' ])
+                      ->andReturn('("val")');
+
         $this->builder->expects($this->once())
                       ->method('where_in')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', '("val")', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->where_in_list('col', [ 'val' ]);
 
@@ -344,10 +463,23 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testWhereBetweenReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('lower')
+                      ->andReturnArg(0);
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('upper')
+                      ->andReturnArg(0);
+
         $this->builder->expects($this->once())
                       ->method('where_between')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', 'lower', 'upper', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->where_between('col', 'lower', 'upper');
 
@@ -361,10 +493,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testWhereRegexpReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+
         $this->builder->expects($this->once())
                       ->method('where_regexp')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', 'val', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->where_regexp('col', 'val');
 
@@ -378,10 +515,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testGroupByReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+
         $this->builder->expects($this->once())
                       ->method('group_by')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', NULL)
+                      ->willReturnSelf();
 
         $return = $this->class->group_by('col');
 
@@ -395,10 +537,19 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testHavingReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('val')
+                      ->andReturn('"val"');
+
         $this->builder->expects($this->once())
                       ->method('having')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', '"val"', '=')
+                      ->willReturnSelf();
 
         $return = $this->class->having('col', 'val');
 
@@ -412,10 +563,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testHavingLikeReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+
         $this->builder->expects($this->once())
                       ->method('having_like')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', 'val', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->having_like('col', 'val');
 
@@ -429,10 +585,19 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testHavingInReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+        $this->escaper->expects('query_value')
+                      ->once()
+                      ->with('SELECT column FROM table')
+                      ->andReturnArg(0);
+
         $this->builder->expects($this->once())
                       ->method('having_in')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', 'SELECT column FROM table', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->having_in('col', 'SELECT column FROM table');
 
@@ -446,10 +611,23 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testHavingInListReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('val')
+                      ->andReturn('"val"');
+        $this->escaper->expects('list_value')
+                      ->once()
+                      ->with([ '"val"' ])
+                      ->andReturn('("val")');
+
         $this->builder->expects($this->once())
                       ->method('having_in')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', '("val")', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->having_in_list('col', [ 'val' ]);
 
@@ -463,10 +641,23 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testHavingBetweenReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('lower')
+                      ->andReturnArg(0);
+        $this->escaper->expects('value')
+                      ->once()
+                      ->with('upper')
+                      ->andReturnArg(0);
+
         $this->builder->expects($this->once())
                       ->method('having_between')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', 'lower', 'upper', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->having_between('col', 'lower', 'upper');
 
@@ -480,10 +671,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testHavingRegexpReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+
         $this->builder->expects($this->once())
                       ->method('having_regexp')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', 'val', FALSE)
+                      ->willReturnSelf();
 
         $return = $this->class->having_regexp('col', 'val');
 
@@ -497,10 +693,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testOrderByReturnsSelf(): void
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+
         $this->builder->expects($this->once())
                       ->method('order_by')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with('`col`', TRUE)
+                      ->willReturnSelf();
 
         $return = $this->class->order_by('col');
 
@@ -514,10 +715,19 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testLimitReturnsSelf(): void
     {
+        $this->escaper->expects('intvalue')
+                      ->once()
+                      ->with(10)
+                      ->andReturnArg(0);
+        $this->escaper->expects('intvalue')
+                      ->once()
+                      ->with(-1)
+                      ->andReturnArg(0);
+
         $this->builder->expects($this->once())
                       ->method('limit')
-                      ->with($this->equalTo(NULL))
-                      ->will($this->returnSelf());
+                      ->with(10, -1)
+                      ->willReturnSelf();
 
         $return = $this->class->limit(10);
 
@@ -531,10 +741,15 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
      */
     public function testOnDuplicateKeyUpdate()
     {
+        $this->escaper->expects('column')
+                      ->once()
+                      ->with('col')
+                      ->andReturn('`col`');
+
         $this->builder->expects($this->once())
                       ->method('on_duplicate_key_update')
                       ->with('col=col+1')
-                      ->will($this->returnSelf());
+                      ->willReturnSelf();
 
         $return = $this->class->on_duplicate_key_update('col=col+1');
 

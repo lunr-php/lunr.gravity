@@ -52,7 +52,7 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
      *
      * @return array $dataProvider Array of data values.
      */
-    public function findPositionsDataProvider(): array
+    public static function findPositionsDataProvider(): array
     {
         $dataProvider                               = [];
         $dataProvider['first argument not string']  = [[[ '013456789013456789','23','56' ],[]], []];
@@ -72,7 +72,7 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
      *
      * @return array $dataProvider Array of data values.
      */
-    public function removeEolBlankSpacesDataProvider(): array
+    public static function removeEolBlankSpacesDataProvider(): array
     {
         $dataProvider   = [];
         $dataProvider[] = [ '  SELECT     *   FROM `table`   ','SELECT * FROM `table`' ];
@@ -88,7 +88,7 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
      *
      * @return array $dataProvider Array of data values.
      */
-    public function isNumericValueDataProvider(): array
+    public static function isNumericValueDataProvider(): array
     {
         $dataProvider   = [];
         $dataProvider[] = [[ 'value=234567 AND',6 ],[ TRUE,11 ]];
@@ -104,7 +104,7 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
      *
      * @return array $dataProvider Array of data values.
      */
-    public function updatePositionsDataProvider(): array
+    public static function updatePositionsDataProvider(): array
     {
         $dataProvider   = [];
         $dataProvider[] = [[[[ 3,10 ],[ 25,30 ],[ 40,50 ]],15,5 ],[[ 3,10 ],[ 20,25 ],[ 35,45 ]]];
@@ -117,7 +117,7 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
      *
      * @return array $dataProvider Array of data values.
      */
-    public function findDigitDataProvider(): array
+    public static function findDigitDataProvider(): array
     {
         $dataProvider   = [];
         $dataProvider[] = [[[ 'SELECT * FROM `table1` WHERE `value1`="teste" AND `value2`=12', 22 ],[[ 29,36 ],[ 50,57 ]]],59 ];
@@ -131,7 +131,7 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
      *
      * @return array $dataProvider Array of data values.
      */
-    public function jumpIgnoreDataProvider(): array
+    public static function jumpIgnoreDataProvider(): array
     {
         $dataProvider   = [];
         $dataProvider[] = [[ 0,[[ 0,10 ],[ 10,100 ],[ 102,110 ]]], 101 ];
@@ -144,7 +144,7 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
      *
      * @return array $dataProvider Array of data values.
      */
-    public function isNegativeNumberDataProvider(): array
+    public static function isNegativeNumberDataProvider(): array
     {
         $dataProvider   = [];
         $dataProvider[] = [[ 'value=123',6 ], FALSE ];
@@ -159,7 +159,7 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
      *
      * @return array $dataProvider Array of data values.
      */
-    public function replaceNumericDataProvider(): array
+    public static function replaceNumericDataProvider(): array
     {
         $dataProvider   = [];
         $dataProvider[] = [[[ 'value=12 and','?' ],NULL ],'value=? and' ];
@@ -178,7 +178,7 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
      *
      * @return array $dataProvider Array of data values.
      */
-    public function replaceBetweenDataProvider(): array
+    public static function replaceBetweenDataProvider(): array
     {
         $dataProvider                       = [];
         $dataProvider['replace jump'][0]    = [[ 'SELECT * FROM value1="ignore" AND value2="B"', '"', '"', '"?"',TRUE ],[[ 21,28 ]]];
@@ -194,7 +194,7 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
      *
      * @return array $dataProvider Array of data values.
      */
-    public function canonicalQueryDataProvider(): array
+    public static function canonicalQueryDataProvider(): array
     {
         $path = TEST_STATICS . '/Gravity/Database/MySQL/';
 
@@ -275,7 +275,7 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
      *
      * @return array $dataProvider Array of data values.
      */
-    public function collapseMultiRowInsertsDataProvider(): array
+    public static function collapseMultiRowInsertsDataProvider(): array
     {
         $path = TEST_STATICS . '/Gravity/Database/MySQL/';
 

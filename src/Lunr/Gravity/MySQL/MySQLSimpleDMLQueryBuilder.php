@@ -194,7 +194,7 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
 
         foreach (explode(',', $tableReferences) as $table)
         {
-            $tables .= $this->escape_alias($table, TRUE) . ', ';
+            $tables .= $this->escape_alias($table, table: TRUE) . ', ';
         }
 
         $this->builder->delete(rtrim($tables, ', '));
@@ -277,13 +277,13 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return $this Self reference
      */
-    public function update($tableReferences): static
+    public function update(string $tableReferences): static
     {
         $tables = '';
 
         foreach (explode(',', $tableReferences) as $table)
         {
-            $tables .= $this->escape_alias($table, TRUE) . ', ';
+            $tables .= $this->escape_alias($table, table: TRUE) . ', ';
         }
 
         $this->builder->update(rtrim($tables, ', '));
@@ -303,7 +303,7 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
 
         foreach (explode(',', $select) as $column)
         {
-            $columns .= $this->escape_alias($column, FALSE) . ', ';
+            $columns .= $this->escape_alias($column, table: FALSE) . ', ';
         }
 
         $this->builder->select(rtrim($columns, ', '));
@@ -926,7 +926,7 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
      *
      * @return string Escaped location reference
      */
-    protected function escape_alias($locationReference, $table = TRUE): string
+    protected function escape_alias(string $locationReference, bool $table = TRUE): string
     {
         $method = $table ? 'table' : 'result_column';
 
