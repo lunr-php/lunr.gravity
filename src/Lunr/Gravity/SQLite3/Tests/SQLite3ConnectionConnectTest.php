@@ -35,7 +35,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')
-                      ->will($this->returnValue(0));
+                      ->willReturn(0);
 
         $this->class->connect();
 
@@ -55,7 +55,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')
-                      ->will($this->returnValue(0));
+                      ->willReturn(0);
 
         $this->class->connect();
 
@@ -77,7 +77,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')
-                      ->will($this->returnValue(1));
+                      ->willReturn(1);
 
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Could not establish connection to the database!');
@@ -198,7 +198,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')
-                      ->will($this->returnValue(0));
+                      ->willReturn(0);
 
         $return = $this->class->change_database('new_db');
 
@@ -222,7 +222,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')
-                      ->will($this->returnValue(1));
+                      ->willReturn(1);
 
         $this->expectException('Lunr\Gravity\Exceptions\ConnectionException');
         $this->expectExceptionMessage('Could not establish connection to the database!');

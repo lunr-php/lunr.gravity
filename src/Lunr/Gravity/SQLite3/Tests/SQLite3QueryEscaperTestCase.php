@@ -62,7 +62,7 @@ abstract class SQLite3QueryEscaperTestCase extends LunrBaseTestCase
      *
      * @return array $indices Array of invalid indices
      */
-    public function invalidIndicesProvider(): array
+    public static function invalidIndicesProvider(): array
     {
         $indices   = [];
         $indices[] = [ [] ];
@@ -75,7 +75,7 @@ abstract class SQLite3QueryEscaperTestCase extends LunrBaseTestCase
      *
      * @return array $keywords Array of valid index keywords.
      */
-    public function validIndexKeywordProvider(): array
+    public static function validIndexKeywordProvider(): array
     {
         $keywords   = [];
         $keywords[] = [ 'INDEXED BY' ];

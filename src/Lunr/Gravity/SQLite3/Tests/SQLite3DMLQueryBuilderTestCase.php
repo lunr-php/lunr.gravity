@@ -53,7 +53,7 @@ abstract class SQLite3DMLQueryBuilderTestCase extends LunrBaseTestCase
      *
      * @return array $modes Array of select modes
      */
-    public function selectModesDuplicatesProvider(): array
+    public static function selectModesDuplicatesProvider(): array
     {
         $modes   = [];
         $modes[] = [ 'ALL' ];
@@ -67,7 +67,7 @@ abstract class SQLite3DMLQueryBuilderTestCase extends LunrBaseTestCase
      *
      * @return array $modes Array of select modes
      */
-    public function modesProvider(): array
+    public static function modesProvider(): array
     {
         $modes   = [];
         $modes[] = [ 'OR ROLLBACK' ];
@@ -84,7 +84,7 @@ abstract class SQLite3DMLQueryBuilderTestCase extends LunrBaseTestCase
      *
      * @return array $expectedmodes Array of insert modes and their expected result
      */
-    public function expectedModesProvider(): array
+    public static function expectedModesProvider(): array
     {
         $expectedmodes   = [];
         $expectedmodes[] = [ 'or rollback', 'OR ROLLBACK' ];

@@ -29,8 +29,8 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('exec')
-                      ->with($this->equalTo('BEGIN TRANSACTION'))
-                      ->will($this->returnValue(TRUE));
+                      ->with('BEGIN TRANSACTION')
+                      ->willReturn(TRUE);
 
         $this->assertTrue($this->class->begin_transaction());
     }
@@ -46,7 +46,7 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')
-                      ->will($this->returnValue(1));
+                      ->willReturn(1);
 
         $this->sqlite3->expects($this->never())
                       ->method('exec');
@@ -68,8 +68,8 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('exec')
-                      ->with($this->equalTo('COMMIT TRANSACTION'))
-                      ->will($this->returnValue(TRUE));
+                      ->with('COMMIT TRANSACTION')
+                      ->willReturn(TRUE);
 
         $this->assertTrue($this->class->commit());
     }
@@ -85,7 +85,7 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')
-                      ->will($this->returnValue(1));
+                      ->willReturn(1);
 
         $this->sqlite3->expects($this->never())
                       ->method('exec');
@@ -107,8 +107,8 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('exec')
-                      ->with($this->equalTo('ROLLBACK TRANSACTION'))
-                      ->will($this->returnValue(TRUE));
+                      ->with('ROLLBACK TRANSACTION')
+                      ->willReturn(TRUE);
 
         $this->assertTrue($this->class->rollback());
     }
@@ -124,7 +124,7 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')
-                      ->will($this->returnValue(1));
+                      ->willReturn(1);
 
         $this->sqlite3->expects($this->never())
                       ->method('exec');
@@ -146,8 +146,8 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('exec')
-                      ->with($this->equalTo('END TRANSACTION'))
-                      ->will($this->returnValue(TRUE));
+                      ->with('END TRANSACTION')
+                      ->willReturn(TRUE);
 
         $this->assertTrue($this->class->end_transaction());
     }
@@ -163,7 +163,7 @@ class SQLite3ConnectionTransactionTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('lastErrorCode')
-                      ->will($this->returnValue(1));
+                      ->willReturn(1);
 
         $this->sqlite3->expects($this->never())
                       ->method('exec');

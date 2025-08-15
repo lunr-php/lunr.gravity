@@ -28,7 +28,7 @@ class SQLite3QueryEscaperEscapeTest extends SQLite3QueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('\'value\'', $this->class->value('value'));
     }
@@ -43,7 +43,7 @@ class SQLite3QueryEscaperEscapeTest extends SQLite3QueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('\'value\'', $this->class->hexvalue('value'));
     }
@@ -58,7 +58,7 @@ class SQLite3QueryEscaperEscapeTest extends SQLite3QueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('\'%value%\'', $this->class->likevalue('value'));
     }
@@ -73,7 +73,7 @@ class SQLite3QueryEscaperEscapeTest extends SQLite3QueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('\'value%\'', $this->class->likevalue('value', 'forward'));
     }
@@ -88,7 +88,7 @@ class SQLite3QueryEscaperEscapeTest extends SQLite3QueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('\'%value\'', $this->class->likevalue('value', 'backward'));
     }
@@ -103,7 +103,7 @@ class SQLite3QueryEscaperEscapeTest extends SQLite3QueryEscaperTestCase
     {
         $this->escaper->expects($this->once())
                       ->method('escape_string')
-                      ->will($this->returnValue('value'));
+                      ->willReturn('value');
 
         $this->assertEquals('\'%value%\'', $this->class->likevalue('value', 'unsupported'));
     }

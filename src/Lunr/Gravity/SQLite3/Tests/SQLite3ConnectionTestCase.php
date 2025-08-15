@@ -103,7 +103,7 @@ abstract class SQLite3ConnectionTestCase extends LunrBaseTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetExists')
-                            ->will($this->returnValue(TRUE));
+                            ->willReturn(TRUE);
 
         $map = [
             [ 'file', '/tmp/test.db' ],
@@ -146,7 +146,7 @@ abstract class SQLite3ConnectionTestCase extends LunrBaseTestCase
      *
      * @return array $strings Array of strings and their expected escaped value
      */
-    public function escapeStringProvider()
+    public static function escapeStringProvider(): array
     {
         $strings   = [];
         $strings[] = [ 'Start', 'Start', 'Start' ];
