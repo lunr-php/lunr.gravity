@@ -40,7 +40,7 @@ trait DatabaseAccessObjectQueryTestTrait
 
         $this->result->expects($this->once())
                      ->method('has_failed')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $count = $format === 'cell' ? 1 : count($data);
 
@@ -74,11 +74,11 @@ trait DatabaseAccessObjectQueryTestTrait
 
         $this->result->expects($this->once())
                      ->method('has_failed')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->result->expects($this->once())
                      ->method('number_of_rows')
-                     ->will($this->returnValue(0));
+                     ->willReturn(0);
 
         $this->result->expects($this->never())
                      ->method('result_' . $format);
@@ -103,11 +103,11 @@ trait DatabaseAccessObjectQueryTestTrait
 
         $this->result->expects($this->once())
                      ->method('has_failed')
-                     ->will($this->returnValue(TRUE));
+                     ->willReturn(TRUE);
 
         $this->result->expects($this->once())
                      ->method('error_number')
-                     ->will($this->returnValue(1));
+                     ->willReturn(1);
 
         $this->result->expects($this->exactly(2))
                      ->method('error_message')
@@ -119,11 +119,11 @@ trait DatabaseAccessObjectQueryTestTrait
 
         $this->result->expects($this->any())
                      ->method('has_deadlock')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->result->expects($this->any())
                      ->method('has_lock_timeout')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->expectException('Lunr\Gravity\Exceptions\QueryException');
         $this->expectExceptionMessage('Database query error!');
@@ -148,15 +148,15 @@ trait DatabaseAccessObjectQueryTestTrait
 
         $this->result->expects($this->once())
                      ->method('has_failed')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->result->expects($this->any())
                      ->method('has_deadlock')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
 
         $this->result->expects($this->any())
                      ->method('has_lock_timeout')
-                     ->will($this->returnValue(FALSE));
+                     ->willReturn(FALSE);
     }
 
     /**

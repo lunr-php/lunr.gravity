@@ -55,7 +55,7 @@ abstract class DatabaseDMLQueryBuilderTestCase extends LunrBaseTestCase
      *
      * @return array $variants Array of statement variants
      */
-    public function conditionalKeywordProvider(): array
+    public static function conditionalKeywordProvider(): array
     {
         $variants   = [];
         $variants[] = [ 'WHERE', 'where' ];
@@ -70,7 +70,7 @@ abstract class DatabaseDMLQueryBuilderTestCase extends LunrBaseTestCase
      *
      * @return array $variants Array of join types
      */
-    public function commonJoinTypeProvider(): array
+    public static function commonJoinTypeProvider(): array
     {
         $types   = [];
         $types[] = [ '', 'JOIN' ];
@@ -86,7 +86,7 @@ abstract class DatabaseDMLQueryBuilderTestCase extends LunrBaseTestCase
      *
      * @return array $hints Array of valid index hints and expected prepared values
      */
-    public function validIndexHintProvider(): array
+    public static function validIndexHintProvider(): array
     {
         $hints   = [];
         $hints[] = [ [ 'index_hint' ], ' index_hint' ];
@@ -102,7 +102,7 @@ abstract class DatabaseDMLQueryBuilderTestCase extends LunrBaseTestCase
      *
      * @return array $hints Array of invalid index hints
      */
-    public function invalidIndexHintProvider(): array
+    public static function invalidIndexHintProvider(): array
     {
         $hints   = [];
         $hints[] = [ [] ];
@@ -116,7 +116,7 @@ abstract class DatabaseDMLQueryBuilderTestCase extends LunrBaseTestCase
     *
     * @return array $compound Array of compound types
     */
-    public function compoundQueryTypeAndOperatorProvider(): array
+    public static function compoundQueryTypeAndOperatorProvider(): array
     {
         $types   = [];
         $types[] = [ 'UNION' ];
@@ -137,7 +137,7 @@ abstract class DatabaseDMLQueryBuilderTestCase extends LunrBaseTestCase
     *
     * @return array $compound Array of compound types
     */
-    public function compoundQueryInvalidTypeAndOperatorProvider(): array
+    public static function compoundQueryInvalidTypeAndOperatorProvider(): array
     {
         $types   = [];
         $types[] = [ 'UNION', 'Some Operator' ];
@@ -161,7 +161,7 @@ abstract class DatabaseDMLQueryBuilderTestCase extends LunrBaseTestCase
      *
      * @return array $values Array of initial insert values.
      */
-    public function insertValuesProvider(): array
+    public static function insertValuesProvider(): array
     {
         $values   = [];
         $values[] = [ [ [ 'value1', 'value2', 'value3' ] ] ];

@@ -23,7 +23,7 @@ class DatabaseQueryEscaperNullEscapeTest extends DatabaseQueryEscaperTestCase
      *
      * @return array $escapers Valid value escapers
      */
-    public function validValueEscaperProvider(): array
+    public static function validValueEscaperProvider(): array
     {
         $escapers          = [];
         $escapers['int']   = [
@@ -55,7 +55,7 @@ class DatabaseQueryEscaperNullEscapeTest extends DatabaseQueryEscaperTestCase
      *
      * @return array $escapers Invalid value escapers
      */
-    public function invalidValueEscaperProvider(): array
+    public static function invalidValueEscaperProvider(): array
     {
         $escapers            = [];
         $escapers['table']   = [
