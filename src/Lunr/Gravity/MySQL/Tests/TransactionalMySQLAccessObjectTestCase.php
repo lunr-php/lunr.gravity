@@ -13,6 +13,7 @@ use Lunr\Gravity\MySQL\MySQLConnection;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\MySQL\TransactionalMySQLAccessObject;
 use Lunr\Halo\LunrBaseTestCase;
+use MySQLi;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use Psr\Log\LoggerInterface;
@@ -52,8 +53,16 @@ abstract class TransactionalMySQLAccessObjectTestCase extends LunrBaseTestCase
     {
         $this->logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 
+        $config = [
+            'rwHost'   => 'rwHost',
+            'username' => 'username',
+            'password' => 'password',
+            'database' => 'database',
+            'driver'   => 'mariadb',
+        ];
+
         $this->db = $this->getMockBuilder(MySQLConnection::class)
-                         ->disableOriginalConstructor()
+                         ->setConstructorArgs([ $config, $this->logger, new MySQLi() ])
                          ->getMock();
 
         $escaper = $this->getMockBuilder(MySQLQueryEscaper::class)
