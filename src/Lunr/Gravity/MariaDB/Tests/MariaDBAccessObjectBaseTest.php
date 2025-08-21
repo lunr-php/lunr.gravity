@@ -12,6 +12,7 @@ namespace Lunr\Gravity\MariaDB\Tests;
 use Lunr\Gravity\MariaDB\MariaDBConnection;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Halo\PropertyTraits\PsrLoggerTestTrait;
+use MySQLi;
 
 /**
  * This class contains the tests for the MariaDBAccessObject class.
@@ -50,8 +51,16 @@ class MariaDBAccessObjectBaseTest extends MariaDBAccessObjectTestCase
      */
     public function testSwapConnectionSwapsConnection(): void
     {
+        $config = [
+            'rwHost'   => 'rwHost',
+            'username' => 'username',
+            'password' => 'password',
+            'database' => 'database',
+            'driver'   => 'mariadb',
+        ];
+
         $db = $this->getMockBuilder(MariaDBConnection::class)
-                   ->disableOriginalConstructor()
+                   ->setConstructorArgs([ $config, $this->logger, new MySQLi() ])
                    ->getMock();
 
         $escaper = $this->getMockBuilder(MySQLQueryEscaper::class)
@@ -85,8 +94,16 @@ class MariaDBAccessObjectBaseTest extends MariaDBAccessObjectTestCase
      */
     public function testSwapConnectionSwapsQueryEscaper(): void
     {
+        $config = [
+            'rwHost'   => 'rwHost',
+            'username' => 'username',
+            'password' => 'password',
+            'database' => 'database',
+            'driver'   => 'mariadb',
+        ];
+
         $db = $this->getMockBuilder(MariaDBConnection::class)
-                   ->disableOriginalConstructor()
+                   ->setConstructorArgs([ $config, $this->logger, new MySQLi() ])
                    ->getMock();
 
         $escaper = $this->getMockBuilder(MySQLQueryEscaper::class)

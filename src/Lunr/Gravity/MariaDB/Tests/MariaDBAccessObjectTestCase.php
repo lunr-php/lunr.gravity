@@ -13,6 +13,7 @@ use Lunr\Gravity\MariaDB\MariaDBAccessObject;
 use Lunr\Gravity\MariaDB\MariaDBConnection;
 use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Halo\LunrBaseTestCase;
+use MySQLi;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use Psr\Log\LoggerInterface;
@@ -52,8 +53,16 @@ abstract class MariaDBAccessObjectTestCase extends LunrBaseTestCase
     {
         $this->logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 
+        $config = [
+            'rwHost'   => 'rwHost',
+            'username' => 'username',
+            'password' => 'password',
+            'database' => 'database',
+            'driver'   => 'mariadb',
+        ];
+
         $this->db = $this->getMockBuilder(MariaDBConnection::class)
-                         ->disableOriginalConstructor()
+                         ->setConstructorArgs([ $config, $this->logger, new MySQLi() ])
                          ->getMock();
 
         $escaper = $this->getMockBuilder(MySQLQueryEscaper::class)
