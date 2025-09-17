@@ -148,7 +148,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
-                     ->will($this->returnValue($result));
+                     ->willReturn($result);
 
         $method = $this->reflection->getMethod('fetch_result');
         $method->setAccessible(TRUE);
@@ -262,7 +262,7 @@ class MySQLAsyncQueryResultBaseTest extends MySQLAsyncQueryResultTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('reap_async_query')
-                     ->will($this->returnValue($result));
+                     ->willReturn($result);
 
         $method = $this->reflection->getMethod('fetch_result');
         $method->setAccessible(TRUE);

@@ -118,7 +118,7 @@ abstract class MySQLDatabaseAccessObjectTestCase extends DatabaseAccessObjectBas
 
         $this->db->expects($this->once())
                  ->method('get_query_escaper_object')
-                 ->will($this->returnValue($this->escaper));
+                 ->willReturn($this->escaper);
     }
 
     /**

@@ -79,7 +79,7 @@ class MySQLAccessObjectBaseTest extends MySQLAccessObjectTestCase
 
         $db->expects($this->once())
            ->method('get_query_escaper_object')
-           ->will($this->returnValue($escaper));
+           ->willReturn($escaper);
 
         $this->class->swap_connection($db);
 
@@ -116,7 +116,7 @@ class MySQLAccessObjectBaseTest extends MySQLAccessObjectTestCase
 
         $db->expects($this->once())
            ->method('get_query_escaper_object')
-           ->will($this->returnValue($escaper));
+           ->willReturn($escaper);
 
         $this->class->swap_connection($db);
 

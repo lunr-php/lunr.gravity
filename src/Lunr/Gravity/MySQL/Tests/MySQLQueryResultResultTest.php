@@ -148,7 +148,7 @@ class MySQLQueryResultResultTest extends MySQLQueryResultTestCase
         $result = [ 'col1' => 'val1', 'col2' => 'val2' ];
         $this->queryResult->expects($this->once())
                           ->method('fetch_assoc')
-                          ->will($this->returnValue($result));
+                          ->willReturn($result);
 
         $value = $this->class->result_row();
 
@@ -188,7 +188,7 @@ class MySQLQueryResultResultTest extends MySQLQueryResultTestCase
     {
         $this->queryResult->expects($this->once())
                           ->method('fetch_assoc')
-                          ->will($this->returnValue([ 'cell' => 'value' ]));
+                          ->willReturn([ 'cell' => 'value' ]);
 
         $this->assertEquals('value', $this->class->result_cell('cell'));
     }
@@ -203,7 +203,7 @@ class MySQLQueryResultResultTest extends MySQLQueryResultTestCase
     {
         $this->queryResult->expects($this->once())
                           ->method('fetch_assoc')
-                          ->will($this->returnValue([ 'cell' => 'value' ]));
+                          ->willReturn([ 'cell' => 'value' ]);
 
         $this->assertNull($this->class->result_cell('cell1'));
     }

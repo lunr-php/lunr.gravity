@@ -54,7 +54,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('rwHost');
         $property->setValue($this->class, '');
@@ -74,7 +74,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('user');
         $property->setValue($this->class, '');
@@ -94,7 +94,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('pwd');
         $property->setValue($this->class, '');
@@ -114,7 +114,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('db');
         $property->setValue($this->class, '');
@@ -134,7 +134,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('roHost');
         $property->setValue($this->class, '');
@@ -156,7 +156,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('roHost');
         $property->setValue($this->class, '');
@@ -178,7 +178,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $this->configuration->expects($this->any())
                             ->method('offsetExists')
@@ -202,7 +202,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $this->setReflectionPropertyValue('port', 0);
 
@@ -223,7 +223,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $this->setReflectionPropertyValue('port', 0);
 
@@ -250,7 +250,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $this->setReflectionPropertyValue('port', 0);
 
@@ -269,7 +269,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
     {
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('socket');
         $property->setValue($this->class, '');
@@ -295,7 +295,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('socket');
         $property->setValue($this->class, '');
@@ -319,7 +319,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('sslKey');
         $property->setValue($this->class, '');
@@ -343,7 +343,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('sslCert');
         $property->setValue($this->class, '');
@@ -367,7 +367,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('caCert');
         $property->setValue($this->class, '');
@@ -391,7 +391,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('caPath');
         $property->setValue($this->class, '');
@@ -415,7 +415,7 @@ class MySQLConnectionSetTest extends MySQLConnectionTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($this->valuesMap));
+                            ->willReturnMap($this->valuesMap);
 
         $property = $this->getReflectionProperty('cipher');
         $property->setValue($this->class, '');

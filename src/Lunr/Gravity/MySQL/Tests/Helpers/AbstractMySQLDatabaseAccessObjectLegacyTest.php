@@ -129,7 +129,7 @@ abstract class AbstractMySQLDatabaseAccessObjectLegacyTest extends LegacyBaseTes
 
         $this->db->expects($this->exactly(1))
                  ->method('get_query_escaper_object')
-                 ->will($this->returnValue($this->escaper));
+                 ->willReturn($this->escaper);
 
         // Assumption: All DAO's end in DAO.
         $name = str_replace('\\Tests\\', '\\', substr(static::class, 0, strrpos(static::class, 'DAO') + 3));

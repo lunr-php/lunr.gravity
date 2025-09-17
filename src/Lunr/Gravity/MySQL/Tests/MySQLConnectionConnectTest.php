@@ -326,7 +326,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $configuration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($map));
+                      ->willReturnMap($map);
 
         $this->mysqli->expects($this->never())
                      ->method('ssl_set');

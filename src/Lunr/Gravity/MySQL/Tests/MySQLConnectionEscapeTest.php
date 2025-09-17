@@ -53,7 +53,7 @@ class MySQLConnectionEscapeTest extends MySQLConnectionTestCase
 
         $this->mysqli->expects($this->once())
                      ->method('escape_string')
-                     ->will($this->returnValue($partEscaped));
+                     ->willReturn($partEscaped);
 
         $value = $this->class->escape_string($string);
 
