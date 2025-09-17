@@ -66,7 +66,7 @@ abstract class MariaDBConnectionTestCase extends LunrBaseTestCase
 
         $this->configuration->expects($this->any())
                             ->method('offsetGet')
-                            ->will($this->returnValueMap($map));
+                            ->willReturnMap($map);
 
         $map = [
             [ 'rw_host', 'rw_host' ],
@@ -78,7 +78,7 @@ abstract class MariaDBConnectionTestCase extends LunrBaseTestCase
 
         $this->subConfiguration->expects($this->any())
                                ->method('offsetGet')
-                               ->will($this->returnValueMap($map));
+                               ->willReturnMap($map);
 
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 

@@ -123,7 +123,7 @@ abstract class AbstractMariaDBDatabaseAccessObjectTestCase extends DatabaseAcces
 
         $this->db->expects($this->exactly(1))
                  ->method('get_query_escaper_object')
-                 ->will($this->returnValue($this->escaper));
+                 ->willReturn($this->escaper);
     }
 
     /**

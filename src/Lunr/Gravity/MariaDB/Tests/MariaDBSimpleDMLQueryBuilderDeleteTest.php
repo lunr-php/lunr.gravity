@@ -47,7 +47,7 @@ class MariaDBSimpleDMLQueryBuilderDeleteTest extends MariaDBSimpleDMLQueryBuilde
     {
         $this->escaper->expects($this->exactly(2))
                       ->method('result_column')
-                      ->will($this->onConsecutiveCalls('`id`', '`name`'));
+                      ->willReturnOnConsecutiveCalls('`id`', '`name`');
 
         $this->builder->expects($this->once())
                       ->method('returning')
