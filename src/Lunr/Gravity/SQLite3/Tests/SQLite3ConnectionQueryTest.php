@@ -49,7 +49,7 @@ class SQLite3ConnectionQueryTest extends SQLite3ConnectionTestCase
 
         $this->sqlite3->expects($this->once())
                       ->method('query')
-                      ->will($this->returnValue($this->sqlite3Result));
+                      ->willReturn($this->sqlite3Result);
 
         $query = $this->class->query('query');
 

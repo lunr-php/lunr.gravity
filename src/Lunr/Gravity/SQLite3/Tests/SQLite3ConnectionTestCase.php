@@ -112,7 +112,7 @@ abstract class SQLite3ConnectionTestCase extends LunrBaseTestCase
 
         $this->configuration->expects($this->atLeast(1))
                             ->method('offsetGet')
-                               ->will($this->returnValueMap($map));
+                               ->willReturnMap($map);
 
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 

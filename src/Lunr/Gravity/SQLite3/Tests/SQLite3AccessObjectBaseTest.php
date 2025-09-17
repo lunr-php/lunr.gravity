@@ -70,7 +70,7 @@ class SQLite3AccessObjectBaseTest extends SQLite3AccessObjectTestCase
 
         $db->expects($this->once())
            ->method('get_query_escaper_object')
-           ->will($this->returnValue($escaper));
+           ->willReturn($escaper);
 
         $this->class->swap_connection($db);
 
@@ -99,7 +99,7 @@ class SQLite3AccessObjectBaseTest extends SQLite3AccessObjectTestCase
 
         $db->expects($this->once())
            ->method('get_query_escaper_object')
-           ->will($this->returnValue($escaper));
+           ->willReturn($escaper);
 
         $this->class->swap_connection($db);
 

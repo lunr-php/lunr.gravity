@@ -130,7 +130,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTestCase
 
         $configuration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($map));
+                      ->willReturnMap($map);
 
         $map = [
             [ 'file', '/tmp/test.db' ],
@@ -139,7 +139,7 @@ class SQLite3ConnectionConnectTest extends SQLite3ConnectionTestCase
 
         $subConfiguration->expects($this->any())
                          ->method('offsetGet')
-                         ->will($this->returnValueMap($map));
+                         ->willReturnMap($map);
 
         $this->setReflectionPropertyValue('config', $configuration);
 
