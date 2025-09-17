@@ -70,7 +70,7 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
 
         $this->configuration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($map));
+                      ->willReturnMap($map);
 
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
@@ -96,7 +96,7 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
 
         $this->configuration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($map));
+                      ->willReturnMap($map);
 
         $map = [
             [ 'rw_host', 'rw_host' ],
@@ -108,7 +108,7 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
 
         $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($map));
+                      ->willReturnMap($map);
 
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 
@@ -134,7 +134,7 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
 
         $this->configuration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($map));
+                      ->willReturnMap($map);
 
         $map = [
             [ 'rw_host', 'rw_host' ],
@@ -146,7 +146,7 @@ abstract class DatabaseConnectionPoolTestCase extends TestCase
 
         $this->subConfiguration->expects($this->any())
                       ->method('offsetGet')
-                      ->will($this->returnValueMap($map));
+                      ->willReturnMap($map);
 
         $this->logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
 

@@ -32,11 +32,11 @@ trait DatabaseAccessObjectQueryTestTrait
 
         $this->db->expects($this->atLeast(1))
                  ->method('get_new_dml_query_builder_object')
-                 ->will($this->returnValue($mock));
+                 ->willReturn($mock);
 
         $this->db->expects($this->once())
                  ->method('query')
-                 ->will($this->returnValue($this->result));
+                 ->willReturn($this->result);
 
         $this->result->expects($this->once())
                      ->method('has_failed')
@@ -46,11 +46,11 @@ trait DatabaseAccessObjectQueryTestTrait
 
         $this->result->expects($this->once())
                      ->method('number_of_rows')
-                     ->will($this->returnValue($count));
+                     ->willReturn($count);
 
         $this->result->expects($this->once())
                      ->method('result_' . $format)
-                     ->will($this->returnValue($data));
+                     ->willReturn($data);
     }
 
     /**
@@ -66,11 +66,11 @@ trait DatabaseAccessObjectQueryTestTrait
 
         $this->db->expects($this->atLeast(1))
                  ->method('get_new_dml_query_builder_object')
-                 ->will($this->returnValue($mock));
+                 ->willReturn($mock);
 
         $this->db->expects($this->once())
                  ->method('query')
-                 ->will($this->returnValue($this->result));
+                 ->willReturn($this->result);
 
         $this->result->expects($this->once())
                      ->method('has_failed')
@@ -95,11 +95,11 @@ trait DatabaseAccessObjectQueryTestTrait
 
         $this->db->expects($this->atLeast(1))
                  ->method('get_new_dml_query_builder_object')
-                 ->will($this->returnValue($mock));
+                 ->willReturn($mock);
 
         $this->db->expects($this->once())
                  ->method('query')
-                 ->will($this->returnValue($this->result));
+                 ->willReturn($this->result);
 
         $this->result->expects($this->once())
                      ->method('has_failed')
@@ -111,11 +111,11 @@ trait DatabaseAccessObjectQueryTestTrait
 
         $this->result->expects($this->exactly(2))
                      ->method('error_message')
-                     ->will($this->returnValue('Error!'));
+                     ->willReturn('Error!');
 
         $this->result->expects($this->exactly(2))
                      ->method('query')
-                     ->will($this->returnValue('QUERY;'));
+                     ->willReturn('QUERY;');
 
         $this->result->expects($this->any())
                      ->method('has_deadlock')
@@ -140,11 +140,11 @@ trait DatabaseAccessObjectQueryTestTrait
 
         $this->db->expects($this->atLeast(1))
                  ->method('get_new_dml_query_builder_object')
-                 ->will($this->returnValue($mock));
+                 ->willReturn($mock);
 
         $this->db->expects($this->once())
                  ->method('query')
-                 ->will($this->returnValue($this->result));
+                 ->willReturn($this->result);
 
         $this->result->expects($this->once())
                      ->method('has_failed')
@@ -170,11 +170,11 @@ trait DatabaseAccessObjectQueryTestTrait
 
         $this->db->expects($this->atLeast(1))
                  ->method('get_new_dml_query_builder_object')
-                 ->will($this->returnValue($mock));
+                 ->willReturn($mock);
 
         $this->db->expects($this->exactly(2))
                  ->method('query')
-                 ->will($this->returnValue($this->result));
+                 ->willReturn($this->result);
 
         $this->result->expects($this->once())
                      ->method('has_failed')
