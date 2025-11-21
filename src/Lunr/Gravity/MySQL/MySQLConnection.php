@@ -144,6 +144,12 @@ class MySQLConnection extends DatabaseConnection
     protected const RECONNECT_LIMIT = 4;
 
     /**
+     * Maximum length of a query before we truncate it to generate a canonical query.
+     * @var int
+     */
+    protected const ANALYTICS_QUERY_LENGTH_LIMIT = 4000;
+
+    /**
      * Constructor.
      *
      * @param Configuration|MySQLConfig $config Database config
@@ -455,44 +461,55 @@ class MySQLConnection extends DatabaseConnection
 
         $queryResult = new MySQLQueryResult($sqlQuery, $result, $this->mysqli);
 
-        if ($this->analyticsDetailLevel->atLeast(AnalyticsDetailLevel::Info))
+        if (!$this->analyticsDetailLevel->atLeast(AnalyticsDetailLevel::Info))
         {
-            $message  = $queryResult->error_message();
-            $warnings = $queryResult->warnings();
-
-            $fields = [
-                'startTimestamp' => $startTimestamp,
-                'endTimestamp'   => $endTimestamp,
-                'executionTime'  => $executionTime,
-                'canonicalQuery' => $queryResult->canonical_query(),
-                'numberOfRows'   => $queryResult->number_of_rows(),
-                'errorMessage'   => !empty($message) ? $message : NULL,
-                'warnings'       => !empty($warnings) ? json_encode($warnings) : NULL,
-                'traceID'        => $traceID,
-                'spanID'         => $spanID,
-                'parentSpanID'   => $this->tracingController->getParentSpanId(),
-            ];
-            $tags   = [
-                'digest'       => sha1($fields['canonicalQuery']),
-                'databaseHost' => $this->getHost(),
-                'successful'   => !$queryResult->has_failed(),
-                'errorNumber'  => $queryResult->error_number(),
-            ];
-
-            if ($this->analyticsDetailLevel->atLeast(AnalyticsDetailLevel::Full))
-            {
-                $fields['query'] = $queryResult->query();
-            }
-
-            $event = $this->eventLogger->newEvent('mysql_query_log');
-
-            $event->recordTimestamp();
-            $event->addTags(array_merge($this->tracingController->getSpanSpecificTags(), $tags));
-            $event->addFields($fields);
-            $event->record();
-
-            $this->tracingController->stopChildSpan();
+            return $queryResult;
         }
+
+        if (strlen($sqlQuery) < static::ANALYTICS_QUERY_LENGTH_LIMIT)
+        {
+            $canonicalQuery = $queryResult->canonical_query();
+        }
+        else
+        {
+            $canonicalQuery = (new MySQLCanonicalQuery(substr($sqlQuery, 0, static::ANALYTICS_QUERY_LENGTH_LIMIT)))->get_canonical_query();
+        }
+
+        $message  = $queryResult->error_message();
+        $warnings = $queryResult->warnings();
+
+        $fields = [
+            'startTimestamp' => $startTimestamp,
+            'endTimestamp'   => $endTimestamp,
+            'executionTime'  => $executionTime,
+            'canonicalQuery' => $canonicalQuery,
+            'numberOfRows'   => $queryResult->number_of_rows(),
+            'errorMessage'   => !empty($message) ? $message : NULL,
+            'warnings'       => !empty($warnings) ? json_encode($warnings) : NULL,
+            'traceID'        => $traceID,
+            'spanID'         => $spanID,
+            'parentSpanID'   => $this->tracingController->getParentSpanId(),
+        ];
+        $tags   = [
+            'digest'       => sha1($fields['canonicalQuery']),
+            'databaseHost' => $this->getHost(),
+            'successful'   => !$queryResult->has_failed(),
+            'errorNumber'  => $queryResult->error_number(),
+        ];
+
+        if ($this->analyticsDetailLevel->atLeast(AnalyticsDetailLevel::Full))
+        {
+            $fields['query'] = $queryResult->query();
+        }
+
+        $event = $this->eventLogger->newEvent('mysql_query_log');
+
+        $event->recordTimestamp();
+        $event->addTags(array_merge($this->tracingController->getSpanSpecificTags(), $tags));
+        $event->addFields($fields);
+        $event->record();
+
+        $this->tracingController->stopChildSpan();
 
         return $queryResult;
     }

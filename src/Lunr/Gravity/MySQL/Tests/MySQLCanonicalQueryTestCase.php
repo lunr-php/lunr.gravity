@@ -266,6 +266,10 @@ abstract class MySQLCanonicalQueryTestCase extends LunrBaseTestCase
             $path . 'input_cte.sql',
             $path . 'output_cte.sql',
         ];
+        $dataProvider['delete with many conditions']       = [
+            $path . 'input_delete.sql',
+            $path . 'output_delete.sql',
+        ];
 
         return $dataProvider;
     }

@@ -275,6 +275,123 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
      * @requires extension mysqli
      * @covers   Lunr\Gravity\MySQL\MySQLConnection::query
      */
+    public function testQueryRecordsAnalyticsWithDetailLevelInfoAndLongQuery(): void
+    {
+        $input  = file_get_contents(TEST_STATICS . '/Gravity/Database/MySQL/input_delete.sql');
+        $output = trim(file_get_contents(TEST_STATICS . '/Gravity/Database/MySQL/truncated_delete.sql'));
+
+        $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
+
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('connected', TRUE);
+
+        $this->class->enableAnalytics($this->eventLogger, $this->controller, AnalyticsDetailLevel::Info);
+
+        $this->controller->shouldReceive('startChildSpan')
+                         ->once();
+
+        $traceID      = '7b333e15-aa78-4957-a402-731aecbb358e';
+        $spanID       = '24ec5f90-7458-4dd5-bb51-7a1e8f4baafe';
+        $parentSpanID = '8b1f87b5-8383-4413-a341-7619cd4b9948';
+
+        $this->controller->shouldReceive('getTraceId')
+                         ->once()
+                         ->andReturn($traceID);
+
+        $this->controller->shouldReceive('getSpanId')
+                         ->once()
+                         ->andReturn($spanID);
+
+        $this->controller->shouldReceive('getParentSpanId')
+                         ->once()
+                         ->andReturn($parentSpanID);
+
+        $this->controller->shouldReceive('getSpanSpecifictags')
+                         ->once()
+                         ->andReturn([ 'call' => 'controller/method' ]);
+
+        $this->controller->shouldReceive('stopChildSpan')
+                         ->once();
+
+        $this->eventLogger->expects($this->once())
+                          ->method('newEvent')
+                          ->with('mysql_query_log')
+                          ->willReturn($this->event);
+
+        $this->event->expects($this->once())
+                    ->method('recordTimestamp');
+
+        $this->event->expects($this->once())
+                    ->method('addTags')
+                    ->with([
+                        'digest'       => 'ff237cf59d604e3735714db1e347e0a4eae50a36',
+                        'databaseHost' => 'db-server',
+                        'successful'   => TRUE,
+                        'errorNumber'  => 0,
+                        'call'         => 'controller/method',
+                    ]);
+
+        $this->event->expects($this->once())
+                    ->method('addFields')
+                    ->with([
+                        'startTimestamp' => 1734352683.3516,
+                        'endTimestamp'   => 1734352683.3516,
+                        'executionTime'  => 0.0,
+                        'traceID'        => $traceID,
+                        'spanID'         => $spanID,
+                        'parentSpanID'   => $parentSpanID,
+                        'canonicalQuery' => $output,
+                        'numberOfRows'   => 0,
+                        'errorMessage'   => NULL,
+                        'warnings'       => NULL,
+                    ]);
+
+        $this->event->expects($this->once())
+                    ->method('record');
+
+        $profilingHint = "/* traceID=$traceID,spanID=$spanID */ ";
+
+        $result = $this->getMockBuilder(MySQLi_Result::class)
+                       ->disableOriginalConstructor()
+                       ->getMock();
+
+        $result->expects($this->once())
+               ->method('fetch_row')
+               ->willReturn([ 'db-server' ]);
+
+        $mysqli->expects($this->exactly(2))
+               ->method('query')
+               ->willReturnOnConsecutiveCalls(TRUE, $result);
+
+        $floatval  = 1734352683.3516;
+        $stringval = '0.35160200 1734352683';
+
+        $this->mockFunction('microtime', fn(bool $float) => $float ? $floatval : $stringval);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
+
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with( 'query: {query}', [ 'query' => $profilingHint . $input ]);
+
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with('Query executed in 0 seconds');
+
+        $query = $this->class->query($input);
+
+        $this->unmockFunction('mysqli_affected_rows');
+        $this->unmockFunction('microtime');
+
+        $this->assertInstanceOf('Lunr\Gravity\MySQL\MySQLQueryResult', $query);
+        $this->assertFalse($query->has_failed());
+    }
+
+    /**
+     * Test that query() returns a QueryResult when connected.
+     *
+     * @requires extension mysqli
+     * @covers   Lunr\Gravity\MySQL\MySQLConnection::query
+     */
     public function testQueryRecordsAnalyticsWithDetailLevelFull(): void
     {
         $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
@@ -376,6 +493,124 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
                      ->with( 'Query executed in 0 seconds');
 
         $query = $this->class->query('query');
+
+        $this->unmockFunction('mysqli_affected_rows');
+        $this->unmockFunction('microtime');
+
+        $this->assertInstanceOf('Lunr\Gravity\MySQL\MySQLQueryResult', $query);
+        $this->assertFalse($query->has_failed());
+    }
+
+    /**
+     * Test that query() returns a QueryResult when connected.
+     *
+     * @requires extension mysqli
+     * @covers   Lunr\Gravity\MySQL\MySQLConnection::query
+     */
+    public function testQueryRecordsAnalyticsWithDetailLevelFullAndLongQuery(): void
+    {
+        $input  = file_get_contents(TEST_STATICS . '/Gravity/Database/MySQL/input_delete.sql');
+        $output = trim(file_get_contents(TEST_STATICS . '/Gravity/Database/MySQL/truncated_delete.sql'));
+
+        $mysqli = new MockMySQLiSuccessfulConnection($this->getMockBuilder('\mysqli')->getMock());
+
+        $this->setReflectionPropertyValue('mysqli', $mysqli);
+        $this->setReflectionPropertyValue('connected', TRUE);
+
+        $this->class->enableAnalytics($this->eventLogger, $this->controller, AnalyticsDetailLevel::Full);
+
+        $this->controller->shouldReceive('startChildSpan')
+                         ->once();
+
+        $traceID      = '7b333e15-aa78-4957-a402-731aecbb358e';
+        $spanID       = '24ec5f90-7458-4dd5-bb51-7a1e8f4baafe';
+        $parentSpanID = '8b1f87b5-8383-4413-a341-7619cd4b9948';
+
+        $profilingHint = "/* traceID=$traceID,spanID=$spanID */ ";
+
+        $this->controller->shouldReceive('getTraceId')
+                         ->once()
+                         ->andReturn($traceID);
+
+        $this->controller->shouldReceive('getSpanId')
+                         ->once()
+                         ->andReturn($spanID);
+
+        $this->controller->shouldReceive('getParentSpanId')
+                         ->once()
+                         ->andReturn($parentSpanID);
+
+        $this->controller->shouldReceive('getSpanSpecifictags')
+                         ->once()
+                         ->andReturn([ 'call' => 'controller/method' ]);
+
+        $this->controller->shouldReceive('stopChildSpan')
+                         ->once();
+
+        $this->eventLogger->expects($this->once())
+                          ->method('newEvent')
+                          ->with('mysql_query_log')
+                          ->willReturn($this->event);
+
+        $this->event->expects($this->once())
+                    ->method('recordTimestamp');
+
+        $this->event->expects($this->once())
+                    ->method('addTags')
+                    ->with([
+                        'digest'       => 'ff237cf59d604e3735714db1e347e0a4eae50a36',
+                        'databaseHost' => 'db-server',
+                        'successful'   => TRUE,
+                        'errorNumber'  => 0,
+                        'call'         => 'controller/method',
+                    ]);
+
+        $this->event->expects($this->once())
+                    ->method('addFields')
+                    ->with([
+                        'startTimestamp' => 1734352683.3516,
+                        'endTimestamp'   => 1734352683.3516,
+                        'executionTime'  => 0.0,
+                        'traceID'        => $traceID,
+                        'spanID'         => $spanID,
+                        'parentSpanID'   => $parentSpanID,
+                        'canonicalQuery' => $output,
+                        'numberOfRows'   => 0,
+                        'errorMessage'   => NULL,
+                        'warnings'       => NULL,
+                        'query'          => $profilingHint . $input,
+                    ]);
+
+        $this->event->expects($this->once())
+                    ->method('record');
+
+        $result = $this->getMockBuilder(MySQLi_Result::class)
+                       ->disableOriginalConstructor()
+                       ->getMock();
+
+        $result->expects($this->once())
+               ->method('fetch_row')
+               ->willReturn([ 'db-server' ]);
+
+        $mysqli->expects($this->exactly(2))
+               ->method('query')
+               ->willReturnOnConsecutiveCalls(TRUE, $result);
+
+        $floatval  = 1734352683.3516;
+        $stringval = '0.35160200 1734352683';
+
+        $this->mockFunction('microtime', fn(bool $float) => $float ? $floatval : $stringval);
+        $this->mockFunction('mysqli_affected_rows', fn() => 0);
+
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with( 'query: {query}', [ 'query' => $profilingHint . $input ]);
+
+        $this->logger->expects('debug')
+                     ->once()
+                     ->with( 'Query executed in 0 seconds');
+
+        $query = $this->class->query($input);
 
         $this->unmockFunction('mysqli_affected_rows');
         $this->unmockFunction('microtime');
