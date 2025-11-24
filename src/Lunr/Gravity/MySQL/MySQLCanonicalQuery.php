@@ -88,6 +88,10 @@ class MySQLCanonicalQuery
         $tmpQuery = $this->replace_between($tmpQuery, '\'', '\'', '?', TRUE);
 
         $tmpQuery = $this->replace_numeric($tmpQuery, '?');
+        $tmpQuery = $this->replace_constant($tmpQuery, 'NULL', '?');
+        $tmpQuery = $this->replace_constant($tmpQuery, 'TRUE', '?');
+        $tmpQuery = $this->replace_constant($tmpQuery, 'FALSE', '?');
+        $tmpQuery = $this->replace_constant($tmpQuery, 'UNKNOWN', '?');
 
         $this->canonicalQuery = $this->remove_eol_blank_spaces($tmpQuery);
 
@@ -428,6 +432,27 @@ class MySQLCanonicalQuery
         }
 
         return [ $isNumber, --$i ];
+    }
+
+    /**
+     * Replaces constant value (NULL, TRUE, FALSE, UNKNOWN) with string
+     *
+     * @param string $string   Input string to replace
+     * @param string $constant Constant to look for
+     * @param string $replace  Input string to replace with
+     *
+     * @return string returns string with constant values replaced
+     */
+    private function replace_constant(string $string, string $constant, string $replace): string
+    {
+        // Prepare the constant for regex, case-insensitive
+        $constant = preg_quote($constant, '/');
+
+        // Fixed-length lookbehinds for "IS " and "IS NOT "
+        // We allow 1 space after IS, and 1 space between IS and NOT
+        $pattern = '/(?<!\bIS )(?<!\bNOT )\b' . $constant . '\b/i';
+
+        return preg_replace($pattern, $replace, $string);
     }
 
     /**
