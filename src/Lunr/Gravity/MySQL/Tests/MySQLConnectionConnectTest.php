@@ -414,7 +414,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $this->assertFalse($this->class->change_database('new_db'));
 
-        $this->set_reflection_property_value('connected', FALSE); //avoid deconstructor rollback
+        $this->setReflectionPropertyValue('connected', FALSE); //avoid deconstructor rollback
     }
 
     /**
@@ -433,7 +433,7 @@ class MySQLConnectionConnectTest extends MySQLConnectionTestCase
 
         $this->assertTrue($this->class->change_database('new_db'));
 
-        $this->set_reflection_property_value('connected', FALSE); //avoid deconstructor rollback
+        $this->setReflectionPropertyValue('connected', FALSE); //avoid deconstructor rollback
     }
 
     /**
