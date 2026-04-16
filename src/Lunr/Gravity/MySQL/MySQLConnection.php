@@ -454,13 +454,14 @@ class MySQLConnection extends DatabaseConnection
             $profilingHint = "/* traceID=$traceID,spanID=$spanID */ ";
         }
 
-        $sqlQuery        = $profilingHint . $this->queryHint . $sqlQuery;
+        $sqlQuery        = $this->queryHint . $sqlQuery;
+        $fullSqlQuery    = $profilingHint . $sqlQuery;
         $this->queryHint = '';
 
         $this->logger->debug('query: {query}', [ 'query' => $sqlQuery ]);
 
         $startTimestamp = microtime(TRUE);
-        $result         = $this->mysqli->query($sqlQuery);
+        $result         = $this->mysqli->query($fullSqlQuery);
 
         $endTimestamp  = microtime(TRUE);
         $executionTime = (float) bcsub((string) $endTimestamp, (string) $startTimestamp, 4);

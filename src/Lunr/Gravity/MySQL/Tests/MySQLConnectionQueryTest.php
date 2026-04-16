@@ -232,8 +232,6 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $this->event->expects($this->once())
                     ->method('record');
 
-        $profilingHint = "/* traceID=$traceID,spanID=$spanID */ ";
-
         $result = $this->getMockBuilder(MySQLi_Result::class)
                        ->disableOriginalConstructor()
                        ->getMock();
@@ -254,7 +252,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
 
         $this->logger->expects('debug')
                      ->once()
-                     ->with( 'query: {query}', [ 'query' => $profilingHint . 'query' ]);
+                     ->with( 'query: {query}', [ 'query' => 'query' ]);
 
         $this->logger->expects('debug')
                      ->once()
@@ -324,7 +322,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $this->event->expects($this->once())
                     ->method('addTags')
                     ->with([
-                        'digest'       => 'ff237cf59d604e3735714db1e347e0a4eae50a36',
+                        'digest'       => '0c0464f61bde5eb84401c3c11721a5d866f05829',
                         'databaseHost' => 'db-server',
                         'successful'   => TRUE,
                         'errorNumber'  => 0,
@@ -349,8 +347,6 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $this->event->expects($this->once())
                     ->method('record');
 
-        $profilingHint = "/* traceID=$traceID,spanID=$spanID */ ";
-
         $result = $this->getMockBuilder(MySQLi_Result::class)
                        ->disableOriginalConstructor()
                        ->getMock();
@@ -371,7 +367,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
 
         $this->logger->expects('debug')
                      ->once()
-                     ->with( 'query: {query}', [ 'query' => $profilingHint . $input ]);
+                     ->with( 'query: {query}', [ 'query' => $input ]);
 
         $this->logger->expects('debug')
                      ->once()
@@ -407,8 +403,6 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $traceID      = '7b333e15-aa78-4957-a402-731aecbb358e';
         $spanID       = '24ec5f90-7458-4dd5-bb51-7a1e8f4baafe';
         $parentSpanID = '8b1f87b5-8383-4413-a341-7619cd4b9948';
-
-        $profilingHint = "/* traceID=$traceID,spanID=$spanID */ ";
 
         $this->controller->shouldReceive('getTraceId')
                          ->once()
@@ -460,7 +454,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
                         'numberOfRows'   => 0,
                         'errorMessage'   => NULL,
                         'warnings'       => NULL,
-                        'query'          => $profilingHint . 'query',
+                        'query'          => 'query',
                     ]);
 
         $this->event->expects($this->once())
@@ -486,7 +480,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
 
         $this->logger->expects('debug')
                      ->once()
-                     ->with( 'query: {query}', [ 'query' => $profilingHint . 'query' ]);
+                     ->with( 'query: {query}', [ 'query' => 'query' ]);
 
         $this->logger->expects('debug')
                      ->once()
@@ -526,8 +520,6 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $spanID       = '24ec5f90-7458-4dd5-bb51-7a1e8f4baafe';
         $parentSpanID = '8b1f87b5-8383-4413-a341-7619cd4b9948';
 
-        $profilingHint = "/* traceID=$traceID,spanID=$spanID */ ";
-
         $this->controller->shouldReceive('getTraceId')
                          ->once()
                          ->andReturn($traceID);
@@ -558,7 +550,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
         $this->event->expects($this->once())
                     ->method('addTags')
                     ->with([
-                        'digest'       => 'ff237cf59d604e3735714db1e347e0a4eae50a36',
+                        'digest'       => '0c0464f61bde5eb84401c3c11721a5d866f05829',
                         'databaseHost' => 'db-server',
                         'successful'   => TRUE,
                         'errorNumber'  => 0,
@@ -578,7 +570,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
                         'numberOfRows'   => 0,
                         'errorMessage'   => NULL,
                         'warnings'       => NULL,
-                        'query'          => $profilingHint . $input,
+                        'query'          => $input,
                     ]);
 
         $this->event->expects($this->once())
@@ -604,7 +596,7 @@ class MySQLConnectionQueryTest extends MySQLConnectionTestCase
 
         $this->logger->expects('debug')
                      ->once()
-                     ->with( 'query: {query}', [ 'query' => $profilingHint . $input ]);
+                     ->with( 'query: {query}', [ 'query' => $input ]);
 
         $this->logger->expects('debug')
                      ->once()
