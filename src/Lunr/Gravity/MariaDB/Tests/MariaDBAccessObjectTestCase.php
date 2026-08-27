@@ -11,7 +11,7 @@ namespace Lunr\Gravity\MariaDB\Tests;
 
 use Lunr\Gravity\MariaDB\MariaDBAccessObject;
 use Lunr\Gravity\MariaDB\MariaDBConnection;
-use Lunr\Gravity\MySQL\MySQLQueryEscaper;
+use Lunr\Gravity\MariaDB\MariaDBQueryEscaper;
 use Lunr\Halo\LunrBaseTestCase;
 use MySQLi;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -65,7 +65,7 @@ abstract class MariaDBAccessObjectTestCase extends LunrBaseTestCase
                          ->setConstructorArgs([ $config, $this->logger, new MySQLi() ])
                          ->getMock();
 
-        $escaper = $this->getMockBuilder(MySQLQueryEscaper::class)
+        $escaper = $this->getMockBuilder(MariaDBQueryEscaper::class)
                         ->disableOriginalConstructor()
                         ->getMock();
 

@@ -13,8 +13,8 @@ namespace Lunr\Gravity\MariaDB\Tests\Helpers;
 use Lunr\Gravity\DatabaseStringEscaperInterface;
 use Lunr\Gravity\MariaDB\MariaDBConnection;
 use Lunr\Gravity\MariaDB\MariaDBDMLQueryBuilder;
+use Lunr\Gravity\MariaDB\MariaDBQueryEscaper;
 use Lunr\Gravity\MariaDB\MariaDBSimpleDMLQueryBuilder;
-use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Lunr\Gravity\MySQL\MySQLQueryResult;
 use Lunr\Gravity\Tests\Helpers\DatabaseAccessObjectBaseTestCase;
 use Mockery;
@@ -57,9 +57,9 @@ abstract class MariaDBDatabaseAccessObjectTestCase extends DatabaseAccessObjectB
 
     /**
      * Real instance of the QueryEscaper class
-     * @var MySQLQueryEscaper
+     * @var MariaDBQueryEscaper
      */
-    protected MySQLQueryEscaper $realEscaper;
+    protected MariaDBQueryEscaper $realEscaper;
 
     /**
      * Mock instance of the QueryResult class
@@ -80,7 +80,7 @@ abstract class MariaDBDatabaseAccessObjectTestCase extends DatabaseAccessObjectB
                     ->willReturnArgument(0);
 
         $this->realBuilder = new MariaDBDMLQueryBuilder();
-        $this->realEscaper = new MySQLQueryEscaper($mockEscaper);
+        $this->realEscaper = new MariaDBQueryEscaper($mockEscaper);
 
         $this->realSimpleBuilder = new MariaDBSimpleDMLQueryBuilder($this->realBuilder, $this->realEscaper);
 

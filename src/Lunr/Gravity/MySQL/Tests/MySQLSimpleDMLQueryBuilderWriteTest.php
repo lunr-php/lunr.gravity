@@ -364,6 +364,26 @@ class MySQLSimpleDMLQueryBuilderWriteTest extends MySQLSimpleDMLQueryBuilderTest
         $this->class->on_duplicate_key_update('col=col+1');
     }
 
+    /**
+     * Test that row_alias() escapes the alias and delegates to the underlying builder.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::row_alias
+     */
+    public function testRowAlias(): void
+    {
+        $this->escaper->expects('row_alias')
+                      ->once()
+                      ->with('new_row')
+                      ->andReturn('AS `new_row`');
+
+        $this->builder->expects($this->once())
+                      ->method('row_alias')
+                      ->with('AS `new_row`')
+                      ->willReturnSelf();
+
+        $this->class->row_alias('new_row');
+    }
+
 }
 
 ?>

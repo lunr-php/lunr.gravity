@@ -10,7 +10,6 @@
 namespace Lunr\Gravity\MariaDB;
 
 use Lunr\Gravity\DatabaseAccessObject;
-use Lunr\Gravity\MySQL\MySQLQueryEscaper;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -27,9 +26,9 @@ abstract class MariaDBAccessObject extends DatabaseAccessObject
 
     /**
      * Query Escaper for the main connection.
-     * @var MySQLQueryEscaper
+     * @var MariaDBQueryEscaper
      */
-    protected MySQLQueryEscaper $escaper;
+    protected MariaDBQueryEscaper $escaper;
 
     /**
      * Constructor.

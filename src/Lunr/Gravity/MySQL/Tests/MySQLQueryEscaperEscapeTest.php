@@ -367,6 +367,19 @@ class MySQLQueryEscaperEscapeTest extends MySQLQueryEscaperTestCase
         $this->assertEquals("ST_GeomFromText('value', 5)", $this->class->geovalue('value', 5));
     }
 
+    /**
+     * Test escaping a row alias for the VALUES clause.
+     *
+     * @depends Lunr\Gravity\Tests\DatabaseQueryEscaperEscapeTest::testEscapeLocationReference
+     * @covers  Lunr\Gravity\MySQL\MySQLQueryEscaper::row_alias
+     */
+    public function testEscapingRowAlias(): void
+    {
+        $value = $this->class->row_alias('new_row');
+
+        $this->assertEquals('AS `new_row`', $value);
+    }
+
 }
 
 ?>
