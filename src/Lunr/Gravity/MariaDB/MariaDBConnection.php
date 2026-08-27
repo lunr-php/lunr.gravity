@@ -25,6 +25,12 @@ class MariaDBConnection extends MySQLConnection
 {
 
     /**
+     * Query Escaper for the main connection.
+     * @var MariaDBQueryEscaper
+     */
+    private readonly MariaDBQueryEscaper $escaper;
+
+    /**
      * Constructor.
      *
      * @param MySQLConfigObject|MySQLConfig $config Database config
@@ -60,6 +66,21 @@ class MariaDBConnection extends MySQLConnection
         }
 
         return $querybuilder;
+    }
+
+    /**
+     * Return a new instance of a QueryEscaper object.
+     *
+     * @return MariaDBQueryEscaper New MariaDBQueryEscaper object instance
+     */
+    public function get_query_escaper_object(): MariaDBQueryEscaper
+    {
+        if (isset($this->escaper) === FALSE)
+        {
+            $this->escaper = new MariaDBQueryEscaper($this);
+        }
+
+        return $this->escaper;
     }
 
 }

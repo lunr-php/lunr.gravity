@@ -176,6 +176,18 @@ class MySQLQueryEscaper extends DatabaseQueryEscaper
         return $keyword . ' INDEX FOR ' . $for . ' (' . $indices . ')';
     }
 
+    /**
+     * Define and escape input as a row alias for the VALUES clause (MySQL 8.0.19+).
+     *
+     * @param string $alias Alias name for the inserted row
+     *
+     * @return string $return Defined and escaped row alias
+     */
+    public function row_alias(string $alias): string
+    {
+        return 'AS ' . $this->escape_location_reference($alias);
+    }
+
 }
 
 ?>

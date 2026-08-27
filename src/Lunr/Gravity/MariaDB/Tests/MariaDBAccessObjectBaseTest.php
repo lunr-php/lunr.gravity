@@ -10,7 +10,7 @@
 namespace Lunr\Gravity\MariaDB\Tests;
 
 use Lunr\Gravity\MariaDB\MariaDBConnection;
-use Lunr\Gravity\MySQL\MySQLQueryEscaper;
+use Lunr\Gravity\MariaDB\MariaDBQueryEscaper;
 use Lunr\Halo\PropertyTraits\PsrLoggerTestTrait;
 use MySQLi;
 
@@ -41,7 +41,7 @@ class MariaDBAccessObjectBaseTest extends MariaDBAccessObjectTestCase
     {
         $property = $this->getReflectionPropertyValue('escaper');
 
-        $this->assertInstanceOf(MySQLQueryEscaper::class, $property);
+        $this->assertInstanceOf(MariaDBQueryEscaper::class, $property);
     }
 
     /**
@@ -63,7 +63,7 @@ class MariaDBAccessObjectBaseTest extends MariaDBAccessObjectTestCase
                    ->setConstructorArgs([ $config, $this->logger, new MySQLi() ])
                    ->getMock();
 
-        $escaper = $this->getMockBuilder(MySQLQueryEscaper::class)
+        $escaper = $this->getMockBuilder(MariaDBQueryEscaper::class)
                         ->disableOriginalConstructor()
                         ->getMock();
 
@@ -106,7 +106,7 @@ class MariaDBAccessObjectBaseTest extends MariaDBAccessObjectTestCase
                    ->setConstructorArgs([ $config, $this->logger, new MySQLi() ])
                    ->getMock();
 
-        $escaper = $this->getMockBuilder(MySQLQueryEscaper::class)
+        $escaper = $this->getMockBuilder(MariaDBQueryEscaper::class)
                         ->disableOriginalConstructor()
                         ->getMock();
 
@@ -123,7 +123,7 @@ class MariaDBAccessObjectBaseTest extends MariaDBAccessObjectTestCase
         $new = $property->getValue($this->class);
 
         $this->assertNotSame($old, $new);
-        $this->assertInstanceOf(MySQLQueryEscaper::class, $new);
+        $this->assertInstanceOf(MariaDBQueryEscaper::class, $new);
     }
 
 }

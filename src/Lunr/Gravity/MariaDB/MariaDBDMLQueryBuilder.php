@@ -48,6 +48,21 @@ class MariaDBDMLQueryBuilder extends MySQLDMLQueryBuilder
     }
 
     /**
+     * Set a row alias for the VALUES clause.
+     *
+     * MariaDB does not support row aliases on the VALUES clause (see MDEV-29919),
+     * so this is a no-op here.
+     *
+     * @param string $alias Escaped row alias, e.g. "AS `alias`"
+     *
+     * @return $this Self reference
+     */
+    public function row_alias(string $alias): static
+    {
+        return $this;
+    }
+
+    /**
      * Define a EXCEPT, EXCEPT ALL or EXCEPT DISTINCT clause of the SQL statement.
      *
      * @param string $sqlQuery SQL query reference
