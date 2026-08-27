@@ -273,6 +273,22 @@ class MySQLDMLQueryBuilder extends SQLDMLQueryBuilder
     }
 
     /**
+     * Set a row alias for the VALUES clause (MySQL 8.0+).
+     *
+     * Required when using column references in ON DUPLICATE KEY UPDATE
+     * instead of the deprecated VALUES() function.
+     *
+     * @param string $alias Alias name for the inserted row
+     *
+     * @return $this Self reference
+     */
+    public function row_alias(string $alias): static
+    {
+        $this->rowAlias = 'AS ' . $alias;
+        return $this;
+    }
+
+    /**
      * Set ON DUPLICATE KEY UPDATE clause.
      *
      * @param string $set Action to perform on conflict

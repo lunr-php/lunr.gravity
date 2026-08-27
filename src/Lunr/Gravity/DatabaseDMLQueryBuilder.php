@@ -97,6 +97,12 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
     protected string $values;
 
     /**
+     * SQL Query part: row alias for INSERT ... VALUES ... AS alias
+     * @var string
+     */
+    protected string $rowAlias;
+
+    /**
      * SQL Query part: UPSERT clause
      * @var string
      */
@@ -211,6 +217,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
         $this->set              = '';
         $this->columnNames      = '';
         $this->values           = '';
+        $this->rowAlias         = '';
         $this->upsert           = '';
         $this->selectStatement  = '';
         $this->compound         = '';
@@ -246,6 +253,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
         $this->set              = '';
         $this->columnNames      = '';
         $this->values           = '';
+        $this->rowAlias         = '';
         $this->upsert           = '';
         $this->selectStatement  = '';
         $this->compound         = '';
@@ -352,6 +360,7 @@ abstract class DatabaseDMLQueryBuilder implements DMLQueryBuilderInterface
             $components[] = 'values';
         }
 
+        $components[] = 'rowAlias';
         $components[] = 'upsert';
 
         if ($this->returning != '')
