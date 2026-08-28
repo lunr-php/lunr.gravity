@@ -155,6 +155,25 @@ class DatabaseDMLQueryBuilderGetInsertQueryTest extends DatabaseDMLQueryBuilderT
     }
 
     /**
+     * Test that get_insert_query() includes the row alias between VALUES and ON DUPLICATE KEY UPDATE.
+     *
+     * @depends Lunr\Gravity\Tests\DatabaseDMLQueryBuilderImplodeQueryTest::testImplodeQueryWithDuplicateInsertModes
+     * @covers  Lunr\Gravity\DatabaseDMLQueryBuilder::get_insert_query
+     */
+    public function testGetInsertValuesWithRowAliasUpsertQuery(): void
+    {
+        $this->setReflectionPropertyValue('into', 'INTO table');
+        $this->setReflectionPropertyValue('columnNames', '(col)');
+        $this->setReflectionPropertyValue('values', 'VALUES (1)');
+        $this->setReflectionPropertyValue('rowAlias', 'AS new_row');
+        $this->setReflectionPropertyValue('upsert', 'ON DUPLICATE KEY UPDATE `col` = new_row.`col`');
+
+        $expected = 'INSERT INTO table (col) VALUES (1) AS new_row ON DUPLICATE KEY UPDATE `col` = new_row.`col`';
+
+        $this->assertEquals($expected, $this->class->get_insert_query());
+    }
+
+    /**
      * Test get insert query using SELECT with ColumnNames and upsert.
      *
      * @depends Lunr\Gravity\Tests\DatabaseDMLQueryBuilderImplodeQueryTest::testImplodeQueryWithDuplicateInsertModes

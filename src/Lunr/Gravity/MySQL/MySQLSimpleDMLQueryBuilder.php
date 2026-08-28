@@ -906,6 +906,19 @@ class MySQLSimpleDMLQueryBuilder implements DMLQueryBuilderInterface
     }
 
     /**
+     * Set a row alias for the VALUES clause (MySQL 8.0+).
+     *
+     * @param string $alias Alias name for the inserted row
+     *
+     * @return $this Self reference
+     */
+    public function row_alias(string $alias): static
+    {
+        $this->builder->row_alias($alias);
+        return $this;
+    }
+
+    /**
      * Set ON DUPLICATE KEY UPDATE clause.
      *
      * @param string $set Action to perform on conflict

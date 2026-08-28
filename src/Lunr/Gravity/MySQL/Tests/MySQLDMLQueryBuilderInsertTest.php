@@ -118,6 +118,33 @@ class MySQLDMLQueryBuilderInsertTest extends MySQLDMLQueryBuilderTestCase
         $this->assertSame($this->builder, $return);
     }
 
+    /**
+     * Test that row_alias() sets the rowAlias property with AS prefix.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLDMLQueryBuilder::row_alias
+     */
+    public function testRowAlias(): void
+    {
+        $property = $this->builderReflection->getProperty('rowAlias');
+        $property->setAccessible(TRUE);
+
+        $this->builder->row_alias('new_row');
+
+        $this->assertEquals('AS new_row', $property->getValue($this->builder));
+    }
+
+    /**
+     * Test that row_alias() returns a self reference.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLDMLQueryBuilder::row_alias
+     */
+    public function testRowAliasReturnsSelfReference(): void
+    {
+        $return = $this->builder->row_alias('new_row');
+
+        $this->assertSame($this->builder, $return);
+    }
+
 }
 
 ?>

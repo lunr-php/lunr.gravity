@@ -756,6 +756,23 @@ class MySQLSimpleDMLQueryBuilderFluidInterfaceTest extends MySQLSimpleDMLQueryBu
         $this->assertSame($this->class, $return);
     }
 
+    /**
+     * Test that row_alias() returns a self reference.
+     *
+     * @covers Lunr\Gravity\MySQL\MySQLSimpleDMLQueryBuilder::row_alias
+     */
+    public function testRowAlias(): void
+    {
+        $this->builder->expects($this->once())
+                      ->method('row_alias')
+                      ->with('new_row')
+                      ->willReturnSelf();
+
+        $return = $this->class->row_alias('new_row');
+
+        $this->assertSame($this->class, $return);
+    }
+
 }
 
 ?>
